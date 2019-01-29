@@ -6,7 +6,9 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.development.js",
     "build": "webpack --config webpack.production.js",
-    "test": "jest --config config/jest/config.js"
+    "test": "jest --config config/jest/config.js",
+    "test:w": "jest --config config/jest/config.js --watch",
+    "test:cov": "jest --config config/jest/config.js --coverage"
   },
   "author": "MadAppGang",
   "license": "MIT",
