@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-const App = ({ store, history }) => (
+const App = ({ store }) => (
   <Provider store={store}>
-    <Router history={history}>
+    <BrowserRouter>
       <div>
         Hello, world!
       </div>
-    </Router>
+    </BrowserRouter>
   </Provider>
 );
 
 App.propTypes = {
   store: PropTypes.shape().isRequired,
-  history: PropTypes.shape().isRequired,
 };
 
 export default App;

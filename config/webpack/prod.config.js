@@ -8,6 +8,7 @@ module.exports = {
   mode: 'production',
 
   entry: {
+    polyfill: 'babel-polyfill',
     bundle: './src/index.js',
   },
 
