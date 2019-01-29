@@ -21,7 +21,12 @@ module.exports = {
     hints: false,
   },
 
-  devtool: 'inline-source-map',
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 
   resolve: {
     alias: {
