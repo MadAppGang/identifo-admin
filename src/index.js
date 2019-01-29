@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import rootReducer from './modules/root';
+import App from './components/App';
 
-const Root = () => (
-  <div>
-    Hello, world!
-  </div>
-);
+const store = createStore(rootReducer);
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<App store={store} />, document.getElementById('root'));
