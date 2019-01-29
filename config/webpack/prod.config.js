@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     filename: '[name].[hash].bundle.js',
-    path: path.resolve(__dirname, BUILD_FOLDER),
+    path: path.resolve(__dirname, '../../', BUILD_FOLDER),
     publicPath: '/',
   },
 
@@ -30,7 +30,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, '../src'),
+      '~': path.resolve(__dirname, '../../src'),
     },
   },
 
@@ -56,10 +56,10 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       title: 'Identifo Admin Panel',
-      template: path.resolve(__dirname, './template.html'),
+      template: path.resolve(__dirname, '../../template.html'),
     }),
     new CleanPlugin([BUILD_FOLDER], {
-      root: path.resolve(__dirname, '..'),
+      root: path.resolve(__dirname, '../../'),
     }),
   ],
 };

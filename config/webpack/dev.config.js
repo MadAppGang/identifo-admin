@@ -1,8 +1,5 @@
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
-
-const BUILD_FOLDER = 'build';
 
 module.exports = {
   mode: 'development',
@@ -15,7 +12,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, '../src'),
+      '~': path.resolve(__dirname, '../../src'),
     },
   },
 
@@ -41,10 +38,7 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       title: 'Identifo Admin Panel',
-      template: path.resolve(__dirname, './template.html'),
-    }),
-    new CleanPlugin([BUILD_FOLDER], {
-      root: path.resolve(__dirname, '..'),
+      template: path.resolve(__dirname, '../../template.html'),
     }),
   ],
 
@@ -54,4 +48,3 @@ module.exports = {
     port: 3000,
   },
 };
-

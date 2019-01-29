@@ -4,8 +4,8 @@
   "description": "Management application for Identifo",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.development.js",
-    "build": "webpack --config webpack.production.js",
+    "start": "webpack-dev-server --config config/webpack/dev.config.js",
+    "build": "webpack --config config/webpack/prod.config.js",
     "test": "jest --config config/jest/config.js",
     "test:w": "jest --config config/jest/config.js --watch",
     "test:cov": "jest --config config/jest/config.js --coverage"
