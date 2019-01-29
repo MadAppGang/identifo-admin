@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import rootReducer from './modules/root';
 import App from './components/App';
+import configureStore from './modules/store';
+import services from './services';
 
-const store = createStore(rootReducer);
+const markup = (
+  <App store={configureStore(services)} />
+);
 
-ReactDOM.render(<App store={store} />, document.getElementById('root'));
+ReactDOM.render(markup, document.getElementById('root'));
