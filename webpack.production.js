@@ -5,10 +5,20 @@ const CleanPlugin = require('clean-webpack-plugin');
 const BUILD_FOLDER = 'build';
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
 
   entry: {
     bundle: './src/index.js',
+  },
+
+  output: {
+    filename: '[name].[hash].bundle.js',
+    path: path.resolve(__dirname, BUILD_FOLDER),
+    publicPath: '/',
+  },
+
+  performance: {
+    hints: false,
   },
 
   devtool: 'inline-source-map',
@@ -47,11 +57,5 @@ module.exports = {
       root: path.resolve(__dirname, '..'),
     }),
   ],
-
-  devServer: {
-    historyApiFallback: true,
-    contentBase: path.join(__dirname, '/'),
-    port: 3000,
-  },
 };
 

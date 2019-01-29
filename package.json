@@ -4,7 +4,8 @@
   "description": "Management application for Identifo",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.development.js"
+    "start": "webpack-dev-server --config webpack.development.js",
+    "build": "webpack --config webpack.production.js"
   },
   "author": "MadAppGang",
   "license": "MIT",
