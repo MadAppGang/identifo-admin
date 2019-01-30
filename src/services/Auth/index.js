@@ -11,11 +11,13 @@ const createAuthService = ({ httpClient, tokenStorage }) => {
   const logout = async () => {
     const url = `${baseUrl}/logout`;
 
-    httpClient.delete(url, {
+    await httpClient.delete(url, {
       headers: {
         'X-Auth-Token': tokenStorage.get(),
       },
     });
+
+    tokenStorage.clear();
   };
 
   const getAccessToken = () => tokenStorage.get();
