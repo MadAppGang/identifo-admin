@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
+const DotenvPlugin = require('dotenv-webpack');
 
 const BUILD_FOLDER = 'build';
 
@@ -62,6 +63,8 @@ module.exports = {
     new CleanPlugin([BUILD_FOLDER], {
       root: path.resolve(__dirname, '../../'),
     }),
+    new DotenvPlugin({
+      systemvars: true,
+    }),
   ],
 };
-

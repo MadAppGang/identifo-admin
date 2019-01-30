@@ -9,7 +9,7 @@ const authService = createAuthService({
   tokenStorage: createStorage(),
 });
 
-const useMock = true;
+const useMock = !!process.env.MOCK_API;
 
 const services = {
   auth: useMock ? createAuthServiceMock() : authService,

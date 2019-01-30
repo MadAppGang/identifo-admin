@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
+const DotenvPlugin = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -39,7 +40,10 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       title: 'Identifo Admin Panel',
-      template: path.resolve(__dirname, '../../template.html'),
+      template: path.resolve(__dirname, '../../', 'template.html'),
+    }),
+    new DotenvPlugin({
+      systemvars: true,
     }),
   ],
 
