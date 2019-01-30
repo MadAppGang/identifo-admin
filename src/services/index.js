@@ -1,12 +1,18 @@
 import createHttpClient from './HttpClient';
-import createAuthService from './Auth';
 import createStorage from './Storage';
+import createAuthService from './Auth';
+
+import createAuthServiceMock from './Auth/mock';
+
+const authService = createAuthService({
+  httpClient: createHttpClient(),
+  tokenStorage: createStorage(),
+});
+
+const useMock = true;
 
 const services = {
-  auth: createAuthService({
-    httpClient: createHttpClient(),
-    tokenStorage: createStorage(),
-  }),
+  auth: useMock ? createAuthServiceMock() : authService,
 };
 
 export default services;
