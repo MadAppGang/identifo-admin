@@ -1,0 +1,8 @@
+.iap-login-layout {
+  height: 100vh;
+  width: 100vw;
+  background: #e9f6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -39,7 +39,7 @@ module.exports = {
 
   plugins: [
     new HtmlPlugin({
-      title: 'Identifo Admin Panel',
+      title: 'Identifo Admin',
       template: path.resolve(__dirname, '../../', 'template.html'),
     }),
     new DotenvPlugin({
