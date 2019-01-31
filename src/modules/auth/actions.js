@@ -25,7 +25,13 @@ const logout = () => async (dispatch, _, { auth }) => {
   dispatch(logoutSuccess());
 };
 
+const resetError = () => ({
+  type: types.LOGIN_FAILURE,
+  payload: null,
+});
+
 export {
   login,
   logout,
+  resetError,
 };

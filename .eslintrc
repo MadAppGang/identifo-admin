@@ -10,7 +10,18 @@
     "react/jsx-filename-extension": 0,
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
-    "arrow-body-style": 0
+    "arrow-body-style": 0,
+    "react/destructuring-assignment": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["~", "./src"]
+        ],
+        "extensions": [".js"]
+      }
+    }
   },
   "env": {
     "browser": true,
