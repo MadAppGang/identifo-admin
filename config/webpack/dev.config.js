@@ -10,6 +10,11 @@ module.exports = {
     bundle: './src/index.js',
   },
 
+  output: {
+    filename: '[name].[hash].bundle.js',
+    publicPath: '/',
+  },
+
   devtool: 'inline-source-map',
 
   resolve: {
