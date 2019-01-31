@@ -104,4 +104,6 @@ const actions = {
   resetError,
 };
 
+export { LoginForm };
+
 export default connect(mapStateToProps, actions)(LoginForm);

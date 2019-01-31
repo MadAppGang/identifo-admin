@@ -11,7 +11,8 @@
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
     "arrow-body-style": 0,
-    "react/destructuring-assignment": 0
+    "react/destructuring-assignment": 0,
+    "react/react-in-jsx-scope": 0
   },
   "settings": {
     "import/resolver": {
@@ -22,6 +23,9 @@
         "extensions": [".js"]
       }
     }
+  },
+  "globals": {
+    "shallow": true
   },
   "env": {
     "browser": true,

@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginForm /> renders as expected 1`] = `
+<div
+  className="iap-login-form"
+>
+  <p
+    className="iap-login-form__title"
+  >
+    Identifo
+  </p>
+  <input
+    className="iap-login-form__input"
+    name="email"
+    onChange={[Function]}
+    placeholder="Email"
+    type="text"
+    value=""
+  />
+  <input
+    className="iap-login-form__input"
+    name="password"
+    onChange={[Function]}
+    placeholder="Password"
+    type="password"
+    value=""
+  />
+  <LoginButton
+    loading={false}
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`<LoginForm /> renders as expected when error 1`] = `
+<div
+  className="iap-login-form"
+>
+  <p
+    className="iap-login-form__title"
+  >
+    Identifo
+  </p>
+  <LoginErrorMessage
+    message="message"
+    onClick={[Function]}
+  />
+  <input
+    className="iap-login-form__input"
+    name="email"
+    onChange={[Function]}
+    placeholder="Email"
+    type="text"
+    value=""
+  />
+  <input
+    className="iap-login-form__input"
+    name="password"
+    onChange={[Function]}
+    placeholder="Password"
+    type="password"
+    value=""
+  />
+  <LoginButton
+    loading={false}
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`<LoginForm /> renders as expected when signing in 1`] = `
+<div
+  className="iap-login-form"
+>
+  <p
+    className="iap-login-form__title"
+  >
+    Identifo
+  </p>
+  <input
+    className="iap-login-form__input"
+    name="email"
+    onChange={[Function]}
+    placeholder="Email"
+    type="text"
+    value=""
+  />
+  <input
+    className="iap-login-form__input"
+    name="password"
+    onChange={[Function]}
+    placeholder="Password"
+    type="password"
+    value=""
+  />
+  <LoginButton
+    loading={true}
+    onClick={[Function]}
+  />
+</div>
+`;
