@@ -1,6 +1,7 @@
 .iap-global-container {
-  width: 1000px;
+  width: 950px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
 }

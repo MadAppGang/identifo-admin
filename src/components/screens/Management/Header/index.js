@@ -1,21 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Container from '~/components/shared/Container';
 import './Header.css';
 
-const ManagementScreenHeader = ({ children }) => {
+const ManagementScreenHeader = () => {
   return (
     <header className="iap-management-header">
-      {children}
+      <Container>
+        <div className="iap-management-header__logo">
+          Identifo
+        </div>
+      </Container>
     </header>
   );
-};
-
-ManagementScreenHeader.propTypes = {
-  children: PropTypes.node,
-};
-
-ManagementScreenHeader.defaultProps = {
-  children: null,
 };
 
 export default ManagementScreenHeader;

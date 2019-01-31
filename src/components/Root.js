@@ -10,7 +10,7 @@ const Root = ({ store }) => (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={LoginScreen} />
-        <Route path="/management/:section" component={ManagementScreen} />
+        <Route path="/management/:section?" component={ManagementScreen} />
       </Switch>
     </BrowserRouter>
   </Provider>

@@ -22,6 +22,11 @@ const SidebarSection = ({ path, title, match }) => {
 SidebarSection.propTypes = {
   path: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      section: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default withRouter(SidebarSection);

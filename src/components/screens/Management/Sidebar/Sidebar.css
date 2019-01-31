@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 25%;
   min-height: calc(100vh - 80px); /* header height */
-  padding: 50px 25px;
+  padding: 50px 0;
 }
 
 .iap-management-sidebar__section {
@@ -21,7 +21,7 @@
 }
 
 .iap-management-sidebar__section.iap-management-sidebar__section--active {
-  color: #598dcd;
+  color: #9cc1e7;
 }
 
 .iap-management-sidebar__indicator {
@@ -30,6 +30,6 @@
   height: 5px;
   width: 5px;
   border-radius: 50%;
-  background: #3f80cf;
+  background: #9cc1e7;
   left: -15px;
 }
