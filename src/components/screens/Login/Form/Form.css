@@ -35,6 +35,10 @@
   outline: none;
   cursor: pointer;
   border: 2px solid #afcff0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .iap-login-form__submit-btn:hover {
@@ -48,6 +52,16 @@
 .iap-login-form__submit-btn:active {
   background-color: #9cc1e7;
   border-color: #9cc1e7;
+}
+
+.iap-login-form__submit-btn:disabled {
+  opacity: .5;
+}
+
+.iap-login-form__submit-indicator {
+  height: 40px;
+  position: absolute;
+  left: 30%;
 }
 
 .iap-login-form__title {

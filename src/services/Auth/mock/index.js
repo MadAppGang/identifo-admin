@@ -1,9 +1,13 @@
+const pause = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+
 const data = {
   token: '8li5R5jfAc1iLfuWuJlvW',
 };
 
 const createAuthServiceMock = () => {
   const login = async (email, password) => {
+    await pause(1000);
+
     if (email === 'email' && password === 'password') {
       return;
     }

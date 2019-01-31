@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login, resetError } from '~/modules/auth/actions';
 import ErrorMessage from './ErrorMessage';
+import LoginButton from './LoginButton';
 import './Form.css';
 
 class LoginForm extends Component {
@@ -35,7 +36,7 @@ class LoginForm extends Component {
 
   render() {
     const { email, password } = this.state;
-    const { error } = this.props;
+    const { signingIn, error } = this.props;
 
     return (
       <div className="iap-login-form">
@@ -68,13 +69,10 @@ class LoginForm extends Component {
           onChange={this.handleInput}
         />
 
-        <button
-          type="button"
-          className="iap-login-form__submit-btn"
+        <LoginButton
+          loading={signingIn}
           onClick={this.handleSubmit}
-        >
-          Sign In
-        </button>
+        />
       </div>
     );
   }
