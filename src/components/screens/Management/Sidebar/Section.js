@@ -29,4 +29,6 @@ SidebarSection.propTypes = {
   }).isRequired,
 };
 
+export { SidebarSection };
+
 export default withRouter(SidebarSection);

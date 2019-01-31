@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Sidebar /> renders as expected 1`] = `
+<aside
+  className="iap-management-sidebar"
+>
+  <withRouter(SidebarSection)
+    key="Getting started"
+    path="/management/getting_started"
+    title="Getting started"
+  />
+  <withRouter(SidebarSection)
+    key="Users"
+    path="/management/users"
+    title="Users"
+  />
+  <withRouter(SidebarSection)
+    key="Users Database"
+    path="/management/users_database"
+    title="Users Database"
+  />
+  <withRouter(SidebarSection)
+    key="Applications"
+    path="/management/applications"
+    title="Applications"
+  />
+  <withRouter(SidebarSection)
+    key="Email Integration"
+    path="/management/email_integrations"
+    title="Email Integration"
+  />
+  <withRouter(SidebarSection)
+    key="Settings"
+    path="/management/settings"
+    title="Settings"
+  />
+  <withRouter(SidebarSection)
+    key="OpenID Settings"
+    path="/management/openid_settings"
+    title="OpenID Settings"
+  />
+  <withRouter(SidebarSection)
+    key="Social Login"
+    path="/management/social_login"
+    title="Social Login"
+  />
+  <withRouter(SidebarSection)
+    key="2FA"
+    path="/management/2fa"
+    title="2FA"
+  />
+  <withRouter(SidebarSection)
+    key="Passwordless login"
+    path="/management/passwordless_login"
+    title="Passwordless login"
+  />
+  <withRouter(SidebarSection)
+    key="Hosted Pages"
+    path="/management/hosted_pages"
+    title="Hosted Pages"
+  />
+</aside>
+`;

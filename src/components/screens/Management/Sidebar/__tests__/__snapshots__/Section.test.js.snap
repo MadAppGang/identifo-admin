@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SidebarSection /> renders as expected for not selected section 1`] = `
+<NavLink
+  activeClassName="iap-management-sidebar__section--active"
+  aria-current="page"
+  className="iap-management-sidebar__section"
+  to="/management/section"
+>
+  Section
+</NavLink>
+`;
+
+exports[`<SidebarSection /> renders as expected for selected section 1`] = `
+<NavLink
+  activeClassName="iap-management-sidebar__section--active"
+  aria-current="page"
+  className="iap-management-sidebar__section"
+  to="/management/section"
+>
+  <div
+    className="iap-management-sidebar__indicator"
+  />
+  Section
+</NavLink>
+`;
