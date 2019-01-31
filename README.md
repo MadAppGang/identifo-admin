@@ -13,6 +13,8 @@ Run build in production mode
 ```bash
 $ npm run build
 ```
+This script is going to compile a bundle and put in into `build` folder in the project's root.
+This folder contains all you need to deploy the application.
 
 Run locally in development mode
 ```bash
