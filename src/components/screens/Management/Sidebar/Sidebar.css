@@ -1,0 +1,35 @@
+.iap-management-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  min-height: calc(100vh - 80px); /* header height */
+  padding: 50px 25px;
+}
+
+.iap-management-sidebar__section {
+  color: #000;
+  margin: 7px 0;
+  text-decoration: none;
+  font-size: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.iap-management-sidebar__section:hover {
+  color: #aaa;
+}
+
+.iap-management-sidebar__section.iap-management-sidebar__section--active {
+  color: #598dcd;
+}
+
+.iap-management-sidebar__indicator {
+  position: absolute;
+  left: 0;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background: #3f80cf;
+  left: -15px;
+}

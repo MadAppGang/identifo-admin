@@ -8,6 +8,7 @@ Install dependencies
 ```bash
 $ npm i
 ```
+All dependencies are listen in the `dependencies` section of `package.json`
 
 Run build in production mode
 ```bash
@@ -35,7 +36,8 @@ Generate code coverage
 ```bash
 $ npm run test:cov
 ```
+Generated coverage report is going to appear as a `coverage` folder in the project's root.
 
 ### Mocking Api Calls
 
-Api calls are described in services `src/services`. Each service has it's mocked version. In order to make use of mocked services instead of actual ones you should set a `MOCK_API=true` environment variable either throught cli or using `.env` file in the project's root.
+Api calls are described in services `src/services`. Each service has it's mocked version. In order to make use of mocked services instead of actual ones you should set a `MOCK_API=true` environment variable either through cli or using `.env` file in the project's root.
