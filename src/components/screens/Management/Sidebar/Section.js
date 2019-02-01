@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
 
 const SidebarSection = ({ path, title, match }) => {
-  const isActive = match.params.section === path.split('/').pop();
+  const isActive = match.params.section === path.split('/')[2];
 
   return (
     <NavLink
+      exact
       to={path}
       className="iap-management-sidebar__section"
       activeClassName="iap-management-sidebar__section--active"

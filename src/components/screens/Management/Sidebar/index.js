@@ -10,7 +10,7 @@ class Sidebar extends Component {
       sections: [
         {
           title: 'Getting started',
-          path: '/management/getting_started',
+          path: '/management',
         },
         {
           title: 'Users',
@@ -18,7 +18,7 @@ class Sidebar extends Component {
         },
         {
           title: 'Users Database',
-          path: '/management/users_database',
+          path: '/management/database',
         },
         {
           title: 'Applications',
@@ -26,7 +26,7 @@ class Sidebar extends Component {
         },
         {
           title: 'Email Integration',
-          path: '/management/email_integrations',
+          path: '/management/email_integration',
         },
         {
           title: 'Settings',
@@ -34,7 +34,7 @@ class Sidebar extends Component {
         },
         {
           title: 'OpenID Settings',
-          path: '/management/openid_settings',
+          path: '/management/openid',
         },
         {
           title: 'Social Login',
@@ -42,7 +42,7 @@ class Sidebar extends Component {
         },
         {
           title: '2FA',
-          path: '/management/2fa',
+          path: '/management/multi-factor_auth',
         },
         {
           title: 'Passwordless login',
