@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
+import { compose } from '~/utils/fn';
 
 const SIGNED_IN = true;
 const SIGNED_OUT = false;
 
-const ensureAuthState = (expectedValue, Component, redirectPath) => {
-  const ConnectedComponent = ({ authenticated, ...props }) => {
-    if (expectedValue !== authenticated) {
-      if (expectedValue === SIGNED_IN) {
+const ensureAuthState = (expectedAuthState, Component, redirectPath) => {
+  const ConnectedComponent = ({ actualAuthState, ...props }) => {
+    if (expectedAuthState !== actualAuthState) {
+      if (expectedAuthState === SIGNED_IN) {
         const to = {
           pathname: redirectPath,
           state: {
@@ -20,20 +21,16 @@ const ensureAuthState = (expectedValue, Component, redirectPath) => {
         return <Redirect to={to} />;
       }
 
-      const redirectState = props.location.state;
+      const previousAttemptPath = (props.location.state || {}).path;
 
-      if (redirectState && redirectState.path) {
-        return <Redirect to={redirectState.path} />;
-      }
-
-      return <Redirect to={redirectPath} />;
+      return <Redirect to={previousAttemptPath || redirectPath} />;
     }
 
     return <Component {...props} />;
   };
 
   ConnectedComponent.propTypes = {
-    authenticated: PropTypes.bool.isRequired,
+    actualAuthState: PropTypes.bool.isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string,
       state: PropTypes.object,
@@ -41,10 +38,10 @@ const ensureAuthState = (expectedValue, Component, redirectPath) => {
   };
 
   const mapStateToProps = state => ({
-    authenticated: state.auth.authenticated,
+    actualAuthState: state.auth.authenticated,
   });
 
-  return withRouter(connect(mapStateToProps)(ConnectedComponent));
+  return compose(withRouter, connect(mapStateToProps))(ConnectedComponent);
 };
 
 export {

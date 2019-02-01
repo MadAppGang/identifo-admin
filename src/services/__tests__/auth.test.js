@@ -62,4 +62,13 @@ describe('auth service', () => {
 
     expect(dependencies.tokenStorage.clear).toHaveBeenCalled();
   });
+
+  test('returns true for is logged in check if token is present', () => {
+    expect(auth.isLoggedIn()).toBe(true);
+  });
+
+  test('returns false for is logged in check if token is absent', () => {
+    dependencies.tokenStorage.get = jest.fn();
+    expect(auth.isLoggedIn()).toBe(false);
+  });
 });

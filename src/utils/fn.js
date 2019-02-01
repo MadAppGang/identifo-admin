@@ -10,6 +10,11 @@ const curry = (fn, ...presetArgs) => {
   };
 };
 
+const compose = (...fns) => (input) => {
+  return fns.reduce((output, fn) => fn(output), input);
+};
+
 export {
   curry,
+  compose,
 };

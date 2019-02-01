@@ -6,7 +6,13 @@ const configureStore = (rootReducer, services) => {
     thunk.withExtraArgument(services),
   );
 
-  return createStore(rootReducer, middleware);
+  const preloadedState = {
+    auth: {
+      authenticated: services.auth.isLoggedIn(),
+    },
+  };
+
+  return createStore(rootReducer, preloadedState, middleware);
 };
 
 export default configureStore;

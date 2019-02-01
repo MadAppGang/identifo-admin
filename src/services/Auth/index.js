@@ -22,8 +22,13 @@ const createAuthService = ({ httpClient, tokenStorage }) => {
 
   const getAccessToken = () => tokenStorage.get();
 
+  const isLoggedIn = () => !!getAccessToken();
+
   return Object.freeze({
-    login, logout, getAccessToken,
+    login,
+    logout,
+    isLoggedIn,
+    getAccessToken,
   });
 };
 
