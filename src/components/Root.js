@@ -4,13 +4,21 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginScreen from './screens/Login';
 import ManagementScreen from './screens/Management';
+import ensureAuthState, { SIGNED_IN, SIGNED_OUT } from './shared/ensureAuthState';
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={LoginScreen} />
-        <Route path="/management/:section?" component={ManagementScreen} />
+        <Route
+          exact
+          path="/"
+          component={ensureAuthState(SIGNED_OUT, LoginScreen, '/management')}
+        />
+        <Route
+          path="/management/:section?"
+          component={ensureAuthState(SIGNED_IN, ManagementScreen, '/')}
+        />
       </Switch>
     </BrowserRouter>
   </Provider>
