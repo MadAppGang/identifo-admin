@@ -6,8 +6,13 @@
   align-items: center;
 }
 
+.iap-management-header__valign {
+  display: flex;
+  align-items: center;
+}
+
 .iap-management-header__logo {
   font-size: 24px;
-  font-weight: 700;
-  color: #758da7;
+  font-weight: normal;
+  color: #1B9CFC;
 }

@@ -11,6 +11,7 @@
 .iap-login-form__input {
   padding: 12px 20px;
   border-radius: 7px;
+  background-color: #f0f9ff;
   border: 2px solid #e9f6ff;
   font-size: 17px;
   outline: none;
@@ -24,7 +25,7 @@
 }
 
 .iap-login-form__submit-btn {
-  background-color: #afcff0;
+  background-color: #3CA6F5;
   padding: 10px 20px;
   color: #fff;
   border-radius: 7px;
@@ -34,7 +35,7 @@
   width: 100%;
   outline: none;
   cursor: pointer;
-  border: 2px solid #afcff0;
+  border: 2px solid #3CA6F5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,16 +43,16 @@
 }
 
 .iap-login-form__submit-btn:hover {
-  background-color: #a6c8ec;
+  background-color: #1B9CFC;
 }
 
 .iap-login-form__submit-btn:focus {
-  border-color: #8db5de;
+  border-color: #1D72B3;
 }
 
 .iap-login-form__submit-btn:active {
-  background-color: #9cc1e7;
-  border-color: #9cc1e7;
+  background-color: #1D8FE3;
+  border-color: #1D8FE3;
 }
 
 .iap-login-form__submit-btn:disabled {
@@ -68,7 +69,7 @@
   font-size: 31px;
   margin-bottom: 20px;
   font-weight: bold;
-  color: #758da7;
+  color: #3d3d3d;
 }
 
 .iap-login-form__error-msg {
