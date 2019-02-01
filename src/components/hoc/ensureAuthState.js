@@ -8,20 +8,20 @@ const SIGNED_IN = true;
 const SIGNED_OUT = false;
 
 const ensureAuthState = (expectedAuthState, Component, redirectPath) => {
-  const ConnectedComponent = ({ actualAuthState, ...props }) => {
+  const ConnectedComponent = ({ actualAuthState, location, ...props }) => {
     if (expectedAuthState !== actualAuthState) {
       if (expectedAuthState === SIGNED_IN) {
         const to = {
           pathname: redirectPath,
           state: {
-            path: props.location.pathname,
+            path: location.pathname,
           },
         };
 
         return <Redirect to={to} />;
       }
 
-      const previousAttemptPath = (props.location.state || {}).path;
+      const previousAttemptPath = (location.state || {}).path;
 
       return <Redirect to={previousAttemptPath || redirectPath} />;
     }
