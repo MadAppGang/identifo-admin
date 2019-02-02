@@ -13,6 +13,7 @@
     "arrow-body-style": 0,
     "react/destructuring-assignment": 0,
     "react/react-in-jsx-scope": 0,
+    "no-return-assign": 0,
     "object-curly-newline": 0
   },
   "settings": {

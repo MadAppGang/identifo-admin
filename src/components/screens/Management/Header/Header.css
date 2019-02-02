@@ -4,11 +4,14 @@
   border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 
-.iap-management-header__valign {
+.iap-management-header__inner {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .iap-management-header__logo {

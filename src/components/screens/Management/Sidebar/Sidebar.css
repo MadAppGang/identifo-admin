@@ -18,11 +18,15 @@
 }
 
 .iap-management-sidebar__section:hover {
-  color: #aaa;
+  opacity: .6;
 }
 
 .iap-management-sidebar__section.iap-management-sidebar__section--active {
   color: #1B9CFC;
+}
+
+.iap-management-sidebar__section.iap-management-sidebar__section--active:hover {
+  opacity: 1;
 }
 
 .iap-management-sidebar__indicator {
