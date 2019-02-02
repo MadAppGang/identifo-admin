@@ -1,4 +1,4 @@
-import { LoginForm } from '../Form';
+import { LoginForm } from '..';
 
 describe('<LoginForm />', () => {
   let props;
@@ -38,11 +38,11 @@ describe('<LoginForm />', () => {
     const component = shallow(<LoginForm {...props} />);
 
     component
-      .find('input[name="email"]')
+      .find('Input[name="email"]')
       .simulate('change', changeEvent('email', 'Email'));
 
     component
-      .find('input[name="password"]')
+      .find('Input[name="password"]')
       .simulate('change', changeEvent('password', 'Password'));
 
     component.find('LoginButton').simulate('click');

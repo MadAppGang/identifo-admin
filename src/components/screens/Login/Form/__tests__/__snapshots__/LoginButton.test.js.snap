@@ -7,11 +7,7 @@ exports[`<LoginButton /> renders a loading indicator when loading is passed in a
   onClick={[MockFunction]}
   type="button"
 >
-  <img
-    alt="spinner"
-    className="iap-login-form__submit-indicator"
-    src={null}
-  />
+  <LoadingIcon />
   Sign In
 </button>
 `;

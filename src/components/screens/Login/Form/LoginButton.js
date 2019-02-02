@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import loadingIcon from './loading.svg';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 
 const LoginButton = ({ loading, onClick }) => (
   <button
@@ -9,13 +9,7 @@ const LoginButton = ({ loading, onClick }) => (
     disabled={loading}
     onClick={onClick}
   >
-    {loading && (
-      <img
-        src={loadingIcon}
-        alt="spinner"
-        className="iap-login-form__submit-indicator"
-      />
-    )}
+    {loading && <LoadingIcon />}
     Sign In
   </button>
 );

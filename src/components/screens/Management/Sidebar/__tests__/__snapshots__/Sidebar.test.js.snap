@@ -60,9 +60,9 @@ exports[`<Sidebar /> renders as expected 1`] = `
   />
   <withRouter(SidebarSection)
     Icon={[Function]}
-    key="Passwordless login"
+    key="Passwordless Login"
     path="/management/passwordless_login"
-    title="Passwordless login"
+    title="Passwordless Login"
   />
   <withRouter(SidebarSection)
     Icon={[Function]}

@@ -43,12 +43,6 @@
   opacity: .5;
 }
 
-.iap-login-form__submit-indicator {
-  height: 40px;
-  position: absolute;
-  left: 30%;
-}
-
 .iap-login-form__title {
   font-size: 31px;
   margin-bottom: 20px;

@@ -58,7 +58,11 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.func,
+};
+
+Dropdown.defaultProps = {
+  children: null,
 };
 
 export default Dropdown;

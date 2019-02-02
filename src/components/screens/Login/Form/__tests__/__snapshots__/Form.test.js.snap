@@ -9,16 +9,14 @@ exports[`<LoginForm /> renders as expected 1`] = `
   >
     Identifo
   </p>
-  <input
-    className="iap-login-form__input"
+  <Input
     name="email"
     onChange={[Function]}
     placeholder="Email"
     type="text"
     value=""
   />
-  <input
-    className="iap-login-form__input"
+  <Input
     name="password"
     onChange={[Function]}
     placeholder="Password"
@@ -45,16 +43,14 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
     message="message"
     onClick={[Function]}
   />
-  <input
-    className="iap-login-form__input"
+  <Input
     name="email"
     onChange={[Function]}
     placeholder="Email"
     type="text"
     value=""
   />
-  <input
-    className="iap-login-form__input"
+  <Input
     name="password"
     onChange={[Function]}
     placeholder="Password"
@@ -77,16 +73,14 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
   >
     Identifo
   </p>
-  <input
-    className="iap-login-form__input"
+  <Input
     name="email"
     onChange={[Function]}
     placeholder="Email"
     type="text"
     value=""
   />
-  <input
-    className="iap-login-form__input"
+  <Input
     name="password"
     onChange={[Function]}
     placeholder="Password"
