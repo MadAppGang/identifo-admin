@@ -5,7 +5,7 @@ describe('<SidebarSection />', () => {
     const props = {
       path: '/management/section',
       title: 'Section',
-      icons: ['regularIcon', 'activeIcon'],
+      Icon: jest.fn(),
       match: {
         params: {
           section: '',
@@ -20,7 +20,7 @@ describe('<SidebarSection />', () => {
     const props = {
       path: '/management/section',
       title: 'Section',
-      icons: ['regularIcon', 'activeIcon'],
+      Icon: jest.fn(),
       match: {
         params: {
           section: 'section',

@@ -34,11 +34,3 @@
   left: -13px;
   display: none;
 }
-
-.iap-management-sidebar__section-icon {
-  height: 18px;
-  width: 18px;
-  position: absolute;
-  left: 0;
-  transform: translateY(-2px);
-}

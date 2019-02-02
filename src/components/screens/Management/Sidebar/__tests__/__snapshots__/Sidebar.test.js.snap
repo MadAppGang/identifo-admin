@@ -5,122 +5,67 @@ exports[`<Sidebar /> renders as expected 1`] = `
   className="iap-management-sidebar"
 >
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Getting started"
     path="/management"
     title="Getting started"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Users"
     path="/management/users"
     title="Users"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Users Database"
     path="/management/database"
     title="Users Database"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Applications"
     path="/management/applications"
     title="Applications"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Email Integration"
     path="/management/email_integration"
     title="Email Integration"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Settings"
     path="/management/settings"
     title="Settings"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="OpenID Settings"
     path="/management/openid"
     title="OpenID Settings"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Social Login"
     path="/management/social_login"
     title="Social Login"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
-    key="2FA"
+    Icon={[Function]}
+    key="Multi-factor Auth"
     path="/management/multi-factor_auth"
-    title="2FA"
+    title="Multi-factor Auth"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Passwordless login"
     path="/management/passwordless_login"
     title="Passwordless login"
   />
   <withRouter(SidebarSection)
-    icons={
-      Array [
-        null,
-        null,
-      ]
-    }
+    Icon={[Function]}
     key="Hosted Pages"
     path="/management/hosted_pages"
     title="Hosted Pages"

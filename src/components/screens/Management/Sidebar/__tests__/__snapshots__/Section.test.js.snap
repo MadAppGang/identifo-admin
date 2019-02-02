@@ -8,10 +8,8 @@ exports[`<SidebarSection /> renders as expected for not selected section 1`] = `
   exact={true}
   to="/management/section"
 >
-  <img
-    alt="icon"
-    className="iap-management-sidebar__section-icon"
-    src="regularIcon"
+  <mockConstructor
+    active={false}
   />
   <span>
     Section
@@ -27,10 +25,8 @@ exports[`<SidebarSection /> renders as expected for selected section 1`] = `
   exact={true}
   to="/management/section"
 >
-  <img
-    alt="icon"
-    className="iap-management-sidebar__section-icon"
-    src="activeIcon"
+  <mockConstructor
+    active={true}
   />
   <span>
     Section
