@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login, resetError } from '~/modules/auth/actions';
+import Input from '~/components/shared/Input';
 import ErrorMessage from './ErrorMessage';
 import LoginButton from './LoginButton';
 import './Form.css';
@@ -51,19 +52,16 @@ class LoginForm extends Component {
           />
         )}
 
-        <input
+        <Input
           name="email"
-          type="text"
-          className="iap-login-form__input"
           value={email}
           placeholder="Email"
           onChange={this.handleInput}
         />
 
-        <input
+        <Input
           name="password"
           type="password"
-          className="iap-login-form__input"
           value={password}
           placeholder="Password"
           onChange={this.handleInput}

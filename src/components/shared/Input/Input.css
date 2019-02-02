@@ -1,0 +1,15 @@
+.iap-login-form__input {
+  padding: 12px 20px;
+  border-radius: 7px;
+  background-color: #f0f9ff;
+  border: 2px solid #e9f6ff;
+  font-size: 17px;
+  outline: none;
+  color: #787878;
+  width: 100%;
+  margin: 4px 0;
+}
+
+.iap-login-form__input:focus {
+  border: 2px solid #c3e0ff;
+}
