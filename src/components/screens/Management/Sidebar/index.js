@@ -55,7 +55,7 @@ class Sidebar extends Component {
           Icon: iconComponents.MultiFactorAuthIcon,
         },
         {
-          title: 'Passwordless login',
+          title: 'Passwordless Login',
           path: '/management/passwordless_login',
           Icon: iconComponents.PasswordlessLoginIcon,
         },
