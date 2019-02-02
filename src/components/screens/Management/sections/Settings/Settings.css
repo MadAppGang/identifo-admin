@@ -1,0 +1,67 @@
+.iap-settings-section {
+  margin: 25px 0;
+}
+
+.iap-settings-section__title {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 3px;
+  color: #9d9d9d;
+}
+
+.iap-settings-section__description {
+  font-size: 15px;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.iap-settings-section__info {
+  margin: 30px 0 25px 0;
+}
+
+.iap-settings-section__info span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #3d3d3d;
+}
+
+.iap-settings-section__email {
+  font-size: 16px;
+}
+
+.iap-settings-section__update-btn {
+  background-color: #3CA6F5;
+  padding: 7px 16px;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  font-size: 17px;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 180px;
+  outline: none;
+  cursor: pointer;
+  border: 2px solid #3CA6F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.iap-settings-section__update-btn:hover {
+  background-color: #1B9CFC;
+}
+
+.iap-settings-section__update-btn:focus {
+  border-color: #1D72B3;
+}
+
+.iap-settings-section__update-btn:active {
+  background-color: #1D8FE3;
+  border-color: #1D8FE3;
+}
+
+.iap-settings-section__update-btn:disabled {
+  opacity: .5;
+}
