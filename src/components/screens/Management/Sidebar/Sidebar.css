@@ -14,6 +14,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  padding-left: 30px;
 }
 
 .iap-management-sidebar__section:hover {
@@ -31,4 +32,13 @@
   width: 4px;
   background: #1B9CFC;
   left: -13px;
+  display: none;
+}
+
+.iap-management-sidebar__section-icon {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  left: 0;
+  transform: translateY(-2px);
 }
