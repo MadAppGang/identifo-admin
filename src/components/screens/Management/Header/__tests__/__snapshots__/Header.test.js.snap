@@ -5,11 +5,16 @@ exports[`<ManagementScreenHeader /> renders as expected 1`] = `
   className="iap-management-header"
 >
   <Container>
-    <span
-      className="iap-management-header__logo"
+    <div
+      className="iap-management-header__inner"
     >
-      Identifo
-    </span>
+      <span
+        className="iap-management-header__logo"
+      >
+        Identifo
+      </span>
+      <ProfileDropdown />
+    </div>
   </Container>
 </header>
 `;
