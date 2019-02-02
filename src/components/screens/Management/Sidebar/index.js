@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Section from './Section';
-import * as iconComponents from '~/components/shared/icons/SidebarIcon';
+import * as iconComponents from '~/components/icons/SidebarIcon';
 import './Sidebar.css';
 
 class Sidebar extends Component {

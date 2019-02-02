@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logout } from '~/modules/auth/actions';
-import LogoutIcon from '~/components/shared/icons/LogoutIcon';
+import LogoutIcon from '~/components/icons/LogoutIcon';
 
 const LogoutSection = (props) => {
   return (

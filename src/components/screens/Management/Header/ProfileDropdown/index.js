@@ -1,5 +1,5 @@
 import React from 'react';
-import DropdownIcon from '~/components/shared/icons/DropdownIcon';
+import DropdownIcon from '~/components/icons/DropdownIcon';
 import LogoutSection from './LogoutSection';
 import Dropdown from '~/components/shared/Dropdown';
 import './Profile.css';
