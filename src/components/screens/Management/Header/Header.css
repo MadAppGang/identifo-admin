@@ -15,8 +15,8 @@
 }
 
 .iap-management-header__logo {
-  font-size: 24px;
-  font-weight: normal;
+  font: 700 17px 'Circe';
+  text-transform: uppercase;
   color: #1B9CFC;
   width: 25%;
   display: flex;
