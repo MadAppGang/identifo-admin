@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DropdownIcon from '~/components/shared/icons/DropdownIcon';
-import LogoutIcon from '~/components/shared/icons/LogoutIcon';
+import LogoutSection from './LogoutSection';
 import './Profile.css';
 
 class ProfileDropdown extends Component {
@@ -55,13 +55,7 @@ class ProfileDropdown extends Component {
         </button>
         {open && (
           <div className="iap-profile-dropdown">
-            <button
-              type="button"
-              className="iap-profile-dropdown__section"
-            >
-              <LogoutIcon />
-              <span>Logout</span>
-            </button>
+            <LogoutSection />
           </div>
         )}
       </div>

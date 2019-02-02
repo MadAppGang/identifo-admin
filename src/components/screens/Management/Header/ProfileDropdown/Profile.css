@@ -59,6 +59,10 @@
   background-color: #f0f9ff;
 }
 
+.iap-profile-dropdown__section:focus {
+  background-color: #f0f9ff;
+}
+
 .iap-profile-dropdown__section span:first-of-type {
   margin-left: 8px;
 }
