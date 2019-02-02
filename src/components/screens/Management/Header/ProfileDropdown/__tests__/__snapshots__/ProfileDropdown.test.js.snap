@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileDropdown /> renders as expected 1`] = `
+<div>
+  <div
+    className="iap-header-profile"
+  >
+    <button
+      className="iap-header-profile__trigger"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Admin Panel
+      </span>
+      <DropdownIcon />
+    </button>
+  </div>
+</div>
+`;

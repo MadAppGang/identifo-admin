@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LogoutSection /> renders as expected 1`] = `
+<button
+  className="iap-profile-dropdown__section"
+  onClick={[MockFunction]}
+  type="button"
+>
+  <DropdownIcon />
+  <span>
+    Logout
+  </span>
+</button>
+`;

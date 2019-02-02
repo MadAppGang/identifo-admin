@@ -4,8 +4,6 @@ import Root from './components/Root';
 import services from './services';
 import configureStore from './modules';
 
-import './index.css';
-
 const store = configureStore(services);
 
 const markup = (

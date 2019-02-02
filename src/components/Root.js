@@ -6,6 +6,8 @@ import LoginScreen from './screens/Login';
 import ManagementScreen from './screens/Management';
 import ensureAuthState, { SIGNED_IN, SIGNED_OUT } from './hoc/ensureAuthState';
 
+import './index.css';
+
 const Root = ({ store }) => (
   <Provider store={store}>
     <BrowserRouter>

@@ -21,4 +21,6 @@ LogoutSection.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
+export { LogoutSection };
+
 export default connect(null, { logout })(LogoutSection);
