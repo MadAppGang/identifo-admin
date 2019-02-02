@@ -5,6 +5,7 @@ describe('<SidebarSection />', () => {
     const props = {
       path: '/management/section',
       title: 'Section',
+      icons: ['regularIcon', 'activeIcon'],
       match: {
         params: {
           section: '',
@@ -19,6 +20,7 @@ describe('<SidebarSection />', () => {
     const props = {
       path: '/management/section',
       title: 'Section',
+      icons: ['regularIcon', 'activeIcon'],
       match: {
         params: {
           section: 'section',

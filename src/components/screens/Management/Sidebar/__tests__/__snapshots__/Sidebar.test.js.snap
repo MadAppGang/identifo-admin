@@ -5,56 +5,122 @@ exports[`<Sidebar /> renders as expected 1`] = `
   className="iap-management-sidebar"
 >
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Getting started"
-    path="/management/getting_started"
+    path="/management"
     title="Getting started"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Users"
     path="/management/users"
     title="Users"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Users Database"
-    path="/management/users_database"
+    path="/management/database"
     title="Users Database"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Applications"
     path="/management/applications"
     title="Applications"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Email Integration"
-    path="/management/email_integrations"
+    path="/management/email_integration"
     title="Email Integration"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Settings"
     path="/management/settings"
     title="Settings"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="OpenID Settings"
-    path="/management/openid_settings"
+    path="/management/openid"
     title="OpenID Settings"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Social Login"
     path="/management/social_login"
     title="Social Login"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="2FA"
-    path="/management/2fa"
+    path="/management/multi-factor_auth"
     title="2FA"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Passwordless login"
     path="/management/passwordless_login"
     title="Passwordless login"
   />
   <withRouter(SidebarSection)
+    icons={
+      Array [
+        null,
+        null,
+      ]
+    }
     key="Hosted Pages"
     path="/management/hosted_pages"
     title="Hosted Pages"
