@@ -1,6 +1,7 @@
 import React from 'react';
 import DropdownIcon from '~/components/icons/DropdownIcon';
 import LogoutSection from './LogoutSection';
+import AccountSection from './AccountSection';
 import Dropdown from '~/components/shared/Dropdown';
 import './Profile.css';
 
@@ -19,6 +20,7 @@ const ProfileDropdown = () => {
           </button>
           {isOpen && (
             <div className="iap-profile-dropdown">
+              <AccountSection />
               <LogoutSection />
             </div>
           )}
