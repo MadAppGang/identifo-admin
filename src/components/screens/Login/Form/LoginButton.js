@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import Button from '~/components/shared/Button';
 
 const LoginButton = ({ loading, onClick }) => (
-  <button
-    type="button"
-    className="iap-login-form__submit-btn"
+  <Button
+    stretch
     disabled={loading}
     onClick={onClick}
   >
     {loading && <LoadingIcon />}
-    Sign In
-  </button>
+    <span>Sign In</span>
+  </Button>
 );
 
 LoginButton.propTypes = {

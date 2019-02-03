@@ -13,7 +13,7 @@ describe('<LoginButton />', () => {
     const onClick = jest.fn();
 
     shallow(<LoginButton onClick={onClick} />)
-      .find('button')
+      .find('Button')
       .simulate('click');
 
     expect(onClick).toHaveBeenCalled();

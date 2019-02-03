@@ -1,24 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<LoginButton /> renders a loading indicator when loading is passed in as true 1`] = `
-<button
-  className="iap-login-form__submit-btn"
+<Button
   disabled={true}
   onClick={[MockFunction]}
+  stretch={true}
   type="button"
 >
   <LoadingIcon />
-  Sign In
-</button>
+  <span>
+    Sign In
+  </span>
+</Button>
 `;
 
 exports[`<LoginButton /> renders as expected 1`] = `
-<button
-  className="iap-login-form__submit-btn"
+<Button
   disabled={false}
   onClick={[MockFunction]}
+  stretch={true}
   type="button"
 >
-  Sign In
-</button>
+  <span>
+    Sign In
+  </span>
+</Button>
 `;

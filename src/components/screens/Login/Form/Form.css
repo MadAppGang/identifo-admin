@@ -8,41 +8,6 @@
   box-sizing: content-box;
 }
 
-.iap-login-form__submit-btn {
-  background-color: #3CA6F5;
-  padding: 10px 20px;
-  color: #fff;
-  border-radius: 7px;
-  border: none;
-  font-size: 17px;
-  margin-top: 10px;
-  width: 100%;
-  outline: none;
-  cursor: pointer;
-  border: 2px solid #3CA6F5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.iap-login-form__submit-btn:hover {
-  background-color: #1B9CFC;
-}
-
-.iap-login-form__submit-btn:focus {
-  border-color: #1D72B3;
-}
-
-.iap-login-form__submit-btn:active {
-  background-color: #1D8FE3;
-  border-color: #1D8FE3;
-}
-
-.iap-login-form__submit-btn:disabled {
-  opacity: .5;
-}
-
 .iap-login-form__title {
   font-size: 24px;
   text-transform: uppercase;
