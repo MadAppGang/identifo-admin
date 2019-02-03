@@ -15,7 +15,7 @@ const Button = props => (
 
 Button.propTypes = {
   type: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   stretch: PropTypes.bool,
@@ -24,6 +24,7 @@ Button.propTypes = {
 Button.defaultProps = {
   type: 'button',
   onClick: null,
+  children: null,
   disabled: false,
   stretch: false,
 };
