@@ -16,7 +16,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../../', BUILD_FOLDER),
-    publicPath: '/',
+    publicPath: '/identifo-admin/',
   },
 
   performance: {
