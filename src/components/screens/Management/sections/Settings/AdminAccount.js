@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '~/components/shared/Button';
+import editIcon from './edit-white.svg';
 
 const AdminAccountSettings = () => {
   return (
@@ -20,12 +22,16 @@ const AdminAccountSettings = () => {
         </p>
       </div>
 
-      <button
-        type="button"
-        className="iap-settings-section__update-btn"
-      >
-        Update
-      </button>
+      <Button>
+        <img
+          alt="edit"
+          src={editIcon}
+          className="iap-settings-section__edit-icon"
+        />
+        <span className="iap-settings-section__edit-btn-text">
+          Edit admin account
+        </span>
+      </Button>
     </div>
   );
 };
