@@ -12,7 +12,9 @@ const AdminAccountSettings = () => {
       </p>
 
       <div className="iap-settings-section__info">
-        <span>Email (used as a login)</span>
+        <span>
+          Email
+        </span>
         <p className="iap-settings-section__email">
           example13@company.org
         </p>

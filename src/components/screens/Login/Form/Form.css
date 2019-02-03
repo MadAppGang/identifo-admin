@@ -44,8 +44,9 @@
 }
 
 .iap-login-form__title {
-  font-size: 31px;
-  margin-bottom: 20px;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
   font-weight: bold;
   color: #3d3d3d;
 }
