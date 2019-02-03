@@ -8,7 +8,7 @@ Install dependencies
 ```bash
 $ npm i
 ```
-All dependencies are listen in the `dependencies` section of `package.json`
+All dependencies are listed in the `dependencies` section of `package.json`
 
 Run build in production mode
 ```bash
