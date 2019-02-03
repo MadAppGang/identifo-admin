@@ -8,7 +8,9 @@
     "build": "webpack --config config/webpack/prod.config.js",
     "test": "jest --config config/jest/config.js",
     "test:w": "jest --config config/jest/config.js --watch",
-    "test:cov": "jest --config config/jest/config.js --coverage"
+    "test:cov": "jest --config config/jest/config.js --coverage",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "MadAppGang",
   "license": "MIT",
@@ -17,6 +19,7 @@
     "@madappgang/update-by-path": "^1.1.18",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "gh-pages": "^2.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
