@@ -10,7 +10,7 @@ import './index.css';
 
 const Root = ({ store }) => (
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL || '/'}>
       <Switch>
         <Route
           exact
