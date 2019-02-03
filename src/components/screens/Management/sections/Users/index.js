@@ -1,6 +1,5 @@
 import React from 'react';
 import UsersPlaceholder from './Placeholder';
-import './UsersSection.css';
 
 const UsersSection = () => {
   return (

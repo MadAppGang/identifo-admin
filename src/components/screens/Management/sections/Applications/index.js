@@ -1,11 +1,10 @@
 import React from 'react';
+import ApplicationsPlaceholder from './Placeholder';
 
 const ApplicationsSection = () => {
   return (
     <section className="iap-management-section">
-      <p className="iap-management-section__title">
-        Applications
-      </p>
+      <ApplicationsPlaceholder />
     </section>
   );
 };

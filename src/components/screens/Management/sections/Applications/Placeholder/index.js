@@ -1,24 +1,24 @@
 import React from 'react';
-import usersIcon from './user.svg';
+import applicationsIcon from './applications.svg';
 import plusIcon from './plus-white.svg';
 import Button from '~/components/shared/Button';
-import './UsersPlaceholder.css';
+import './ApplicationsPlaceholder.css';
 
-const UsersPlaceholder = () => {
+const ApplicationsPlaceholder = () => {
   return (
     <div className="iap-section-placehoder">
       <h2 className="iap-section-placeholder__title">
-        Users
+        Applications
       </h2>
 
       <img
-        alt="users"
-        src={usersIcon}
+        alt="applications"
+        src={applicationsIcon}
         className="iap-section-placeholder__icon"
       />
 
       <p className="iap-section-placeholder__msg">
-        No users have been added to your applications.
+        No applications have been added so far.
       </p>
 
       <Button>
@@ -28,11 +28,11 @@ const UsersPlaceholder = () => {
           className="iap-section-placeholder__add-icon"
         />
         <span className="iap-section-placeholder__btn-text">
-          Create your first user
+          Create application
         </span>
       </Button>
     </div>
   );
 };
 
-export default UsersPlaceholder;
+export default ApplicationsPlaceholder;
