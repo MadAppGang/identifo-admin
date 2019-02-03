@@ -1,8 +1,31 @@
-.iap-management-section {
-  width: 75%;
-  padding: 50px 0 20px 0;
+.iap-users-placehoder {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  padding: 30px 0;
+  flex-direction: column;
+}
+.iap-users-placeholder__title {
+  font: normal 36px 'Circe';
+  margin: 0 0 20px 0;
+  padding: 0;
 }
 
-.iap-management-section__title {
-  font-size: 36px;
+.iap-users-placeholder__icon {
+  height: 110px;
+}
+
+.iap-users-placeholder__msg {
+  margin: 25px 0 10px 0;
+}
+
+.iap-users-placeholder__add-icon {
+  height: 15px;
+  width: 15px;
+  transform: translateY(-1px);
+}
+
+.iap-users-placeholder__btn-text {
+  margin-left: 10px;
 }
