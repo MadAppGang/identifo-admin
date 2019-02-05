@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Input.css';
 
-const Input = (props) => (
+const Input = props => (
   <input
     {...props}
+    spellCheck={false}
     className="iap-login-form__input"
   />
 );

@@ -12,14 +12,17 @@ class Dropdown extends Component {
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.handleGlobalMouseDown = this.handleGlobalMouseDown.bind(this);
+    this.handleGlobalKeydown = this.handleGlobalKeydown.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleGlobalMouseDown);
+    document.addEventListener('keydown', this.handleGlobalKeydown);
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleGlobalMouseDown);
+    document.removeEventListener('keydown', this.handleGlobalKeydown);
   }
 
   handleGlobalMouseDown({ target }) {
@@ -28,6 +31,12 @@ class Dropdown extends Component {
     }
 
     this.close();
+  }
+
+  handleGlobalKeydown({ keyCode }) {
+    if (keyCode === 27) { // ESC
+      this.close();
+    }
   }
 
   open() {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Input from '~/components/shared/Input';
 import Dropdown from '~/components/shared/Dropdown';
@@ -17,31 +18,28 @@ class DatabaseDropdown extends Component {
           title: 'DynamoDB',
           value: 'dynamodb',
         },
-        {
-          title: 'BoltDB',
-          value: 'bolddb',
-        },
       ],
-      selectedOption: null,
     };
 
     this.renderDropdownOption = this.renderDropdownOption.bind(this);
   }
 
-  selectOption(option) {
-    this.setState({ selectedOption: option });
+  getDisplayValue(value) {
+    const option = this.state.options.find(o => o.value === value);
+    return option ? option.title : '';
   }
 
   renderDropdownOption(option, onClick) {
     const { selectedOption } = this.state;
+    const { selectedValue, onChange } = this.props;
 
     const handleClick = () => {
-      this.selectOption(option);
       onClick();
+      onChange(option.value);
     };
 
     const isActive = selectedOption
-      ? selectedOption.value === option.value
+      ? selectedValue === option.value
       : false;
 
     const className = classnames({
@@ -51,8 +49,8 @@ class DatabaseDropdown extends Component {
 
     return (
       <button
-        key={option.value}
         type="button"
+        key={option.value}
         className={className}
         onClick={handleClick}
       >
@@ -62,7 +60,8 @@ class DatabaseDropdown extends Component {
   }
 
   render() {
-    const { options, selectedOption } = this.state;
+    const { options } = this.state;
+    const { selectedValue } = this.props;
 
     return (
       <Dropdown>
@@ -71,7 +70,7 @@ class DatabaseDropdown extends Component {
             <Input
               placeholder="Select database type"
               style={{ caretColor: 'transparent' }}
-              value={selectedOption ? selectedOption.title : ''}
+              value={this.getDisplayValue(selectedValue)}
               onFocus={open}
             />
             {isOpen && (
@@ -85,5 +84,10 @@ class DatabaseDropdown extends Component {
     );
   }
 }
+
+DatabaseDropdown.propTypes = {
+  selectedValue: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default DatabaseDropdown;
