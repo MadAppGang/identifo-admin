@@ -11,7 +11,7 @@
     "test:w": "jest --config config/jest/config.js --watch",
     "test:cov": "jest --config config/jest/config.js --coverage",
     "predeploy": "npm run build",
-    "deploy": "PUBLIC_PATH=identifo-admin gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "author": "MadAppGang",
   "license": "MIT",
