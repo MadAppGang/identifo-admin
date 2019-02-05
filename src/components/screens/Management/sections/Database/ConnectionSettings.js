@@ -67,6 +67,7 @@ class DatabaseConnectionSettings extends Component {
               <Input
                 name="name"
                 value={name}
+                autocomplete="off"
                 placeholder="e.g. identifo"
                 onChange={this.handleInput}
               />
