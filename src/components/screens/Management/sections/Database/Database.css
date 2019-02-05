@@ -21,13 +21,3 @@
   font-size: 12px;
   text-transform: uppercase;
 }
-
-.iap-save-icon {
-  height: 16px;
-  width: 16px;
-  transform: translateY(-1px);
-}
-
-.iap-db-form__save-btn-label {
-  margin-left: 10px;
-}

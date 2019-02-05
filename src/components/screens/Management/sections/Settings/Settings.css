@@ -30,13 +30,3 @@
 .iap-settings-section__email {
   font-size: 16px;
 }
-
-.iap-settings-section__edit-icon {
-  height: 15px;
-  width: 15px;
-  transform: translateY(-1px);
-}
-
-.iap-settings-section__edit-btn-text {
-  margin-left: 10px;
-}
