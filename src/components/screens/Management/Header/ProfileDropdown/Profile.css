@@ -55,10 +55,7 @@
   color: #616161;
 }
 
-.iap-profile-dropdown__section:hover {
-  background-color: #f0f9ff;
-}
-
+.iap-profile-dropdown__section:hover,
 .iap-profile-dropdown__section:focus {
   background-color: #f0f9ff;
 }

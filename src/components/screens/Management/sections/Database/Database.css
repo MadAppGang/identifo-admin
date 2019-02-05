@@ -10,3 +10,48 @@
 .iap-db-form__footer {
   margin-top: 30px;
 }
+
+.iap-db-dropdown {
+  position: relative;
+}
+
+.iap-db-dropdown__options {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  padding: 3px 0;
+  min-width: 100%;
+  background-color: #fff;
+  box-shadow: 1px 3px 12px 2px rgba(0, 0, 0, .2);
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.iap-db-dropdown__option {
+  width: 100%;
+  display: block;
+  padding: 12px 22px;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  text-align: left;
+  font: normal 15px 'Circe';
+  cursor: pointer;
+  color: #616161;
+  border-bottom: 1px solid #f0f9ff;
+}
+
+.iap-db-dropdown__option:last-of-type {
+  border: none;
+}
+
+.iap-db-dropdown__option:hover,
+.iap-db-dropdown__option:focus {
+  background-color: #f0f9ff;
+}
+
+.iap-db-dropdown__option.iap-db-dropdown__option--active {
+  font-weight: bold;
+  color: #000;
+}

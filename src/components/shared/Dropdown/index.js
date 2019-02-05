@@ -11,18 +11,18 @@ class Dropdown extends Component {
 
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
-    this.handleGlobalClick = this.handleGlobalClick.bind(this);
+    this.handleGlobalMouseDown = this.handleGlobalMouseDown.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.handleGlobalClick);
+    document.addEventListener('mousedown', this.handleGlobalMouseDown);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleGlobalClick);
+    document.removeEventListener('mousedown', this.handleGlobalMouseDown);
   }
 
-  handleGlobalClick({ target }) {
+  handleGlobalMouseDown({ target }) {
     if (this.ref.contains(target)) {
       return;
     }
