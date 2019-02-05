@@ -21,15 +21,8 @@ const UsersPlaceholder = () => {
         No users have been added to your applications.
       </p>
 
-      <Button>
-        <img
-          alt="add"
-          src={plusIcon}
-          className="iap-section-placeholder__add-icon"
-        />
-        <span className="iap-section-placeholder__btn-text">
-          Create your first user
-        </span>
+      <Button icon={plusIcon}>
+        Create your first user
       </Button>
     </div>
   );

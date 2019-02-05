@@ -39,7 +39,7 @@
   right: 0;
   transform-origin: top right;
   animation: profile-dropdown-fadeout 100ms forwards;
-  z-index: 999;
+  z-index: 1;
   min-width: 150px;
 }
 
@@ -55,10 +55,7 @@
   color: #616161;
 }
 
-.iap-profile-dropdown__section:hover {
-  background-color: #f0f9ff;
-}
-
+.iap-profile-dropdown__section:hover,
 .iap-profile-dropdown__section:focus {
   background-color: #f0f9ff;
 }

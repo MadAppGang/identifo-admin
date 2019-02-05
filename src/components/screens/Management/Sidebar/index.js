@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Section from './Section';
-import * as iconComponents from '~/components/icons/SidebarIcon';
+import * as iconComponents from '~/components/icons/sidebar';
 import './Sidebar.css';
 
 class Sidebar extends Component {
@@ -20,7 +20,7 @@ class Sidebar extends Component {
           Icon: iconComponents.UsersIcon,
         },
         {
-          title: 'Users Database',
+          title: 'Database',
           path: '/management/database',
           Icon: iconComponents.DatabaseIcon,
         },

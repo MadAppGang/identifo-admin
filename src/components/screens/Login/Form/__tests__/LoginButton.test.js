@@ -5,10 +5,6 @@ describe('<LoginButton />', () => {
     expect(shallow(<LoginButton onClick={jest.fn()} />)).toMatchSnapshot();
   });
 
-  test('renders a loading indicator when loading is passed in as true', () => {
-    expect(shallow(<LoginButton onClick={jest.fn()} loading />)).toMatchSnapshot();
-  });
-
   test('calls onClick prop on button click', () => {
     const onClick = jest.fn();
 

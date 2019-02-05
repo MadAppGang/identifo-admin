@@ -20,6 +20,10 @@
   width: 100%;
 }
 
+.iap-btn.iap-btn--iconized {
+  text-indent: 10px;
+}
+
 .iap-btn:hover {
   background-color: #1B9CFC;
 }
@@ -35,4 +39,20 @@
 
 .iap-btn:disabled {
   opacity: .5;
+  cursor: default;
+}
+
+.iap-btn.iap-btn:disabled:hover {
+  background: #3CA6F5;
+}
+
+.iap-btn.iap-btn:active {
+  background: #3CA6F5;
+  border-color: #3CA6F5;
+}
+
+.iap-btn__icon {
+  height: 15px;
+  width: 15px;
+  transform: translateY(-1px);
 }

@@ -2,22 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Input.css';
 
-const Input = (props) => {
-  const {
-    name, type, value, placeholder, onChange,
-  } = props;
-
-  return (
-    <input
-      name={name}
-      type={type}
-      className="iap-login-form__input"
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-    />
-  );
-};
+const Input = props => (
+  <input
+    {...props}
+    spellCheck={false}
+    className="iap-login-form__input"
+  />
+);
 
 Input.propTypes = {
   name: PropTypes.string,
@@ -30,9 +21,9 @@ Input.propTypes = {
 Input.defaultProps = {
   name: '',
   type: 'text',
-  value: '',
   placeholder: '',
-  onChange: null,
+  value: '',
+  onChange: () => {},
 };
 
 export default Input;

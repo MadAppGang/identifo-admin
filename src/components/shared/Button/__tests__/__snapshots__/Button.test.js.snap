@@ -6,7 +6,9 @@ exports[`<Button /> renders as expected 1`] = `
   disabled={false}
   onClick={null}
   type="button"
-/>
+>
+  <span />
+</button>
 `;
 
 exports[`<Button /> renders as expected when disabled 1`] = `
@@ -16,6 +18,8 @@ exports[`<Button /> renders as expected when disabled 1`] = `
   onClick={null}
   type="button"
 >
-  Text
+  <span>
+    Text
+  </span>
 </button>
 `;
