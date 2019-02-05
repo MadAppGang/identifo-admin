@@ -30,9 +30,9 @@ Input.propTypes = {
 Input.defaultProps = {
   name: '',
   type: 'text',
-  value: '',
   placeholder: '',
-  onChange: null,
+  value: '',
+  onChange: () => {},
 };
 
 export default Input;

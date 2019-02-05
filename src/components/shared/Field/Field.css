@@ -1,0 +1,10 @@
+.iap-form__field {
+  margin: 10px 0;
+}
+
+.iap-form__label {
+  color: #aaa;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}

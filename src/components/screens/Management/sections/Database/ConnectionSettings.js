@@ -1,38 +1,36 @@
 import React from 'react';
 import Input from '~/components/shared/Input';
+import Field from '~/components/shared/Field'
 import Button from '~/components/shared/Button';
+import DatabaseDropdown from './DatabaseDropdown';
 import saveIcon from './save.svg';
 
 const DatabaseConnectionSettings = () => {
   return (
     <div className="iap-db-connection-section">
-      <span className="iap-settings-section__title">
+      <span className="iap-section__title">
         Connection settings
       </span>
 
-      <p className="iap-settings-section__description">
+      <p className="iap-section__description">
         You should select from supported database types and provide a connection for it.
       </p>
 
-      <div className="iap-db-form">
-        <div className="iap-db-form__field">
-          <span className="iap-db-form__label">
-            Database type
-          </span>
-          <Input placeholder="Select database type" />
-        </div>
+      <form className="iap-db-form">
+        <Field label="Database type">
+          <DatabaseDropdown />
+        </Field>
 
-        <div className="iap-db-form__field">
-          <span className="iap-db-form__label">
-            Region
-          </span>
+        <Field label="Region">
           <Input placeholder="e.g. ap-northeast-3" />
-        </div>
+        </Field>
 
-        <Button icon={saveIcon}>
-          Save changes
-        </Button>
-      </div>
+        <footer className="iap-db-form__footer">
+          <Button icon={saveIcon}>
+            Save changes
+          </Button>
+        </footer>
+      </form>
     </div>
   );
 };

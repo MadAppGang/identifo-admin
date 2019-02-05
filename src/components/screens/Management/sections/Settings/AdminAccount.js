@@ -5,11 +5,11 @@ import editIcon from './edit-white.svg';
 const AdminAccountSettings = () => {
   return (
     <div className="iap-settings-section">
-      <span className="iap-settings-section__title">
+      <span className="iap-section__title">
         Admin account
       </span>
 
-      <p className="iap-settings-section__description">
+      <p className="iap-section__description">
         These are credentials used to login into admin panel.
       </p>
 
