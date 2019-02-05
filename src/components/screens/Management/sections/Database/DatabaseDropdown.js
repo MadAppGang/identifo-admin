@@ -30,7 +30,6 @@ class DatabaseDropdown extends Component {
   }
 
   renderDropdownOption(option, onClick) {
-    const { selectedOption } = this.state;
     const { selectedValue, onChange } = this.props;
 
     const handleClick = () => {
@@ -38,13 +37,9 @@ class DatabaseDropdown extends Component {
       onChange(option.value);
     };
 
-    const isActive = selectedOption
-      ? selectedValue === option.value
-      : false;
-
     const className = classnames({
       'iap-db-dropdown__option': true,
-      'iap-db-dropdown__option--active': isActive,
+      'iap-db-dropdown__option--active': selectedValue === option.value,
     });
 
     return (
