@@ -18,9 +18,9 @@ exports[`<Sidebar /> renders as expected 1`] = `
   />
   <withRouter(SidebarSection)
     Icon={[Function]}
-    key="Users Database"
+    key="Database"
     path="/management/database"
-    title="Users Database"
+    title="Database"
   />
   <withRouter(SidebarSection)
     Icon={[Function]}

@@ -38,3 +38,11 @@
 .iap-section-placeholder__btn-text {
   margin-left: 10px;
 }
+
+.iap-section__highlight {
+  background-color: #f0f9ff;
+  padding: 15px 25px;
+  border-radius: 4px;
+  color: #3d3d3d;
+  margin: 25px 0;
+}

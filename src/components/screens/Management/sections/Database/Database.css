@@ -1,0 +1,33 @@
+.iap-db-connection-section {
+  margin-top: 25px;
+}
+
+.iap-db-form {
+  width: 350px;
+  margin: 50px 0;
+}
+
+.iap-db-form__field {
+  margin: 10px 0;
+}
+
+.iap-db-form__field:last-of-type {
+  margin-bottom: 30px;
+}
+
+.iap-db-form__label {
+  color: #aaa;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.iap-save-icon {
+  height: 16px;
+  width: 16px;
+  transform: translateY(-1px);
+}
+
+.iap-db-form__save-btn-label {
+  margin-left: 10px;
+}

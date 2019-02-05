@@ -21,15 +21,8 @@ const ApplicationsPlaceholder = () => {
         No applications have been added so far.
       </p>
 
-      <Button>
-        <img
-          alt="add"
-          src={plusIcon}
-          className="iap-section-placeholder__add-icon"
-        />
-        <span className="iap-section-placeholder__btn-text">
-          Create application
-        </span>
+      <Button icon={plusIcon}>
+        Create application
       </Button>
     </div>
   );

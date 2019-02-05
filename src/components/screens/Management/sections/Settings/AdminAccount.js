@@ -22,15 +22,8 @@ const AdminAccountSettings = () => {
         </p>
       </div>
 
-      <Button>
-        <img
-          alt="edit"
-          src={editIcon}
-          className="iap-settings-section__edit-icon"
-        />
-        <span className="iap-settings-section__edit-btn-text">
-          Edit admin account
-        </span>
+      <Button icon={editIcon}>
+        Edit admin account
       </Button>
     </div>
   );
