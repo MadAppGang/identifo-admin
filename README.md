@@ -49,3 +49,20 @@ To configure the SPA to work correctly on subdirectory you need to set `PUBLIC_P
 E.g. if you are deploying to `localhost:8000/admin` set `PUBLIC_PATH=admin` in the `.env` file.
 
 You might also need to change `publicPath` propertly in webpack config if the assets (such as css) are not served from the root.
+
+### Deploying to Github Pages
+
+Go to `deploy` branch
+
+```bash
+$ git checkout deploy
+```
+This branch is already configured for deployment.
+
+Then run deploy script.
+Make sure you've installed all dependencies.
+
+```bash
+$ npm run deploy
+```
+Note: usually it takes up to 5 minutes for the changes to get fully deployed even though it says `published` in the terminal.
