@@ -18,6 +18,7 @@ class DatabaseConnectionSettings extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleDBTypeChange = this.handleDBTypeChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInput({ target }) {
@@ -28,6 +29,10 @@ class DatabaseConnectionSettings extends Component {
 
   handleDBTypeChange(type) {
     this.setState({ type });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
   }
 
   render() {
@@ -43,7 +48,7 @@ class DatabaseConnectionSettings extends Component {
           You should select from supported database types and provide a connection for it.
         </p>
 
-        <form className="iap-db-form">
+        <form className="iap-db-form" onSubmit={this.handleSubmit}>
           <Field label="Database type">
             <DatabaseDropdown
               selectedValue={type}
@@ -67,7 +72,7 @@ class DatabaseConnectionSettings extends Component {
               <Input
                 name="name"
                 value={name}
-                autocomplete="off"
+                autoComplete="off"
                 placeholder="e.g. identifo"
                 onChange={this.handleInput}
               />
@@ -84,7 +89,10 @@ class DatabaseConnectionSettings extends Component {
           </Field>
 
           <footer className="iap-db-form__footer">
-            <Button icon={saveIcon}>
+            <Button
+              icon={saveIcon}
+              type="submit"
+            >
               Save changes
             </Button>
           </footer>
