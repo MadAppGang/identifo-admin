@@ -26,7 +26,9 @@ class LoginForm extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
+
     const { email, password } = this.state;
     this.props.login(email, password);
   }
@@ -40,7 +42,7 @@ class LoginForm extends Component {
     const { signingIn, error } = this.props;
 
     return (
-      <div className="iap-login-form">
+      <form className="iap-login-form" onSubmit={this.handleSubmit}>
         <p className="iap-login-form__title">
           Identifo
         </p>
@@ -67,11 +69,8 @@ class LoginForm extends Component {
           onChange={this.handleInput}
         />
 
-        <LoginButton
-          loading={signingIn}
-          onClick={this.handleSubmit}
-        />
-      </div>
+        <LoginButton loading={signingIn} />
+      </form>
     );
   }
 }

@@ -26,10 +26,10 @@ describe('<LoginForm />', () => {
     expect(shallow(<LoginForm {...props} />)).toMatchSnapshot();
   });
 
-  test('calls login on submit button click', () => {
+  test('calls login on form submit', () => {
     const component = shallow(<LoginForm {...props} />);
 
-    component.find('LoginButton').simulate('click');
+    component.find('form').simulate('submit', { preventDefault: jest.fn() });
     expect(props.login).toHaveBeenCalled();
   });
 
@@ -45,7 +45,7 @@ describe('<LoginForm />', () => {
       .find('Input[name="password"]')
       .simulate('change', changeEvent('password', 'Password'));
 
-    component.find('LoginButton').simulate('click');
+    component.find('form').simulate('submit', { preventDefault: jest.fn() });
     expect(props.login).toHaveBeenCalledWith('Email', 'Password');
   });
 

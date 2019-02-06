@@ -1,31 +1,29 @@
 import React from 'react';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import './Button.css';
 
-const Button = props => {
+const Button = ({ stretch, icon, children, ...props }) => {
   const className = classnames({
     'iap-btn': true,
-    'iap-btn--stretch': props.stretch,
-    'iap-btn--iconized': !!props.icon,
+    'iap-btn--stretch': stretch,
+    'iap-btn--iconized': !!icon,
   });
 
   return (
     <button
-      type={props.type}
       className={className}
-      disabled={props.disabled}
-      onClick={props.onClick}
+      {...props}
     >
-      {props.icon && (
+      {icon && (
         <img
           alt="save"
-          src={props.icon}
+          src={icon}
           className="iap-btn__icon"
         />
       )}
       <span>
-        {props.children}
+        {children}
       </span>
     </button>
   );
@@ -37,6 +35,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   stretch: PropTypes.bool,
+  icon: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -45,6 +44,7 @@ Button.defaultProps = {
   children: null,
   disabled: false,
   stretch: false,
+  icon: null,
 };
 
 export default Button;

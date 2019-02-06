@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<LoginForm /> renders as expected 1`] = `
-<div
+<form
   className="iap-login-form"
+  onSubmit={[Function]}
 >
   <p
     className="iap-login-form__title"
@@ -25,14 +26,15 @@ exports[`<LoginForm /> renders as expected 1`] = `
   />
   <LoginButton
     loading={false}
-    onClick={[Function]}
+    onClick={null}
   />
-</div>
+</form>
 `;
 
 exports[`<LoginForm /> renders as expected when error 1`] = `
-<div
+<form
   className="iap-login-form"
+  onSubmit={[Function]}
 >
   <p
     className="iap-login-form__title"
@@ -59,14 +61,15 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
   />
   <LoginButton
     loading={false}
-    onClick={[Function]}
+    onClick={null}
   />
-</div>
+</form>
 `;
 
 exports[`<LoginForm /> renders as expected when signing in 1`] = `
-<div
+<form
   className="iap-login-form"
+  onSubmit={[Function]}
 >
   <p
     className="iap-login-form__title"
@@ -89,7 +92,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
   />
   <LoginButton
     loading={true}
-    onClick={[Function]}
+    onClick={null}
   />
-</div>
+</form>
 `;

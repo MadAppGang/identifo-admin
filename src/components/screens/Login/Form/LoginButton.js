@@ -6,6 +6,7 @@ import loadingIcon from './loading.svg';
 const LoginButton = ({ loading, onClick }) => (
   <Button
     stretch
+    type="submit"
     icon={loading ? loadingIcon : null}
     disabled={loading}
     onClick={onClick}
@@ -15,12 +16,13 @@ const LoginButton = ({ loading, onClick }) => (
 );
 
 LoginButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   loading: PropTypes.bool,
 };
 
 LoginButton.defaultProps = {
   loading: false,
+  onClick: null,
 };
 
 export default LoginButton;
