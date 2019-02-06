@@ -25,7 +25,7 @@ const createDatabaseService = ({ httpClient }) => {
 
   const postSettings = async (settings) => {
     const url = `${baseUrl}/database`;
-    const response = httpClient.post(url, settings);
+    const response = await httpClient.post(url, settings);
 
     return response.data;
   };
