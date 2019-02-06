@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Input from '~/components/shared/Input';
-import Field from '~/components/shared/Field'
+import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
-import DatabaseDropdown from './DatabaseDropdown';
+import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 import saveIcon from './save.svg';
 
 class DatabaseConnectionSettings extends Component {
@@ -56,7 +56,7 @@ class DatabaseConnectionSettings extends Component {
             />
           </Field>
 
-          {type === 'dynamodb' && (
+          {type === DYNAMO_DB && (
             <Field label="Region">
               <Input
                 name="region"
@@ -67,7 +67,7 @@ class DatabaseConnectionSettings extends Component {
             </Field>
           )}
 
-          {type === 'mongodb' && (
+          {type === MONGO_DB && (
             <Field label="Name">
               <Input
                 name="name"
@@ -100,6 +100,6 @@ class DatabaseConnectionSettings extends Component {
       </div>
     );
   }
-};
+}
 
 export default DatabaseConnectionSettings;

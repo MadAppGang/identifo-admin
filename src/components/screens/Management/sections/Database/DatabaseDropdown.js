@@ -4,6 +4,9 @@ import classnames from 'classnames';
 import Input from '~/components/shared/Input';
 import Dropdown from '~/components/shared/Dropdown';
 
+export const MONGO_DB = 'mongodb';
+export const DYNAMO_DB = 'dynamodb';
+
 class DatabaseDropdown extends Component {
   constructor() {
     super();
@@ -12,11 +15,11 @@ class DatabaseDropdown extends Component {
       options: [
         {
           title: 'MongoDB',
-          value: 'mongodb',
+          value: MONGO_DB,
         },
         {
           title: 'DynamoDB',
-          value: 'dynamodb',
+          value: DYNAMO_DB,
         },
       ],
     };
