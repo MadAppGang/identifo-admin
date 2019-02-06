@@ -59,7 +59,7 @@ class DatabaseDropdown extends Component {
 
   render() {
     const { options } = this.state;
-    const { selectedValue } = this.props;
+    const { selectedValue, disabled } = this.props;
 
     return (
       <Dropdown>
@@ -69,6 +69,7 @@ class DatabaseDropdown extends Component {
               placeholder="Select database type"
               style={{ caretColor: 'transparent' }}
               value={this.getDisplayValue(selectedValue)}
+              disabled={disabled}
               onFocus={open}
             />
             {isOpen && (
@@ -84,8 +85,13 @@ class DatabaseDropdown extends Component {
 }
 
 DatabaseDropdown.propTypes = {
+  disabled: PropTypes.bool,
   selectedValue: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+};
+
+DatabaseDropdown.defaultProps = {
+  disabled: false,
 };
 
 export default DatabaseDropdown;

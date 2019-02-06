@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import update from '@madappgang/update-by-path';
+import { fetchSettings, postSettings } from '~/modules/database/actions';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 import saveIcon from './save.svg';
+import loadingIcon from './loading.svg';
+import loadingIconDark from './loading-dark.svg';
 
-class DatabaseConnectionSettings extends Component {
+class DBConnectionSettings extends Component {
   constructor() {
     super();
 
     this.state = {
-      type: '',
-      name: '',
-      region: '',
-      endpoint: '',
+      settings: {
+        type: '',
+        name: '',
+        region: '',
+        endpoint: '',
+      },
     };
 
     this.handleInput = this.handleInput.bind(this);
@@ -21,27 +29,54 @@ class DatabaseConnectionSettings extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchSettings();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { fetching, settings } = this.props;
+    const fetched = !fetching && prevProps.fetching;
+
+    if (fetched && settings) {
+      this.setState({ settings });
+    }
+  }
+
   handleInput({ target }) {
-    this.setState({
-      [target.name]: target.value,
-    });
+    this.setState(state => ({
+      settings: update(state.settings, {
+        [target.name]: target.value,
+      }),
+    }));
   }
 
   handleDBTypeChange(type) {
-    this.setState({ type });
+    this.setState(state => ({
+      settings: update(state.settings, { type }),
+    }));
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.postSettings(this.state.settings);
   }
 
   render() {
-    const { type, name, region, endpoint } = this.state;
+    const { settings } = this.state;
+    const { posting, fetching } = this.props;
+    const { type, name, region, endpoint } = settings;
 
     return (
       <div className="iap-db-connection-section">
         <span className="iap-section__title">
           Connection settings
+          {(fetching || posting) && (
+            <img
+              alt="loading"
+              src={loadingIconDark}
+              className="iap-section-title__icon"
+            />
+          )}
         </span>
 
         <p className="iap-section__description">
@@ -52,6 +87,7 @@ class DatabaseConnectionSettings extends Component {
           <Field label="Database type">
             <DatabaseDropdown
               selectedValue={type}
+              disabled={posting || fetching}
               onChange={this.handleDBTypeChange}
             />
           </Field>
@@ -63,6 +99,7 @@ class DatabaseConnectionSettings extends Component {
                 value={region}
                 placeholder="e.g. ap-northeast-3"
                 onChange={this.handleInput}
+                disabled={posting || fetching}
               />
             </Field>
           )}
@@ -74,6 +111,7 @@ class DatabaseConnectionSettings extends Component {
                 value={name}
                 autoComplete="off"
                 placeholder="e.g. identifo"
+                disabled={posting || fetching}
                 onChange={this.handleInput}
               />
             </Field>
@@ -84,14 +122,16 @@ class DatabaseConnectionSettings extends Component {
               name="endpoint"
               value={endpoint}
               placeholder="e.g. localhost:27017"
+              disabled={posting || fetching}
               onChange={this.handleInput}
             />
           </Field>
 
           <footer className="iap-db-form__footer">
             <Button
-              icon={saveIcon}
               type="submit"
+              icon={posting ? loadingIcon : saveIcon}
+              disabled={posting || fetching}
             >
               Save changes
             </Button>
@@ -102,4 +142,31 @@ class DatabaseConnectionSettings extends Component {
   }
 }
 
-export default DatabaseConnectionSettings;
+DBConnectionSettings.propTypes = {
+  fetchSettings: PropTypes.func.isRequired,
+  postSettings: PropTypes.func.isRequired,
+  posting: PropTypes.bool.isRequired,
+  fetching: PropTypes.bool.isRequired,
+  settings: PropTypes.shape({
+    type: PropTypes.string,
+    endpoint: PropTypes.string,
+    name: PropTypes.string,
+    region: PropTypes.string,
+  }),
+};
+
+DBConnectionSettings.defaultProps = {
+  settings: null,
+};
+
+const mapStateToProps = state => ({
+  fetching: state.database.fetching,
+  posting: state.database.posting,
+  settings: state.database.settings,
+});
+
+const actions = {
+  fetchSettings, postSettings,
+};
+
+export default connect(mapStateToProps, actions)(DBConnectionSettings);
