@@ -17,3 +17,8 @@
 .iap-login-form__input:focus {
   border: 2px solid #c3e0ff;
 }
+
+.iap-login-form__input:disabled {
+  opacity: .5;
+  cursor: default;
+}

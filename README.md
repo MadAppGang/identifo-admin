@@ -41,3 +41,28 @@ Generated coverage report is going to appear as a `coverage` folder in the proje
 ### Mocking Api Calls
 
 Api calls are described in services `src/services`. Each service has it's mocked version. In order to make use of mocked services instead of actual ones you should set a `MOCK_API=true` environment variable either through cli or using `.env` file in the project's root.
+
+
+### Deploying to subdirectory
+
+To configure the SPA to work correctly on subdirectory you need to set `PUBLIC_PATH` environment variable.
+E.g. if you are deploying to `localhost:8000/admin` set `PUBLIC_PATH=admin` in the `.env` file.
+
+You might also need to change `publicPath` propertly in webpack config if the assets (such as css) are not served from the root.
+
+### Deploying to Github Pages
+
+Go to `deploy` branch
+
+```bash
+$ git checkout deploy
+```
+This branch is already configured for deployment.
+
+Then run deploy script.
+Make sure you've installed all dependencies.
+
+```bash
+$ npm run deploy
+```
+Note: usually it takes up to 5 minutes for the changes to get fully deployed even though it says `published` in the terminal.

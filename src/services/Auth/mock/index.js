@@ -1,4 +1,4 @@
-const pause = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+import { pause } from '~/utils';
 
 const storageKey = 'auth_mock_token';
 
