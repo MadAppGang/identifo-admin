@@ -1,5 +1,5 @@
 import types from '../types';
-import { testConnection } from '../actions';
+import { testConnection, fetchSettings } from '../actions';
 
 describe('database actions', () => {
   let dispatch;
@@ -9,6 +9,7 @@ describe('database actions', () => {
     dispatch = jest.fn();
     database = {
       testConnection: jest.fn(),
+      fetchSettings: jest.fn(),
     };
   });
 
@@ -59,5 +60,50 @@ describe('database actions', () => {
 
     testConnection(settings)(dispatch, null, { database });
     expect(database.testConnection).toBeCalledWith(settings);
+  });
+
+  test('fetch settings dispatches attempt', () => {
+    const expectedAction = {
+      type: types.FETCH_DB_SETTINGS_ATTEMPT,
+    };
+
+    fetchSettings()(dispatch, null, { database });
+    expect(dispatch).toBeCalledWith(expectedAction);
+  });
+
+  test('fetch settings dispatches success on successfuly fetch', async () => {
+    const settings = {
+      type: 'mongodb',
+    };
+
+    const expectedAction = {
+      type: types.FETCH_DB_SETTINGS_SUCCESS,
+      payload: settings,
+    };
+
+    database.fetchSettings.mockReturnValue(Promise.resolve(settings));
+
+    await fetchSettings()(dispatch, null, { database });
+
+    expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
+  });
+
+  test('fetch settings dispatches failure on rejected fetch', async () => {
+    const err = new Error('error message');
+    const expectedAction = {
+      type: types.FETCH_DB_SETTINGS_FAILURE,
+      payload: err,
+    };
+
+    database.fetchSettings.mockReturnValue(Promise.reject(err));
+
+    await fetchSettings()(dispatch, null, { database });
+
+    expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
+  });
+
+  test('fetch settings invokes database service fetch settings method', () => {
+    fetchSettings()(dispatch, null, { database });
+    expect(database.fetchSettings).toBeCalled();
   });
 });
