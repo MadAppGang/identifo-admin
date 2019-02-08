@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToggleView /> matches snapshot when turned off 1`] = `
+<div
+  className="iap-default-toggle"
+>
+  <button
+    className="iap-default-toggle__body"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    <div
+      className="iap-default-toggle__handle"
+    />
+  </button>
+  <span>
+    Label
+  </span>
+</div>
+`;
+
+exports[`<ToggleView /> matches snapshot when turned on 1`] = `
+<div
+  className="iap-default-toggle"
+>
+  <button
+    className="iap-default-toggle__body iap-default-toggle__body--on"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    <div
+      className="iap-default-toggle__handle"
+    />
+  </button>
+  <span>
+    Label
+  </span>
+</div>
+`;
