@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
+import Toggle from '~/components/shared/Toggle';
 import saveIcon from './icon/save.svg';
 
 class AdminAccountForm extends Component {
@@ -44,8 +45,10 @@ class AdminAccountForm extends Component {
           />
         </Field>
 
+        <Toggle label="Edit password" onChange={this.toggleEditPassword} />
+
         {editPassword && (
-          <>
+          <div className="iap-settings-form__password-fields">
             <Field label="Password">
               <Input
                 name="password"
@@ -65,16 +68,8 @@ class AdminAccountForm extends Component {
                 onChange={this.handleInput}
               />
             </Field>
-          </>
+          </div>
         )}
-
-        <button
-          type="button"
-          className="iap-settings-form__edit-password-btn"
-          onClick={this.toggleEditPassword}
-        >
-          {editPassword ? 'Do not edit password' : 'I want to edit password'}
-        </button>
 
         <footer className="iap-settings-form__footer">
           <Button icon={saveIcon}>

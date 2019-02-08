@@ -1,0 +1,59 @@
+.iap-default-toggle {
+  display: flex;
+}
+
+.iap-default-toggle > button {
+  margin-right: 10px;
+}
+
+.iap-default-toggle > span {
+  font: normal 15px 'Circe';
+  color: #aaa;
+}
+
+.iap-default-toggle__body {
+  height: 20px;
+  width: 45px;
+  border-radius: 20px;
+  background-color: #eee;
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: all 200ms;
+  cursor: pointer;
+  border: 1px solid #eee;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.iap-default-toggle__body.iap-default-toggle__body--on {
+  background-color: #D8EEFF;
+}
+
+.iap-default-toggle__body:hover .iap-default-toggle__handle {
+  left: 1px;
+}
+
+.iap-default-toggle__body.iap-default-toggle__body--on:hover .iap-default-toggle__handle {
+  left: 100%;
+  transform: translateX(calc(-100% - 1px));
+}
+
+.iap-default-toggle__handle {
+  height: 27px;
+  width: 27px;
+  background-color: #fff;
+  border: 1.5px solid #eee;
+  left: 0;
+  transform: translateX(0);
+  position: absolute;
+  border-radius: 50%;
+  transition: all 200ms;
+}
+
+.iap-default-toggle__body.iap-default-toggle__body--on .iap-default-toggle__handle {
+  background-color: #3CA6F5;
+  border: 1.5px solid #D8EEFF;
+  left: 100%;
+  transform: translateX(-100%);
+}

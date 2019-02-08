@@ -46,3 +46,7 @@
 .iap-settings-form__edit-password-btn:hover {
   color: #1569A7;
 }
+
+.iap-settings-form__password-fields {
+  margin-top: 25px;
+}
