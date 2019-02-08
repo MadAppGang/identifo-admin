@@ -9,7 +9,7 @@ class AdminAccountSettings extends Component {
     super();
 
     this.state = {
-      editing: true,
+      editing: false,
     };
 
     this.handleEditClick = this.handleEditClick.bind(this);
