@@ -1,4 +1,5 @@
 .iap-management-content {
   width: 100%;
-  min-height: calc(100vh - 80px); /* header height */
+  margin-top: 70px; /* header height */
+  min-height: calc(100vh - 70px); /* header height */
 }
