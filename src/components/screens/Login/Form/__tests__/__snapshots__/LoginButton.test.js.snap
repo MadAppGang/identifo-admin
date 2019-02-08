@@ -6,6 +6,7 @@ exports[`<LoginButton /> renders as expected 1`] = `
   icon={null}
   onClick={[MockFunction]}
   stretch={true}
+  transparent={false}
   type="submit"
 >
   Sign In

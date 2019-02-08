@@ -14,6 +14,11 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-right: 5px;
+}
+
+.iap-btn:last-of-type {
+  margin-right: 0px;
 }
 
 .iap-btn.iap-btn--stretch {
@@ -22,6 +27,24 @@
 
 .iap-btn.iap-btn--iconized {
   text-indent: 10px;
+}
+
+.iap-btn.iap-btn--transparent {
+  background-color: transparent;
+  border-color: transparent;
+  color: #aaa;
+}
+
+.iap-btn.iap-btn--transparent:focus,
+.iap-btn.iap-btn--transparent:hover {
+  background-color: #eee;
+  border-color: transparent;
+}
+
+.iap-btn.iap-btn--transparent:active {
+  background-color: #e8e6e6 !important;
+  border-color: transparent !important;
+  color: #7d7d7d;
 }
 
 .iap-btn:hover {

@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminAccountSettings from './AdminAccount';
+import Settings from './AdminAccount';
 import './Settings.css';
 
 const SettingsSection = () => {
@@ -9,7 +9,7 @@ const SettingsSection = () => {
         Settings
       </p>
 
-      <AdminAccountSettings />
+      <Settings />
 
     </section>
   );
