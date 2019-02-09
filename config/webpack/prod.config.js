@@ -58,7 +58,7 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       title: 'Identifo Admin',
-      template: path.resolve(__dirname, '../../assets', 'index.template.html'),
+      template: path.resolve(__dirname, '../..', 'index.template.html'),
     }),
     new CleanPlugin([BUILD_FOLDER], {
       root: path.resolve(__dirname, '../../'),

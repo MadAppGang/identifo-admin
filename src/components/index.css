@@ -1,15 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Sans');
-
 @font-face {
   font-family: 'Circe';
-  src: url('../../assets/fonts/Circe-Regular.woff');
+  src: url('../assets/fonts/Circe-Regular.woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Circe';
-  src: url('../../assets/fonts/Circe-Bold.woff');
+  src: url('../assets/fonts/Circe-Bold.woff');
   font-weight: 700;
   font-style: normal;
 }
