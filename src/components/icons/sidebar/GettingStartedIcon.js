@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
-import regularIcon from './getting-started.svg';
-import activeIcon from './getting-started-colored.svg';
+import Icon from './Icon';
+import regularIcon from '~/assets/icons/getting-started.svg';
+import activeIcon from '~/assets/icons/getting-started-colored.svg';
 
 const GettingStartedIcon = ({ active }) => (
   <Icon

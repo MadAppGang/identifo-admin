@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
-import regularIcon from './applications.svg';
-import activeIcon from './applications-colored.svg';
+import Icon from './Icon';
+import regularIcon from '~/assets/icons/applications.svg';
+import activeIcon from '~/assets/icons/applications-colored.svg';
 
 const ApplicationsIcon = ({ active }) => (
   <Icon

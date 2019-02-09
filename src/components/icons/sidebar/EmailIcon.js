@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
-import regularIcon from './email.svg';
-import activeIcon from './email-colored.svg';
+import Icon from './Icon';
+import regularIcon from '~/assets/icons/email.svg';
+import activeIcon from '~/assets/icons/email-colored.svg';
 
 const EmailIcon = ({ active }) => (
   <Icon

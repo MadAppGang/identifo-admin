@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
-import regularIcon from './multi-factor.svg';
-import activeIcon from './multi-factor-colored.svg';
+import Icon from './Icon';
+import regularIcon from '~/assets/icons/multi-factor.svg';
+import activeIcon from '~/assets/icons/multi-factor-colored.svg';
 
 const MultiFactorAuthIcon = ({ active }) => (
   <Icon

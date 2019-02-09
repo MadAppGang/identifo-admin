@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
-import regularIcon from './users.svg';
-import activeIcon from './users-colored.svg';
+import Icon from './Icon';
+import regularIcon from '~/assets/icons/users.svg';
+import activeIcon from '~/assets/icons/users-colored.svg';
 
 const UsersIcon = ({ active }) => (
   <Icon

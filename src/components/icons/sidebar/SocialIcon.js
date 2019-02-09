@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
-import regularIcon from './social.svg';
-import activeIcon from './social-colored.svg';
+import Icon from './Icon';
+import regularIcon from '~/assets/icons/social.svg';
+import activeIcon from '~/assets/icons/social-colored.svg';
 
 const SocialIcon = ({ active }) => (
   <Icon

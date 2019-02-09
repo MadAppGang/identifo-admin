@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '~/components/shared/Button';
-import applicationsIcon from '~/assets/icons/applications.svg';
+import applicationsIcon from '~/assets/icons/applications-placeholder.svg';
 import plusIcon from '~/assets/icons/plus.svg';
 
 const ApplicationsPlaceholder = () => {

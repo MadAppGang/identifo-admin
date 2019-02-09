@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon';
-import regularIcon from './passwordless.svg';
-import activeIcon from './passwordless-colored.svg';
+import Icon from './Icon';
+import regularIcon from '~/assets/icons/passwordless.svg';
+import activeIcon from '~/assets/icons/passwordless-colored.svg';
 
 const PasswordlessLoginIcon = ({ active }) => (
   <Icon
