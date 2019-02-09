@@ -7,9 +7,9 @@ import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
-import saveIcon from './save.svg';
-import loadingIcon from './loading.svg';
-import loadingIconDark from './loading-dark.svg';
+import saveIcon from '~/assets/icons/save.svg';
+import loadingIcon from '~/assets/icons/loading.svg';
+import loadingIconDark from '~/assets/icons/loading-dark.svg';
 
 class DBConnectionSettings extends Component {
   constructor() {

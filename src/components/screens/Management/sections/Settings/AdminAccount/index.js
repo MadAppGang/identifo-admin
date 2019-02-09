@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Preview from './Preview';
 import Form from './Form';
 import Button from '~/components/shared/Button';
-import editIcon from './icon/edit-white.svg';
+import editIcon from '~/assets/icons/edit.svg';
 
 class AdminAccountSettings extends Component {
   constructor() {

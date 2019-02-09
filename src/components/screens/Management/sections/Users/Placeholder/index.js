@@ -1,7 +1,7 @@
 import React from 'react';
-import usersIcon from './user.svg';
-import plusIcon from './plus-white.svg';
 import Button from '~/components/shared/Button';
+import usersIcon from '~/assets/icons/user.svg';
+import plusIcon from '~/assets/icons/plus.svg';
 import './UsersPlaceholder.css';
 
 const UsersPlaceholder = () => {
