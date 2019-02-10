@@ -24,7 +24,7 @@ const createAccountService = ({ httpClient }) => {
     const url = `${baseUrl}/account/settings`;
 
     try {
-      httpClient.post(url, settings);
+      await httpClient.post(url, settings);
     } catch (err) {
       throw getError(err);
     }
