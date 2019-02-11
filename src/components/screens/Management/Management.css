@@ -70,3 +70,25 @@
   transform: translate(5px, 1px);
   line-height: 13px;
 }
+
+.iap-section__info {
+  margin: 30px 0 25px 0;
+}
+
+.iap-section__info span:first-of-type {
+  color: #5d5d5d;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.iap-section__value {
+  font-size: 17px;
+  color: #3d3d3d;
+  margin: 0;
+  padding: 0;
+}
+
+.iap-section__field {
+  margin: 15px 0;
+}

@@ -6,12 +6,11 @@ import { fetchSettings, postSettings } from '~/modules/database/actions';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
-import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 import saveIcon from '~/assets/icons/save.svg';
 import loadingIcon from '~/assets/icons/loading.svg';
-import loadingIconDark from '~/assets/icons/loading-dark.svg';
+import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 
-class DBConnectionSettings extends Component {
+class ConnectionSettingsForm extends Component {
   constructor() {
     super();
 
@@ -68,21 +67,6 @@ class DBConnectionSettings extends Component {
 
     return (
       <div className="iap-db-connection-section">
-        <span className="iap-section__title">
-          Connection settings
-          {(fetching || posting) && (
-            <img
-              alt="loading"
-              src={loadingIconDark}
-              className="iap-section-title__icon"
-            />
-          )}
-        </span>
-
-        <p className="iap-section__description">
-          You should select from supported database types and provide a connection for it.
-        </p>
-
         <form className="iap-db-form" onSubmit={this.handleSubmit}>
           <Field label="Database type">
             <DatabaseDropdown
@@ -135,6 +119,9 @@ class DBConnectionSettings extends Component {
             >
               Save changes
             </Button>
+            <Button transparent onClick={this.props.onCancel}>
+              Cancel
+            </Button>
           </footer>
         </form>
       </div>
@@ -142,7 +129,7 @@ class DBConnectionSettings extends Component {
   }
 }
 
-DBConnectionSettings.propTypes = {
+ConnectionSettingsForm.propTypes = {
   fetchSettings: PropTypes.func.isRequired,
   postSettings: PropTypes.func.isRequired,
   posting: PropTypes.bool.isRequired,
@@ -153,10 +140,12 @@ DBConnectionSettings.propTypes = {
     name: PropTypes.string,
     region: PropTypes.string,
   }),
+  onCancel: PropTypes.func,
 };
 
-DBConnectionSettings.defaultProps = {
+ConnectionSettingsForm.defaultProps = {
   settings: null,
+  onCancel: null,
 };
 
 const mapStateToProps = state => ({
@@ -169,4 +158,4 @@ const actions = {
   fetchSettings, postSettings,
 };
 
-export default connect(mapStateToProps, actions)(DBConnectionSettings);
+export default connect(mapStateToProps, actions)(ConnectionSettingsForm);

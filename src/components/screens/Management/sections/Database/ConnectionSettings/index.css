@@ -9,6 +9,8 @@
 
 .iap-db-form__footer {
   margin-top: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .iap-db-dropdown {
