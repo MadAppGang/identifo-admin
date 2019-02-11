@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Preview from './Preview';
 import Form from './Form';
 import Button from '~/components/shared/Button';
+import SectionHeader from '~/components/shared/SectionHeader';
 import editIcon from '~/assets/icons/edit.svg';
 
 import './index.css';
@@ -31,15 +32,10 @@ class ConnectionSettings extends Component {
 
     return (
       <div className="iap-settings-section">
-        <header>
-          <span className="iap-section__title">
-            Connection settings
-          </span>
-        </header>
-
-        <p className="iap-section__description">
-          You should select from supported database types and provide a connection for it.
-        </p>
+        <SectionHeader
+          title="Connection Settings"
+          description="You should select from supported database types and provide a connection for it."
+        />
 
         <main>
           {editing && <Form onCancel={this.handleEditCancel} />}

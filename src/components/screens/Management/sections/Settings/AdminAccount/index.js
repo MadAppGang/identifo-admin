@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Preview from './Preview';
 import Form from './Form';
 import Button from '~/components/shared/Button';
+import SectionHeader from '~/components/shared/SectionHeader';
 import editIcon from '~/assets/icons/edit.svg';
 
 class AdminAccountSettings extends Component {
@@ -29,15 +30,10 @@ class AdminAccountSettings extends Component {
 
     return (
       <div className="iap-settings-section">
-        <header>
-          <span className="iap-section__title">
-            Admin account
-          </span>
-
-          <p className="iap-section__description">
-            These are credentials used to login into admin panel.
-          </p>
-        </header>
+        <SectionHeader
+          title="Admin Account"
+          description="These are credentials used to login into admin panel"
+        />
 
         <main>
           {editing && <Form onCancel={this.handleEditCancel} />}
