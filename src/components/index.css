@@ -1,15 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Sans');
-
 @font-face {
   font-family: 'Circe';
-  src: url('../../assets/fonts/Circe-Regular.woff');
+  src: url('../assets/fonts/Circe-Regular.woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Circe';
-  src: url('../../assets/fonts/Circe-Bold.woff');
+  src: url('../assets/fonts/Circe-Bold.woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -19,4 +17,19 @@
   padding: 0;
   font-family: 'Circe';
   box-sizing: border-box;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #eee;
+    opacity: 1;
+  }
+  50% {
+    background-color: #f3f3f3;
+    opacity: 0.75;
+  }
+  100% {
+    background-color: #eee;
+    opacity: 1;
+  }
 }

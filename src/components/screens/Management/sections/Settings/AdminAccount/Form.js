@@ -4,7 +4,7 @@ import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
-import saveIcon from './icon/save.svg';
+import saveIcon from '~/assets/icons/save.svg';
 
 class AdminAccountForm extends Component {
   constructor() {

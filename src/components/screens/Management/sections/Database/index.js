@@ -1,6 +1,5 @@
 import React from 'react';
-import ConnectionSettings from './ConnectionSettings';
-import './Database.css';
+import Settings from './ConnectionSettings';
 
 const DatabaseSection = () => {
   return (
@@ -9,7 +8,7 @@ const DatabaseSection = () => {
         Database
       </p>
 
-      <ConnectionSettings />
+      <Settings />
 
     </section>
   );

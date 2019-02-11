@@ -118,11 +118,13 @@ describe('database actions', () => {
   });
 
   test('post settings dispatches success on successful post', async () => {
+    const settings = {};
     const expectedAction = {
       type: types.POST_DB_SETTINGS_SUCCESS,
+      payload: settings,
     };
 
-    await postSettings()(dispatch, null, { database });
+    await postSettings(settings)(dispatch, null, { database });
     expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
   });
 

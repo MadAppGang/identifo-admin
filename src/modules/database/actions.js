@@ -40,7 +40,7 @@ const postSettings = settings => async (dispatch, _, { database: dbService }) =>
 
   try {
     await dbService.postSettings(settings);
-    dispatch(postSettingsSuccess());
+    dispatch(postSettingsSuccess(settings));
   } catch (err) {
     dispatch(postSettingsFailure(err));
   }
