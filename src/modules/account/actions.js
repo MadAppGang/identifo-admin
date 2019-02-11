@@ -25,7 +25,7 @@ const postAccountSettings = settings => async (dispatch, _, { account }) => {
 
   try {
     await account.postSettings(settings);
-    dispatch(postSettingsSuccess());
+    dispatch(postSettingsSuccess(settings));
   } catch (err) {
     dispatch(postSettingsFailure(err));
   }

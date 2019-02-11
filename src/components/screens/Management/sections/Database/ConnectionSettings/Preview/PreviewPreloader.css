@@ -1,8 +1,0 @@
-.iap-section__value--fake {
-  margin-top: 5px;
-  height: 20px;
-  border-radius: 4px;
-  background: #eee;
-  width: 150px;
-  animation: pulse .8s linear infinite;
-}

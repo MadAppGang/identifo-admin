@@ -53,6 +53,16 @@ describe('account module reducer', () => {
     expect(reducer(undefined, action).posting).toBe(false);
   });
 
+  test('sets settings to payload on post success', () => {
+    const settings = {};
+    const action = {
+      type: types.POST_ACCOUNT_SETTINGS_SUCCESS,
+      payload: settings,
+    };
+
+    expect(reducer(undefined, action).settings).toBe(settings);
+  });
+
   test('sets error to payload on post failure', () => {
     const err = new Error('errmsg');
     const action = {

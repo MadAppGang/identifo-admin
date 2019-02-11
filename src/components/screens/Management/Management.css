@@ -66,13 +66,11 @@
   text-transform: uppercase;
 }
 
-.iap-section__value {
-  font-size: 17px;
-  color: #3d3d3d;
-  margin: 0;
-  padding: 0;
-}
-
-.iap-section__field {
-  margin: 15px 0;
+.iap-section__value--fake {
+  margin-top: 5px;
+  height: 20px;
+  border-radius: 4px;
+  background: #eee;
+  width: 150px;
+  animation: pulse .8s linear infinite;
 }

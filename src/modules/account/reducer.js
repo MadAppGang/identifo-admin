@@ -21,7 +21,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.POST_ACCOUNT_SETTINGS_ATTEMPT:
       return update(state, { posting: true });
     case types.POST_ACCOUNT_SETTINGS_SUCCESS:
-      return update(state, { posting: false });
+      return update(state, { posting: false, settings: payload });
     case types.POST_ACCOUNT_SETTINGS_FAILURE:
       return update(state, { posting: false, error: payload });
     default:
