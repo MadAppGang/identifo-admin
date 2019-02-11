@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import update from '@madappgang/update-by-path';
-import { fetchSettings, postSettings } from '~/modules/database/actions';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
@@ -11,34 +9,16 @@ import loadingIcon from '~/assets/icons/loading.svg';
 import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 
 class ConnectionSettingsForm extends Component {
-  constructor() {
+  constructor({ settings }) {
     super();
 
     this.state = {
-      settings: {
-        type: '',
-        name: '',
-        region: '',
-        endpoint: '',
-      },
+      settings,
     };
 
     this.handleInput = this.handleInput.bind(this);
     this.handleDBTypeChange = this.handleDBTypeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.fetchSettings();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { fetching, settings } = this.props;
-    const fetched = !fetching && prevProps.fetching;
-
-    if (fetched && settings) {
-      this.setState({ settings });
-    }
   }
 
   handleInput({ target }) {
@@ -57,12 +37,20 @@ class ConnectionSettingsForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.postSettings(this.state.settings);
+
+    let { settings } = this.state;
+
+    settings = update(settings, {
+      region: region => settings.type === DYNAMO_DB ? region : '',
+      name: name => settings.type === MONGO_DB ? name : '',
+    });
+
+    this.props.onSubmit(settings);
   }
 
   render() {
     const { settings } = this.state;
-    const { posting, fetching } = this.props;
+    const { posting } = this.props;
     const { type, name, region, endpoint } = settings;
 
     return (
@@ -71,7 +59,7 @@ class ConnectionSettingsForm extends Component {
           <Field label="Database type">
             <DatabaseDropdown
               selectedValue={type}
-              disabled={posting || fetching}
+              disabled={posting}
               onChange={this.handleDBTypeChange}
             />
           </Field>
@@ -83,7 +71,7 @@ class ConnectionSettingsForm extends Component {
                 value={region}
                 placeholder="e.g. ap-northeast-3"
                 onChange={this.handleInput}
-                disabled={posting || fetching}
+                disabled={posting}
               />
             </Field>
           )}
@@ -95,7 +83,7 @@ class ConnectionSettingsForm extends Component {
                 value={name}
                 autoComplete="off"
                 placeholder="e.g. identifo"
-                disabled={posting || fetching}
+                disabled={posting}
                 onChange={this.handleInput}
               />
             </Field>
@@ -106,7 +94,7 @@ class ConnectionSettingsForm extends Component {
               name="endpoint"
               value={endpoint}
               placeholder="e.g. localhost:27017"
-              disabled={posting || fetching}
+              disabled={posting}
               onChange={this.handleInput}
             />
           </Field>
@@ -115,11 +103,15 @@ class ConnectionSettingsForm extends Component {
             <Button
               type="submit"
               icon={posting ? loadingIcon : saveIcon}
-              disabled={posting || fetching}
+              disabled={posting}
             >
               Save changes
             </Button>
-            <Button transparent onClick={this.props.onCancel}>
+            <Button
+              transparent
+              disabled={posting}
+              onClick={this.props.onCancel}
+            >
               Cancel
             </Button>
           </footer>
@@ -130,10 +122,7 @@ class ConnectionSettingsForm extends Component {
 }
 
 ConnectionSettingsForm.propTypes = {
-  fetchSettings: PropTypes.func.isRequired,
-  postSettings: PropTypes.func.isRequired,
   posting: PropTypes.bool.isRequired,
-  fetching: PropTypes.bool.isRequired,
   settings: PropTypes.shape({
     type: PropTypes.string,
     endpoint: PropTypes.string,
@@ -141,21 +130,17 @@ ConnectionSettingsForm.propTypes = {
     region: PropTypes.string,
   }),
   onCancel: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 ConnectionSettingsForm.defaultProps = {
-  settings: null,
+  settings: {
+    type: '',
+    endpoint: '',
+    name: '',
+    region: '',
+  },
   onCancel: null,
 };
 
-const mapStateToProps = state => ({
-  fetching: state.database.fetching,
-  posting: state.database.posting,
-  settings: state.database.settings,
-});
-
-const actions = {
-  fetchSettings, postSettings,
-};
-
-export default connect(mapStateToProps, actions)(ConnectionSettingsForm);
+export default ConnectionSettingsForm;

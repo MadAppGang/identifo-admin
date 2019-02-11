@@ -47,6 +47,13 @@
   color: #7d7d7d;
 }
 
+.iap-btn.iap-btn--transparent:disabled:hover {
+  pointer-events: none;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: #7d7d7d;
+}
+
 .iap-btn:hover {
   background-color: #1B9CFC;
 }

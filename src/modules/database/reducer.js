@@ -28,6 +28,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.POST_DB_SETTINGS_SUCCESS:
       return update(state, {
         posting: false,
+        settings: payload,
       });
     case types.POST_DB_SETTINGS_FAILURE:
     case types.FETCH_DB_SETTINGS_FAILURE:

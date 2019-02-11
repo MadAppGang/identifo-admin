@@ -18,3 +18,18 @@
   font-family: 'Circe';
   box-sizing: border-box;
 }
+
+@keyframes pulse {
+  0% {
+    background-color: #eee;
+    opacity: 1;
+  }
+  50% {
+    background-color: #f3f3f3;
+    opacity: 0.75;
+  }
+  100% {
+    background-color: #eee;
+    opacity: 1;
+  }
+}
