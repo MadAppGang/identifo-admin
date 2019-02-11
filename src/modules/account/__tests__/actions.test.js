@@ -88,13 +88,15 @@ describe('[account module] postAccountSettings action', () => {
   });
 
   test('dispatches success second time on successful service response', async () => {
+    const settings = {};
     const expectedAction = {
       type: types.POST_ACCOUNT_SETTINGS_SUCCESS,
+      payload: settings,
     };
 
     account.postSettings.mockReturnValue(Promise.resolve());
-    await postAccountSettings()(dispatch, null, { account });
-    expect(dispatch).toBeCalledWith(expectedAction);
+    await postAccountSettings(settings)(dispatch, null, { account });
+    expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
   });
 
   test('dispatches failure second time on failed service response', async () => {

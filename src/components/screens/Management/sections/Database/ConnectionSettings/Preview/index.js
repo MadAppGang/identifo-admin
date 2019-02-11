@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PreviewPreloader from './PreviewPreloader';
-import PreviewField from './PreviewField';
+import PreviewField from '~/components/shared/PreviewField';
 
 const displayDatabaseType = type => ({
   mongodb: 'MongoDB',

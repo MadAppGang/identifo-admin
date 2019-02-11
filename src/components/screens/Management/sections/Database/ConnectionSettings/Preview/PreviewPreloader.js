@@ -1,5 +1,4 @@
 import React from 'react';
-import './PreviewPreloader.css';
 
 const PreviewPreloader = () => (
   <div className="iap-section__info">

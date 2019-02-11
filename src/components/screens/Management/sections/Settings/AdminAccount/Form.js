@@ -5,19 +5,21 @@ import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
 import saveIcon from '~/assets/icons/save.svg';
+import loadingIcon from '~/assets/icons/loading.svg';
 
 class AdminAccountForm extends Component {
-  constructor() {
+  constructor({ settings }) {
     super();
 
     this.state = {
-      email: '',
+      email: settings.email,
       password: '',
       confirmPassword: '',
       editPassword: false,
     };
 
     this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleEditPassword = this.toggleEditPassword.bind(this);
   }
 
@@ -31,8 +33,21 @@ class AdminAccountForm extends Component {
     this.setState(state => ({ editPassword: !state.editPassword }));
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const { email, password, editPassword } = this.state;
+    const settings = {
+      email,
+      password: editPassword ? password : null,
+    };
+
+    this.props.onSubmit(settings);
+  }
+
   render() {
     const { email, password, editPassword, confirmPassword } = this.state;
+    const { posting } = this.props;
 
     return (
       <form className="iap-settings-form">
@@ -72,10 +87,18 @@ class AdminAccountForm extends Component {
         )}
 
         <footer className="iap-settings-form__footer">
-          <Button icon={saveIcon}>
+          <Button
+            disabled={posting}
+            icon={posting ? loadingIcon : saveIcon}
+            onClick={this.handleSubmit}
+          >
             Save changes
           </Button>
-          <Button transparent onClick={this.props.onCancel}>
+          <Button
+            transparent
+            disabled={posting}
+            onClick={this.props.onCancel}
+          >
             Cancel
           </Button>
         </footer>
@@ -86,10 +109,17 @@ class AdminAccountForm extends Component {
 
 AdminAccountForm.propTypes = {
   onCancel: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  settings: PropTypes.shape({
+    email: PropTypes.string,
+  }),
 };
 
 AdminAccountForm.defaultProps = {
   onCancel: null,
+  settings: {
+    email: '',
+  },
 };
 
 export default AdminAccountForm;
