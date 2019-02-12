@@ -6,6 +6,14 @@
 
 .iap-management-section__title {
   font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iap-management-section__description {
+  font-size: 15px;
+  margin: 10px 0;
 }
 
 .iap-section-placehoder {

@@ -35,7 +35,7 @@ UserRow.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
     latestLogin: PropTypes.string,
-    numberOfLogins: PropTypes.string,
+    numberOfLogins: PropTypes.number,
   }).isRequired,
   config: PropTypes.shape({
     name: PropTypes.object,

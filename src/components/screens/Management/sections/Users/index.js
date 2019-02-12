@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import UsersPlaceholder from './Placeholder';
 import UserList from './UserList';
+import UserSearch from './UserSearch';
+import Button from '~/components/shared/Button';
+import addIcon from '~/assets/icons/plus.svg';
 
 class UsersSection extends Component {
   componendDidMount() {
@@ -22,7 +25,16 @@ class UsersSection extends Component {
       <section className="iap-management-section">
         <p className="iap-management-section__title">
           Users
+          <Button icon={addIcon}>
+            Add user
+          </Button>
         </p>
+
+        <p className="iap-management-section__description">
+          Look for users, edit, delete them and add new ones.
+        </p>
+
+        <UserSearch />
 
         <UserList users={users} />
       </section>
