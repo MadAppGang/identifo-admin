@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import UsersPlaceholder from './Placeholder';
 import UserList from './UserList';
 import UserSearch from './UserSearch';
@@ -41,6 +42,17 @@ class UsersSection extends Component {
     );
   }
 }
+
+UsersSection.propTypes = {
+  fetchUsers: PropTypes.func,
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    latestLogin: PropTypes.string,
+    numberOfLogins: PropTypes.number,
+  })),
+};
 
 UsersSection.defaultProps = {
   users: [
