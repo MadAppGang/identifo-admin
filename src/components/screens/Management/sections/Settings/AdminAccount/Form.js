@@ -9,6 +9,8 @@ import saveIcon from '~/assets/icons/save.svg';
 import loadingIcon from '~/assets/icons/loading.svg';
 import validate from './validate';
 
+const hasError = validation => Object.values(validation).some(value => !!value);
+
 class AdminAccountForm extends Component {
   constructor({ settings }) {
     super();
@@ -19,6 +21,7 @@ class AdminAccountForm extends Component {
       confirmPassword: '',
       editPassword: false,
       validation: {
+        password: '',
         confirmPassword: '',
         email: '',
       },
@@ -44,10 +47,6 @@ class AdminAccountForm extends Component {
     });
   }
 
-  isValid() {
-    return Object.values(this.state.validation).every(value => !value);
-  }
-
   handleBlur({ target }) {
     const { name: field, value } = target;
 
@@ -70,11 +69,28 @@ class AdminAccountForm extends Component {
     this.setState(state => ({ editPassword: !state.editPassword }));
   }
 
+  validateForm() {
+    const { email, password, confirmPassword, editPassword } = this.state;
+
+    return {
+      email: validate('email', email),
+      password: editPassword
+        ? validate('password', password)
+        : '',
+      confirmPassword: editPassword
+        ? validate('confirmPassword', confirmPassword, password)
+        : '',
+    };
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const { email, password, editPassword } = this.state;
 
-    if (!this.isValid()) {
+    const validation = this.validateForm();
+
+    if (hasError(validation)) {
+      this.setState({ validation });
       return;
     }
 
@@ -91,7 +107,7 @@ class AdminAccountForm extends Component {
     const { posting } = this.props;
 
     return (
-      <form className="iap-settings-form">
+      <form className="iap-settings-form" onSubmit={this.handleSubmit}>
         <Field label="Email">
           <Input
             name="email"
@@ -115,6 +131,7 @@ class AdminAccountForm extends Component {
                 placeholder="Enter your password"
                 onChange={this.handleInput}
                 onBlur={this.handleBlur}
+                errorMessage={validation.password}
               />
             </Field>
 
@@ -134,9 +151,9 @@ class AdminAccountForm extends Component {
 
         <footer className="iap-settings-form__footer">
           <Button
-            disabled={posting || !this.isValid()}
+            type="submit"
+            disabled={posting || hasError(validation)}
             icon={posting ? loadingIcon : saveIcon}
-            onClick={this.handleSubmit}
           >
             Save changes
           </Button>
