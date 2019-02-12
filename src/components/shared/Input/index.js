@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Input.css';
 
-const Input = props => (
+const Input = ({ errorMessage, ...props }) => (
   <input
     {...props}
     spellCheck={false}
@@ -16,6 +16,7 @@ Input.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  errorMessage: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -23,6 +24,7 @@ Input.defaultProps = {
   type: 'text',
   placeholder: '',
   value: '',
+  errorMessage: '',
   onChange: () => {},
 };
 
