@@ -1,21 +1,21 @@
 .iap-login-form__input::placeholder {
-  color: #5d5d5d;
+  color: #7d7d7d;
 }
 
 .iap-login-form__input {
   padding: 12px 20px;
   border-radius: 7px;
-  background-color: #f0f9ff;
+  background-color: #e9f6ff;
   border: 2px solid #e9f6ff;
   font-size: 17px;
   outline: none;
-  color: #000;
+  color: #5d5d5d;
   width: 100%;
   margin: 4px 0;
 }
 
 .iap-login-form__input:focus {
-  border: 2px solid #c3e0ff;
+  border: 2px solid #3CA6F5;
 }
 
 .iap-login-form__input:disabled {
