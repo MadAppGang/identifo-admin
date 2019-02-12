@@ -7,12 +7,7 @@ import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
 import saveIcon from '~/assets/icons/save.svg';
 import loadingIcon from '~/assets/icons/loading.svg';
-
-const comparePasswords = (password, confirmPassword) => {
-  return password === confirmPassword;
-};
-
-const validateEmail = email => !!email;
+import validate from './validate';
 
 class AdminAccountForm extends Component {
   constructor({ settings }) {
@@ -49,26 +44,26 @@ class AdminAccountForm extends Component {
     });
   }
 
-  validateForm() {
-    const { email, password, confirmPassword } = this.state;
-
-    const doPasswordsMatch = comparePasswords(password, confirmPassword);
-    const isEmailValid = validateEmail(email);
-
-    return Object.freeze({
-      confirmPassword: doPasswordsMatch ? '' : 'Passwords do not match',
-      email: isEmailValid ? '' : 'Email is not valid',
-    });
-  }
-
   isValid() {
     return Object.values(this.state.validation).every(value => !value);
   }
 
-  handleBlur() {
-    this.setState({
-      validation: this.validateForm(),
-    });
+  handleBlur({ target }) {
+    const { name: field, value } = target;
+
+    let validationMessage = '';
+
+    if (field === 'confirmPassword') {
+      validationMessage = validate(field, value, this.state.password);
+    } else {
+      validationMessage = validate(field, value);
+    }
+
+    this.setState(state => ({
+      validation: update(state.validation, {
+        [field]: validationMessage,
+      }),
+    }));
   }
 
   toggleEditPassword() {
