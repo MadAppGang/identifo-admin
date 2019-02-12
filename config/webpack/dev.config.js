@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
 
   entry: {
-    polyfill: 'babel-polyfill',
+    polyfill: '@babel/polyfill',
     bundle: './src/index.js',
   },
 

@@ -1,14 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import './Input.css';
 
-const Input = ({ errorMessage, ...props }) => (
-  <input
-    {...props}
-    spellCheck={false}
-    className="iap-login-form__input"
-  />
-);
+const Input = ({ Icon, errorMessage, ...props }) => {
+  const className = classnames({
+    'iap-login-form__input': true,
+    'iap-login-form__input--iconized': !!Icon,
+  });
+
+  return (
+    <div className="iap-input-wrapper">
+      {!!Icon && (
+        <Icon className="iap-input-icon" />
+      )}
+      <input
+        {...props}
+        spellCheck={false}
+        className={className}
+      />
+    </div>
+  );
+};
 
 Input.propTypes = {
   name: PropTypes.string,
@@ -17,6 +30,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
+  Icon: PropTypes.func,
 };
 
 Input.defaultProps = {
@@ -25,6 +39,7 @@ Input.defaultProps = {
   placeholder: '',
   value: '',
   errorMessage: '',
+  Icon: null,
   onChange: () => {},
 };
 

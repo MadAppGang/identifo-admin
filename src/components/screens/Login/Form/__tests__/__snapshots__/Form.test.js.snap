@@ -11,6 +11,7 @@ exports[`<LoginForm /> renders as expected 1`] = `
     Identifo
   </p>
   <Input
+    Icon={null}
     name="email"
     onChange={[Function]}
     placeholder="Email"
@@ -18,6 +19,7 @@ exports[`<LoginForm /> renders as expected 1`] = `
     value=""
   />
   <Input
+    Icon={null}
     name="password"
     onChange={[Function]}
     placeholder="Password"
@@ -46,6 +48,7 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
     onClick={[Function]}
   />
   <Input
+    Icon={null}
     name="email"
     onChange={[Function]}
     placeholder="Email"
@@ -53,6 +56,7 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
     value=""
   />
   <Input
+    Icon={null}
     name="password"
     onChange={[Function]}
     placeholder="Password"
@@ -77,6 +81,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
     Identifo
   </p>
   <Input
+    Icon={null}
     name="email"
     onChange={[Function]}
     placeholder="Email"
@@ -84,6 +89,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
     value=""
   />
   <Input
+    Icon={null}
     name="password"
     onChange={[Function]}
     placeholder="Password"

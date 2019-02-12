@@ -13,10 +13,10 @@
   "author": "MadAppGang",
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "@madappgang/action-creator": "^1.0.6",
     "@madappgang/update-by-path": "^1.1.18",
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
