@@ -77,14 +77,16 @@ class AdminAccountForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     const { email, password, editPassword } = this.state;
-    const settings = {
+
+    if (!this.isValid()) {
+      return;
+    }
+
+    this.props.onSubmit({
       email,
       password: editPassword ? password : null,
-    };
-
-    this.props.onSubmit(settings);
+    });
   }
 
   render() {
@@ -101,6 +103,7 @@ class AdminAccountForm extends Component {
             value={email}
             placeholder="Enter your email"
             onChange={this.handleInput}
+            onBlur={this.handleBlur}
             errorMessage={validation.email}
           />
         </Field>
@@ -161,6 +164,7 @@ AdminAccountForm.propTypes = {
   settings: PropTypes.shape({
     email: PropTypes.string,
   }),
+  posting: PropTypes.bool,
 };
 
 AdminAccountForm.defaultProps = {
@@ -168,6 +172,7 @@ AdminAccountForm.defaultProps = {
   settings: {
     email: '',
   },
+  posting: false,
 };
 
 export default AdminAccountForm;

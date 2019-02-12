@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .iap-login-form__input::placeholder {
@@ -33,6 +34,11 @@
   text-indent: 30px;
 }
 
+.iap-login-form__input.iap-login-form__input--invalid {
+  border-color: #d15555;
+  background-color: #fff;
+}
+
 .iap-input-icon {
   height: 18px;
   width: 18px;
@@ -44,4 +50,12 @@
 .iap-input-icon path,
 .iap-input-icon circle {
   fill: #6d6d6d;
+}
+
+.iap-input-error {
+  font-size: 15px;
+  color: #d15555;
+  width: 100%;
+  display: block;
+  text-align: left;
 }

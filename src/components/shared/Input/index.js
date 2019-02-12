@@ -7,6 +7,7 @@ const Input = ({ Icon, errorMessage, ...props }) => {
   const className = classnames({
     'iap-login-form__input': true,
     'iap-login-form__input--iconized': !!Icon,
+    'iap-login-form__input--invalid': !!errorMessage,
   });
 
   return (
@@ -19,6 +20,11 @@ const Input = ({ Icon, errorMessage, ...props }) => {
         spellCheck={false}
         className={className}
       />
+      {errorMessage && (
+        <p className="iap-input-error">
+          {errorMessage}
+        </p>
+      )}
     </div>
   );
 };
