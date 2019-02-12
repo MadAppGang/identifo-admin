@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import update from '@madappgang/update-by-path';
 import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
 import saveIcon from '~/assets/icons/save.svg';
 import loadingIcon from '~/assets/icons/loading.svg';
+import validate from './validate';
 
 class AdminAccountForm extends Component {
   constructor({ settings }) {
@@ -16,17 +18,52 @@ class AdminAccountForm extends Component {
       password: '',
       confirmPassword: '',
       editPassword: false,
+      validation: {
+        confirmPassword: '',
+        email: '',
+      },
     };
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
     this.toggleEditPassword = this.toggleEditPassword.bind(this);
   }
 
   handleInput({ target }) {
+    const { name, value } = target;
+    let { validation } = this.state;
+
+    if (validation[name]) {
+      validation = update(validation, { [name]: '' });
+    }
+
     this.setState({
-      [target.name]: target.value,
+      [name]: value,
+      validation,
     });
+  }
+
+  isValid() {
+    return Object.values(this.state.validation).every(value => !value);
+  }
+
+  handleBlur({ target }) {
+    const { name: field, value } = target;
+
+    let validationMessage = '';
+
+    if (field === 'confirmPassword') {
+      validationMessage = validate(field, value, this.state.password);
+    } else {
+      validationMessage = validate(field, value);
+    }
+
+    this.setState(state => ({
+      validation: update(state.validation, {
+        [field]: validationMessage,
+      }),
+    }));
   }
 
   toggleEditPassword() {
@@ -35,18 +72,22 @@ class AdminAccountForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     const { email, password, editPassword } = this.state;
-    const settings = {
+
+    if (!this.isValid()) {
+      return;
+    }
+
+    this.props.onSubmit({
       email,
       password: editPassword ? password : null,
-    };
-
-    this.props.onSubmit(settings);
+    });
   }
 
   render() {
-    const { email, password, editPassword, confirmPassword } = this.state;
+    const {
+      email, password, editPassword, confirmPassword, validation,
+    } = this.state;
     const { posting } = this.props;
 
     return (
@@ -57,6 +98,8 @@ class AdminAccountForm extends Component {
             value={email}
             placeholder="Enter your email"
             onChange={this.handleInput}
+            onBlur={this.handleBlur}
+            errorMessage={validation.email}
           />
         </Field>
 
@@ -71,6 +114,7 @@ class AdminAccountForm extends Component {
                 value={password}
                 placeholder="Enter your password"
                 onChange={this.handleInput}
+                onBlur={this.handleBlur}
               />
             </Field>
 
@@ -81,6 +125,8 @@ class AdminAccountForm extends Component {
                 value={confirmPassword}
                 placeholder="Confirm your password"
                 onChange={this.handleInput}
+                onBlur={this.handleBlur}
+                errorMessage={validation.confirmPassword}
               />
             </Field>
           </div>
@@ -88,7 +134,7 @@ class AdminAccountForm extends Component {
 
         <footer className="iap-settings-form__footer">
           <Button
-            disabled={posting}
+            disabled={posting || !this.isValid()}
             icon={posting ? loadingIcon : saveIcon}
             onClick={this.handleSubmit}
           >
@@ -113,6 +159,7 @@ AdminAccountForm.propTypes = {
   settings: PropTypes.shape({
     email: PropTypes.string,
   }),
+  posting: PropTypes.bool,
 };
 
 AdminAccountForm.defaultProps = {
@@ -120,6 +167,7 @@ AdminAccountForm.defaultProps = {
   settings: {
     email: '',
   },
+  posting: false,
 };
 
 export default AdminAccountForm;

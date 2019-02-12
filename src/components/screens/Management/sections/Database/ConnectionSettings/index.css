@@ -28,7 +28,7 @@
   box-shadow: 1px 4px 12px 1px rgba(0, 0, 0, .2);
   border-radius: 6px;
   z-index: 1;
-  animation: db-dropdown-fadein 180ms ease-out forwards;
+  animation: db-dropdown-fadein 70ms ease-out forwards;
 }
 
 .iap-db-dropdown__option {
@@ -57,11 +57,12 @@
 .iap-db-dropdown__option.iap-db-dropdown__option--active {
   font-weight: bold;
   color: #000;
+  color: #3CA6F5;
 }
 
 @keyframes db-dropdown-fadein {
   from {
-    transform: translateY(calc(100% + 8px));
+    transform: translateY(calc(100% - 10px));
     opacity: .1;
   }
 

@@ -1,24 +1,62 @@
+.iap-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .iap-login-form__input::placeholder {
-  color: #5d5d5d;
+  color: #7d7d7d;
 }
 
 .iap-login-form__input {
   padding: 12px 20px;
   border-radius: 7px;
-  background-color: #f0f9ff;
+  background-color: #e9f6ff;
   border: 2px solid #e9f6ff;
   font-size: 17px;
   outline: none;
-  color: #000;
+  color: #5d5d5d;
   width: 100%;
   margin: 4px 0;
 }
 
 .iap-login-form__input:focus {
-  border: 2px solid #c3e0ff;
+  border: 2px solid #3CA6F5;
 }
 
 .iap-login-form__input:disabled {
   opacity: .5;
   cursor: default;
+}
+
+.iap-login-form__input.iap-login-form__input--iconized {
+  text-indent: 30px;
+}
+
+.iap-login-form__input.iap-login-form__input--invalid {
+  border-color: #d15555;
+  background-color: #fff;
+}
+
+.iap-input-icon {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  left: 20px;
+  transform: translateY(-1.5px);
+}
+
+.iap-input-icon path,
+.iap-input-icon circle {
+  fill: #6d6d6d;
+}
+
+.iap-input-error {
+  font-size: 15px;
+  color: #d15555;
+  width: 100%;
+  display: block;
+  text-align: left;
 }
