@@ -27,12 +27,18 @@ const data = {
 };
 
 const createUserServiceMock = () => {
-  const fetchUsers = async ({ search }) => {
-    await pause(500);
+  const fetchUsers = async (filters = {}) => {
+    const { search } = filters;
 
-    return data.users.filter((user) => {
-      return user.name.includes(search) || user.email.includes(search);
-    });
+    await pause(1000);
+
+    if (search) {
+      return data.users.filter((user) => {
+        return user.name.includes(search) || user.email.includes(search);
+      });
+    }
+
+    return data.users;
   };
 
   return Object.freeze({
