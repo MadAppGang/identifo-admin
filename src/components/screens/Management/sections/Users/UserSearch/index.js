@@ -26,7 +26,6 @@ class UserSearch extends Component {
 
   render() {
     const { query } = this.state;
-    const { disabled } = this.props;
 
     return (
       <div className="iap-users-search">
@@ -35,7 +34,6 @@ class UserSearch extends Component {
           value={query}
           onChange={this.handleSearchChange}
           placeholder="Search for users"
-          disabled={disabled}
         />
       </div>
     );
@@ -43,13 +41,11 @@ class UserSearch extends Component {
 }
 
 UserSearch.propTypes = {
-  disabled: PropTypes.bool,
   onChange: PropTypes.func,
   timeout: PropTypes.number,
 };
 
 UserSearch.defaultProps = {
-  disabled: false,
   timeout: 500,
   onChange: () => {},
 };

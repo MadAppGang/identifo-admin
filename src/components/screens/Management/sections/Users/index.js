@@ -10,14 +10,30 @@ import addIcon from '~/assets/icons/plus.svg';
 import loadingIcon from '~/assets/icons/loading.svg';
 
 class UsersSection extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      searchQuery: '',
+    };
+
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchUsers();
   }
 
+  handleSearch(searchQuery) {
+    this.props.fetchUsers({ search: searchQuery });
+    this.setState({ searchQuery });
+  }
+
   render() {
     const { users, fetching } = this.props;
+    const { searchQuery } = this.state;
 
-    if (!users.length && !fetching) {
+    if (!users.length && !fetching && !searchQuery) {
       return (
         <section className="iap-management-section">
           <UsersPlaceholder />
@@ -41,7 +57,10 @@ class UsersSection extends Component {
           Look for users, edit, delete them and add new ones.
         </p>
 
-        <UserSearch disabled={fetching} />
+        <UserSearch
+          timeout={400}
+          onChange={this.handleSearch}
+        />
 
         <UserList loading={fetching} users={users} />
       </section>

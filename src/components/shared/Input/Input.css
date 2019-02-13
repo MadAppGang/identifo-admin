@@ -33,7 +33,7 @@
 }
 
 .iap-login-form__input.iap-login-form__input--iconized {
-  text-indent: 30px;
+  padding-left: 50px;
 }
 
 .iap-login-form__input.iap-login-form__input--invalid {
@@ -47,6 +47,7 @@
   position: absolute;
   left: 20px;
   transform: translateY(-1.5px);
+  pointer-events: none;
 }
 
 .iap-input-icon path,

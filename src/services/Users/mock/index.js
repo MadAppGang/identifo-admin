@@ -34,7 +34,8 @@ const createUserServiceMock = () => {
       await pause(300);
 
       return data.users.filter((user) => {
-        return user.name.includes(search) || user.email.includes(search);
+        return user.name.toLowerCase().includes(search.toLowerCase())
+        || user.email.toLowerCase().includes(search.toLowerCase());
       });
     }
 
