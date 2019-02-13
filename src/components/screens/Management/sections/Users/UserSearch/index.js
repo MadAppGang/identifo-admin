@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Input from '~/components/shared/Input';
 import SearchIcon from '~/components/icons/SearchIcon';
 
@@ -19,6 +20,7 @@ class UserSearch extends Component {
 
   render() {
     const { search } = this.state;
+    const { disabled } = this.props;
 
     return (
       <div className="iap-users-search">
@@ -27,10 +29,19 @@ class UserSearch extends Component {
           value={search}
           onChange={this.handleSearchChange}
           placeholder="Search for users"
+          disabled={disabled}
         />
       </div>
     );
   }
 }
+
+UserSearch.propTypes = {
+  disabled: PropTypes.bool,
+};
+
+UserSearch.defaultProps = {
+  disabled: false,
+};
 
 export default UserSearch;

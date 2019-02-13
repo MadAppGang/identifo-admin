@@ -30,13 +30,15 @@ const createUserServiceMock = () => {
   const fetchUsers = async (filters = {}) => {
     const { search } = filters;
 
-    await pause(1000);
-
     if (search) {
+      await pause(300);
+
       return data.users.filter((user) => {
         return user.name.includes(search) || user.email.includes(search);
       });
     }
+
+    await pause(1700);
 
     return data.users;
   };

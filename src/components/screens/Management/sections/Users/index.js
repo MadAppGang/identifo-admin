@@ -7,6 +7,7 @@ import UserSearch from './UserSearch';
 import Button from '~/components/shared/Button';
 import { fetchUsers } from '~/modules/users/actions';
 import addIcon from '~/assets/icons/plus.svg';
+import loadingIcon from '~/assets/icons/loading.svg';
 
 class UsersSection extends Component {
   componentDidMount() {
@@ -28,7 +29,10 @@ class UsersSection extends Component {
       <section className="iap-management-section">
         <p className="iap-management-section__title">
           Users
-          <Button icon={addIcon}>
+          <Button
+            disabled={fetching}
+            icon={fetching ? loadingIcon : addIcon}
+          >
             Add user
           </Button>
         </p>
@@ -37,7 +41,7 @@ class UsersSection extends Component {
           Look for users, edit, delete them and add new ones.
         </p>
 
-        <UserSearch />
+        <UserSearch disabled={fetching} />
 
         <UserList loading={fetching} users={users} />
       </section>
@@ -54,10 +58,12 @@ UsersSection.propTypes = {
     latestLogin: PropTypes.string,
     numberOfLogins: PropTypes.number,
   })),
+  fetching: PropTypes.bool,
 };
 
 UsersSection.defaultProps = {
   users: [],
+  fetching: false,
 };
 
 const mapStateToProps = state => ({
