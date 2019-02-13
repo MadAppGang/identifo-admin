@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserRow from './UserRow';
 import UserHeader from './UserHeader';
+import Preloader from './Preloader';
 
 import './index.css';
 
@@ -29,14 +30,18 @@ const datagrid = {
 };
 
 const UserList = (props) => {
-  const { users } = props;
+  const { users, loading } = props;
 
   return (
     <div className="iap-userlist">
       <div className="iap-datagrid">
         <UserHeader config={datagrid} />
         <main className="iap-datagrid-body">
-          {users.map(user => (
+          {loading && (
+            <Preloader />
+          )}
+
+          {!loading && users.map(user => (
             <UserRow key={user.id} data={user} config={datagrid} />
           ))}
         </main>
@@ -47,10 +52,12 @@ const UserList = (props) => {
 
 UserList.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape()),
+  loading: PropTypes.bool,
 };
 
 UserList.defaultProps = {
   users: [],
+  loading: false,
 };
 
 export default UserList;

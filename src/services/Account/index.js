@@ -1,10 +1,4 @@
-const getError = (axiosErr) => {
-  if (axiosErr.response && axiosErr.response.data) {
-    return new Error(axiosErr.response.data.message);
-  }
-
-  return axiosErr;
-};
+import { getError } from '~/utils';
 
 const createAccountService = ({ httpClient }) => {
   const baseUrl = window.location.origin;
