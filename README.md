@@ -48,7 +48,7 @@ Api calls are described in services `src/services`. Each service has it's mocked
 To configure the SPA to work correctly on subdirectory you need to set `PUBLIC_PATH` environment variable.
 E.g. if you are deploying to `localhost:8000/admin` set `PUBLIC_PATH=admin` in the `.env` file.
 
-You might also need to change `publicPath` propertly in webpack config if the assets (such as css) are not served from the root.
+You might also need to change `publicPath` property in webpack config if the assets (such as css styles) are not served from the root.
 
 ### Deploying to Github Pages
 
