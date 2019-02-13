@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import UserRow from './UserRow';
 import UserHeader from './UserHeader';
 import Preloader from './Preloader';
+import UsersNotFound from './NotFound';
 
 import './index.css';
 
@@ -44,6 +45,10 @@ const UserList = (props) => {
           {!loading && users.map(user => (
             <UserRow key={user.id} data={user} config={datagrid} />
           ))}
+
+          {!users.length && !loading && (
+            <UsersNotFound />
+          )}
         </main>
       </div>
     </div>
