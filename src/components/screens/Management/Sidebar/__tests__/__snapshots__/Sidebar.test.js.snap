@@ -6,6 +6,7 @@ exports[`<Sidebar /> renders as expected 1`] = `
 >
   <withRouter(SidebarSection)
     Icon={[Function]}
+    exact={true}
     key="Getting started"
     path="/management"
     title="Getting started"
