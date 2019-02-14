@@ -82,3 +82,13 @@
   width: 150px;
   animation: pulse .8s linear infinite;
 }
+
+.iap-management-section__back {
+  text-decoration: none;
+  color: #3d3d3d;
+  font-size: 14px;
+}
+
+.iap-management-section__back:hover {
+  opacity: .6;
+};

@@ -12,6 +12,7 @@ class Sidebar extends Component {
         {
           title: 'Getting started',
           path: '/management',
+          exact: true,
           Icon: iconComponents.GettingStartedIcon,
         },
         {

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
 
 const SidebarSection = (props) => {
-  const { path, title, match, Icon } = props;
+  const { exact, path, title, match, Icon } = props;
   const isActive = match.params.section === path.split('/')[2];
 
   return (
     <NavLink
-      exact
+      exact={exact}
       to={path}
       className="iap-management-sidebar__section"
       activeClassName="iap-management-sidebar__section--active"
@@ -28,6 +28,11 @@ SidebarSection.propTypes = {
     }),
   }).isRequired,
   Icon: PropTypes.func.isRequired,
+  exact: PropTypes.bool,
+};
+
+SidebarSection.defaultProps = {
+  exact: false,
 };
 
 export { SidebarSection };
