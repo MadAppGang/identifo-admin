@@ -7,13 +7,14 @@ import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
 import saveIcon from '~/assets/icons/save.svg';
 import loadingIcon from '~/assets/icons/loading.svg';
-import validate from './validate';
-
-const hasError = validation => Object.values(validation).some(value => !!value);
+import accountFormValidationRules from './validationRules';
+import * as Validation from '~/utils/validation';
 
 class AdminAccountForm extends Component {
   constructor({ settings }) {
     super();
+
+    this.validate = Validation.applyRules(accountFormValidationRules);
 
     this.state = {
       email: settings.email,
@@ -53,9 +54,9 @@ class AdminAccountForm extends Component {
     let validationMessage = '';
 
     if (field === 'confirmPassword') {
-      validationMessage = validate(field, value, this.state.password);
+      validationMessage = this.validate(field, value, this.state.password);
     } else {
-      validationMessage = validate(field, value);
+      validationMessage = this.validate(field, value);
     }
 
     this.setState(state => ({
@@ -66,30 +67,22 @@ class AdminAccountForm extends Component {
   }
 
   toggleEditPassword() {
-    this.setState(state => ({ editPassword: !state.editPassword }));
-  }
-
-  validateForm() {
-    const { email, password, confirmPassword, editPassword } = this.state;
-
-    return {
-      email: validate('email', email),
-      password: editPassword
-        ? validate('password', password)
-        : '',
-      confirmPassword: editPassword
-        ? validate('confirmPassword', confirmPassword, password)
-        : '',
-    };
+    this.setState(state => ({
+      editPassword: !state.editPassword,
+      validation: update(state.validation, {
+        password: '',
+        confirmPassword: '',
+      }),
+    }));
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const { email, password, editPassword } = this.state;
 
-    const validation = this.validateForm();
+    const validation = this.validate('all', this.state);
 
-    if (hasError(validation)) {
+    if (Validation.hasError(validation)) {
       this.setState({ validation });
       return;
     }
@@ -152,7 +145,7 @@ class AdminAccountForm extends Component {
         <footer className="iap-settings-form__footer">
           <Button
             type="submit"
-            disabled={posting || hasError(validation)}
+            disabled={posting || Validation.hasError(validation)}
             icon={posting ? loadingIcon : saveIcon}
           >
             Save changes

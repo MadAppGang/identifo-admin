@@ -7,24 +7,53 @@ import Button from '~/components/shared/Button';
 import saveIcon from '~/assets/icons/save.svg';
 import loadingIcon from '~/assets/icons/loading.svg';
 import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
+import databaseFormValidationRules from './validationRules';
+import * as Validation from '~/utils/validation';
 
 class ConnectionSettingsForm extends Component {
   constructor({ settings }) {
     super();
 
+    this.validate = Validation.applyRules(databaseFormValidationRules);
+
     this.state = {
       settings,
+      validation: {
+        type: '',
+        endpoint: '',
+        name: '',
+        region: '',
+      },
     };
 
     this.handleInput = this.handleInput.bind(this);
     this.handleDBTypeChange = this.handleDBTypeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   handleInput({ target }) {
+    const { name, value } = target;
+    let { validation } = this.state;
+
+    if (validation[name]) {
+      validation = update(validation, { [name]: '' });
+    }
+
     this.setState(state => ({
       settings: update(state.settings, {
-        [target.name]: target.value,
+        [name]: value,
+      }),
+      validation,
+    }));
+  }
+
+  handleBlur({ target }) {
+    const { name: field, value } = target;
+
+    this.setState(state => ({
+      validation: update(state.validation, {
+        [field]: this.validate(field, value),
       }),
     }));
   }
@@ -32,11 +61,19 @@ class ConnectionSettingsForm extends Component {
   handleDBTypeChange(type) {
     this.setState(state => ({
       settings: update(state.settings, { type }),
+      validation: Validation.reset(state.validation),
     }));
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
+    const validation = this.validate('all', this.state.settings);
+
+    if (Validation.hasError(validation)) {
+      this.setState({ validation });
+      return;
+    }
 
     let { settings } = this.state;
 
@@ -49,7 +86,7 @@ class ConnectionSettingsForm extends Component {
   }
 
   render() {
-    const { settings } = this.state;
+    const { settings, validation } = this.state;
     const { posting } = this.props;
     const { type, name, region, endpoint } = settings;
 
@@ -72,6 +109,8 @@ class ConnectionSettingsForm extends Component {
                 placeholder="e.g. ap-northeast-3"
                 onChange={this.handleInput}
                 disabled={posting}
+                errorMessage={validation.region}
+                onBlur={this.handleBlur}
               />
             </Field>
           )}
@@ -85,6 +124,8 @@ class ConnectionSettingsForm extends Component {
                 placeholder="e.g. identifo"
                 disabled={posting}
                 onChange={this.handleInput}
+                errorMessage={validation.name}
+                onBlur={this.handleBlur}
               />
             </Field>
           )}
@@ -96,6 +137,8 @@ class ConnectionSettingsForm extends Component {
               placeholder="e.g. localhost:27017"
               disabled={posting}
               onChange={this.handleInput}
+              onBlur={this.handleBlur}
+              errorMessage={validation.endpoint}
             />
           </Field>
 
@@ -103,7 +146,7 @@ class ConnectionSettingsForm extends Component {
             <Button
               type="submit"
               icon={posting ? loadingIcon : saveIcon}
-              disabled={posting}
+              disabled={posting || Validation.hasError(validation)}
             >
               Save changes
             </Button>
