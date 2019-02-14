@@ -1,19 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
+import UserForm from './UserForm';
 
-const NewUserView = () => {
+const goBackPath = '/management/users';
+
+const NewUserView = (props) => {
+  const goBack = () => props.history.push(goBackPath);
+
   return (
     <section className="iap-management-section">
-      <div>
-        <Link to="/management/users" className="iap-management-section__back">
-          ← &nbsp;Users
-        </Link>
-      </div>
-      <p className="iap-management-section__title">
-        Create User
-      </p>
+      <header>
+        <div>
+          <Link to={goBackPath} className="iap-management-section__back">
+            ← &nbsp;Users
+          </Link>
+        </div>
+        <p className="iap-management-section__title">
+          Create User
+        </p>
+      </header>
+      <main>
+        <UserForm onCancel={goBack} />
+      </main>
     </section>
   );
 };
 
-export default NewUserView;
+NewUserView.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+export default withRouter(NewUserView);

@@ -7,7 +7,6 @@ import UserSearch from './UserSearch';
 import Button from '~/components/shared/Button';
 import { fetchUsers } from '~/modules/users/actions';
 import addIcon from '~/assets/icons/plus.svg';
-import loadingIcon from '~/assets/icons/loading.svg';
 
 class UsersMainView extends Component {
   constructor() {
@@ -46,8 +45,7 @@ class UsersMainView extends Component {
         <p className="iap-management-section__title">
           Users
           <Button
-            disabled={fetching}
-            icon={fetching ? loadingIcon : addIcon}
+            icon={addIcon}
             onClick={() => history.push('/management/users/new')}
           >
             Add user

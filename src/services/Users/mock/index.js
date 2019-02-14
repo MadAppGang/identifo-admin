@@ -39,7 +39,7 @@ const createUserServiceMock = () => {
       });
     }
 
-    await pause(170);
+    await pause(1200);
 
     return data.users;
   };

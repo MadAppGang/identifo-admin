@@ -87,6 +87,10 @@
   text-decoration: none;
   color: #3d3d3d;
   font-size: 14px;
+  border: none;
+  background: transparent;
+  -webkit-appearance: none;
+  cursor: pointer;
 }
 
 .iap-management-section__back:hover {
