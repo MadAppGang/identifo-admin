@@ -44,8 +44,20 @@ const createUserServiceMock = () => {
     return data.users;
   };
 
+  const postUser = async (user) => {
+    await pause(600);
+
+    return data.users.push({
+      ...user,
+      id: data.users.length,
+      numberOfLogins: 0,
+      latestLogin: 'Never',
+    });
+  };
+
   return Object.freeze({
     fetchUsers,
+    postUser,
   });
 };
 
