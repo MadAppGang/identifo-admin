@@ -22,8 +22,20 @@ const createUserService = ({ httpClient }) => {
     }
   };
 
+  const postUser = async (user) => {
+    const url = `${baseUrl}/users`;
+
+    try {
+      const response = await httpClient.post(url, user);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
+  };
+
   return Object.freeze({
     fetchUsers,
+    postUser,
   });
 };
 

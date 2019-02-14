@@ -5,7 +5,7 @@ exports[`<SidebarSection /> renders as expected for not selected section 1`] = `
   activeClassName="iap-management-sidebar__section--active"
   aria-current="page"
   className="iap-management-sidebar__section"
-  exact={true}
+  exact={false}
   to="/management/section"
 >
   <mockConstructor
@@ -22,7 +22,7 @@ exports[`<SidebarSection /> renders as expected for selected section 1`] = `
   activeClassName="iap-management-sidebar__section--active"
   aria-current="page"
   className="iap-management-sidebar__section"
-  exact={true}
+  exact={false}
   to="/management/section"
 >
   <mockConstructor
