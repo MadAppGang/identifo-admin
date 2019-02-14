@@ -40,7 +40,7 @@ class UserForm extends Component {
   }
 
   render() {
-    const { email, name } = this.state.fields;
+    const { email, name, password, confirmPassword } = this.state.fields;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -58,6 +58,26 @@ class UserForm extends Component {
             name="email"
             value={email}
             placeholder="Enter email"
+            onChange={this.handleInput}
+          />
+        </Field>
+
+        <Field label="Password">
+          <Input
+            name="password"
+            type="password"
+            value={password}
+            placeholder="Enter password"
+            onChange={this.handleInput}
+          />
+        </Field>
+
+        <Field label="Confirm Password">
+          <Input
+            name="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            placeholder="Enter password once more"
             onChange={this.handleInput}
           />
         </Field>

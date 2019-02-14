@@ -19,6 +19,9 @@ const NewUserView = (props) => {
         <p className="iap-management-section__title">
           Create User
         </p>
+        <p className="iap-management-section__description">
+          Created user is going to be able to login into selected application with these credentials
+        </p>
       </header>
       <main>
         <UserForm onCancel={goBack} />
