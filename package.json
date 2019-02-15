@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Management application for Identifo",
   "main": "index.js",
+  "homepage": "https://madappgang.github.io/identifo-admin",
   "scripts": {
     "start": "webpack-dev-server --config config/webpack/dev.config.js",
     "build": "webpack --config config/webpack/prod.config.js",
@@ -13,7 +14,6 @@
   "author": "MadAppGang",
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "^7.2.5",
     "@madappgang/action-creator": "^1.0.6",
     "@madappgang/update-by-path": "^1.1.18",
     "axios": "^0.18.0",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "babel-jest": "^24.0.0",

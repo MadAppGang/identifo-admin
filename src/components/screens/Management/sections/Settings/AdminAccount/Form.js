@@ -5,8 +5,8 @@ import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
-import saveIcon from '~/assets/icons/save.svg';
-import loadingIcon from '~/assets/icons/loading.svg';
+import SaveIcon from '~/components/icons/SaveIcon';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 import accountFormValidationRules from './validationRules';
 import * as Validation from '~/utils/validation';
 
@@ -146,7 +146,7 @@ class AdminAccountForm extends Component {
           <Button
             type="submit"
             disabled={posting || Validation.hasError(validation)}
-            icon={posting ? loadingIcon : saveIcon}
+            Icon={posting ? LoadingIcon : SaveIcon}
           >
             Save changes
           </Button>

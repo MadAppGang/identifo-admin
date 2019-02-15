@@ -35,6 +35,11 @@
   height: 110px;
 }
 
+.iap-section-placeholder__icon path,
+.iap-section-placeholder__icon circle {
+  fill: #c3e0ff;
+}
+
 .iap-section-placeholder__msg {
   margin: 25px 0 10px 0;
 }

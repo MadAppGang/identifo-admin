@@ -4,8 +4,8 @@ import update from '@madappgang/update-by-path';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
-import saveIcon from '~/assets/icons/save.svg';
-import loadingIcon from '~/assets/icons/loading.svg';
+import SaveIcon from '~/components/icons/SaveIcon';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 import databaseFormValidationRules from './validationRules';
 import * as Validation from '~/utils/validation';
@@ -145,7 +145,7 @@ class ConnectionSettingsForm extends Component {
           <footer className="iap-db-form__footer">
             <Button
               type="submit"
-              icon={posting ? loadingIcon : saveIcon}
+              Icon={posting ? LoadingIcon : SaveIcon}
               disabled={posting || Validation.hasError(validation)}
             >
               Save changes

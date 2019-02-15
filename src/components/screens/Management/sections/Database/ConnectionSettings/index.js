@@ -5,8 +5,8 @@ import Preview from './Preview';
 import Form from './Form';
 import Button from '~/components/shared/Button';
 import SectionHeader from '~/components/shared/SectionHeader';
-import editIcon from '~/assets/icons/edit.svg';
-import loadingIcon from '~/assets/icons/loading.svg';
+import EditIcon from '~/components/icons/EditIcon';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 import { fetchSettings, postSettings } from '~/modules/database/actions';
 
 import './index.css';
@@ -76,7 +76,7 @@ class ConnectionSettings extends Component {
               <Preview fetching={fetching} settings={this.props.settings} />
               <Button
                 disabled={fetching}
-                icon={fetching ? loadingIcon : editIcon}
+                Icon={fetching ? LoadingIcon : EditIcon}
                 onClick={this.handleEditClick}
               >
                 Edit database settings

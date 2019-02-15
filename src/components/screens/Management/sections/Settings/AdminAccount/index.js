@@ -8,8 +8,8 @@ import SectionHeader from '~/components/shared/SectionHeader';
 import {
   fetchAccountSettings, postAccountSettings,
 } from '~/modules/account/actions';
-import editIcon from '~/assets/icons/edit.svg';
-import loadingIcon from '~/assets/icons/loading.svg';
+import EditIcon from '~/components/icons/EditIcon';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 
 class AdminAccountSettings extends Component {
   constructor() {
@@ -71,7 +71,7 @@ class AdminAccountSettings extends Component {
               <Preview fetching={fetching} settings={settings} />
               <Button
                 disabled={fetching}
-                icon={fetching ? loadingIcon : editIcon}
+                Icon={fetching ? LoadingIcon : EditIcon}
                 onClick={this.handleEditClick}
               >
                 Edit admin account

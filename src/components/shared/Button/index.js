@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Button.css';
 
-const Button = ({ stretch, icon, children, transparent, ...props }) => {
+const Button = ({ stretch, Icon, children, transparent, ...props }) => {
   const className = classnames({
     'iap-btn': true,
     'iap-btn--stretch': stretch,
-    'iap-btn--iconized': !!icon,
+    'iap-btn--iconized': !!Icon,
     'iap-btn--transparent': transparent,
   });
 
@@ -16,12 +16,8 @@ const Button = ({ stretch, icon, children, transparent, ...props }) => {
       className={className}
       {...props}
     >
-      {icon && (
-        <img
-          alt="save"
-          src={icon}
-          className="iap-btn__icon"
-        />
+      {Icon && (
+        <Icon className="iap-btn__icon" />
       )}
       <span>
         {children}
@@ -36,8 +32,8 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   stretch: PropTypes.bool,
-  icon: PropTypes.string,
   transparent: PropTypes.bool,
+  Icon: PropTypes.func,
 };
 
 Button.defaultProps = {
@@ -47,7 +43,7 @@ Button.defaultProps = {
   disabled: false,
   stretch: false,
   transparent: false,
-  icon: null,
+  Icon: null,
 };
 
 export default Button;

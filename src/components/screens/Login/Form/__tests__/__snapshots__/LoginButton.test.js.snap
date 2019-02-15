@@ -2,6 +2,7 @@
 
 exports[`<LoginButton /> renders as expected 1`] = `
 <Button
+  Icon={null}
   disabled={false}
   icon={null}
   onClick={[MockFunction]}

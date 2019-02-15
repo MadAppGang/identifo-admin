@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
-import saveIcon from '~/assets/icons/save.svg';
+import SaveIcon from '~/components/icons/SaveIcon';
 
 import './UserForm.css';
 
@@ -83,7 +83,7 @@ class UserForm extends Component {
         </Field>
 
         <footer className="iap-users-form__footer">
-          <Button icon={saveIcon} type="submit">
+          <Button Icon={SaveIcon} type="submit">
             Save User
           </Button>
           <Button transparent onClick={this.props.onCancel}>
