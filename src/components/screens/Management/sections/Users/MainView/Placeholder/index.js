@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '~/components/shared/Button';
-import usersIcon from '~/assets/icons/user.svg';
-import plusIcon from '~/assets/icons/plus.svg';
+import AddIcon from '~/components/icons/AddIcon';
+import UsersIcon from '~/components/icons/UsersIcon';
 import './UsersPlaceholder.css';
 
 const UsersPlaceholder = () => {
@@ -11,17 +11,13 @@ const UsersPlaceholder = () => {
         Users
       </h2>
 
-      <img
-        alt="users"
-        src={usersIcon}
-        className="iap-section-placeholder__icon"
-      />
+      <UsersIcon className="iap-section-placeholder__icon" />
 
       <p className="iap-section-placeholder__msg">
         No users have been added to your applications.
       </p>
 
-      <Button icon={plusIcon}>
+      <Button Icon={AddIcon}>
         Create your first user
       </Button>
     </div>

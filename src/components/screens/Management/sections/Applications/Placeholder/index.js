@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '~/components/shared/Button';
-import applicationsIcon from '~/assets/icons/applications-placeholder.svg';
-import plusIcon from '~/assets/icons/plus.svg';
+import ApplicationsIcon from '~/components/icons/ApplicationsIcon';
+import AddIcon from '~/components/icons/AddIcon';
 
 const ApplicationsPlaceholder = () => {
   return (
@@ -10,17 +10,13 @@ const ApplicationsPlaceholder = () => {
         Applications
       </h2>
 
-      <img
-        alt="applications"
-        src={applicationsIcon}
-        className="iap-section-placeholder__icon"
-      />
+      <ApplicationsIcon className="iap-section-placeholder__icon" />
 
       <p className="iap-section-placeholder__msg">
         No applications have been added so far.
       </p>
 
-      <Button icon={plusIcon}>
+      <Button Icon={AddIcon}>
         Create application
       </Button>
     </div>
