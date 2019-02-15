@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
-const CopyPlugin = require('copy-webpack-plugin');
 
 const BUILD_FOLDER = 'build';
 
@@ -17,7 +16,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../../', BUILD_FOLDER),
-    publicPath: '/identifo-admin/',
+    publicPath: '/',
   },
 
   performance: {
@@ -67,11 +66,5 @@ module.exports = {
     new DotenvPlugin({
       systemvars: true,
     }),
-    new CopyPlugin([
-      {
-        from: 'assets/404.html',
-        to: './404.html',
-      }
-    ]),
   ],
 };
