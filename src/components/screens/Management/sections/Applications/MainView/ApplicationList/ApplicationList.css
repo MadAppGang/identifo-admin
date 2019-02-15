@@ -1,0 +1,18 @@
+.iap-applications-list {
+  margin: 80px 0;
+}
+
+.iap-application-row {
+  padding: 25px 0;
+  width: 100%;
+}
+
+.iap-application-row__clientid {
+  font-size: 14px;
+  color: #6d6d6d;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: #eee;
+  display: inline-block;
+  cursor: text;
+}

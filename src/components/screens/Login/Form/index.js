@@ -69,7 +69,9 @@ class LoginForm extends Component {
           onChange={this.handleInput}
         />
 
-        <LoginButton loading={signingIn} />
+        <footer className="iap-login-form__footer">
+          <LoginButton loading={signingIn} />
+        </footer>
       </form>
     );
   }

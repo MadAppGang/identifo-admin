@@ -4,7 +4,9 @@ import Input from '~/components/shared/Input';
 import SearchIcon from '~/components/icons/SearchIcon';
 import { throttle } from '~/utils/fn';
 
-class UserSearch extends Component {
+import './SearchInput.css';
+
+class SearchInput extends Component {
   constructor({ timeout }) {
     super();
 
@@ -28,26 +30,28 @@ class UserSearch extends Component {
     const { query } = this.state;
 
     return (
-      <div className="iap-users-search">
+      <div className="iap-search-input">
         <Input
           Icon={SearchIcon}
           value={query}
           onChange={this.handleSearchChange}
-          placeholder="Search for users"
+          placeholder={this.props.placeholder}
         />
       </div>
     );
   }
 }
 
-UserSearch.propTypes = {
+SearchInput.propTypes = {
   onChange: PropTypes.func,
   timeout: PropTypes.number,
+  placeholder: PropTypes.string,
 };
 
-UserSearch.defaultProps = {
+SearchInput.defaultProps = {
   timeout: 500,
+  placeholder: 'Search',
   onChange: () => {},
 };
 
-export default UserSearch;
+export default SearchInput;

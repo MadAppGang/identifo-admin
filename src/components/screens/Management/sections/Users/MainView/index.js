@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import UsersPlaceholder from './Placeholder';
 import UserList from './UserList';
-import UserSearch from './UserSearch';
-import Button from '~/components/shared/Button';
 import { fetchUsers } from '~/modules/users/actions';
+import Button from '~/components/shared/Button';
 import AddIcon from '~/components/icons/AddIcon';
+import SearchInput from '~/components/shared/SearchInput';
 
 class UsersMainView extends Component {
   constructor() {
@@ -48,7 +48,7 @@ class UsersMainView extends Component {
             Icon={AddIcon}
             onClick={() => history.push('/management/users/new')}
           >
-            Add user
+            Create user
           </Button>
         </p>
 
@@ -56,8 +56,9 @@ class UsersMainView extends Component {
           Look for users, edit, delete them and add new ones.
         </p>
 
-        <UserSearch
+        <SearchInput
           timeout={400}
+          placeholder="Search for users"
           onChange={this.handleSearch}
         />
 

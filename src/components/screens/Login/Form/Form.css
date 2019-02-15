@@ -43,3 +43,8 @@
 .iap-login-form__error-msg:hover {
   opacity: .7;
 }
+
+.iap-login-form__footer {
+  margin-top: 10px;
+  width: 100%;
+}

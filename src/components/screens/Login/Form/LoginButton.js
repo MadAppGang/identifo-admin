@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '~/components/shared/Button';
-import loadingIcon from './loading.svg';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 
 const LoginButton = ({ loading, onClick }) => (
   <Button
     stretch
     type="submit"
-    icon={loading ? loadingIcon : null}
+    Icon={loading ? LoadingIcon : null}
     disabled={loading}
     onClick={onClick}
   >

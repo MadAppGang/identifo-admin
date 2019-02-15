@@ -1,11 +1,9 @@
 import React from 'react';
-import ApplicationsPlaceholder from './Placeholder';
+import ApplicationsMainView from './MainView';
 
 const ApplicationsSection = () => {
   return (
-    <section className="iap-management-section">
-      <ApplicationsPlaceholder />
-    </section>
+    <ApplicationsMainView />
   );
 };
 
