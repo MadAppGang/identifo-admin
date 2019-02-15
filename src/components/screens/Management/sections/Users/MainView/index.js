@@ -6,7 +6,7 @@ import UserList from './UserList';
 import UserSearch from './UserSearch';
 import Button from '~/components/shared/Button';
 import { fetchUsers } from '~/modules/users/actions';
-import addIcon from '~/assets/icons/plus.svg';
+import AddIcon from '~/components/icons/AddIcon';
 
 class UsersMainView extends Component {
   constructor() {
@@ -45,7 +45,7 @@ class UsersMainView extends Component {
         <p className="iap-management-section__title">
           Users
           <Button
-            icon={addIcon}
+            Icon={AddIcon}
             onClick={() => history.push('/management/users/new')}
           >
             Add user

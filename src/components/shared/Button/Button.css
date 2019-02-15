@@ -86,3 +86,8 @@
   width: 15px;
   transform: translateY(-1px);
 }
+
+.iap-btn__icon path,
+.iap-btn__icon circle {
+  fill: #fff;
+}
