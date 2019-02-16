@@ -26,6 +26,7 @@ const ApplicationRow = ({ data, config }) => {
       </div>
       <div style={{ width: config.type.width }}>
         <p className="iap-application-row__type">{data.type}</p>
+        <p className="iap-application-row__name">{data.name}</p>
       </div>
       <div style={{ width: config.clientId.width }}>
         <p className="iap-application-row__clientid">{data.clientId}</p>

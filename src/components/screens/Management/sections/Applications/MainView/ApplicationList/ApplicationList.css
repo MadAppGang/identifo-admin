@@ -20,7 +20,7 @@
 .iap-application-row__icon-wrapper {
   display: flex;
   align-items: center;
-  padding-left: 30px;
+  padding-left: 15px;
 }
 
 .iap-application-row__icon {
@@ -29,7 +29,14 @@
 }
 
 .iap-application-row__type {
-  font-size: 13px;
-  color: #3d3d3d;
+  font-size: 12px;
+  font-weight: bold;
+  color: #7d7d7d;
   text-transform: uppercase;
+}
+
+.iap-application-row__name {
+  font-size: 14px;
+  color: #3d3d3d;
+  margin-top: 3px;
 }

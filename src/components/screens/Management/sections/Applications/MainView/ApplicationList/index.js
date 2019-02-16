@@ -8,11 +8,11 @@ import './ApplicationList.css';
 const datagrid = {
   icon: {
     title: '',
-    width: '23%',
+    width: '16%',
   },
   type: {
-    title: 'Type',
-    width: '23%',
+    title: 'Application',
+    width: '34%',
   },
   clientId: {
     title: 'Client ID',
@@ -20,7 +20,7 @@ const datagrid = {
   },
   settings: {
     title: '',
-    width: '14%',
+    width: '10%',
   },
 };
 
