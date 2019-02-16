@@ -59,6 +59,12 @@ $ git checkout deploy
 ```
 This branch is already configured for deployment.
 
+Merge in the develop branch (or another branch you want to see deployed)
+
+```bash
+$ git merge develop
+```
+
 Then run deploy script.
 Make sure you've installed all dependencies.
 
