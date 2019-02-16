@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DatagridHeader, DatagridRow } from '~/components/shared/Datagrid';
+import ApplicationRow from './ApplicationRow';
+import ApplicationHeader from './ApplicationHeader';
 
 import './ApplicationList.css';
 
@@ -19,28 +20,22 @@ const datagrid = {
   },
 };
 
+const renderRow = application => (
+  <ApplicationRow
+    key={application.id}
+    data={application}
+    config={datagrid}
+  />
+);
+
 const ApplicationList = (props) => {
   const { applications, loading } = props;
 
   return (
     <div className="iap-applications-list">
-      <DatagridHeader>
-        {Object.keys(datagrid).map(key => (
-          <div key={key} style={{ width: datagrid[key].width }}>
-            {datagrid[key].title}
-          </div>
-        ))}
-      </DatagridHeader>
+      <ApplicationHeader config={datagrid} />
       <main>
-        {!loading && applications.map(application => (
-          <DatagridRow key={application.id} className="iap-application-row">
-            <div style={{ width: datagrid.icon.width }} />
-            <div style={{ width: datagrid.clientId.width }}>
-              <p className="iap-application-row__clientid">{application.clientId}</p>
-            </div>
-            <div style={{ width: datagrid.settings.width }} />
-          </DatagridRow>
-        ))}
+        {!loading && applications.map(renderRow)}
       </main>
     </div>
   );
