@@ -60,12 +60,12 @@ ApplicationsMainView.propTypes = {
 ApplicationsMainView.defaultProps = {
   applications: [
     {
-      id: 1,
+      id: '1',
       type: 'ios',
       clientId: '4AOlbR7eGCsuuA43bhmahd9iZ14lzcPY',
     },
     {
-      id: 1,
+      id: '2',
       type: 'web',
       clientId: 'TlWqkOPFr1hJVL70LjTk19eTayNst6cU',
     },

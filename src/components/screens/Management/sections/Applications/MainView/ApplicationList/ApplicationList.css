@@ -3,7 +3,7 @@
 }
 
 .iap-application-row {
-  padding: 25px 0;
+  padding: 15px 10px;
   width: 100%;
 }
 
@@ -15,4 +15,21 @@
   background: #eee;
   display: inline-block;
   cursor: text;
+}
+
+.iap-application-row__icon-wrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.iap-application-row__icon {
+  height: 40px;
+  width: 40px;
+}
+
+.iap-application-row__type {
+  font-size: 13px;
+  color: #3d3d3d;
+  text-transform: uppercase;
 }
