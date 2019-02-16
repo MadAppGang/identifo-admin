@@ -28,10 +28,14 @@ exports[`<LoginForm /> renders as expected 1`] = `
     type="password"
     value=""
   />
-  <LoginButton
-    loading={false}
-    onClick={null}
-  />
+  <footer
+    className="iap-login-form__footer"
+  >
+    <LoginButton
+      loading={false}
+      onClick={null}
+    />
+  </footer>
 </form>
 `;
 
@@ -67,10 +71,14 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
     type="password"
     value=""
   />
-  <LoginButton
-    loading={false}
-    onClick={null}
-  />
+  <footer
+    className="iap-login-form__footer"
+  >
+    <LoginButton
+      loading={false}
+      onClick={null}
+    />
+  </footer>
 </form>
 `;
 
@@ -102,9 +110,13 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
     type="password"
     value=""
   />
-  <LoginButton
-    loading={true}
-    onClick={null}
-  />
+  <footer
+    className="iap-login-form__footer"
+  >
+    <LoginButton
+      loading={true}
+      onClick={null}
+    />
+  </footer>
 </form>
 `;
