@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   list: [],
   error: null,
   fetching: false,
-  posting: false,
+  saving: false,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -28,16 +28,30 @@ const reducer = (state = INITIAL_STATE, action) => {
       });
     case types.POST_USER_ATTEMPT:
       return update(state, {
-        posting: true,
+        saving: true,
       });
     case types.POST_USER_SUCCESS:
       return update(state, {
-        posting: false,
+        saving: false,
         list: list => list.concat(payload),
       });
     case types.POST_USER_FAILURE:
       return update(state, {
-        posting: false,
+        saving: false,
+        error: payload,
+      });
+    case types.ALTER_USER_ATTEMPT:
+      return update(state, {
+        saving: true,
+      });
+    case types.ALTER_USER_SUCCESS:
+      return update(state, {
+        saving: false,
+        [`list[id=${payload.id}]`]: payload,
+      });
+    case types.ALTER_USER_FAILURE:
+      return update(state, {
+        saving: false,
         error: payload,
       });
     default:
