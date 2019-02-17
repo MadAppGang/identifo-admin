@@ -18,6 +18,7 @@ describe('user service', () => {
     httpClient = {
       get: jest.fn(),
       post: jest.fn(),
+      put: jest.fn(),
     };
     userService = createUserService({ httpClient });
   });
@@ -107,6 +108,58 @@ describe('user service', () => {
 
     try {
       await userService.postUser({});
+      expect(true).toBeFalsy();
+    } catch (err) {
+      expect(err.message).toBe(expectedMessage);
+    }
+  });
+
+  test('invokes httpClient.put method when altering user', () => {
+    httpClient.put.mockReturnValue(Promise.resolve({}));
+    userService.alterUser(1, {});
+    expect(httpClient.put).toBeCalled();
+  });
+
+  test('puts passed changes as a request body in http PUT', () => {
+    const changes = {};
+    httpClient.put.mockReturnValue(Promise.resolve({}));
+    userService.alterUser(1, changes);
+    expect(httpClient.put.mock.calls[0][1]).toEqual(changes);
+  });
+
+  test('alterUser returns http request result', async () => {
+    const data = { result: 'ok' };
+    httpClient.put.mockReturnValue({ data });
+    const response = await userService.alterUser(1, {});
+    expect(response).toBe(data);
+  });
+
+  test('throws an error on rejected http request when altering user', async () => {
+    const expectedErr = new Error('message');
+    httpClient.put.mockReturnValue(Promise.reject(expectedErr));
+
+    try {
+      await userService.alterUser(1, {});
+      expect(true).toBeFalsy();
+    } catch (err) {
+      expect(err).toBe(expectedErr);
+    }
+  });
+
+  test('throws an error with message from response body on rejected put request', async () => {
+    const expectedMessage = 'error message';
+    const rejectReason = {
+      response: {
+        data: {
+          message: expectedMessage,
+        },
+      },
+    };
+
+    httpClient.put.mockReturnValue(Promise.reject(rejectReason));
+
+    try {
+      await userService.alterUser(1, {});
       expect(true).toBeFalsy();
     } catch (err) {
       expect(err.message).toBe(expectedMessage);

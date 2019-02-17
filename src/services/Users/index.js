@@ -33,9 +33,21 @@ const createUserService = ({ httpClient }) => {
     }
   };
 
+  const alterUser = async (id, changes) => {
+    const url = `${baseUrl}/users/${id}`;
+
+    try {
+      const response = await httpClient.put(url, changes);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
+  };
+
   return Object.freeze({
     fetchUsers,
     postUser,
+    alterUser,
   });
 };
 
