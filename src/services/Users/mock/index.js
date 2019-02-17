@@ -3,21 +3,21 @@ import { pause } from '~/utils';
 const data = {
   users: [
     {
-      id: '1',
+      id: '507f1f77bcf86cd799439011',
       name: 'Denys Provodnikov',
       email: 'dp@madappgang.com',
       latestLogin: 'Never',
       numberOfLogins: 0,
     },
     {
-      id: '2',
+      id: '507f191e810c19729de860ea',
       name: 'John Doe',
       email: 'john.doe@gmail.com',
       latestLogin: 'Yesterday',
       numberOfLogins: 3,
     },
     {
-      id: '3',
+      id: '507f191e810c19729de860ea',
       name: 'Falangus Minelly',
       email: 'angus.fm@gmail.com',
       latestLogin: '2 hours ago',
@@ -39,7 +39,7 @@ const createUserServiceMock = () => {
       });
     }
 
-    await pause(1200);
+    await pause(600);
 
     return data.users;
   };

@@ -19,6 +19,12 @@
   box-sizing: border-box;
 }
 
+/* react router dom link */
+.rrdl { 
+  text-decoration: none;
+  color: auto;
+}
+
 @keyframes pulse {
   0% {
     background-color: #eee;
