@@ -55,9 +55,26 @@ const createUserServiceMock = () => {
     });
   };
 
+  const alterUser = async (id, changes = {}) => {
+    await pause(380);
+
+    data.users = data.users.map((user) => {
+      if (user.id === id) {
+        return {
+          ...user,
+          ...changes,
+        };
+      }
+      return user;
+    });
+
+    return data.users.find(user => user.id === id);
+  };
+
   return Object.freeze({
     fetchUsers,
     postUser,
+    alterUser,
   });
 };
 
