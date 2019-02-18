@@ -45,10 +45,19 @@ const notEmptyRule = message => (value = '') => {
   return '';
 };
 
+const matchesRule = (comparisonField, message) => (value, fields) => {
+  if (value !== fields[comparisonField]) {
+    return message;
+  }
+
+  return '';
+};
+
 export {
   hasError,
   applyRules,
   emailFormatRule,
   notEmptyRule,
+  matchesRule,
   reset,
 };

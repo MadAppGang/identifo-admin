@@ -1,12 +1,4 @@
-import { emailFormatRule, notEmptyRule } from '~/utils/validation';
-
-function passwordsMatchRule(value, fields) {
-  if (value !== fields.password) {
-    return 'Passwords do not match';
-  }
-
-  return '';
-}
+import { matchesRule, emailFormatRule, notEmptyRule } from '~/utils/validation';
 
 const rules = {
   email: [
@@ -18,7 +10,7 @@ const rules = {
   ],
   confirmPassword: [
     notEmptyRule('You should confirm password'),
-    passwordsMatchRule,
+    matchesRule('password', 'Passwords do not match'),
   ],
 };
 

@@ -1,12 +1,5 @@
-import { notEmptyRule, emailFormatRule } from '~/utils/validation';
+import { matchesRule, notEmptyRule, emailFormatRule } from '~/utils/validation';
 
-const matchesRule = (comparisonField, message) => (value, fields) => {
-  if (value !== fields[comparisonField]) {
-    return message;
-  }
-
-  return '';
-};
 
 const rules = {
   email: [
