@@ -47,12 +47,17 @@ const createUserServiceMock = () => {
   const postUser = async (user) => {
     await pause(600);
 
-    return data.users.push({
+    const insertion = {
       ...user,
-      id: data.users.length,
+      id: user.email,
       numberOfLogins: 0,
       latestLogin: 'Never',
-    });
+      password: undefined,
+    };
+
+    data.users.push(insertion);
+
+    return insertion;
   };
 
   const alterUser = async (id, changes = {}) => {

@@ -5,6 +5,7 @@ import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 
 import './UserForm.css';
 
@@ -16,6 +17,8 @@ class UserForm extends Component {
       fields: {
         name: '',
         email: '',
+        password: '',
+        confirmPassword: '',
       },
     };
 
@@ -36,11 +39,12 @@ class UserForm extends Component {
 
     const { fields } = this.state;
 
-    this.props.onSubmit(fields);
+    this.props.onSubmit(update(fields, 'confirmPassword', undefined));
   }
 
   render() {
     const { email, name, password, confirmPassword } = this.state.fields;
+    const { saving } = this.props;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -83,7 +87,7 @@ class UserForm extends Component {
         </Field>
 
         <footer className="iap-users-form__footer">
-          <Button Icon={SaveIcon} type="submit">
+          <Button Icon={saving ? LoadingIcon : SaveIcon} type="submit">
             Save User
           </Button>
           <Button transparent onClick={this.props.onCancel}>
@@ -98,11 +102,13 @@ class UserForm extends Component {
 UserForm.propTypes = {
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
+  saving: PropTypes.bool,
 };
 
 UserForm.defaultProps = {
   onCancel: () => {},
   onSubmit: () => {},
+  saving: false,
 };
 
 export default UserForm;
