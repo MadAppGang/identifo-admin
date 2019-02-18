@@ -39,3 +39,13 @@
     opacity: 1;
   }
 }
+
+@keyframes profile-dropdown-fadeout {
+  from {
+    transform: translateY(105%) scale(0.7);
+  }
+
+  to {
+    transform: translateY(105%) scale(1);
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import EditUserForm from './Form';
-import Button from '~/components/shared/Button';
+import ActionsButton from './ActionsButton';
 import './EditUserView.css';
 
 const goBackPath = '/management/users';
@@ -22,9 +22,7 @@ const EditUserView = (props) => {
         </div>
         <p className="iap-management-section__title">
           User Details
-          <Button>
-            Actions
-          </Button>
+          <ActionsButton />
         </p>
         <p className="iap-management-section__description">
           <span className="iap-user-details__section-id">
