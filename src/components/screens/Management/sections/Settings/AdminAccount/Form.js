@@ -49,19 +49,15 @@ class AdminAccountForm extends Component {
   }
 
   handleBlur({ target }) {
-    const { name: field, value } = target;
-
-    let validationMessage = '';
-
-    if (field === 'confirmPassword') {
-      validationMessage = this.validate(field, value, this.state.password);
-    } else {
-      validationMessage = this.validate(field, value);
-    }
+    const { name, value } = target;
+    const validationMessage = this.validate(name, {
+      ...this.state,
+      [name]: value,
+    });
 
     this.setState(state => ({
       validation: update(state.validation, {
-        [field]: validationMessage,
+        [name]: validationMessage,
       }),
     }));
   }
@@ -80,7 +76,9 @@ class AdminAccountForm extends Component {
     event.preventDefault();
     const { email, password, editPassword } = this.state;
 
-    const validation = this.validate('all', this.state);
+    const validation = this.validate('all', this.state, {
+      omit: editPassword ? [] : ['password', 'confirmPassword'],
+    });
 
     if (Validation.hasError(validation)) {
       this.setState({ validation });

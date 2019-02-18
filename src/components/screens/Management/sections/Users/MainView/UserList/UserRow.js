@@ -1,22 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DatagridRow } from '~/components/shared/Datagrid';
-
-const getInitials = (name) => {
-  // TODO: poor implementation
-  const [first, last] = name.toUpperCase().split(/\s/);
-  return `${first.slice(0, 1)}${last.slice(0, 1)}`;
-};
+import { getInitials } from '~/utils';
 
 const UserRow = ({ data, config }) => (
   <DatagridRow>
     <div style={{ width: config.icon.width }}>
       <div className="iap-datagrid-row__user-icon">
-        {getInitials(data.name)}
+        {getInitials(data.name, data.email)}
       </div>
     </div>
     <div style={{ width: config.name.width }}>
-      {data.name}
+      {data.name || '-'}
     </div>
     <div style={{ width: config.email.width }}>
       {data.email}
