@@ -44,8 +44,8 @@ const UserList = (props) => {
           )}
 
           {!loading && users.map(user => (
-            <Link to={`/management/users/${user.id}`} className="rrdl">
-              <UserRow key={user.id} data={user} config={datagrid} />
+            <Link key={user.id} to={`/management/users/${user.id}`} className="rrdl">
+              <UserRow data={user} config={datagrid} />
             </Link>
           ))}
 

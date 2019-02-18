@@ -20,7 +20,7 @@ const NewUserView = (props) => {
           Create User
         </p>
         <p className="iap-management-section__description">
-          Created user is going to be able to login into selected application with these credentials
+          Created user is going to be able to log in using these credentials
         </p>
       </header>
       <main>

@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
+import EditUserForm from './Form';
 import './EditUserView.css';
 
 const goBackPath = '/management/users';
 
 const EditUserView = (props) => {
   const id = props.match.params.userid;
+
+  const goBack = () => props.history.push(goBackPath);
 
   return (
     <section className="iap-management-section">
@@ -27,7 +30,7 @@ const EditUserView = (props) => {
         </p>
       </header>
       <main>
-        {null}
+        <EditUserForm onCancel={goBack} onSubmit={console.log} />
       </main>
     </section>
   );
@@ -38,6 +41,9 @@ EditUserView.propTypes = {
     params: PropTypes.shape({
       userid: PropTypes.string,
     }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
 };
 
