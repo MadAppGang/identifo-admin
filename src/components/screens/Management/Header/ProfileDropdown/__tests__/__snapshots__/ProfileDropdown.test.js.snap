@@ -13,7 +13,9 @@ exports[`<ProfileDropdown /> renders as expected 1`] = `
       <span>
         Admin Panel
       </span>
-      <DropdownIcon />
+      <DropdownIcon
+        className="iap-dropdown-icon"
+      />
     </button>
   </div>
 </div>
