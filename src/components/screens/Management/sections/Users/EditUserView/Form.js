@@ -6,13 +6,23 @@ import Input from '~/components/shared/Input';
 import Toggle from '~/components/shared/Toggle';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
+import editUserFormValidationRules from './validationRules';
+import * as Validation from '~/utils/validation';
 
 class EditUserForm extends Component {
   constructor() {
     super();
 
+    this.validate = Validation.applyRules(editUserFormValidationRules);
+
     this.state = {
       fields: {
+        email: '',
+        name: '',
+        password: '',
+        confirmPassword: '',
+      },
+      validation: {
         email: '',
         name: '',
         password: '',
@@ -24,21 +34,32 @@ class EditUserForm extends Component {
     this.toggleEditPassword = this.toggleEditPassword.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   toggleEditPassword() {
     this.setState(state => ({
       editPassword: !state.editPassword,
+      validation: update(state.validation, {
+        password: '',
+        confirmPassword: '',
+      }),
     }));
   }
 
   handleFieldChange({ target }) {
     const { name, value } = target;
+    let { validation } = this.state;
+
+    if (validation[target.name]) {
+      validation = update(validation, { [target.name]: '' });
+    }
 
     this.setState(state => ({
       fields: update(state.fields, {
         [name]: value,
       }),
+      validation,
     }));
   }
 
@@ -47,14 +68,37 @@ class EditUserForm extends Component {
 
     const { fields, editPassword } = this.state;
 
+    const validation = this.validate('all', fields, {
+      omit: editPassword ? [] : ['password', 'confirmPassword'],
+    });
+
+    if (Validation.hasError(validation)) {
+      this.setState({ validation });
+      return;
+    }
+
     this.props.onSubmit(update(fields, {
       password: password => editPassword ? password : '',
       confirmPassword: '',
     }));
   }
 
+  handleBlur({ target }) {
+    const { name, value } = target;
+    const validationMessage = this.validate(name, {
+      ...this.state.fields,
+      [name]: value,
+    });
+
+    this.setState(state => ({
+      validation: update(state.validation, {
+        [name]: validationMessage,
+      }),
+    }));
+  }
+
   render() {
-    const { fields, editPassword } = this.state;
+    const { fields, editPassword, validation } = this.state;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -64,6 +108,8 @@ class EditUserForm extends Component {
             value={fields.name}
             placeholder="Enter name"
             onChange={this.handleFieldChange}
+            onBlur={this.handleBlur}
+            errorMessage={validation.name}
           />
         </Field>
 
@@ -73,6 +119,8 @@ class EditUserForm extends Component {
             value={fields.email}
             placeholder="Enter email"
             onChange={this.handleFieldChange}
+            onBlur={this.handleBlur}
+            errorMessage={validation.email}
           />
         </Field>
 
@@ -87,6 +135,8 @@ class EditUserForm extends Component {
                 placeholder="Enter new password"
                 value={fields.password}
                 onChange={this.handleFieldChange}
+                onBlur={this.handleBlur}
+                errorMessage={validation.password}
               />
             </Field>
 
@@ -97,13 +147,19 @@ class EditUserForm extends Component {
                 placeholder="Enter new password"
                 value={fields.confirmPassword}
                 onChange={this.handleFieldChange}
+                onBlur={this.handleBlur}
+                errorMessage={validation.confirmPassword}
               />
             </Field>
           </>
         )}
 
         <footer className="iap-users-form__footer">
-          <Button Icon={SaveIcon} type="submit">
+          <Button
+            type="submit"
+            Icon={SaveIcon}
+            disabled={Validation.hasError(validation)}
+          >
             Save changes
           </Button>
           <Button transparent onClick={this.props.onCancel}>
