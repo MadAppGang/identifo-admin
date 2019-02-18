@@ -29,31 +29,31 @@ describe('users module reducer', () => {
     expect(reducer(undefined, action).error).toBe(err);
   });
 
-  test('sets posting to true on post attempt', () => {
+  test('sets saving to true on post attempt', () => {
     const action = { type: types.POST_USER_ATTEMPT };
-    expect(reducer(undefined, action).posting).toBe(true);
+    expect(reducer(undefined, action).saving).toBe(true);
   });
 
-  test('sets posting to false on post success', () => {
+  test('sets saving to false on post success', () => {
     const action = { type: types.POST_USER_SUCCESS };
-    expect(reducer(undefined, action).posting).toBe(false);
+    expect(reducer(undefined, action).saving).toBe(false);
   });
 
-  test('sets posting to false on post failure', () => {
+  test('sets saving to false on post failure', () => {
     const action = { type: types.POST_USER_FAILURE };
-    expect(reducer(undefined, action).posting).toBe(false);
+    expect(reducer(undefined, action).saving).toBe(false);
   });
 
   test('sets payload to the end of the list on post success', () => {
     const user = {};
     const action = { type: types.POST_USER_SUCCESS, payload: user };
     const state = {
-      posting: true,
+      saving: true,
       list: [],
       error: null,
     };
     const expectedState = {
-      posting: false,
+      saving: false,
       list: [user],
       error: null,
     };
@@ -64,5 +64,43 @@ describe('users module reducer', () => {
     const err = new Error('error');
     const action = { type: types.POST_USER_FAILURE, payload: err };
     expect(reducer(undefined, action).error).toBe(err);
+  });
+
+  test('sets saving to true on alter attempt', () => {
+    const action = { type: types.ALTER_USER_ATTEMPT };
+    expect(reducer(undefined, action).saving).toBe(true);
+  });
+
+  test('sets saving to false on alter success', () => {
+    const user = { id: '1' };
+    const action = { type: types.ALTER_USER_SUCCESS, payload: user };
+    expect(reducer(undefined, action).saving).toBe(false);
+  });
+
+  test('sets saving to false on alter failure', () => {
+    const action = { type: types.ALTER_USER_FAILURE };
+    expect(reducer(undefined, action).saving).toBe(false);
+  });
+
+  test('alters user under given id in list', () => {
+    const list = [{ id: '1', name: 'John' }, { id: '2', name: 'Summer' }];
+    const user = { id: '1', name: 'John Doe' };
+
+    const action = {
+      type: types.ALTER_USER_SUCCESS,
+      payload: user,
+    };
+
+    const state = {
+      saving: true,
+      list,
+    };
+
+    const expectedState = {
+      saving: false,
+      list: [user, list[1]],
+    };
+
+    expect(reducer(state, action)).toEqual(expectedState);
   });
 });

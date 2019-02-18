@@ -9,6 +9,10 @@ const postAttempt = actionCreator(types.POST_USER_ATTEMPT);
 const postSuccess = actionCreator(types.POST_USER_SUCCESS);
 const postFailure = actionCreator(types.POST_USER_FAILURE);
 
+const alterAttempt = actionCreator(types.ALTER_USER_ATTEMPT);
+const alterSuccess = actionCreator(types.ALTER_USER_SUCCESS);
+const alterFailure = actionCreator(types.ALTER_USER_FAILURE);
+
 const fetchUsers = filters => async (dispatch, _, { users: userService }) => {
   dispatch(fetchAttempt());
 
@@ -31,7 +35,19 @@ const postUser = user => async (dispatch, _, { users: userService }) => {
   }
 };
 
+const alterUser = (id, changes) => async (dispatch, _, { users: userService }) => {
+  dispatch(alterAttempt());
+
+  try {
+    const user = userService.alterUser(id, changes);
+    dispatch(alterSuccess(user));
+  } catch (err) {
+    dispatch(alterFailure(err));
+  }
+};
+
 export {
   fetchUsers,
   postUser,
+  alterUser,
 };

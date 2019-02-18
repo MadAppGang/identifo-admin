@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import UserRow from './UserRow';
 import UserHeader from './UserHeader';
 import Preloader from './Preloader';
@@ -43,7 +44,9 @@ const UserList = (props) => {
           )}
 
           {!loading && users.map(user => (
-            <UserRow key={user.id} data={user} config={datagrid} />
+            <Link key={user.id} to={`/management/users/${user.id}`} className="rrdl">
+              <UserRow data={user} config={datagrid} />
+            </Link>
           ))}
 
           {!users.length && !loading && (

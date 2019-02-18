@@ -1,0 +1,54 @@
+.iap-user-details__section-id {
+  background: #eee;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  letter-spacing: .8px;
+}
+
+.iap-users__actions-btn {
+  position: relative;
+}
+
+.iap-users__actions-icon {
+  height: 12px;
+  width: 12px;
+  transform: none;
+}
+
+.iap-users__actions-icon path,
+.iap-users__actions-icon circle {
+  fill: #fff;
+}
+
+.iap-users__actions {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(105%);
+  background: #fff;
+  padding: 5px 0;
+  min-width: 100%;
+  background-color: #fff;
+  box-shadow: 1px 4px 12px 1px rgba(0, 0, 0, .2);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  transform-origin: top right;
+  animation: profile-dropdown-fadeout 100ms forwards;
+}
+
+.iap-users__actions-section {
+  border: none;
+  background: transparent;
+  padding: 10px 23px;
+  font: normal 16px 'Circe';
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+}
+
+.iap-users__actions-section:hover,
+.iap-users__actions-section:focus {
+  background-color: #f0f9ff;
+}
