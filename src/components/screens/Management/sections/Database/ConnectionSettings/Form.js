@@ -57,11 +57,15 @@ class ConnectionSettingsForm extends Component {
   }
 
   handleBlur({ target }) {
-    const { name: field, value } = target;
+    const { name, value } = target;
+    const validationMessage = this.validate(name, {
+      ...this.state.settings,
+      [name]: value,
+    });
 
     this.setState(state => ({
       validation: update(state.validation, {
-        [field]: this.validate(field, value),
+        [name]: validationMessage,
       }),
     }));
   }

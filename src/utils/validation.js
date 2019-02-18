@@ -2,7 +2,7 @@
 const hasError = validation => Object.values(validation).some(value => !!value);
 
 /* applies rules to given value */
-const validate = (rules, value, values) => {
+const validate = (rules = [], value, values) => {
   const results = rules.map(applyRule => applyRule(value, values));
   const errorResults = results.filter(result => !!result);
   return errorResults.length ? errorResults[0] : '';
@@ -19,7 +19,7 @@ const applyRules = validationConfig => (field, value, config = {}) => {
       .reduce((output, entry) => ({ ...output, ...entry }), {});
   }
 
-  return validate(validationConfig[field], value);
+  return validate(validationConfig[field], value[field], value);
 };
 
 /* resets validation objects by removing all error messages */

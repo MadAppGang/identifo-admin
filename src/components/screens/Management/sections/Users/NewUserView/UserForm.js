@@ -6,6 +6,8 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import userFormValidationRules from './validationRules';
+import * as Validation from '~/utils/validation';
 
 import './UserForm.css';
 
@@ -13,8 +15,16 @@ class UserForm extends Component {
   constructor() {
     super();
 
+    this.validate = Validation.applyRules(userFormValidationRules);
+
     this.state = {
       fields: {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
+      validation: {
         name: '',
         email: '',
         password: '',
@@ -24,12 +34,34 @@ class UserForm extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   handleInput({ target }) {
+    let { validation } = this.state;
+
+    if (validation[target.name]) {
+      validation = update(validation, { [target.name]: '' });
+    }
+
     this.setState(state => ({
       fields: update(state.fields, {
         [target.name]: target.value,
+      }),
+      validation,
+    }));
+  }
+
+  handleBlur({ target }) {
+    const { name, value } = target;
+    const validationMessage = this.validate(name, {
+      ...this.state.fields,
+      [name]: value,
+    });
+
+    this.setState(state => ({
+      validation: update(state.validation, {
+        [name]: validationMessage,
       }),
     }));
   }
@@ -37,14 +69,22 @@ class UserForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    const validation = this.validate('all', this.state.fields);
+
+    if (Validation.hasError(validation)) {
+      this.setState({ validation });
+      return;
+    }
+
     const { fields } = this.state;
 
     this.props.onSubmit(update(fields, 'confirmPassword', undefined));
   }
 
   render() {
-    const { email, name, password, confirmPassword } = this.state.fields;
     const { saving } = this.props;
+    const { validation, fields } = this.state;
+    const { email, name, password, confirmPassword } = fields;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -54,6 +94,8 @@ class UserForm extends Component {
             value={name}
             placeholder="Enter name"
             onChange={this.handleInput}
+            onBlur={this.handleBlur}
+            errorMessage={validation.name}
           />
         </Field>
 
@@ -63,6 +105,8 @@ class UserForm extends Component {
             value={email}
             placeholder="Enter email"
             onChange={this.handleInput}
+            onBlur={this.handleBlur}
+            errorMessage={validation.email}
           />
         </Field>
 
@@ -73,6 +117,8 @@ class UserForm extends Component {
             value={password}
             placeholder="Enter password"
             onChange={this.handleInput}
+            onBlur={this.handleBlur}
+            errorMessage={validation.password}
           />
         </Field>
 
@@ -83,14 +129,20 @@ class UserForm extends Component {
             value={confirmPassword}
             placeholder="Enter password once more"
             onChange={this.handleInput}
+            onBlur={this.handleBlur}
+            errorMessage={validation.confirmPassword}
           />
         </Field>
 
         <footer className="iap-users-form__footer">
-          <Button Icon={saving ? LoadingIcon : SaveIcon} type="submit">
+          <Button
+            type="submit"
+            Icon={saving ? LoadingIcon : SaveIcon}
+            disabled={saving || Validation.hasError(validation)}
+          >
             Save User
           </Button>
-          <Button transparent onClick={this.props.onCancel}>
+          <Button transparent onClick={this.props.onCancel} disabled={saving}>
             Cancel
           </Button>
         </footer>
