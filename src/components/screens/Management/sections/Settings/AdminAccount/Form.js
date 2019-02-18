@@ -80,7 +80,9 @@ class AdminAccountForm extends Component {
     event.preventDefault();
     const { email, password, editPassword } = this.state;
 
-    const validation = this.validate('all', this.state);
+    const validation = this.validate('all', this.state, {
+      omit: editPassword ? [] : ['password', 'confirmPassword'],
+    });
 
     if (Validation.hasError(validation)) {
       this.setState({ validation });

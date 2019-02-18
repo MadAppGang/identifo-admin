@@ -35,12 +35,12 @@ describe('applyRules  validation util function', () => {
   });
 
   test('returned function uses applied rule properly', () => {
+    const validate = () => 'Validation message';
+
     const rules = {
-      field: () => 'Validation message',
+      field: [validate],
     };
 
-    const validate = applyRules(rules);
-
-    expect(validate('field')).toBe('Validation message');
+    expect(applyRules(rules)('field')).toBe('Validation message');
   });
 });

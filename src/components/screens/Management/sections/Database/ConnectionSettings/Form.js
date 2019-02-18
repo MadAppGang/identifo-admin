@@ -32,6 +32,14 @@ class ConnectionSettingsForm extends Component {
     this.handleBlur = this.handleBlur.bind(this);
   }
 
+  getFieldsToOmitDuringValidation() {
+    switch (this.state.settings.type) {
+      case DYNAMO_DB: return ['name'];
+      case MONGO_DB: return ['region'];
+      default: return [];
+    }
+  }
+
   handleInput({ target }) {
     const { name, value } = target;
     let { validation } = this.state;
@@ -68,7 +76,9 @@ class ConnectionSettingsForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const validation = this.validate('all', this.state.settings);
+    const validation = this.validate('all', this.state.settings, {
+      omit: this.getFieldsToOmitDuringValidation(),
+    });
 
     if (Validation.hasError(validation)) {
       this.setState({ validation });
