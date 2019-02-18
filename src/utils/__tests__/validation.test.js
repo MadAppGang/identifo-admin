@@ -41,6 +41,6 @@ describe('applyRules  validation util function', () => {
       field: [validate],
     };
 
-    expect(applyRules(rules)('field')).toBe('Validation message');
+    expect(applyRules(rules)('field', { field: 'value' })).toBe('Validation message');
   });
 });
