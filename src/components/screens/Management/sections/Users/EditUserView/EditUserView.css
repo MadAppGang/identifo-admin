@@ -45,6 +45,7 @@
   text-align: left;
   cursor: pointer;
   outline: none;
+  white-space: nowrap;
 }
 
 .iap-users__actions-section:hover,

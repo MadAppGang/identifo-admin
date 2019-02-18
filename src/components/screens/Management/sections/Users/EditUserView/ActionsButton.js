@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '~/components/shared/Button';
 import Dropdown from '~/components/shared/Dropdown';
 import DropdownIcon from '~/components/icons/DropdownIcon';
 
-const ActionsButton = () => (
+const UserActionsButton = props => (
   <Dropdown>
     {({ isOpen, open }) => (
       <div className="iap-users__actions-btn">
@@ -17,14 +18,11 @@ const ActionsButton = () => (
         {isOpen && (
           <div className="iap-users__actions">
             <button
+              type="button"
               className="iap-users__actions-section"
+              onClick={props.onDelete}
             >
-              Delete
-            </button>
-            <button
-              className="iap-users__actions-section"
-            >
-              Block
+              Delete User
             </button>
           </div>
         )}
@@ -33,4 +31,8 @@ const ActionsButton = () => (
   </Dropdown>
 );
 
-export default ActionsButton;
+UserActionsButton.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+};
+
+export default UserActionsButton;

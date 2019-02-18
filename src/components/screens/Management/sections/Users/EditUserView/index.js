@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import EditUserForm from './Form';
-import ActionsButton from './ActionsButton';
+import UserActionsButton from './ActionsButton';
 import './EditUserView.css';
 
 const goBackPath = '/management/users';
@@ -20,10 +20,10 @@ const EditUserView = (props) => {
             ← &nbsp;Users
           </Link>
         </div>
-        <p className="iap-management-section__title">
+        <div className="iap-management-section__title">
           User Details
-          <ActionsButton />
-        </p>
+          <UserActionsButton onDelete={console.log} />
+        </div>
         <p className="iap-management-section__description">
           <span className="iap-user-details__section-id">
             id:&nbsp;
