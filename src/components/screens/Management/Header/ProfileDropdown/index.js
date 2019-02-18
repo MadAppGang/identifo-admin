@@ -16,7 +16,7 @@ const ProfileDropdown = () => {
             onClick={open}
           >
             <span>Admin Panel</span>
-            <DropdownIcon />
+            <DropdownIcon className="iap-dropdown-icon" />
           </button>
           {isOpen && (
             <div className="iap-profile-dropdown">
