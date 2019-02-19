@@ -21,27 +21,62 @@ describe('application service', () => {
     applications = createApplicationService({ httpClient });
   });
 
-  test('calls httpClient.get', () => {
-    applications.fetchApplications();
-    expect(httpClient.get).toBeCalled();
+  describe('fetchApplications method', () => {
+    test('calls httpClient.get', () => {
+      applications.fetchApplications();
+      expect(httpClient.get).toBeCalled();
+    });
+
+    test('returns data from http response', async () => {
+      const data = [{ id: '1' }];
+      httpClient.get.mockReturnValue(Promise.resolve({ data }));
+      const response = await applications.fetchApplications();
+      expect(response).toEqual(data);
+    });
+
+    test('throws error on unsucessfull http request', async () => {
+      const reason = new Error('error');
+      httpClient.get.mockReturnValue(Promise.reject(reason));
+
+      try {
+        await applications.fetchApplications();
+        expect(true).toBeFalsy();
+      } catch (err) {
+        expect(err).toEqual(reason);
+      }
+    });
   });
 
-  test('returns data from http response', async () => {
-    const data = [{ id: '1' }];
-    httpClient.get.mockReturnValue(Promise.resolve({ data }));
-    const response = await applications.fetchApplications();
-    expect(response).toEqual(data);
+  describe('fetchApplicationById method', () => {
+    test('calls httpClient.get', () => {
+      applications.fetchApplicationById('1');
+      expect(httpClient.get).toBeCalled();
+    });
+
+    test('returns data from http response', async () => {
+      const data = { id: '1' };
+      httpClient.get.mockReturnValue(Promise.resolve({ data }));
+      const response = await applications.fetchApplicationById('1');
+      expect(response).toEqual(data);
+    });
+
+    test('includes id in url when making http request', () => {
+      const id = '1234556f';
+      httpClient.get.mockReturnValue(Promise.resolve({}));
+      applications.fetchApplicationById(id);
+      expect(httpClient.get.mock.calls[0][0]).toContain(id);
+    });
+
+    test('throws error on unsucessfull http request', async () => {
+      const reason = new Error('error');
+      httpClient.get.mockReturnValue(Promise.reject(reason));
+
+      try {
+        await applications.fetchApplicationById('1');
+        expect(true).toBeFalsy();
+      } catch (err) {
+        expect(err).toEqual(reason);
+      }
+    });
   });
-
-  test('throws error on unsucessfull http request', async () => {
-    const reason = new Error('error');
-    httpClient.get.mockReturnValue(Promise.reject(reason));
-
-    try {
-      await applications.fetchApplications();
-      expect(true).toBeFalsy();
-    } catch (err) {
-      expect(err).toEqual(reason);
-    }
-  })
 });

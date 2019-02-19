@@ -1,7 +1,10 @@
 import { pause } from '~/utils';
 
 const data = {
-  applications: [],
+  applications: [{
+    id: '1',
+    name: 'webapp',
+  }],
 };
 
 const createApplicationServiceMock = () => {
@@ -11,8 +14,21 @@ const createApplicationServiceMock = () => {
     return data.applications;
   };
 
+  const fetchApplicationById = async (id) => {
+    await pause(350);
+
+    const application = data.applications.find(a => a.id === id);
+
+    if (application) {
+      return application;
+    }
+
+    throw new Error('Application not found');
+  };
+
   return Object.freeze({
     fetchApplications,
+    fetchApplicationById,
   });
 };
 
