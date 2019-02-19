@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import authReducer from './auth/reducer';
 import databaseReducer from './database/reducer';
 import accountReducer from './account/reducer';
-import usersReducer from './users/reducer';
+import userListReducer from './users/listReducer';
+import selectedUserReducer from './users/selectedReducer';
 
 import configureStore from './store';
 
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   database: databaseReducer,
   account: accountReducer,
-  users: usersReducer,
+  users: userListReducer,
+  selectedUser: selectedUserReducer,
 });
 
 export default curry(configureStore, rootReducer);

@@ -1,4 +1,4 @@
-import reducer from '../reducer';
+import reducer from '../listReducer';
 import types from '../types';
 
 describe('users module reducer', () => {
@@ -64,43 +64,5 @@ describe('users module reducer', () => {
     const err = new Error('error');
     const action = { type: types.POST_USER_FAILURE, payload: err };
     expect(reducer(undefined, action).error).toBe(err);
-  });
-
-  test('sets saving to true on alter attempt', () => {
-    const action = { type: types.ALTER_USER_ATTEMPT };
-    expect(reducer(undefined, action).saving).toBe(true);
-  });
-
-  test('sets saving to false on alter success', () => {
-    const user = { id: '1' };
-    const action = { type: types.ALTER_USER_SUCCESS, payload: user };
-    expect(reducer(undefined, action).saving).toBe(false);
-  });
-
-  test('sets saving to false on alter failure', () => {
-    const action = { type: types.ALTER_USER_FAILURE };
-    expect(reducer(undefined, action).saving).toBe(false);
-  });
-
-  test('alters user under given id in list', () => {
-    const list = [{ id: '1', name: 'John' }, { id: '2', name: 'Summer' }];
-    const user = { id: '1', name: 'John Doe' };
-
-    const action = {
-      type: types.ALTER_USER_SUCCESS,
-      payload: user,
-    };
-
-    const state = {
-      saving: true,
-      list,
-    };
-
-    const expectedState = {
-      saving: false,
-      list: [user, list[1]],
-    };
-
-    expect(reducer(state, action)).toEqual(expectedState);
   });
 });
