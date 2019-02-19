@@ -35,7 +35,9 @@ class UsersMainView extends Component {
     if (!users.length && !fetching && !searchQuery) {
       return (
         <section className="iap-management-section">
-          <UsersPlaceholder />
+          <UsersPlaceholder
+            onCreateNewUserClick={() => history.push('/management/users/new')}
+          />
         </section>
       );
     }
