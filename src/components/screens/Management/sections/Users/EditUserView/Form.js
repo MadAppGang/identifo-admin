@@ -6,6 +6,7 @@ import Input from '~/components/shared/Input';
 import Toggle from '~/components/shared/Toggle';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 import editUserFormValidationRules from './validationRules';
 import * as Validation from '~/utils/validation';
 
@@ -35,6 +36,19 @@ class EditUserForm extends Component {
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { user } = this.props;
+
+    if (user && user !== prevProps.user) {
+      this.setState(state => ({
+        fields: update(state.fields, {
+          email: user.email,
+          name: user.name,
+        }),
+      }));
+    }
   }
 
   toggleEditPassword() {
@@ -99,6 +113,7 @@ class EditUserForm extends Component {
 
   render() {
     const { fields, editPassword, validation } = this.state;
+    const { loading } = this.props;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -110,6 +125,7 @@ class EditUserForm extends Component {
             onChange={this.handleFieldChange}
             onBlur={this.handleBlur}
             errorMessage={validation.name}
+            disabled={loading}
           />
         </Field>
 
@@ -121,6 +137,7 @@ class EditUserForm extends Component {
             onChange={this.handleFieldChange}
             onBlur={this.handleBlur}
             errorMessage={validation.email}
+            disabled={loading}
           />
         </Field>
 
@@ -137,6 +154,7 @@ class EditUserForm extends Component {
                 onChange={this.handleFieldChange}
                 onBlur={this.handleBlur}
                 errorMessage={validation.password}
+                disabled={loading}
               />
             </Field>
 
@@ -149,6 +167,7 @@ class EditUserForm extends Component {
                 onChange={this.handleFieldChange}
                 onBlur={this.handleBlur}
                 errorMessage={validation.confirmPassword}
+                disabled={loading}
               />
             </Field>
           </>
@@ -157,12 +176,12 @@ class EditUserForm extends Component {
         <footer className="iap-users-form__footer">
           <Button
             type="submit"
-            Icon={SaveIcon}
-            disabled={Validation.hasError(validation)}
+            Icon={loading ? LoadingIcon : SaveIcon}
+            disabled={loading || Validation.hasError(validation)}
           >
             Save changes
           </Button>
-          <Button transparent onClick={this.props.onCancel}>
+          <Button transparent onClick={this.props.onCancel} disabled={loading}>
             Cancel
           </Button>
         </footer>
@@ -174,9 +193,19 @@ class EditUserForm extends Component {
 EditUserForm.propTypes = {
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
 };
 
 EditUserForm.defaultProps = {
+  loading: false,
+  user: {
+    email: '',
+    name: '',
+  },
   onCancel: () => {},
 };
 

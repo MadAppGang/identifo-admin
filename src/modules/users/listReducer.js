@@ -40,20 +40,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         saving: false,
         error: payload,
       });
-    case types.ALTER_USER_ATTEMPT:
-      return update(state, {
-        saving: true,
-      });
-    case types.ALTER_USER_SUCCESS:
-      return update(state, {
-        saving: false,
-        [`list[id=${payload.id}]`]: payload,
-      });
-    case types.ALTER_USER_FAILURE:
-      return update(state, {
-        saving: false,
-        error: payload,
-      });
     default:
       return state;
   }

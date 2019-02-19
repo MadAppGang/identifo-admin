@@ -9,6 +9,12 @@ import { compose } from '~/utils/fn';
 const goBackPath = '/management/users';
 
 class NewUserView extends Component {
+  constructor() {
+    super();
+
+    this.goBack = this.goBack.bind(this);
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.saving && !this.props.saving) {
       this.goBack();

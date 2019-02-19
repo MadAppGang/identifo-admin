@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import EditUserForm from './Form';
 import UserActionsButton from './ActionsButton';
-import { fetchUserById } from '~/modules/users/actions';
+import { fetchUserById, alterUser } from '~/modules/users/actions';
 import { compose } from '~/utils/fn';
 import './EditUserView.css';
 
@@ -15,18 +15,31 @@ class EditUserView extends Component {
     super();
 
     this.state = {};
+
+    this.goBack = this.goBack.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchUserById(this.props.id);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.saving && !this.props.saving) {
+      this.goBack();
+    }
+  }
+
   goBack() {
     this.props.history.push(goBackPath);
   }
 
+  handleSubmit(changes) {
+    this.props.alterUser(this.props.id, changes);
+  }
+
   render() {
-    const { id, fetching } = this.props;
+    const { id, fetching, saving, user } = this.props;
 
     return (
       <section className="iap-management-section">
@@ -38,7 +51,7 @@ class EditUserView extends Component {
           </div>
           <div className="iap-management-section__title">
             User Details
-            <UserActionsButton onDelete={console.log} />
+            <UserActionsButton loading={fetching} onDelete={console.log} />
           </div>
           <p className="iap-management-section__description">
             <span className="iap-user-details__section-id">
@@ -48,12 +61,17 @@ class EditUserView extends Component {
           </p>
         </header>
         <main>
-          <EditUserForm onCancel={this.goBack} onSubmit={console.log} />
+          <EditUserForm
+            user={user}
+            loading={fetching || saving}
+            onCancel={this.goBack}
+            onSubmit={this.handleSubmit}
+          />
         </main>
       </section>
     );
   }
-};
+}
 
 EditUserView.propTypes = {
   id: PropTypes.string.isRequired,
@@ -61,15 +79,31 @@ EditUserView.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   fetchUserById: PropTypes.func.isRequired,
+  alterUser: PropTypes.func.isRequired,
+  fetching: PropTypes.bool,
+  saving: PropTypes.bool,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};
+
+EditUserView.defaultProps = {
+  fetching: false,
+  saving: false,
+  user: null,
 };
 
 const mapStateToProps = (state, props) => ({
   id: props.match.params.userid,
   fetching: state.selectedUser.fetching,
+  saving: state.selectedUser.saving,
+  user: state.selectedUser.user,
 });
 
 const actions = {
   fetchUserById,
+  alterUser,
 };
 
 export default compose(

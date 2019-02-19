@@ -43,7 +43,7 @@ const alterUser = (id, changes) => async (dispatch, _, { users: userService }) =
   dispatch(alterAttempt());
 
   try {
-    const user = userService.alterUser(id, changes);
+    const user = await userService.alterUser(id, changes);
     dispatch(alterSuccess(user));
   } catch (err) {
     dispatch(alterFailure(err));
