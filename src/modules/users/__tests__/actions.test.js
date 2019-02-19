@@ -1,4 +1,4 @@
-import { fetchUsers, postUser } from '../actions';
+import { fetchUsers, postUser, fetchUserById } from '../actions';
 import types from '../types';
 
 describe('fetchUsers redux action', () => {
@@ -90,5 +90,45 @@ describe('postUser redux action creator', () => {
     const user = {};
     postUser(user)(dispatch, null, { users: userService });
     expect(userService.postUser).toBeCalledWith(user);
+  });
+});
+
+describe('fetchUserById redux action creator', () => {
+  let dispatch;
+  let userService;
+
+  beforeEach(() => {
+    dispatch = jest.fn();
+    userService = {
+      fetchUserById: jest.fn(),
+    };
+  });
+
+  test('dispatches attempt', () => {
+    const expectedAction = { type: types.FETCH_USER_BY_ID_ATTEMPT };
+    fetchUserById()(dispatch, null, { users: userService });
+    expect(dispatch).toBeCalledWith(expectedAction);
+  });
+
+  test('calls dispatch second time with success action', async () => {
+    const user = {};
+    userService.fetchUserById.mockReturnValue(Promise.resolve(user));
+    const expectedAction = { type: types.FETCH_USER_BY_ID_SUCCESS, payload: user };
+    await fetchUserById()(dispatch, null, { users: userService });
+    expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
+  });
+
+  test('calls dispatch second time with failure action', async () => {
+    const expectedErr = new Error('message');
+    userService.fetchUserById.mockReturnValue(Promise.reject(expectedErr));
+    const expectedAction = { type: types.FETCH_USER_BY_ID_FAILURE, payload: expectedErr };
+    await fetchUserById()(dispatch, null, { users: userService });
+    expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
+  });
+
+  test('invokes userService.fetchById', () => {
+    const id = '507f191e810c19729de860ea';
+    fetchUserById(id)(dispatch, null, { users: userService });
+    expect(userService.fetchUserById).toBeCalledWith(id);
   });
 });
