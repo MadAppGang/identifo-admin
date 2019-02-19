@@ -5,8 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Identifo Admin</title>
+  <script type="text/javascript">
+    (function(l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function(v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
 </head>
 <body>
   <div id="root"></div>
-<script type="text/javascript" src="/identifo-admin/vendors~polyfill.547791c78d9000e9f7ce.bundle.js"></script><script type="text/javascript" src="/identifo-admin/polyfill.547791c78d9000e9f7ce.bundle.js"></script><script type="text/javascript" src="/identifo-admin/vendors~bundle.547791c78d9000e9f7ce.bundle.js"></script><script type="text/javascript" src="/identifo-admin/bundle.547791c78d9000e9f7ce.bundle.js"></script></body>
+<script type="text/javascript" src="/identifo-admin/vendors~polyfill.20ac38dc94f8743e7055.bundle.js"></script><script type="text/javascript" src="/identifo-admin/polyfill.20ac38dc94f8743e7055.bundle.js"></script><script type="text/javascript" src="/identifo-admin/vendors~bundle.20ac38dc94f8743e7055.bundle.js"></script><script type="text/javascript" src="/identifo-admin/bundle.20ac38dc94f8743e7055.bundle.js"></script></body>
 </html>
