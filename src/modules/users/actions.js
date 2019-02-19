@@ -13,6 +13,10 @@ const alterAttempt = actionCreator(types.ALTER_USER_ATTEMPT);
 const alterSuccess = actionCreator(types.ALTER_USER_SUCCESS);
 const alterFailure = actionCreator(types.ALTER_USER_FAILURE);
 
+const fetchByIdAttempt = actionCreator(types.FETCH_USER_BY_ID_ATTEMPT);
+const fetchByIdSuccess = actionCreator(types.FETCH_USER_BY_ID_SUCCESS);
+const fetchByIdFailure = actionCreator(types.FETCH_USER_BY_ID_FAILURE);
+
 const fetchUsers = filters => async (dispatch, _, { users: userService }) => {
   dispatch(fetchAttempt());
 
@@ -46,8 +50,20 @@ const alterUser = (id, changes) => async (dispatch, _, { users: userService }) =
   }
 };
 
+const fetchUserById = id => async (dispatch, _, { users: userService }) => {
+  dispatch(fetchByIdAttempt());
+
+  try {
+    const user = await userService.fetchUserById(id);
+    dispatch(fetchByIdSuccess(user))
+  } catch (err) {
+    dispatch(fetchByIdFailure(err));
+  }
+};
+
 export {
   fetchUsers,
   postUser,
   alterUser,
+  fetchUserById,
 };

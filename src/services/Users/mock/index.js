@@ -76,10 +76,23 @@ const createUserServiceMock = () => {
     return data.users.find(user => user.id === id);
   };
 
+  const fetchUserById = async (id) => {
+    await pause(350);
+
+    const user = data.users.find(u => u.id === id);
+
+    if (!user) {
+      return Promise.reject(new Error('User is not found'));
+    }
+
+    return user;
+  };
+
   return Object.freeze({
     fetchUsers,
     postUser,
     alterUser,
+    fetchUserById,
   });
 };
 

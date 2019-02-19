@@ -165,4 +165,36 @@ describe('user service', () => {
       expect(err.message).toBe(expectedMessage);
     }
   });
+
+  test('fetchUserBy id sends http GET', () => {
+    httpClient.get.mockReturnValue(Promise.resolve({}));
+    userService.fetchUserById(1);
+    expect(httpClient.get).toBeCalled();
+  });
+
+  test('fetchUserBy id includes passed id in url', () => {
+    httpClient.get.mockReturnValue(Promise.resolve({}));
+    const id = '507f191e810c19729de860ea';
+    userService.fetchUserById(id);
+    expect(httpClient.get.mock.calls[0][0]).toContain(id);
+  });
+
+  test('fetchUserBy id returns http request result', async () => {
+    const data = { id: '507f191e810c19729de860ea' };
+    httpClient.get.mockReturnValue({ data });
+    const response = await userService.fetchUserById('507f191e810c19729de860ea');
+    expect(response).toBe(data);
+  });
+
+  test('fetchUserById throws an error on rejected http request', async () => {
+    const expectedErr = new Error('message');
+    httpClient.get.mockReturnValue(Promise.reject(expectedErr));
+
+    try {
+      await userService.fetchUserById('507f191e810c19729de860ea');
+      expect(true).toBeFalsy();
+    } catch (err) {
+      expect(err).toBe(expectedErr);
+    }
+  });
 });
