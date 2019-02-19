@@ -36,10 +36,22 @@ const createApplicationService = ({ httpClient }) => {
     }
   };
 
+  const alterApplication = async (id, changes) => {
+    const url = `${baseUrl}/applications/${id}`;
+
+    try {
+      const response = await httpClient.put(url, changes);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
+  };
+
   return Object.freeze({
     fetchApplications,
     fetchApplicationById,
     postApplication,
+    alterApplication,
   });
 };
 

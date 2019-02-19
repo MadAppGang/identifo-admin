@@ -40,10 +40,34 @@ const createApplicationServiceMock = () => {
     return insertion;
   };
 
+  const alterApplication = async (id, changes) => {
+    await pause(550);
+
+    data.applications = data.applications.map((application) => {
+      if (application.id === id) {
+        return {
+          ...application,
+          ...changes,
+        };
+      }
+
+      return application;
+    });
+
+    const output = data.applications.find(app => app.id === id);
+
+    if (output) {
+      return output;
+    }
+
+    throw new Error('Cound not alter application');
+  };
+
   return Object.freeze({
     fetchApplications,
     fetchApplicationById,
     postApplication,
+    alterApplication,
   });
 };
 
