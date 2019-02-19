@@ -1,4 +1,4 @@
-import { fetchUsers, postUser, fetchUserById } from '../actions';
+import { fetchUsers, postUser, fetchUserById, deleteUserById } from '../actions';
 import types from '../types';
 
 describe('fetchUsers redux action', () => {
@@ -130,5 +130,45 @@ describe('fetchUserById redux action creator', () => {
     const id = '507f191e810c19729de860ea';
     fetchUserById(id)(dispatch, null, { users: userService });
     expect(userService.fetchUserById).toBeCalledWith(id);
+  });
+});
+
+describe('deleteUserById redux action creator', () => {
+  let dispatch;
+  let userService;
+
+  beforeEach(() => {
+    dispatch = jest.fn();
+    userService = {
+      deleteUserById: jest.fn(),
+    };
+  });
+
+  test('dispatches attempt', () => {
+    const expectedAction = { type: types.DELETE_USER_BY_ID_ATTEMPT };
+    deleteUserById()(dispatch, null, { users: userService });
+    expect(dispatch).toBeCalledWith(expectedAction);
+  });
+
+  test('calls dispatch second time with success action', async () => {
+    const id = '1';
+    userService.deleteUserById.mockReturnValue(Promise.resolve({}));
+    const expectedAction = { type: types.DELETE_USER_BY_ID_SUCCESS, payload: id };
+    await deleteUserById(id)(dispatch, null, { users: userService });
+    expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
+  });
+
+  test('calls dispatch second time with failure action', async () => {
+    const expectedErr = new Error('message');
+    userService.deleteUserById.mockReturnValue(Promise.reject(expectedErr));
+    const expectedAction = { type: types.DELETE_USER_BY_ID_FAILURE, payload: expectedErr };
+    await deleteUserById()(dispatch, null, { users: userService });
+    expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
+  });
+
+  test('invokes userService.deleteUserById', () => {
+    const id = '507f191e810c19729de860ea';
+    deleteUserById(id)(dispatch, null, { users: userService });
+    expect(userService.deleteUserById).toBeCalledWith(id);
   });
 });

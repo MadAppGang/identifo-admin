@@ -55,11 +55,23 @@ const createUserService = ({ httpClient }) => {
     }
   };
 
+  const deleteUserById = async (id) => {
+    const url = `${baseUrl}/users/${id}`;
+
+    try {
+      const response = await httpClient.delete(url);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
+  };
+
   return Object.freeze({
     fetchUsers,
     postUser,
     alterUser,
     fetchUserById,
+    deleteUserById,
   });
 };
 

@@ -40,6 +40,10 @@ const reducer = (state = INITIAL_STATE, action) => {
         saving: false,
         error: payload,
       });
+    case types.DELETE_USER_BY_ID_SUCCESS:
+      return update(state, {
+        list: list => list.filter(u => u.id !== payload),
+      });
     default:
       return state;
   }

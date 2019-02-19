@@ -19,6 +19,7 @@ describe('user service', () => {
       get: jest.fn(),
       post: jest.fn(),
       put: jest.fn(),
+      delete: jest.fn(),
     };
     userService = createUserService({ httpClient });
   });
@@ -192,6 +193,38 @@ describe('user service', () => {
 
     try {
       await userService.fetchUserById('507f191e810c19729de860ea');
+      expect(true).toBeFalsy();
+    } catch (err) {
+      expect(err).toBe(expectedErr);
+    }
+  });
+
+  test('deleteUserById sends http delete request', () => {
+    httpClient.delete.mockReturnValue(Promise.resolve({}));
+    userService.deleteUserById('1');
+    expect(httpClient.delete).toBeCalled();
+  });
+
+  test('deleteUserById includes passed id in url', () => {
+    const id = '1';
+    httpClient.delete.mockReturnValue(Promise.resolve({}));
+    userService.deleteUserById(id);
+    expect(httpClient.delete.mock.calls[0][0]).toContain(id);
+  });
+
+  test('deleteUserById id returns http request result', async () => {
+    const data = { result: 'ok' };
+    httpClient.delete.mockReturnValue({ data });
+    const response = await userService.deleteUserById('507f191e810c19729de860ea');
+    expect(response).toBe(data);
+  });
+
+  test('deleteUserById throws an error on rejected http request', async () => {
+    const expectedErr = new Error('message');
+    httpClient.delete.mockReturnValue(Promise.reject(expectedErr));
+
+    try {
+      await userService.deleteUserById('507f191e810c19729de860ea');
       expect(true).toBeFalsy();
     } catch (err) {
       expect(err).toBe(expectedErr);

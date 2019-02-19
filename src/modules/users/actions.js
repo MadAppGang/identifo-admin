@@ -17,6 +17,10 @@ const fetchByIdAttempt = actionCreator(types.FETCH_USER_BY_ID_ATTEMPT);
 const fetchByIdSuccess = actionCreator(types.FETCH_USER_BY_ID_SUCCESS);
 const fetchByIdFailure = actionCreator(types.FETCH_USER_BY_ID_FAILURE);
 
+const deleteAttempt = actionCreator(types.DELETE_USER_BY_ID_ATTEMPT);
+const deleteSuccess = actionCreator(types.DELETE_USER_BY_ID_SUCCESS);
+const deleteFailure = actionCreator(types.DELETE_USER_BY_ID_FAILURE);
+
 const fetchUsers = filters => async (dispatch, _, { users: userService }) => {
   dispatch(fetchAttempt());
 
@@ -61,9 +65,21 @@ const fetchUserById = id => async (dispatch, _, { users: userService }) => {
   }
 };
 
+const deleteUserById = id => async (dispatch, _, { users: userService }) => {
+  dispatch(deleteAttempt());
+
+  try {
+    await userService.deleteUserById(id);
+    dispatch(deleteSuccess(id));
+  } catch (err) {
+    dispatch(deleteFailure(err));
+  }
+};
+
 export {
   fetchUsers,
   postUser,
   alterUser,
   fetchUserById,
+  deleteUserById,
 };

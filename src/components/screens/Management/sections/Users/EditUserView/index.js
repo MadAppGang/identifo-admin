@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import EditUserForm from './Form';
 import UserActionsButton from './ActionsButton';
-import { fetchUserById, alterUser } from '~/modules/users/actions';
+import { fetchUserById, alterUser, deleteUserById } from '~/modules/users/actions';
 import { compose } from '~/utils/fn';
 import './EditUserView.css';
 
@@ -18,6 +18,7 @@ class EditUserView extends Component {
 
     this.goBack = this.goBack.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +39,10 @@ class EditUserView extends Component {
     this.props.alterUser(this.props.id, changes);
   }
 
+  handleDelete() {
+    this.props.deleteUserById(this.props.id);
+  }
+
   render() {
     const { id, fetching, saving, user } = this.props;
 
@@ -51,7 +56,7 @@ class EditUserView extends Component {
           </div>
           <div className="iap-management-section__title">
             User Details
-            <UserActionsButton loading={fetching} onDelete={console.log} />
+            <UserActionsButton loading={fetching} onDelete={this.handleDelete} />
           </div>
           <p className="iap-management-section__description">
             <span className="iap-user-details__section-id">
@@ -80,6 +85,7 @@ EditUserView.propTypes = {
   }).isRequired,
   fetchUserById: PropTypes.func.isRequired,
   alterUser: PropTypes.func.isRequired,
+  deleteUserById: PropTypes.func.isRequired,
   fetching: PropTypes.bool,
   saving: PropTypes.bool,
   user: PropTypes.shape({
@@ -103,6 +109,7 @@ const mapStateToProps = (state, props) => ({
 
 const actions = {
   fetchUserById,
+  deleteUserById,
   alterUser,
 };
 

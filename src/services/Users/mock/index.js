@@ -18,8 +18,8 @@ const data = {
     },
     {
       id: '507f191e810c19729de860cf',
-      name: 'Falangus Minelly',
-      email: 'angus.fm@gmail.com',
+      name: 'Jessica Bower',
+      email: 'jess@gmail.com',
       latestLogin: '2 hours ago',
       numberOfLogins: 14,
     },
@@ -49,7 +49,7 @@ const createUserServiceMock = () => {
 
     const insertion = {
       ...user,
-      id: user.email,
+      id: Date.now().toString(),
       numberOfLogins: 0,
       latestLogin: 'Never',
       password: undefined,
@@ -88,11 +88,18 @@ const createUserServiceMock = () => {
     return user;
   };
 
+  const deleteUserById = async (id) => {
+    await pause(600);
+
+    data.users = data.users.filter(u => u.id !== id);
+  };
+
   return Object.freeze({
     fetchUsers,
     postUser,
     alterUser,
     fetchUserById,
+    deleteUserById,
   });
 };
 
