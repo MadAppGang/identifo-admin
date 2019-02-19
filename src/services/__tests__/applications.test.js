@@ -19,6 +19,7 @@ describe('application service', () => {
       get: jest.fn(() => Promise.resolve({})),
       post: jest.fn(() => Promise.resolve({})),
       put: jest.fn(() => Promise.resolve({})),
+      delete: jest.fn(() => Promise.resolve({})),
     };
     applications = createApplicationService({ httpClient });
   });
@@ -127,6 +128,39 @@ describe('application service', () => {
 
       try {
         await applications.alterApplication({});
+        expect(true).toBeFalsy();
+      } catch (err) {
+        expect(err).toEqual(reason);
+      }
+    });
+  });
+
+  describe('deleteApplicationById method', () => {
+    test('calls httpClient.delete', () => {
+      applications.deleteApplicationById('1');
+      expect(httpClient.delete).toBeCalled();
+    });
+
+    test('returns data from http response', async () => {
+      const data = { id: '1' };
+      httpClient.delete.mockReturnValue(Promise.resolve({ data }));
+      const response = await applications.deleteApplicationById('1');
+      expect(response).toEqual(data);
+    });
+
+    test('includes id in url when making http request', () => {
+      const id = '1234556f';
+      httpClient.delete.mockReturnValue(Promise.resolve({}));
+      applications.deleteApplicationById(id);
+      expect(httpClient.delete.mock.calls[0][0]).toContain(id);
+    });
+
+    test('throws error on unsuccessfull http request', async () => {
+      const reason = new Error('error');
+      httpClient.delete.mockReturnValue(Promise.reject(reason));
+
+      try {
+        await applications.deleteApplicationById('1');
         expect(true).toBeFalsy();
       } catch (err) {
         expect(err).toEqual(reason);

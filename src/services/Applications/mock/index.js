@@ -63,11 +63,20 @@ const createApplicationServiceMock = () => {
     throw new Error('Cound not alter application');
   };
 
+  const deleteApplicationById = async (id) => {
+    await pause(500);
+
+    data.applications = data.applications.filter(app => app.id !== id);
+
+    return { result: 'ok' };
+  };
+
   return Object.freeze({
     fetchApplications,
     fetchApplicationById,
     postApplication,
     alterApplication,
+    deleteApplicationById,
   });
 };
 

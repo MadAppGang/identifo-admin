@@ -47,11 +47,23 @@ const createApplicationService = ({ httpClient }) => {
     }
   };
 
+  const deleteApplicationById = async (id) => {
+    const url = `${baseUrl}/applicatoins/${id}`;
+
+    try {
+      const response = await httpClient.delete(url);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
+  };
+
   return Object.freeze({
     fetchApplications,
     fetchApplicationById,
     postApplication,
     alterApplication,
+    deleteApplicationById,
   });
 };
 
