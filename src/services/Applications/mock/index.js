@@ -26,9 +26,24 @@ const createApplicationServiceMock = () => {
     throw new Error('Application not found');
   };
 
+  const postApplication = async (application) => {
+    await pause(550);
+
+    const insertion = {
+      id: Date.now().toString(),
+      ...application,
+      clientId: Date.now().toString() + Date.now(),
+    };
+
+    data.applications.push(insertion);
+
+    return insertion;
+  };
+
   return Object.freeze({
     fetchApplications,
     fetchApplicationById,
+    postApplication,
   });
 };
 

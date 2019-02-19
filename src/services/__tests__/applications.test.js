@@ -17,6 +17,7 @@ describe('application service', () => {
   beforeEach(() => {
     httpClient = {
       get: jest.fn(() => Promise.resolve({})),
+      post: jest.fn(() => Promise.resolve({})),
     };
     applications = createApplicationService({ httpClient });
   });
@@ -73,6 +74,32 @@ describe('application service', () => {
 
       try {
         await applications.fetchApplicationById('1');
+        expect(true).toBeFalsy();
+      } catch (err) {
+        expect(err).toEqual(reason);
+      }
+    });
+  });
+
+  describe('postApplication method', () => {
+    test('calls httpClient.post', () => {
+      applications.postApplication({});
+      expect(httpClient.post).toBeCalled();
+    });
+
+    test('returns data from http response', async () => {
+      const data = { id: '1' };
+      httpClient.post.mockReturnValue(Promise.resolve({ data }));
+      const response = await applications.postApplication({});
+      expect(response).toEqual(data);
+    });
+
+    test('throws error on unsucessfull http request', async () => {
+      const reason = new Error('error');
+      httpClient.post.mockReturnValue(Promise.reject(reason));
+
+      try {
+        await applications.postApplication({});
         expect(true).toBeFalsy();
       } catch (err) {
         expect(err).toEqual(reason);

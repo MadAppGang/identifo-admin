@@ -25,9 +25,21 @@ const createApplicationService = ({ httpClient }) => {
     }
   };
 
+  const postApplication = async (application) => {
+    const url = `${baseUrl}/applications`;
+
+    try {
+      const response = await httpClient.post(url, application);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
+  };
+
   return Object.freeze({
     fetchApplications,
     fetchApplicationById,
+    postApplication,
   });
 };
 
