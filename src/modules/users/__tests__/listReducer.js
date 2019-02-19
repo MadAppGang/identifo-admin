@@ -1,4 +1,4 @@
-import reducer from '../reducer';
+import reducer from '../listReducer';
 import types from '../types';
 
 describe('users module reducer', () => {
