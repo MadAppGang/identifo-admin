@@ -88,11 +88,18 @@ const createUserServiceMock = () => {
     return user;
   };
 
+  const deleteUserById = async (id) => {
+    await pause(600);
+
+    data.users = data.users.filter(u => u.id !== id);
+  };
+
   return Object.freeze({
     fetchUsers,
     postUser,
     alterUser,
     fetchUserById,
+    deleteUserById,
   });
 };
 
