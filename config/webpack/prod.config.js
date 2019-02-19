@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const BUILD_FOLDER = 'build';
 
@@ -66,5 +67,11 @@ module.exports = {
     new DotenvPlugin({
       systemvars: true,
     }),
+    new CopyPlugin([
+      {
+        from: path.resolve(__dirname, '../../404.html'),
+        to: path.resolve(__dirname, '../../build'),
+      },
+    ]),
   ],
 };
