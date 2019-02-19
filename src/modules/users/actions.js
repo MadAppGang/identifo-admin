@@ -55,7 +55,7 @@ const fetchUserById = id => async (dispatch, _, { users: userService }) => {
 
   try {
     const user = await userService.fetchUserById(id);
-    dispatch(fetchByIdSuccess(user))
+    dispatch(fetchByIdSuccess(user));
   } catch (err) {
     dispatch(fetchByIdFailure(err));
   }
