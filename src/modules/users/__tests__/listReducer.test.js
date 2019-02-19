@@ -65,4 +65,10 @@ describe('users module reducer', () => {
     const action = { type: types.POST_USER_FAILURE, payload: err };
     expect(reducer(undefined, action).error).toBe(err);
   });
+
+  test('removes user with passed id from list on delete success', () => {
+    const list = [{ id: '1' }, { id: '2' }];
+    const action = { type: types.DELETE_USER_BY_ID_SUCCESS, payload: '2' };
+    expect(reducer({ list }, action).list).not.toContain({ id: '2' });
+  });
 });

@@ -55,4 +55,25 @@ describe('users module "selectedUser" reducer', () => {
     const action = { type: types.ALTER_USER_SUCCESS, payload: user };
     expect(reducer(undefined, action).user).toEqual(user);
   });
+
+  test('sets saving to true on delete attempt', () => {
+    const action = { type: types.DELETE_USER_BY_ID_ATTEMPT };
+    expect(reducer(undefined, action).saving).toBe(true);
+  });
+
+  test('sets saving to false on delete success', () => {
+    const action = { type: types.DELETE_USER_BY_ID_SUCCESS };
+    expect(reducer({ saving: true }, action).saving).toBe(false);
+  });
+
+  test('sets saving to false on delete failure', () => {
+    const action = { type: types.DELETE_USER_BY_ID_FAILURE };
+    expect(reducer({ saving: true }, action).saving).toBe(false);
+  });
+
+  test('sets error to payload on delete failure', () => {
+    const err = {};
+    const action = { type: types.DELETE_USER_BY_ID_FAILURE, payload: err };
+    expect(reducer({ saving: true }, action).error).toBe(err);
+  });
 });

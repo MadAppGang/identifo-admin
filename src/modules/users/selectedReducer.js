@@ -50,7 +50,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         saving: false,
         user: null,
       });
-    case types.DELETE_USER_BY_ID_DELETE:
+    case types.DELETE_USER_BY_ID_FAILURE:
       return update(state, {
         saving: false,
         error: payload,
