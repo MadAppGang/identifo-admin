@@ -6,6 +6,8 @@ import configureStore from './modules';
 
 const store = configureStore(services);
 
+services.applications.fetchApplications().then(console.log)
+
 const markup = (
   <Root store={store} />
 );
