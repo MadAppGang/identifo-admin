@@ -4,10 +4,10 @@ import { DatagridRow } from '~/components/shared/Datagrid';
 import MobileIcon from '~/components/icons/MobileIcon';
 import WebIcon from '~/components/icons/WebIcon';
 
-const getIconForType = (type) => {
+const getIconForType = (type = '') => {
   const mobileTypes = ['ios', 'android'];
 
-  if (mobileTypes.includes(type)) {
+  if (mobileTypes.includes(type.toLowerCase())) {
     return MobileIcon;
   }
 

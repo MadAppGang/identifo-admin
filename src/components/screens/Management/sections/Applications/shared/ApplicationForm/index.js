@@ -8,6 +8,7 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import validationRules from './validationRules';
 import * as Validation from '~/utils/validation';
+import TypeDropdown from './TypeDropdown';
 import './ApplicationForm.css';
 
 class ApplicationForm extends Component {
@@ -18,9 +19,11 @@ class ApplicationForm extends Component {
 
     this.state = {
       fields: {
+        type: '',
         name: '',
       },
       validation: {
+        type: '',
         name: '',
       },
     };
@@ -34,11 +37,7 @@ class ApplicationForm extends Component {
     const { application } = this.props;
 
     if (application && application !== prevProps.application) {
-      this.setState(state => ({
-        fields: update(state.fields, {
-          name: application.name,
-        }),
-      }));
+      this.setState({ fields: application });
     }
   }
 
@@ -100,6 +99,14 @@ class ApplicationForm extends Component {
             onChange={this.handleInput}
             onBlur={this.handleBlur}
             errorMessage={validation.name}
+            disabled={loading}
+          />
+        </Field>
+
+        <Field label="Type">
+          <TypeDropdown
+            selectedValue={fields.type}
+            onChange={value => this.handleInput({ target: { name: 'type', value } })}
             disabled={loading}
           />
         </Field>
