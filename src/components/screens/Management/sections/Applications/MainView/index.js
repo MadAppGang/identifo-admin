@@ -31,7 +31,7 @@ class ApplicationsMainView extends Component {
           Applications
           <Button
             Icon={AddIcon}
-            onClick={() => history.push('/management/applications')}
+            onClick={() => history.push('/management/applications/new')}
           >
             Create application
           </Button>
