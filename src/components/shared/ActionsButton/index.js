@@ -24,6 +24,7 @@ const ActionsButton = props => (
             {props.actions.map((action) => {
               return (
                 <button
+                  key={action.title}
                   type="button"
                   className="iap-actions-btn__action"
                   onClick={action.onClick}

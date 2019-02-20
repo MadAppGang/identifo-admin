@@ -30,6 +30,18 @@ class ApplicationForm extends Component {
     this.handleBlur = this.handleBlur.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    const { application } = this.props;
+
+    if (application && application !== prevProps.application) {
+      this.setState(state => ({
+        fields: update(state.fields, {
+          name: application.name,
+        }),
+      }));
+    }
+  }
+
   handleInput({ target }) {
     const { name, value } = target;
     let { validation } = this.state;
@@ -117,10 +129,14 @@ ApplicationForm.propTypes = {
   loading: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  application: PropTypes.shape({
+    name: PropTypes.string,
+  }),
 };
 
 ApplicationForm.defaultProps = {
   loading: false,
+  application: null,
 };
 
 export default ApplicationForm;

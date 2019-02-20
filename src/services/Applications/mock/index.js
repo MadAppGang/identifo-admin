@@ -30,7 +30,7 @@ const createApplicationServiceMock = () => {
     const application = data.applications.find(a => a.id === id);
 
     if (application) {
-      return application;
+      return { ...application };
     }
 
     throw new Error('Application not found');

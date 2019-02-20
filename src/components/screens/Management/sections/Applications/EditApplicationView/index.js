@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import {
   alterApplication,
   deleteApplicationById,
+  fetchApplicationById,
 } from '~/modules/applications/actions';
 import { compose } from '~/utils/fn';
 import ApplicationForm from '../shared/ApplicationForm';
@@ -25,6 +26,10 @@ class EditApplicationView extends Component {
     }];
   }
 
+  componentDidMount() {
+    this.props.fetchApplicationById(this.props.id);
+  }
+
   componentDidUpdate(prevProps) {
     if (!this.props.saving && prevProps.saving) {
       this.goBack();
@@ -42,7 +47,7 @@ class EditApplicationView extends Component {
   }
 
   render() {
-    const { id, saving } = this.props;
+    const { id, saving, fetching, application } = this.props;
 
     return (
       <section className="iap-management-section">
@@ -65,7 +70,8 @@ class EditApplicationView extends Component {
         </header>
         <main>
           <ApplicationForm
-            loading={saving}
+            loading={saving || fetching}
+            application={application}
             onCancel={this.goBack}
             onSubmit={this.handleSubmit}
           />
@@ -77,26 +83,34 @@ class EditApplicationView extends Component {
 
 EditApplicationView.propTypes = {
   saving: PropTypes.bool,
+  fetching: PropTypes.bool,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
   alterApplication: PropTypes.func.isRequired,
   deleteApplicationById: PropTypes.func.isRequired,
+  fetchApplicationById: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  application: PropTypes.shape(),
 };
 
 EditApplicationView.defaultProps = {
   saving: false,
+  fetching: false,
+  application: null,
 };
 
 const mapStateToProps = (state, props) => ({
   id: props.match.params.appid,
+  fetching: state.selectedApplication.fetching,
   saving: state.selectedApplication.saving,
+  application: state.selectedApplication.application,
 });
 
 const actions = {
   alterApplication,
   deleteApplicationById,
+  fetchApplicationById,
 };
 
 export default compose(
