@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ApplicationRow from './ApplicationRow';
 import ApplicationHeader from './ApplicationHeader';
+import Preloader from './Preloader';
 
 import './ApplicationList.css';
 
@@ -39,7 +40,13 @@ const ApplicationList = (props) => {
     <div className="iap-applications-list">
       <ApplicationHeader config={datagrid} />
       <main>
+
+        {loading && (
+          <Preloader />
+        )}
+
         {!loading && applications.map(renderRow)}
+
       </main>
     </div>
   );
