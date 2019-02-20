@@ -2,19 +2,19 @@ import reducer from '../listReducer';
 import types from '../types';
 
 describe('applications module list reducer', () => {
-  test('sets saving to true on fetch attempt', () => {
+  test('sets fetching to true on fetch attempt', () => {
     const action = { type: types.FETCH_APPLICATIONS_ATTEMPT };
-    expect(reducer({ saving: false }, action).saving).toBe(true);
+    expect(reducer({ fetching: false }, action).fetching).toBe(true);
   });
 
-  test('sets saving to false on fetch success', () => {
+  test('sets fetching to false on fetch success', () => {
     const action = { type: types.FETCH_APPLICATIONS_SUCCESS };
-    expect(reducer({ saving: true }, action).saving).toBe(false);
+    expect(reducer({ fetching: true }, action).fetching).toBe(false);
   });
 
-  test('sets saving to false on fetch failure', () => {
+  test('sets fetching to false on fetch failure', () => {
     const action = { type: types.FETCH_APPLICATIONS_FAILURE };
-    expect(reducer({ saving: true }, action).saving).toBe(false);
+    expect(reducer({ fetching: true }, action).fetching).toBe(false);
   });
 
   test('sets list to payload on fetch success', () => {
