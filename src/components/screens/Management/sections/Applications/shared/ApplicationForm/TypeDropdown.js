@@ -15,11 +15,11 @@ class TypeDropdown extends Component {
           value: 'web',
         },
         {
-          title: 'Android Client',
+          title: 'Android Client (Mobile)',
           value: 'android',
         },
         {
-          title: 'iOS Client',
+          title: 'iOS Client (Mobile)',
           value: 'ios',
         },
       ],
