@@ -77,8 +77,6 @@ const createUserServiceMock = () => {
   };
 
   const fetchUserById = async (id) => {
-    await pause(450);
-
     const user = data.users.find(u => u.id === id);
 
     if (!user) {

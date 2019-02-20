@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ApplicationRow from './ApplicationRow';
 import ApplicationHeader from './ApplicationHeader';
+import Preloader from './Preloader';
+import { DatagridNotFound } from '~/components/shared/Datagrid';
 
 import './ApplicationList.css';
 
@@ -25,11 +28,16 @@ const datagrid = {
 };
 
 const renderRow = application => (
-  <ApplicationRow
+  <Link
+    className="rrdl"
     key={application.id}
-    data={application}
-    config={datagrid}
-  />
+    to={`/management/applications/${application.id}`}
+  >
+    <ApplicationRow
+      data={application}
+      config={datagrid}
+    />
+  </Link>
 );
 
 const ApplicationList = (props) => {
@@ -39,7 +47,17 @@ const ApplicationList = (props) => {
     <div className="iap-applications-list">
       <ApplicationHeader config={datagrid} />
       <main>
+
+        {loading && (
+          <Preloader />
+        )}
+
         {!loading && applications.map(renderRow)}
+
+        {!applications.length && !loading && (
+          <DatagridNotFound text="No Applications Found" />
+        )}
+
       </main>
     </div>
   );

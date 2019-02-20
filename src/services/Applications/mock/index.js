@@ -1,10 +1,21 @@
 import { pause } from '~/utils';
+import randomstring from 'randomstring';
 
 const data = {
-  applications: [{
-    id: '1',
-    name: 'webapp',
-  }],
+  applications: [
+    {
+      id: '507f1f77bcf86cd799439011',
+      type: 'ios',
+      name: 'Mobile Client (iOS)',
+      clientId: '4AOlbR7eGCsuuA43bhmahd9iZ14lzcPY',
+    },
+    {
+      id: '507f1f77bcf86cd799439242',
+      type: 'web',
+      name: 'Single Page App',
+      clientId: 'TlWqkOPFr1hJVL70LjTk19eTayNst6cU',
+    },
+  ],
 };
 
 const createApplicationServiceMock = () => {
@@ -15,12 +26,10 @@ const createApplicationServiceMock = () => {
   };
 
   const fetchApplicationById = async (id) => {
-    await pause(350);
-
     const application = data.applications.find(a => a.id === id);
 
     if (application) {
-      return application;
+      return { ...application };
     }
 
     throw new Error('Application not found');
@@ -32,7 +41,7 @@ const createApplicationServiceMock = () => {
     const insertion = {
       id: Date.now().toString(),
       ...application,
-      clientId: Date.now().toString() + Date.now(),
+      clientId: randomstring.generate(32),
     };
 
     data.applications.push(insertion);

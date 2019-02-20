@@ -40,3 +40,25 @@
   color: #3d3d3d;
   margin-top: 3px;
 }
+
+.iap-apps-row__fake-icon {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  animation: pulse .8s linear infinite;
+  margin-left: 15px;
+}
+
+.iap-apps-row__fake-type,
+.iap-apps-row__fake-client-id {
+  height: 15px;
+  width: 125px;
+  animation: pulse .8s linear infinite;
+  margin: 0 30px;
+  border-radius: 4px;
+}
+
+.iap-apps-row__fake-client-id {
+  width: 240px;
+  margin-left: 45px;
+}

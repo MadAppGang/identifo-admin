@@ -3,22 +3,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import EditUserForm from './Form';
-import UserActionsButton from './ActionsButton';
+import ActionsButton from '~/components/shared/ActionsButton';
 import { fetchUserById, alterUser, deleteUserById } from '~/modules/users/actions';
 import { compose } from '~/utils/fn';
-import './EditUserView.css';
 
 const goBackPath = '/management/users';
 
 class EditUserView extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {};
 
     this.goBack = this.goBack.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+
+    this.availableActions = [{
+      title: 'Delete User',
+      onClick: () => props.deleteUserById(props.id),
+    }];
   }
 
   componentDidMount() {
@@ -39,10 +42,6 @@ class EditUserView extends Component {
     this.props.alterUser(this.props.id, changes);
   }
 
-  handleDelete() {
-    this.props.deleteUserById(this.props.id);
-  }
-
   render() {
     const { id, fetching, saving, user } = this.props;
 
@@ -56,10 +55,10 @@ class EditUserView extends Component {
           </div>
           <div className="iap-management-section__title">
             User Details
-            <UserActionsButton loading={fetching} onDelete={this.handleDelete} />
+            <ActionsButton loading={fetching} actions={this.availableActions} />
           </div>
           <p className="iap-management-section__description">
-            <span className="iap-user-details__section-id">
+            <span className="iap-section-description__id">
               id:&nbsp;
               {id}
             </span>

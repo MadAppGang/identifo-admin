@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UserRow from './UserRow';
 import UserHeader from './UserHeader';
 import Preloader from './Preloader';
-import UsersNotFound from './NotFound';
+import { DatagridNotFound } from '~/components/shared/Datagrid';
 
 import './index.css';
 
@@ -50,7 +50,7 @@ const UserList = (props) => {
           ))}
 
           {!users.length && !loading && (
-            <UsersNotFound />
+            <DatagridNotFound text="No Users Found" />
           )}
         </main>
       </div>

@@ -39,3 +39,30 @@
 .iap-datagrid-body {
   margin-top: 5px;
 }
+
+.iap-datagrid__not-found {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 35px 0 20px 0;
+  flex-direction: column;
+}
+
+.iap-datagrid__not-found-icon {
+  height: 140px;
+  width: 140px;
+}
+
+.iap-datagrid__not-found-icon path,
+.iap-datagrid__not-found-icon circle {
+  fill: #ddd;
+}
+
+.iap-datagrid__not-found-text {
+  margin: 17px 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #5d5d5d;
+}

@@ -100,4 +100,12 @@
 
 .iap-management-section__back:hover {
   opacity: .6;
-};
+}
+
+.iap-section-description__id {
+  background: #eee;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  letter-spacing: .8px;
+}
