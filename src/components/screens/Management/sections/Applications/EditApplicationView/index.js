@@ -2,18 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { alterApplication } from '~/modules/applications/actions';
+import {
+  alterApplication,
+  deleteApplicationById,
+} from '~/modules/applications/actions';
 import { compose } from '~/utils/fn';
 import ApplicationForm from '../shared/ApplicationForm';
+import ActionsButton from '~/components/shared/ActionsButton';
 
 const goBackPath = '/management/applications';
 
 class EditApplicationView extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {};
     this.goBack = this.goBack.bind(this);
+
+    this.availableActions = [{
+      title: 'Delete Application',
+      onClick: () => props.deleteApplicationById(props.id),
+    }];
   }
 
   handleSubmit(changes) {
@@ -39,6 +48,7 @@ class EditApplicationView extends Component {
           </div>
           <div className="iap-management-section__title">
             Application Details
+            <ActionsButton loading={saving} actions={this.availableActions} />
           </div>
           <p className="iap-management-section__description">
             <span className="iap-section-description__id">
@@ -65,6 +75,7 @@ EditApplicationView.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   alterApplication: PropTypes.func.isRequired,
+  deleteApplicationById: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };
 
@@ -79,6 +90,7 @@ const mapStateToProps = (state, props) => ({
 
 const actions = {
   alterApplication,
+  deleteApplicationById,
 };
 
 export default compose(
