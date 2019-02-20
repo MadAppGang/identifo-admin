@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ApplicationRow from './ApplicationRow';
 import ApplicationHeader from './ApplicationHeader';
 import Preloader from './Preloader';
+import { DatagridNotFound } from '~/components/shared/Datagrid';
 
 import './ApplicationList.css';
 
@@ -46,6 +47,10 @@ const ApplicationList = (props) => {
         )}
 
         {!loading && applications.map(renderRow)}
+
+        {!applications.length && !loading && (
+          <DatagridNotFound text="No Applications Found" />
+        )}
 
       </main>
     </div>
