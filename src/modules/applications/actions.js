@@ -17,6 +17,10 @@ const alterAttempt = actionCreator(types.ALTER_APPLICATION_ATTEMPT);
 const alterSuccess = actionCreator(types.ALTER_APPLICATION_SUCCESS);
 const alterFailure = actionCreator(types.ALTER_APPLICATION_FAILURE);
 
+const fetchByIdAttempt = actionCreator(types.FETCH_APPLICATION_BY_ID_ATTEMPT);
+const fetchByIdSuccess = actionCreator(types.FETCH_APPLICATION_BY_ID_SUCCESS);
+const fetchByIdFailure = actionCreator(types.FETCH_APPLICATION_BY_ID_FAILURE);
+
 const fetchApplications = () => async (dispatch, _, { applications }) => {
   dispatch(fetchAttempt());
 
@@ -25,6 +29,17 @@ const fetchApplications = () => async (dispatch, _, { applications }) => {
     dispatch(fetchSuccess(list));
   } catch (err) {
     dispatch(fetchFailure(err));
+  }
+};
+
+const fetchApplicationById = id => async (dispatch, _, { applications }) => {
+  dispatch(fetchByIdAttempt());
+
+  try {
+    const application = await applications.fetchApplicationById(id);
+    dispatch(fetchByIdSuccess(application));
+  } catch (err) {
+    dispatch(fetchByIdFailure(err));
   }
 };
 
@@ -66,4 +81,5 @@ export {
   postApplication,
   deleteApplicationById,
   alterApplication,
+  fetchApplicationById,
 };
