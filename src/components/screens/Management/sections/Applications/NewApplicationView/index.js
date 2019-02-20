@@ -39,7 +39,11 @@ class NewApplicationView extends Component {
           </p>
         </header>
         <main>
-          <ApplicationForm loading={saving} onCancel={this.goBack} />
+          <ApplicationForm
+            loading={saving}
+            onCancel={this.goBack}
+            onSubmit={console.log}
+          />
         </main>
       </section>
     );

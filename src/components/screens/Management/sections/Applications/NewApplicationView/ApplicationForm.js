@@ -6,14 +6,21 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import validationRules from './validationRules';
+import * as Validation from '~/utils/validation';
 import './ApplicationForm.css';
 
 class ApplicationForm extends Component {
   constructor() {
     super();
 
+    this.validate = Validation.applyRules(validationRules);
+
     this.state = {
       fields: {
+        name: '',
+      },
+      validation: {
         name: '',
       },
     };
@@ -25,24 +32,49 @@ class ApplicationForm extends Component {
 
   handleInput({ target }) {
     const { name, value } = target;
+    let { validation } = this.state;
+
+    if (validation[target.name]) {
+      validation = update(validation, { [target.name]: '' });
+    }
 
     this.setState(state => ({
       fields: update(state.fields, {
         [name]: value,
       }),
+      validation,
     }));
   }
 
-  handleBlur() {}
+  handleBlur({ target }) {
+    const { name, value } = target;
+    const validationMessage = this.validate(name, {
+      ...this.state.fields,
+      [name]: value,
+    });
+
+    this.setState(state => ({
+      validation: update(state.validation, {
+        [name]: validationMessage,
+      }),
+    }));
+  }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    this.props.onSubmit();
+    const validation = this.validate('all', this.state.fields);
+
+    if (Validation.hasError(validation)) {
+      this.setState({ validation });
+      return;
+    }
+
+    this.props.onSubmit(this.state.fields);
   }
 
   render() {
-    const { fields } = this.state;
+    const { fields, validation } = this.state;
     const { loading } = this.props;
 
     return (
@@ -51,19 +83,27 @@ class ApplicationForm extends Component {
           <Input
             name="name"
             value={fields.name}
+            autoComplete="off"
             placeholder="Enter name"
             onChange={this.handleInput}
             onBlur={this.handleBlur}
+            errorMessage={validation.name}
           />
         </Field>
 
         <footer className="iap-apps-form__footer">
           <Button
+            type="submit"
             Icon={loading ? LoadingIcon : SaveIcon}
+            disabled={loading}
           >
             Save changes
           </Button>
-          <Button transparent onClick={this.props.onCancel}>
+          <Button
+            transparent
+            disabled={loading}
+            onClick={this.props.onCancel}
+          >
             Cancel
           </Button>
         </footer>
@@ -73,7 +113,13 @@ class ApplicationForm extends Component {
 }
 
 ApplicationForm.propTypes = {
+  loading: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+};
+
+ApplicationForm.defaultProps = {
+  loading: false,
 };
 
 export default ApplicationForm;
