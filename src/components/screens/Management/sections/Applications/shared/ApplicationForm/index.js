@@ -88,6 +88,7 @@ class ApplicationForm extends Component {
             onChange={this.handleInput}
             onBlur={this.handleBlur}
             errorMessage={validation.name}
+            disabled={loading}
           />
         </Field>
 

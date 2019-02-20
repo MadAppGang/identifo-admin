@@ -26,6 +26,19 @@ const reducer = (state = INITIAL_STATE, action) => {
         saving: false,
         error: payload,
       });
+    case types.DELETE_APPLICATION_ATTEMPT:
+      return update(state, {
+        saving: true,
+      });
+    case types.DELETE_APPLICATION_SUCCESS:
+      return update(state, {
+        saving: false,
+      });
+    case types.DELETE_APPLICATION_FAILURE:
+      return update(state, {
+        saving: false,
+        error: payload,
+      });
     default:
       return state;
   }

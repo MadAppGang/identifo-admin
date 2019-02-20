@@ -25,6 +25,12 @@ class EditApplicationView extends Component {
     }];
   }
 
+  componentDidUpdate(prevProps) {
+    if (!this.props.saving && prevProps.saving) {
+      this.goBack();
+    }
+  }
+
   handleSubmit(changes) {
     const { id } = this.props;
 
