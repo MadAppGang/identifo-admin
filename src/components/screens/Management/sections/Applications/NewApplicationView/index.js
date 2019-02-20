@@ -16,6 +16,12 @@ class NewApplicationView extends Component {
     this.goBack = this.goBack.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.saving && !this.props.saving) {
+      this.goBack();
+    }
+  }
+
   goBack() {
     this.props.history.push(goBackPath);
   }
@@ -42,7 +48,7 @@ class NewApplicationView extends Component {
           <ApplicationForm
             loading={saving}
             onCancel={this.goBack}
-            onSubmit={console.log}
+            onSubmit={this.props.postApplication}
           />
         </main>
       </section>
@@ -55,6 +61,7 @@ NewApplicationView.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  postApplication: PropTypes.func.isRequired,
 };
 
 NewApplicationView.defaultProps = {

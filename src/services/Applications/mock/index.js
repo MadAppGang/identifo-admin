@@ -1,4 +1,5 @@
 import { pause } from '~/utils';
+import randomstring from 'randomstring';
 
 const data = {
   applications: [
@@ -40,7 +41,7 @@ const createApplicationServiceMock = () => {
     const insertion = {
       id: Date.now().toString(),
       ...application,
-      clientId: Date.now().toString() + Date.now(),
+      clientId: randomstring.generate(32),
     };
 
     data.applications.push(insertion);
