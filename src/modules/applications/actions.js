@@ -9,6 +9,10 @@ const postAttempt = actionCreator(types.POST_APPLICATION_ATTEMPT);
 const postSuccess = actionCreator(types.POST_APPLICATION_SUCCESS);
 const postFailure = actionCreator(types.POST_APPLICATION_FAILURE);
 
+const deleteAttempt = actionCreator(types.DELETE_APPLICATION_ATTEMPT);
+const deleteSuccess = actionCreator(types.DELETE_APPLICATION_SUCCESS);
+const deleteFailure = actionCreator(types.DELETE_APPLICATION_FAILURE);
+
 const fetchApplications = () => async (dispatch, _, { applications }) => {
   dispatch(fetchAttempt());
 
@@ -31,7 +35,19 @@ const postApplication = application => async (dispatch, _, { applications }) => 
   }
 };
 
+const deleteApplicationById = id => async (dispatch, _, { applications }) => {
+  dispatch(deleteAttempt());
+
+  try {
+    await applications.deleteApplicationById(id);
+    dispatch(deleteSuccess(id));
+  } catch (err) {
+    dispatch(deleteFailure(err));
+  }
+};
+
 export {
   fetchApplications,
   postApplication,
+  deleteApplicationById,
 };

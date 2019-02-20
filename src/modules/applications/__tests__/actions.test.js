@@ -1,4 +1,8 @@
-import { fetchApplications, postApplication } from '../actions';
+import {
+  fetchApplications,
+  postApplication,
+  deleteApplicationById,
+} from '../actions';
 import types from '../types';
 
 describe('[applications] fetchApplications action creator', () => {
@@ -77,5 +81,44 @@ describe('[applications] postApplication action creator', () => {
     const app = {};
     postApplication(app)(dispatch, null, { applications });
     expect(applications.postApplication).toBeCalledWith(app);
+  });
+});
+
+describe('[applications] deleteApplicationById action creator', () => {
+  let dispatch;
+  let applications;
+
+  beforeEach(() => {
+    dispatch = jest.fn();
+    applications = {
+      deleteApplicationById: jest.fn(() => Promise.resolve({})),
+    };
+  });
+
+  test('calls dispatch with attempt action', () => {
+    const action = { type: types.DELETE_APPLICATION_ATTEMPT };
+    deleteApplicationById('1')(dispatch, null, { applications });
+    expect(dispatch).toBeCalledWith(action);
+  });
+
+  test('calls dispatch second time with success action', async () => {
+    const id = '1';
+    const action = { type: types.DELETE_APPLICATION_SUCCESS, payload: id };
+    await deleteApplicationById(id)(dispatch, null, { applications });
+    expect(dispatch).toHaveBeenNthCalledWith(2, action);
+  });
+
+  test('calls dispatch second time with failure action', async () => {
+    const reason = new Error('error');
+    const action = { type: types.DELETE_APPLICATION_FAILURE, payload: reason };
+    applications.deleteApplicationById.mockReturnValue(Promise.reject(reason));
+    await deleteApplicationById('1')(dispatch, null, { applications });
+    expect(dispatch).toHaveBeenNthCalledWith(2, action);
+  });
+
+  test('invokes applications service to delete an application', () => {
+    const app = {};
+    deleteApplicationById(app)(dispatch, null, { applications });
+    expect(applications.deleteApplicationById).toBeCalledWith(app);
   });
 });
