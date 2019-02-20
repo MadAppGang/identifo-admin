@@ -1,0 +1,10 @@
+.iap-apps-form {
+  width: 350px;
+  margin: 50px 0;
+}
+
+.iap-apps-form__footer {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+}

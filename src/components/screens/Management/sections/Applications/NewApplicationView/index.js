@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { postApplication } from '~/modules/applications/actions';
+import ApplicationForm from './ApplicationForm';
 import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/applications';
@@ -12,6 +13,11 @@ class NewApplicationView extends Component {
     super();
 
     this.state = {};
+    this.goBack = this.goBack.bind(this);
+  }
+
+  goBack() {
+    this.props.history.push(goBackPath);
   }
 
   render() {
@@ -33,7 +39,7 @@ class NewApplicationView extends Component {
           </p>
         </header>
         <main>
-          
+          <ApplicationForm loading={saving} onCancel={this.goBack} />
         </main>
       </section>
     );
@@ -42,6 +48,9 @@ class NewApplicationView extends Component {
 
 NewApplicationView.propTypes = {
   saving: PropTypes.bool,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 NewApplicationView.defaultProps = {
