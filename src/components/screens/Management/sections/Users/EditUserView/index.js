@@ -59,7 +59,7 @@ class EditUserView extends Component {
             <UserActionsButton loading={fetching} onDelete={this.handleDelete} />
           </div>
           <p className="iap-management-section__description">
-            <span className="iap-user-details__section-id">
+            <span className="iap-section-description__id">
               id:&nbsp;
               {id}
             </span>

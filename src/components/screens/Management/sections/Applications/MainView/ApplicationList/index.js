@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ApplicationRow from './ApplicationRow';
 import ApplicationHeader from './ApplicationHeader';
 import Preloader from './Preloader';
@@ -27,11 +28,13 @@ const datagrid = {
 };
 
 const renderRow = application => (
-  <ApplicationRow
-    key={application.id}
-    data={application}
-    config={datagrid}
-  />
+  <Link to={`/management/applications/${application.id}`} className="rrdl">
+    <ApplicationRow
+      key={application.id}
+      data={application}
+      config={datagrid}
+    />
+  </Link>
 );
 
 const ApplicationList = (props) => {
