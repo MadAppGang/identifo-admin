@@ -24,6 +24,8 @@ class EditApplicationView extends Component {
       title: 'Delete Application',
       onClick: () => props.deleteApplicationById(props.id),
     }];
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
