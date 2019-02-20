@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { alterApplication } from '~/modules/applications/actions';
 import { compose } from '~/utils/fn';
+import ApplicationForm from '../shared/ApplicationForm';
 
 const goBackPath = '/management/applications';
 
@@ -13,6 +14,12 @@ class EditApplicationView extends Component {
 
     this.state = {};
     this.goBack = this.goBack.bind(this);
+  }
+
+  handleSubmit(changes) {
+    const { id } = this.props;
+
+    this.props.alterApplication(id, changes);
   }
 
   goBack() {
@@ -41,7 +48,11 @@ class EditApplicationView extends Component {
           </p>
         </header>
         <main>
-
+          <ApplicationForm
+            loading={saving}
+            onCancel={this.goBack}
+            onSubmit={this.handleSubmit}
+          />
         </main>
       </section>
     );
@@ -53,6 +64,8 @@ EditApplicationView.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  alterApplication: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 EditApplicationView.defaultProps = {

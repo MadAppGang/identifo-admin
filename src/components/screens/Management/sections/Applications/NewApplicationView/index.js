@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { postApplication } from '~/modules/applications/actions';
-import ApplicationForm from './ApplicationForm';
+import ApplicationForm from '../shared/ApplicationForm';
 import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/applications';

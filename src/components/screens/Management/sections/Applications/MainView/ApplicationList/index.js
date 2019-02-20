@@ -28,9 +28,12 @@ const datagrid = {
 };
 
 const renderRow = application => (
-  <Link to={`/management/applications/${application.id}`} className="rrdl">
+  <Link
+    className="rrdl"
+    key={application.id}
+    to={`/management/applications/${application.id}`}
+  >
     <ApplicationRow
-      key={application.id}
       data={application}
       config={datagrid}
     />
