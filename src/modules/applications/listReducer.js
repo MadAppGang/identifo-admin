@@ -13,16 +13,16 @@ const reducer = (state = INITIAL_STATE, action) => {
   switch (type) {
     case types.FETCH_APPLICATIONS_ATTEMPT:
       return update(state, {
-        saving: true,
+        fetching: true,
       });
     case types.FETCH_APPLICATIONS_SUCCESS:
       return update(state, {
-        saving: false,
+        fetching: false,
         list: payload,
       });
     case types.FETCH_APPLICATIONS_FAILURE:
       return update(state, {
-        saving: false,
+        fetching: false,
         error: payload,
       });
     default:

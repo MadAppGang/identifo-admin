@@ -1,10 +1,20 @@
 import { pause } from '~/utils';
 
 const data = {
-  applications: [{
-    id: '1',
-    name: 'webapp',
-  }],
+  applications: [
+    {
+      id: '1',
+      type: 'ios',
+      name: 'Mobile Client (iOS)',
+      clientId: '4AOlbR7eGCsuuA43bhmahd9iZ14lzcPY',
+    },
+    {
+      id: '2',
+      type: 'web',
+      name: 'Single Page App',
+      clientId: 'TlWqkOPFr1hJVL70LjTk19eTayNst6cU',
+    },
+  ],
 };
 
 const createApplicationServiceMock = () => {
