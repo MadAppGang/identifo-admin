@@ -25,8 +25,6 @@ const createApplicationServiceMock = () => {
   };
 
   const fetchApplicationById = async (id) => {
-    await pause(350);
-
     const application = data.applications.find(a => a.id === id);
 
     if (application) {
