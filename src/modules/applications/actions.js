@@ -13,6 +13,10 @@ const deleteAttempt = actionCreator(types.DELETE_APPLICATION_ATTEMPT);
 const deleteSuccess = actionCreator(types.DELETE_APPLICATION_SUCCESS);
 const deleteFailure = actionCreator(types.DELETE_APPLICATION_FAILURE);
 
+const alterAttempt = actionCreator(types.ALTER_APPLICATION_ATTEMPT);
+const alterSuccess = actionCreator(types.ALTER_APPLICATION_SUCCESS);
+const alterFailure = actionCreator(types.ALTER_APPLICATION_FAILURE);
+
 const fetchApplications = () => async (dispatch, _, { applications }) => {
   dispatch(fetchAttempt());
 
@@ -46,8 +50,20 @@ const deleteApplicationById = id => async (dispatch, _, { applications }) => {
   }
 };
 
+const alterApplication = (id, changes) => async (dispatch, _, { applications }) => {
+  dispatch(alterAttempt());
+
+  try {
+    const result = await applications.alterApplication(id, changes);
+    dispatch(alterSuccess(result));
+  } catch (err) {
+    dispatch(alterFailure(err));
+  }
+};
+
 export {
   fetchApplications,
   postApplication,
   deleteApplicationById,
+  alterApplication,
 };
