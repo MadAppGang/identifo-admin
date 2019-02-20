@@ -2,8 +2,8 @@ import update from '@madappgang/update-by-path';
 import types from './types';
 
 const INITIAL_STATE = {
-  fetching: false,
-  list: [],
+  saving: false,
+  application: null,
   error: null,
 };
 
@@ -11,23 +11,20 @@ const reducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case types.FETCH_APPLICATIONS_ATTEMPT:
+    case types.POST_APPLICATION_ATTEMPT:
       return update(state, {
-        fetching: true,
+        saving: true,
+        application: null,
       });
-    case types.FETCH_APPLICATIONS_SUCCESS:
+    case types.POST_APPLICATION_SUCCESS:
       return update(state, {
-        fetching: false,
-        list: payload,
+        saving: false,
+        application: payload,
       });
-    case types.FETCH_APPLICATIONS_FAILURE:
+    case types.POST_APPLICATION_FAILURE:
       return update(state, {
-        fetching: false,
+        saving: false,
         error: payload,
-      });
-    case types.DELETE_APPLICATION_SUCCESS:
-      return update(state, {
-        list: list => list.filter(app => app.id !== payload),
       });
     default:
       return state;

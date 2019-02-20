@@ -5,6 +5,7 @@ import accountReducer from './account/reducer';
 import userListReducer from './users/listReducer';
 import selectedUserReducer from './users/selectedReducer';
 import applicationListReducer from './applications/listReducer';
+import selectedApplicationReducer from './applications/selectedReducer';
 
 import configureStore from './store';
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   users: userListReducer,
   selectedUser: selectedUserReducer,
   applications: applicationListReducer,
+  selectedApplication: selectedApplicationReducer,
 });
 
 export default curry(configureStore, rootReducer);
