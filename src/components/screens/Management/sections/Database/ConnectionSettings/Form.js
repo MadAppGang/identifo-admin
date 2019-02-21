@@ -6,9 +6,12 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 import databaseFormValidationRules from './validationRules';
 import * as Validation from '~/utils/validation';
+import { Select, Option } from '~/components/shared/Select';
+
+const MONGO_DB = 'mongodb';
+const DYNAMO_DB = 'dynamodb';
 
 class ConnectionSettingsForm extends Component {
   constructor({ settings }) {
@@ -108,11 +111,15 @@ class ConnectionSettingsForm extends Component {
       <div className="iap-db-connection-section">
         <form className="iap-db-form" onSubmit={this.handleSubmit}>
           <Field label="Database type">
-            <DatabaseDropdown
-              selectedValue={type}
+            <Select
+              value={type}
               disabled={posting}
               onChange={this.handleDBTypeChange}
-            />
+              placeholder="Select Database Type"
+            >
+              <Option value={MONGO_DB} title="Mongo DB" />
+              <Option value={DYNAMO_DB} title="Dynamo DB" />
+            </Select>
           </Field>
 
           {type === DYNAMO_DB && (
