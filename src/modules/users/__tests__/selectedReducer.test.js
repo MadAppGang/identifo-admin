@@ -76,4 +76,41 @@ describe('users module "selectedUser" reducer', () => {
     const action = { type: types.DELETE_USER_BY_ID_FAILURE, payload: err };
     expect(reducer({ saving: true }, action).error).toBe(err);
   });
+
+  test('sets saving to true on post attempt', () => {
+    const action = { type: types.POST_USER_ATTEMPT };
+    expect(reducer(undefined, action).saving).toBe(true);
+  });
+
+  test('sets saving to false on post success', () => {
+    const action = { type: types.POST_USER_SUCCESS };
+    expect(reducer(undefined, action).saving).toBe(false);
+  });
+
+  test('sets saving to false on post failure', () => {
+    const action = { type: types.POST_USER_FAILURE };
+    expect(reducer(undefined, action).saving).toBe(false);
+  });
+
+  test('sets user to paylooad on post success', () => {
+    const user = {};
+    const action = { type: types.POST_USER_SUCCESS, payload: user };
+    const state = {
+      saving: true,
+      user: null,
+      error: null,
+    };
+    const expectedState = {
+      saving: false,
+      error: null,
+      user,
+    };
+    expect(reducer(state, action)).toEqual(expectedState);
+  });
+
+  test('sets error to payload on post failure', () => {
+    const err = new Error('error');
+    const action = { type: types.POST_USER_FAILURE, payload: err };
+    expect(reducer(undefined, action).error).toBe(err);
+  });
 });

@@ -27,6 +27,20 @@ const reducer = (state = INITIAL_STATE, action) => {
         fetching: false,
         error: payload,
       });
+    case types.POST_USER_ATTEMPT:
+      return update(state, {
+        saving: true,
+      });
+    case types.POST_USER_SUCCESS:
+      return update(state, {
+        saving: false,
+        user: payload,
+      });
+    case types.POST_USER_FAILURE:
+      return update(state, {
+        saving: false,
+        error: payload,
+      });
     case types.ALTER_USER_ATTEMPT:
       return update(state, {
         saving: true,

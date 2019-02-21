@@ -68,7 +68,7 @@ NewUserView.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  saving: state.users.saving,
+  saving: state.selectedUser.saving,
 });
 
 const actions = {
