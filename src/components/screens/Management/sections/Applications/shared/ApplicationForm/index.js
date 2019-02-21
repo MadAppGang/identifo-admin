@@ -8,7 +8,7 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import validationRules from './validationRules';
 import * as Validation from '~/utils/validation';
-import TypeDropdown from './TypeDropdown';
+import { Select, Option } from '~/components/shared/Select';
 import './ApplicationForm.css';
 
 class ApplicationForm extends Component {
@@ -31,6 +31,7 @@ class ApplicationForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -55,6 +56,10 @@ class ApplicationForm extends Component {
       }),
       validation,
     }));
+  }
+
+  handleTypeChange(value) {
+    this.handleInput({ target: { name: 'type', value } });
   }
 
   handleBlur({ target }) {
@@ -104,11 +109,16 @@ class ApplicationForm extends Component {
         </Field>
 
         <Field label="Type">
-          <TypeDropdown
-            selectedValue={fields.type}
-            onChange={value => this.handleInput({ target: { name: 'type', value } })}
+          <Select
+            value={fields.type}
             disabled={loading}
-          />
+            onChange={this.handleTypeChange}
+            placeholder="Select Application Type"
+          >
+            <Option value="web" title="Single Page Application (Web)" />
+            <Option value="android" title="Android Client (Mobile)" />
+            <Option value="ios" title="iOS Client (Mobile)" />
+          </Select>
         </Field>
 
         <footer className="iap-apps-form__footer">
