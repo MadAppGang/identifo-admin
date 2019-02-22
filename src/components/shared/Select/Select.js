@@ -13,7 +13,7 @@ class Select extends Component {
   }
 
   render() {
-    const { children, value, disabled, placeholder } = this.props;
+    const { children, value, disabled, placeholder, errorMessage } = this.props;
 
     return (
       <Dropdown>
@@ -25,6 +25,7 @@ class Select extends Component {
               value={this.getDisplayValue(value)}
               disabled={disabled}
               onFocus={open}
+              errorMessage={errorMessage}
             />
             {isOpen && (
               <div className="iap-db-dropdown__options">
@@ -52,18 +53,15 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string,
-    title: PropTypes.string,
-  })),
+  errorMessage: PropTypes.string,
   placeholder: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
 Select.defaultProps = {
   disabled: false,
-  options: [],
   placeholder: 'Select',
+  errorMessage: '',
 };
 
 export default Select;

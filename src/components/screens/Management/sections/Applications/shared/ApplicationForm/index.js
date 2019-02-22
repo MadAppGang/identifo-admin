@@ -119,6 +119,7 @@ class ApplicationForm extends Component {
             disabled={loading}
             onChange={this.handleTypeChange}
             placeholder="Select Application Type"
+            errorMessage={validation.type}
           >
             <Option value="web" title="Single Page Application (Web)" />
             <Option value="android" title="Android Client (Mobile)" />
