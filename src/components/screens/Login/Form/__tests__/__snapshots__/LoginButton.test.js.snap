@@ -4,6 +4,7 @@ exports[`<LoginButton /> renders as expected 1`] = `
 <Button
   Icon={null}
   disabled={false}
+  error={false}
   iconClassName=""
   onClick={[MockFunction]}
   stretch={true}
