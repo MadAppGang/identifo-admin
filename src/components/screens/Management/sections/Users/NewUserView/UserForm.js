@@ -145,7 +145,7 @@ class UserForm extends Component {
             type="submit"
             Icon={saving ? LoadingIcon : SaveIcon}
             disabled={saving || Validation.hasError(validation)}
-            error={!!error}
+            error={!loading && !!error}
           >
             Save User
           </Button>

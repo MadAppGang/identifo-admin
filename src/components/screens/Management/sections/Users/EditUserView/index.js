@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import EditUserForm from './Form';
 import ActionsButton from '~/components/shared/ActionsButton';
-import { fetchUserById, alterUser, deleteUserById } from '~/modules/users/actions';
+import {
+  fetchUserById,
+  alterUser,
+  deleteUserById,
+  resetUserError,
+} from '~/modules/users/actions';
 import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/users';
@@ -15,7 +20,7 @@ class EditUserView extends Component {
 
     this.state = {};
 
-    this.goBack = this.goBack.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.availableActions = [{
@@ -29,7 +34,9 @@ class EditUserView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.saving && !this.props.saving) {
+    const doneSaving = prevProps.saving && !this.props.saving;
+
+    if (doneSaving && !this.props.error) {
       this.goBack();
     }
   }
@@ -38,12 +45,17 @@ class EditUserView extends Component {
     this.props.history.push(goBackPath);
   }
 
+  handleCancel() {
+    this.props.resetError();
+    this.goBack();
+  }
+
   handleSubmit(changes) {
     this.props.alterUser(this.props.id, changes);
   }
 
   render() {
-    const { id, fetching, saving, user } = this.props;
+    const { id, fetching, saving, user, error } = this.props;
 
     return (
       <section className="iap-management-section">
@@ -67,8 +79,9 @@ class EditUserView extends Component {
         <main>
           <EditUserForm
             user={user}
+            error={error}
             loading={fetching || saving}
-            onCancel={this.goBack}
+            onCancel={this.handleCancel}
             onSubmit={this.handleSubmit}
           />
         </main>
@@ -85,18 +98,21 @@ EditUserView.propTypes = {
   fetchUserById: PropTypes.func.isRequired,
   alterUser: PropTypes.func.isRequired,
   deleteUserById: PropTypes.func.isRequired,
+  resetError: PropTypes.func.isRequired,
   fetching: PropTypes.bool,
   saving: PropTypes.bool,
   user: PropTypes.shape({
     name: PropTypes.string,
     email: PropTypes.string,
   }),
+  error: PropTypes.instanceOf(Error),
 };
 
 EditUserView.defaultProps = {
   fetching: false,
   saving: false,
   user: null,
+  error: null,
 };
 
 const mapStateToProps = (state, props) => ({
@@ -104,12 +120,14 @@ const mapStateToProps = (state, props) => ({
   fetching: state.selectedUser.fetching,
   saving: state.selectedUser.saving,
   user: state.selectedUser.user,
+  error: state.selectedUser.error,
 });
 
 const actions = {
   fetchUserById,
   deleteUserById,
   alterUser,
+  resetError: resetUserError,
 };
 
 export default compose(

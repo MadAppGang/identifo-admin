@@ -49,7 +49,9 @@ const createUserServiceMock = () => {
   const postUser = async (user) => {
     await pause(600);
 
-    throw new Error('Could not create user');
+    if (user.name === 'Trigger Error') {
+      throw new Error('This name is already taken.');
+    }
 
     const insertion = {
       ...user,
@@ -66,6 +68,10 @@ const createUserServiceMock = () => {
 
   const alterUser = async (id, changes = {}) => {
     await pause(600);
+
+    if (changes.name === 'Trigger Error') {
+      throw new Error('This name is already taken');
+    }
 
     data.users = data.users.map((user) => {
       if (user.id === id) {

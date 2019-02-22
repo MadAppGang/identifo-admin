@@ -8,6 +8,7 @@ import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import editUserFormValidationRules from './validationRules';
+import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import * as Validation from '~/utils/validation';
 
 class EditUserForm extends Component {
@@ -113,10 +114,14 @@ class EditUserForm extends Component {
 
   render() {
     const { fields, editPassword, validation } = this.state;
-    const { loading } = this.props;
+    const { loading, error } = this.props;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
+        {!!error && (
+          <FormErrorMessage error={error} />
+        )}
+
         <Field label="Name">
           <Input
             name="name"
@@ -178,6 +183,7 @@ class EditUserForm extends Component {
             type="submit"
             Icon={loading ? LoadingIcon : SaveIcon}
             disabled={loading || Validation.hasError(validation)}
+            error={!loading && !!error}
           >
             Save changes
           </Button>
@@ -198,6 +204,7 @@ EditUserForm.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
   }),
+  error: PropTypes.instanceOf(Error),
 };
 
 EditUserForm.defaultProps = {
@@ -207,6 +214,7 @@ EditUserForm.defaultProps = {
     name: '',
   },
   onCancel: () => {},
+  error: null,
 };
 
 export default EditUserForm;
