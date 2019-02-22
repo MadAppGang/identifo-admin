@@ -76,10 +76,13 @@ const alterApplication = (id, changes) => async (dispatch, _, { applications }) 
   }
 };
 
+const resetApplicationError = actionCreator(types.RESET_APPLICATION_ERROR);
+
 export {
   fetchApplications,
   postApplication,
   deleteApplicationById,
   alterApplication,
   fetchApplicationById,
+  resetApplicationError,
 };
