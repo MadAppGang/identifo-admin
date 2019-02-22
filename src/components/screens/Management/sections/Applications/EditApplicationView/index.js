@@ -34,7 +34,9 @@ class EditApplicationView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.saving && prevProps.saving) {
+    const doneSaving = prevProps.saving && !this.props.saving;
+
+    if (doneSaving && !this.props.error) {
       this.goBack();
     }
   }

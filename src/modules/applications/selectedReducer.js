@@ -15,7 +15,11 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.POST_APPLICATION_ATTEMPT:
       return update(state, { saving: true, application: null });
     case types.POST_APPLICATION_SUCCESS:
-      return update(state, { saving: false, application: payload });
+      return update(state, {
+        error: null,
+        saving: false,
+        application: payload,
+      });
     case types.DELETE_APPLICATION_SUCCESS:
       return update(state, { saving: false });
     case types.FETCH_APPLICATION_BY_ID_ATTEMPT:
@@ -28,7 +32,11 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.DELETE_APPLICATION_ATTEMPT:
       return update(state, { saving: true });
     case types.ALTER_APPLICATION_SUCCESS:
-      return update(state, { saving: false, application: payload });
+      return update(state, {
+        error: null,
+        saving: false,
+        application: payload,
+      });
     case types.POST_APPLICATION_FAILURE:
     case types.ALTER_APPLICATION_FAILURE:
     case types.DELETE_APPLICATION_FAILURE:
