@@ -7,6 +7,7 @@ import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import userFormValidationRules from './validationRules';
+import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import * as Validation from '~/utils/validation';
 
 import './UserForm.css';
@@ -82,12 +83,16 @@ class UserForm extends Component {
   }
 
   render() {
-    const { saving } = this.props;
+    const { saving, error } = this.props;
     const { validation, fields } = this.state;
     const { email, name, password, confirmPassword } = fields;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
+        {error && (
+          <FormErrorMessage error={error} />
+        )}
+
         <Field label="Name">
           <Input
             name="name"
@@ -134,11 +139,13 @@ class UserForm extends Component {
           />
         </Field>
 
+
         <footer className="iap-users-form__footer">
           <Button
             type="submit"
             Icon={saving ? LoadingIcon : SaveIcon}
             disabled={saving || Validation.hasError(validation)}
+            error={!!error}
           >
             Save User
           </Button>
@@ -155,12 +162,14 @@ UserForm.propTypes = {
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
   saving: PropTypes.bool,
+  error: PropTypes.instanceOf(Error),
 };
 
 UserForm.defaultProps = {
   onCancel: () => {},
   onSubmit: () => {},
   saving: false,
+  error: null,
 };
 
 export default UserForm;

@@ -29,6 +29,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       });
     case types.POST_USER_ATTEMPT:
       return update(state, {
+        error: null,
         saving: true,
       });
     case types.POST_USER_SUCCESS:
@@ -42,9 +43,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: payload,
       });
     case types.ALTER_USER_ATTEMPT:
-      return update(state, {
-        saving: true,
-      });
+      return update(state, 'saving', true);
     case types.ALTER_USER_SUCCESS:
       return update(state, {
         saving: false,
@@ -56,9 +55,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: payload,
       });
     case types.DELETE_USER_BY_ID_ATTEMPT:
-      return update(state, {
-        saving: true,
-      });
+      return update(state, 'saving', true);
     case types.DELETE_USER_BY_ID_SUCCESS:
       return update(state, {
         saving: false,
@@ -69,6 +66,8 @@ const reducer = (state = INITIAL_STATE, action) => {
         saving: false,
         error: payload,
       });
+    case types.RESET_USER_ERROR:
+      return update(state, 'error', null);
     default:
       return state;
   }

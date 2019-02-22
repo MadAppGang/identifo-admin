@@ -76,10 +76,13 @@ const deleteUserById = id => async (dispatch, _, { users: userService }) => {
   }
 };
 
+const resetUserError = actionCreator(types.RESET_USER_ERROR);
+
 export {
   fetchUsers,
   postUser,
   alterUser,
   fetchUserById,
   deleteUserById,
+  resetUserError,
 };

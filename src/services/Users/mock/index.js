@@ -1,5 +1,7 @@
 import { pause } from '~/utils';
 
+/* eslint-disable */
+
 const data = {
   users: [
     {
@@ -46,6 +48,8 @@ const createUserServiceMock = () => {
 
   const postUser = async (user) => {
     await pause(600);
+
+    throw new Error('Could not create user');
 
     const insertion = {
       ...user,
