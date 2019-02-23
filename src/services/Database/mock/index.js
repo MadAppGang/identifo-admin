@@ -27,6 +27,11 @@ const createDatabaseServiceMock = () => {
 
   const postSettings = async (settings) => {
     await pause(1000);
+
+    if (settings.name === 'Trigger Error') {
+      throw new Error('This database name is not allowed');
+    }
+
     data.settings = settings;
   };
 

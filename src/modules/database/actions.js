@@ -46,8 +46,11 @@ const postSettings = settings => async (dispatch, _, { database: dbService }) =>
   }
 };
 
+const resetError = actionCreator(types.RESET_DB_SETTINGS_ERROR);
+
 export {
   testConnection,
   fetchSettings,
   postSettings,
+  resetError,
 };
