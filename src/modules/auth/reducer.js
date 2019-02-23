@@ -13,13 +13,12 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (type) {
     case types.LOGIN_ATTEMPT:
-      return update(state, {
-        signingIn: true,
-      });
+      return update(state, 'signingIn', true);
     case types.LOGIN_SUCCESS:
       return update(state, {
         authenticated: true,
         signingIn: false,
+        error: null,
       });
     case types.LOGIN_FAILURE:
       return update(state, {
@@ -27,9 +26,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: payload,
       });
     case types.LOGOUT_ATTEMPT:
-      return update(state, {
-        signingOut: true,
-      });
+      return update(state, 'signingOut', true);
     case types.LOGOUT_SUCCESS:
       return update(state, {
         signingOut: false,
