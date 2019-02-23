@@ -48,12 +48,4 @@ describe('<LoginForm />', () => {
     component.find('form').simulate('submit', { preventDefault: jest.fn() });
     expect(props.login).toHaveBeenCalledWith('Email', 'Password');
   });
-
-  test('calls resetError on error message click', () => {
-    props.error = new Error('message');
-    const component = shallow(<LoginForm {...props} />);
-
-    component.find('LoginErrorMessage').simulate('click');
-    expect(props.resetError).toHaveBeenCalled();
-  });
 });
