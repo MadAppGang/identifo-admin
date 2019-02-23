@@ -5,6 +5,8 @@ import { login, resetError } from '~/modules/auth/actions';
 import Input from '~/components/shared/Input';
 import ErrorMessage from './ErrorMessage';
 import LoginButton from './LoginButton';
+import EmailIcon from '~/components/icons/EmailIcon';
+import PasswordIcon from '~/components/icons/PasswordIcon';
 import './Form.css';
 
 class LoginForm extends Component {
@@ -58,6 +60,7 @@ class LoginForm extends Component {
           name="email"
           value={email}
           placeholder="Email"
+          Icon={EmailIcon}
           onChange={this.handleInput}
         />
 
@@ -66,6 +69,7 @@ class LoginForm extends Component {
           type="password"
           value={password}
           placeholder="Password"
+          Icon={PasswordIcon}
           onChange={this.handleInput}
         />
 
