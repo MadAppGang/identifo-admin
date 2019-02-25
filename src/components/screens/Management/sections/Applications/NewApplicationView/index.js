@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { postApplication } from '~/modules/applications/actions';
+import {
+  postApplication,
+  resetApplicationError,
+} from '~/modules/applications/actions';
 import ApplicationForm from '../shared/ApplicationForm';
 import { compose } from '~/utils/fn';
 
@@ -13,13 +16,20 @@ class NewApplicationView extends Component {
     super();
 
     this.state = {};
-    this.goBack = this.goBack.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.saving && !this.props.saving) {
+    const doneSaving = prevProps.saving && !this.props.saving;
+
+    if (doneSaving && !this.props.error) {
       this.goBack();
     }
+  }
+
+  handleCancel() {
+    this.props.resetError();
+    this.goBack();
   }
 
   goBack() {
@@ -27,7 +37,7 @@ class NewApplicationView extends Component {
   }
 
   render() {
-    const { saving } = this.props;
+    const { saving, error } = this.props;
 
     return (
       <section className="iap-management-section">
@@ -46,8 +56,9 @@ class NewApplicationView extends Component {
         </header>
         <main>
           <ApplicationForm
+            error={error}
             loading={saving}
-            onCancel={this.goBack}
+            onCancel={this.handleCancel}
             onSubmit={this.props.postApplication}
           />
         </main>
@@ -62,18 +73,23 @@ NewApplicationView.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   postApplication: PropTypes.func.isRequired,
+  resetError: PropTypes.func.isRequired,
+  error: PropTypes.instanceOf(Error),
 };
 
 NewApplicationView.defaultProps = {
   saving: false,
+  error: null,
 };
 
 const mapStateToProps = state => ({
   saving: state.selectedApplication.saving,
+  error: state.selectedApplication.error,
 });
 
 const actions = {
   postApplication,
+  resetError: resetApplicationError,
 };
 
 export default compose(

@@ -1,4 +1,4 @@
-import reducer from '../reducer';
+import reducer from '../settingsReducer';
 import types from '../types';
 
 describe('database reducer', () => {
@@ -16,13 +16,13 @@ describe('database reducer', () => {
     expect(reducer(undefined, action).fetching).toBe(false);
   });
 
-  test('sets settings to payload on fetch success', () => {
-    const settings = {};
+  test('sets config to payload on fetch success', () => {
+    const config = {};
     const action = {
       type: types.FETCH_DB_SETTINGS_SUCCESS,
-      payload: settings,
+      payload: config,
     };
-    expect(reducer(undefined, action).settings).toBe(settings);
+    expect(reducer(undefined, action).config).toBe(config);
   });
 
   test('sets posting to true on post attempt', () => {
@@ -40,12 +40,12 @@ describe('database reducer', () => {
   });
 
   test('sets settings to payload on post success', () => {
-    const settings = {};
+    const config = {};
     const action = {
       type: types.POST_DB_SETTINGS_SUCCESS,
-      payload: settings,
+      payload: config,
     };
-    expect(reducer(undefined, action).settings).toBe(settings);
+    expect(reducer(undefined, action).config).toBe(config);
   });
 
   test('sets error to payload on fetch failure', () => {

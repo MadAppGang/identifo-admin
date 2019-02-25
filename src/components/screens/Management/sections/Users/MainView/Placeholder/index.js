@@ -7,7 +7,7 @@ import './UsersPlaceholder.css';
 
 const UsersPlaceholder = (props) => {
   return (
-    <div className="iap-section-placehoder">
+    <div className="iap-section-placeholder">
       <h2 className="iap-section-placeholder__title">
         Users
       </h2>

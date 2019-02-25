@@ -28,11 +28,15 @@ describe('database actions', () => {
       type: types.TEST_CONNECTION_SUCCESS,
     };
 
-    const settings = {
-      type: 'mongodb',
-    };
+    const getState = jest.fn(() => ({
+      database: {
+        settings: {
+          type: 'mongodb',
+        },
+      },
+    }));
 
-    await testConnection(settings)(dispatch, null, { database });
+    await testConnection()(dispatch, getState, { database });
 
     expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
   });
@@ -45,22 +49,36 @@ describe('database actions', () => {
       payload: err,
     };
 
-    const settings = {
-      type: 'dynamodb',
-    };
+    const getState = jest.fn(() => ({
+      database: {
+        settings: {
+          config: {
+            type: 'mongodb',
+          },
+        },
+      },
+    }));
 
     database.testConnection.mockReturnValue(Promise.reject(err));
 
-    await testConnection(settings)(dispatch, null, { database });
+    await testConnection()(dispatch, getState, { database });
 
     expect(dispatch).toHaveBeenNthCalledWith(2, expectedAction);
   });
 
   test('test connection invokes database test connection method', () => {
-    const settings = { type: 'mongodb' };
+    const getState = jest.fn(() => ({
+      database: {
+        settings: {
+          config: {
+            type: 'mongodb',
+          },
+        },
+      },
+    }));
 
-    testConnection(settings)(dispatch, null, { database });
-    expect(database.testConnection).toBeCalledWith(settings);
+    testConnection()(dispatch, getState, { database });
+    expect(database.testConnection).toBeCalledWith(getState().database.settings.config);
   });
 
   test('fetch settings dispatches attempt', () => {

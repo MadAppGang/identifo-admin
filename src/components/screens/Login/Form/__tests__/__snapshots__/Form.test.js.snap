@@ -11,7 +11,7 @@ exports[`<LoginForm /> renders as expected 1`] = `
     Identifo
   </p>
   <Input
-    Icon={null}
+    Icon={[Function]}
     errorMessage=""
     name="email"
     onChange={[Function]}
@@ -20,7 +20,7 @@ exports[`<LoginForm /> renders as expected 1`] = `
     value=""
   />
   <Input
-    Icon={null}
+    Icon={[Function]}
     errorMessage=""
     name="password"
     onChange={[Function]}
@@ -32,6 +32,7 @@ exports[`<LoginForm /> renders as expected 1`] = `
     className="iap-login-form__footer"
   >
     <LoginButton
+      error={false}
       loading={false}
       onClick={null}
     />
@@ -49,12 +50,15 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
   >
     Identifo
   </p>
-  <LoginErrorMessage
-    message="message"
-    onClick={[Function]}
-  />
+  <div
+    className="iap-login-form__err"
+  >
+    <FormErrorMessage
+      error={[Error: message]}
+    />
+  </div>
   <Input
-    Icon={null}
+    Icon={[Function]}
     errorMessage=""
     name="email"
     onChange={[Function]}
@@ -63,7 +67,7 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
     value=""
   />
   <Input
-    Icon={null}
+    Icon={[Function]}
     errorMessage=""
     name="password"
     onChange={[Function]}
@@ -75,6 +79,7 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
     className="iap-login-form__footer"
   >
     <LoginButton
+      error={true}
       loading={false}
       onClick={null}
     />
@@ -93,7 +98,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
     Identifo
   </p>
   <Input
-    Icon={null}
+    Icon={[Function]}
     errorMessage=""
     name="email"
     onChange={[Function]}
@@ -102,7 +107,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
     value=""
   />
   <Input
-    Icon={null}
+    Icon={[Function]}
     errorMessage=""
     name="password"
     onChange={[Function]}
@@ -114,6 +119,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
     className="iap-login-form__footer"
   >
     <LoginButton
+      error={false}
       loading={true}
       onClick={null}
     />

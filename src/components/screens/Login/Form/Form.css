@@ -16,32 +16,8 @@
   color: #3d3d3d;
 }
 
-.iap-login-form__error-msg {
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background-color: #e98787;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  transition: opacity 100ms;
-}
-
-.iap-login-form__error-msg button {
-  height: 100%;
-  width: 100%;
-  padding: 20px;
-  border: none;
-  background-color: transparent;
-  font-weight: bold;
-  font-size: 15px;
-  color: #fff;
-  text-align: left;
-  cursor: pointer;
-}
-
-.iap-login-form__error-msg:hover {
-  opacity: .7;
+.iap-login-form__err {
+  align-self: flex-start;
 }
 
 .iap-login-form__footer {

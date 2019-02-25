@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login, resetError } from '~/modules/auth/actions';
 import Input from '~/components/shared/Input';
-import ErrorMessage from './ErrorMessage';
 import LoginButton from './LoginButton';
+import EmailIcon from '~/components/icons/EmailIcon';
+import PasswordIcon from '~/components/icons/PasswordIcon';
+import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import './Form.css';
 
 class LoginForm extends Component {
@@ -48,16 +50,16 @@ class LoginForm extends Component {
         </p>
 
         {error && (
-          <ErrorMessage
-            message={error.message}
-            onClick={this.handleErrorClick}
-          />
+          <div className="iap-login-form__err">
+            <FormErrorMessage error={error} />
+          </div>
         )}
 
         <Input
           name="email"
           value={email}
           placeholder="Email"
+          Icon={EmailIcon}
           onChange={this.handleInput}
         />
 
@@ -66,11 +68,12 @@ class LoginForm extends Component {
           type="password"
           value={password}
           placeholder="Password"
+          Icon={PasswordIcon}
           onChange={this.handleInput}
         />
 
         <footer className="iap-login-form__footer">
-          <LoginButton loading={signingIn} />
+          <LoginButton loading={signingIn} error={!signingIn && !!error} />
         </footer>
       </form>
     );

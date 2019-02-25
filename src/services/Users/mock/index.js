@@ -1,5 +1,7 @@
 import { pause } from '~/utils';
 
+/* eslint-disable */
+
 const data = {
   users: [
     {
@@ -47,6 +49,10 @@ const createUserServiceMock = () => {
   const postUser = async (user) => {
     await pause(600);
 
+    if (user.name === 'Trigger Error') {
+      throw new Error('This name is already taken.');
+    }
+
     const insertion = {
       ...user,
       id: Date.now().toString(),
@@ -62,6 +68,10 @@ const createUserServiceMock = () => {
 
   const alterUser = async (id, changes = {}) => {
     await pause(600);
+
+    if (changes.name === 'Trigger Error') {
+      throw new Error('This name is already taken');
+    }
 
     data.users = data.users.map((user) => {
       if (user.id === id) {

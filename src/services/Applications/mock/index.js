@@ -38,6 +38,10 @@ const createApplicationServiceMock = () => {
   const postApplication = async (application) => {
     await pause(550);
 
+    if (application.name === 'Trigger Error') {
+      throw new Error('Application with this name already exists.');
+    }
+
     const insertion = {
       id: Date.now().toString(),
       ...application,
@@ -51,6 +55,10 @@ const createApplicationServiceMock = () => {
 
   const alterApplication = async (id, changes) => {
     await pause(550);
+
+    if (changes.name === 'Trigger Error') {
+      throw new Error('Application with this name already exists.');
+    }
 
     data.applications = data.applications.map((application) => {
       if (application.id === id) {

@@ -13,11 +13,11 @@ const postSettingsAttempt = actionCreator(types.POST_DB_SETTINGS_ATTEMPT);
 const postSettingsSuccess = actionCreator(types.POST_DB_SETTINGS_SUCCESS);
 const postSettingsFailure = actionCreator(types.POST_DB_SETTINGS_FAILURE);
 
-const testConnection = settings => async (dispatch, _, { database: dbService }) => {
+const testConnection = () => async (dispatch, getState, { database: dbService }) => {
   dispatch(testConnectionAttempt());
 
   try {
-    await dbService.testConnection(settings);
+    await dbService.testConnection(getState().database.settings.config);
     dispatch(testConnectionSuccess());
   } catch (err) {
     dispatch(testConnectionFailure(err));
@@ -46,8 +46,11 @@ const postSettings = settings => async (dispatch, _, { database: dbService }) =>
   }
 };
 
+const resetError = actionCreator(types.RESET_DB_SETTINGS_ERROR);
+
 export {
   testConnection,
   fetchSettings,
   postSettings,
+  resetError,
 };

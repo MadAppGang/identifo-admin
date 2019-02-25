@@ -8,6 +8,7 @@ import Toggle from '~/components/shared/Toggle';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import accountFormValidationRules from './validationRules';
+import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import * as Validation from '~/utils/validation';
 
 class AdminAccountForm extends Component {
@@ -95,10 +96,15 @@ class AdminAccountForm extends Component {
     const {
       email, password, editPassword, confirmPassword, validation,
     } = this.state;
-    const { posting } = this.props;
+    const { posting, error } = this.props;
 
     return (
       <form className="iap-settings-form" onSubmit={this.handleSubmit}>
+
+        {!!error && (
+          <FormErrorMessage error={error} />
+        )}
+
         <Field label="Email">
           <Input
             name="email"
@@ -143,6 +149,7 @@ class AdminAccountForm extends Component {
         <footer className="iap-settings-form__footer">
           <Button
             type="submit"
+            error={!posting && !!error}
             disabled={posting || Validation.hasError(validation)}
             Icon={posting ? LoadingIcon : SaveIcon}
           >
@@ -168,6 +175,7 @@ AdminAccountForm.propTypes = {
     email: PropTypes.string,
   }),
   posting: PropTypes.bool,
+  error: PropTypes.instanceOf(Error),
 };
 
 AdminAccountForm.defaultProps = {
@@ -176,6 +184,7 @@ AdminAccountForm.defaultProps = {
     email: '',
   },
   posting: false,
+  error: null,
 };
 
 export default AdminAccountForm;

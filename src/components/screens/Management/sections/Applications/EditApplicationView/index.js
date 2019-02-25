@@ -6,6 +6,7 @@ import {
   alterApplication,
   deleteApplicationById,
   fetchApplicationById,
+  resetApplicationError,
 } from '~/modules/applications/actions';
 import { compose } from '~/utils/fn';
 import ApplicationForm from '../shared/ApplicationForm';
@@ -18,7 +19,6 @@ class EditApplicationView extends Component {
     super();
 
     this.state = {};
-    this.goBack = this.goBack.bind(this);
 
     this.availableActions = [{
       title: 'Delete Application',
@@ -26,6 +26,7 @@ class EditApplicationView extends Component {
     }];
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +34,9 @@ class EditApplicationView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.saving && prevProps.saving) {
+    const doneSaving = prevProps.saving && !this.props.saving;
+
+    if (doneSaving && !this.props.error) {
       this.goBack();
     }
   }
@@ -44,12 +47,17 @@ class EditApplicationView extends Component {
     this.props.alterApplication(id, changes);
   }
 
+  handleCancel() {
+    this.props.resetError();
+    this.goBack();
+  }
+
   goBack() {
     this.props.history.push(goBackPath);
   }
 
   render() {
-    const { id, saving, fetching, application } = this.props;
+    const { id, saving, fetching, application, error } = this.props;
 
     return (
       <section className="iap-management-section">
@@ -72,9 +80,10 @@ class EditApplicationView extends Component {
         </header>
         <main>
           <ApplicationForm
+            error={error}
             loading={saving || fetching}
             application={application}
-            onCancel={this.goBack}
+            onCancel={this.handleCancel}
             onSubmit={this.handleSubmit}
           />
         </main>
@@ -92,14 +101,17 @@ EditApplicationView.propTypes = {
   alterApplication: PropTypes.func.isRequired,
   deleteApplicationById: PropTypes.func.isRequired,
   fetchApplicationById: PropTypes.func.isRequired,
+  resetError: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   application: PropTypes.shape(),
+  error: PropTypes.instanceOf(Error),
 };
 
 EditApplicationView.defaultProps = {
   saving: false,
   fetching: false,
   application: null,
+  error: null,
 };
 
 const mapStateToProps = (state, props) => ({
@@ -107,12 +119,14 @@ const mapStateToProps = (state, props) => ({
   fetching: state.selectedApplication.fetching,
   saving: state.selectedApplication.saving,
   application: state.selectedApplication.application,
+  error: state.selectedApplication.error,
 });
 
 const actions = {
   alterApplication,
   deleteApplicationById,
   fetchApplicationById,
+  resetError: resetApplicationError,
 };
 
 export default compose(

@@ -6,9 +6,13 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import DatabaseDropdown, { MONGO_DB, DYNAMO_DB } from './DatabaseDropdown';
 import databaseFormValidationRules from './validationRules';
+import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import * as Validation from '~/utils/validation';
+import { Select, Option } from '~/components/shared/Select';
+
+const MONGO_DB = 'mongodb';
+const DYNAMO_DB = 'dynamodb';
 
 class ConnectionSettingsForm extends Component {
   constructor({ settings }) {
@@ -101,18 +105,26 @@ class ConnectionSettingsForm extends Component {
 
   render() {
     const { settings, validation } = this.state;
-    const { posting } = this.props;
+    const { posting, error } = this.props;
     const { type, name, region, endpoint } = settings;
 
     return (
       <div className="iap-db-connection-section">
         <form className="iap-db-form" onSubmit={this.handleSubmit}>
+          {!!error && (
+            <FormErrorMessage error={error} />
+          )}
+
           <Field label="Database type">
-            <DatabaseDropdown
-              selectedValue={type}
+            <Select
+              value={type}
               disabled={posting}
               onChange={this.handleDBTypeChange}
-            />
+              placeholder="Select Database Type"
+            >
+              <Option value={MONGO_DB} title="Mongo DB" />
+              <Option value={DYNAMO_DB} title="Dynamo DB" />
+            </Select>
           </Field>
 
           {type === DYNAMO_DB && (
@@ -158,6 +170,7 @@ class ConnectionSettingsForm extends Component {
 
           <footer className="iap-db-form__footer">
             <Button
+              error={!posting && !!error}
               type="submit"
               Icon={posting ? LoadingIcon : SaveIcon}
               disabled={posting || Validation.hasError(validation)}
@@ -188,6 +201,7 @@ ConnectionSettingsForm.propTypes = {
   }),
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
+  error: PropTypes.instanceOf(Error),
 };
 
 ConnectionSettingsForm.defaultProps = {
@@ -198,6 +212,7 @@ ConnectionSettingsForm.defaultProps = {
     region: '',
   },
   onCancel: null,
+  error: null,
 };
 
 export default ConnectionSettingsForm;

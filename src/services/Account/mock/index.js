@@ -16,6 +16,10 @@ const createAccountServiceMock = () => {
   const postSettings = async (settings) => {
     await pause(1000);
 
+    if (settings.email === 'trigger@error.com') {
+      throw new Error('Email is already in use');
+    }
+
     data.settings = settings;
   };
 

@@ -53,6 +53,31 @@
   color: #7d7d7d;
 }
 
+.iap-btn.iap-btn--error {
+  background-color: #d15555;
+  border-color: #d15555;
+}
+
+.iap-btn.iap-btn--error:hover {
+  background-color: #d66363;
+  border-color: #d66363;
+}
+
+.iap-btn.iap-btn--error:focus {
+  background-color: #d66363;
+  border-color: #c94c4c;
+}
+
+.iap-btn.iap-btn--error:active {
+  border-color: #c94c4c !important;
+  background-color: #c94c4c !important;
+}
+
+.iap-btn.iap-btn--error:disabled:hover {
+  background-color: #d15555;
+  border-color: #d15555;
+}
+
 .iap-btn:hover {
   background-color: #1B9CFC;
 }
@@ -68,6 +93,7 @@
 
 .iap-btn:disabled {
   opacity: .5;
+  pointer-events: none;
   cursor: default;
 }
 

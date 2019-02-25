@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Button.css';
 
-const Button = ({ stretch, Icon, children, transparent, iconClassName, ...props }) => {
+const Button = ({ stretch, Icon, children, error, transparent, iconClassName, ...props }) => {
   const className = classnames({
     'iap-btn': true,
     'iap-btn--stretch': stretch,
     'iap-btn--iconized': !!Icon,
     'iap-btn--transparent': transparent,
+    'iap-btn--error': error,
   });
 
   return (
@@ -35,6 +36,7 @@ Button.propTypes = {
   transparent: PropTypes.bool,
   iconClassName: PropTypes.string,
   Icon: PropTypes.func,
+  error: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -46,6 +48,7 @@ Button.defaultProps = {
   transparent: false,
   iconClassName: '',
   Icon: null,
+  error: false,
 };
 
 export default Button;

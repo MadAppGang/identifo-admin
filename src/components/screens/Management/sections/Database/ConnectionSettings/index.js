@@ -7,7 +7,11 @@ import Button from '~/components/shared/Button';
 import SectionHeader from '~/components/shared/SectionHeader';
 import EditIcon from '~/components/icons/EditIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import { fetchSettings, postSettings } from '~/modules/database/actions';
+import {
+  fetchSettings, postSettings, resetError,
+} from '~/modules/database/actions';
+import DatabasePlaceholder from './Placeholder';
+import DatabaseConnectionState from './ConnectionState';
 
 import './index.css';
 
@@ -34,7 +38,9 @@ class ConnectionSettings extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.posting && !this.props.posting) {
+    const donePosting = prevProps.posting && !this.props.posting;
+
+    if (donePosting && !this.props.error) {
       this.handleEditCancel();
     }
   }
@@ -44,6 +50,7 @@ class ConnectionSettings extends Component {
   }
 
   handleEditCancel() {
+    this.props.resetError();
     this.setState({ editing: false });
   }
 
@@ -53,38 +60,59 @@ class ConnectionSettings extends Component {
 
   render() {
     const { editing } = this.state;
-    const { fetching, posting, settings } = this.props;
+    const { error, fetching, posting, settings, connectionState } = this.props;
+
+    if (error && !editing) {
+      return (
+        <DatabasePlaceholder
+          fetching={fetching}
+          onTryAgainClick={this.props.fetchSettings}
+        />
+      );
+    }
 
     return (
-      <div className="iap-settings-section">
-        <SectionHeader
-          title="Connection Settings"
-          description={this.sectionDescription[editing ? 'editing' : 'preview']}
-        />
+      <>
+        <p className="iap-management-section__title">
+          Database
 
-        <main>
-          {editing && (
-            <Form
-              posting={posting}
-              settings={settings}
-              onSubmit={this.handleFormSubmit}
-              onCancel={this.handleEditCancel}
-            />
-          )}
           {!editing && (
-            <>
-              <Preview fetching={fetching} settings={this.props.settings} />
-              <Button
-                disabled={fetching}
-                Icon={fetching ? LoadingIcon : EditIcon}
-                onClick={this.handleEditClick}
-              >
-                Edit database settings
-              </Button>
-            </>
+            <DatabaseConnectionState loading={fetching} />
           )}
-        </main>
-      </div>
+        </p>
+
+        <div className="iap-settings-section">
+
+          <SectionHeader
+            title="Connection Settings"
+            description={this.sectionDescription[editing ? 'editing' : 'preview']}
+          />
+
+          <main>
+            {editing && (
+              <Form
+                error={error}
+                posting={posting}
+                settings={settings}
+                onSubmit={this.handleFormSubmit}
+                onCancel={this.handleEditCancel}
+              />
+            )}
+            {!editing && (
+              <>
+                <Preview fetching={fetching} settings={this.props.settings} />
+                <Button
+                  disabled={fetching}
+                  Icon={fetching ? LoadingIcon : EditIcon}
+                  onClick={this.handleEditClick}
+                >
+                  Edit database settings
+                </Button>
+              </>
+            )}
+          </main>
+        </div>
+      </>
     );
   }
 }
@@ -94,25 +122,31 @@ ConnectionSettings.propTypes = {
   posting: PropTypes.bool.isRequired,
   fetchSettings: PropTypes.func.isRequired,
   postSettings: PropTypes.func.isRequired,
+  resetError: PropTypes.func.isRequired,
   settings: PropTypes.shape({
     endpoint: PropTypes.string,
     name: PropTypes.string,
     type: PropTypes.string,
   }),
+  error: PropTypes.instanceOf(Error),
 };
 
 ConnectionSettings.defaultProps = {
   settings: null,
+  error: null,
 };
 
 const mapStateToProps = state => ({
-  fetching: state.database.fetching,
-  posting: state.database.posting,
-  settings: state.database.settings,
+  fetching: state.database.settings.fetching,
+  posting: state.database.settings.posting,
+  settings: state.database.settings.config,
+  error: state.database.settings.error,
 });
 
 const actions = {
-  fetchSettings, postSettings,
+  fetchSettings,
+  postSettings,
+  resetError,
 };
 
 export default connect(mapStateToProps, actions)(ConnectionSettings);

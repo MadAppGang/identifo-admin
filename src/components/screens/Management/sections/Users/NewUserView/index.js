@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import UserForm from './UserForm';
-import { postUser } from '~/modules/users/actions';
+import { postUser, resetUserError } from '~/modules/users/actions';
 import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/users';
@@ -12,11 +12,13 @@ class NewUserView extends Component {
   constructor() {
     super();
 
-    this.goBack = this.goBack.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.saving && !this.props.saving) {
+    const doneSaving = prevProps.saving && !this.props.saving;
+
+    if (doneSaving && !this.props.error) {
       this.goBack();
     }
   }
@@ -25,8 +27,13 @@ class NewUserView extends Component {
     this.props.history.push(goBackPath);
   }
 
+  handleCancel() {
+    this.props.resetError();
+    this.goBack();
+  }
+
   render() {
-    const { saving } = this.props;
+    const { saving, error } = this.props;
 
     return (
       <section className="iap-management-section">
@@ -45,8 +52,9 @@ class NewUserView extends Component {
         </header>
         <main>
           <UserForm
+            error={error}
             saving={saving}
-            onCancel={this.goBack}
+            onCancel={this.handleCancel}
             onSubmit={this.props.postUser}
           />
         </main>
@@ -61,18 +69,23 @@ NewUserView.propTypes = {
   }).isRequired,
   postUser: PropTypes.func.isRequired,
   saving: PropTypes.bool,
+  error: PropTypes.instanceOf(Error),
+  resetError: PropTypes.func.isRequired,
 };
 
 NewUserView.defaultProps = {
   saving: false,
+  error: null,
 };
 
 const mapStateToProps = state => ({
-  saving: state.users.saving,
+  saving: state.selectedUser.saving,
+  error: state.selectedUser.error,
 });
 
 const actions = {
   postUser,
+  resetError: resetUserError,
 };
 
 export default compose(
