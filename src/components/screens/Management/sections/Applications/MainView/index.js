@@ -10,17 +10,29 @@ import ApplicationList from './ApplicationList';
 import { compose } from '~/utils/fn';
 
 class ApplicationsMainView extends Component {
+  constructor() {
+    super();
+
+    this.initiateCreation = this.initiateCreation.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchApplications();
   }
 
+  initiateCreation() {
+    this.props.history.push('/management/applications/new');
+  }
+
   render() {
-    const { applications, fetching, history } = this.props;
+    const { applications, fetching } = this.props;
 
     if (!applications.length && !fetching) {
       return (
         <section className="iap-management-section">
-          <ApplicationsPlaceholder />
+          <ApplicationsPlaceholder
+            onCreateApplicationClick={this.initiateCreation}
+          />
         </section>
       );
     }
@@ -31,7 +43,7 @@ class ApplicationsMainView extends Component {
           Applications
           <Button
             Icon={AddIcon}
-            onClick={() => history.push('/management/applications/new')}
+            onClick={this.initiateCreation}
           >
             Create application
           </Button>

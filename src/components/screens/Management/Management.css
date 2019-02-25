@@ -16,7 +16,7 @@
   margin: 10px 0;
 }
 
-.iap-section-placehoder {
+.iap-section-placeholder {
   display: flex;
   align-items: center;
   width: 100%;
@@ -38,6 +38,10 @@
 .iap-section-placeholder__icon path,
 .iap-section-placeholder__icon circle {
   fill: #c3e0ff;
+}
+
+.iap-placeholder__fetch-failure-icon {
+  height: 110px;
 }
 
 .iap-section-placeholder__msg {

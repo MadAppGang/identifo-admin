@@ -10,6 +10,7 @@ import {
 } from '~/modules/account/actions';
 import EditIcon from '~/components/icons/EditIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import SettingsPlaceholder from './Placeholder';
 
 class AdminAccountSettings extends Component {
   constructor() {
@@ -52,8 +53,21 @@ class AdminAccountSettings extends Component {
     const { editing } = this.state;
     const { posting, fetching, settings, error } = this.props;
 
+    if (error) {
+      return (
+        <SettingsPlaceholder
+          fetching={fetching}
+          onTryAgainClick={this.props.fetchSettings}
+        />
+      );
+    }
+
     return (
       <div className="iap-settings-section">
+        <p className="iap-management-section__title">
+          Account Settings
+        </p>
+
         <SectionHeader
           title="Admin Account"
           description="These are credentials used to login into admin panel"
