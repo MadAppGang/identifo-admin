@@ -22,6 +22,11 @@ const createDatabaseServiceMock = () => {
 
   const fetchSettings = async () => {
     await pause(1000);
+
+    if (Math.round(Math.random())) {
+      throw new Error('err');
+    }
+
     return data.settings;
   };
 

@@ -53,7 +53,7 @@ class AdminAccountSettings extends Component {
     const { editing } = this.state;
     const { posting, fetching, settings, error } = this.props;
 
-    if (error) {
+    if (error && !editing) {
       return (
         <SettingsPlaceholder
           fetching={fetching}
@@ -63,40 +63,42 @@ class AdminAccountSettings extends Component {
     }
 
     return (
-      <div className="iap-settings-section">
+      <>
         <p className="iap-management-section__title">
           Account Settings
         </p>
 
-        <SectionHeader
-          title="Admin Account"
-          description="These are credentials used to login into admin panel"
-        />
+        <div className="iap-settings-section">
+          <SectionHeader
+            title="Admin Account"
+            description="These are credentials used to login into admin panel"
+          />
 
-        <main>
-          {editing && (
-            <Form
-              error={error}
-              posting={posting}
-              settings={settings}
-              onCancel={this.handleEditCancel}
-              onSubmit={this.handleFormSubmit}
-            />
-          )}
-          {!editing && (
-            <>
-              <Preview fetching={fetching} settings={settings} />
-              <Button
-                disabled={fetching}
-                Icon={fetching ? LoadingIcon : EditIcon}
-                onClick={this.handleEditClick}
-              >
-                Edit admin account
-              </Button>
-            </>
-          )}
-        </main>
-      </div>
+          <main>
+            {editing && (
+              <Form
+                error={error}
+                posting={posting}
+                settings={settings}
+                onCancel={this.handleEditCancel}
+                onSubmit={this.handleFormSubmit}
+              />
+            )}
+            {!editing && (
+              <>
+                <Preview fetching={fetching} settings={settings} />
+                <Button
+                  disabled={fetching}
+                  Icon={fetching ? LoadingIcon : EditIcon}
+                  onClick={this.handleEditClick}
+                >
+                  Edit admin account
+                </Button>
+              </>
+            )}
+          </main>
+        </div>
+      </>
     );
   }
 }
