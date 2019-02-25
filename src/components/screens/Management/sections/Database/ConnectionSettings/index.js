@@ -8,11 +8,10 @@ import SectionHeader from '~/components/shared/SectionHeader';
 import EditIcon from '~/components/icons/EditIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import {
-  fetchSettings,
-  postSettings,
-  resetError,
+  fetchSettings, postSettings, resetError,
 } from '~/modules/database/actions';
 import DatabasePlaceholder from './Placeholder';
+import DatabaseConnectionState from './ConnectionState';
 
 import './index.css';
 
@@ -61,7 +60,7 @@ class ConnectionSettings extends Component {
 
   render() {
     const { editing } = this.state;
-    const { error, fetching, posting, settings } = this.props;
+    const { error, fetching, posting, settings, connectionState } = this.props;
 
     if (error && !editing) {
       return (
@@ -76,6 +75,8 @@ class ConnectionSettings extends Component {
       <>
         <p className="iap-management-section__title">
           Database
+
+          <DatabaseConnectionState loading={fetching} />
         </p>
 
         <div className="iap-settings-section">
