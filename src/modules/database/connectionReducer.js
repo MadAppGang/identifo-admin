@@ -24,6 +24,8 @@ const reducer = (state = INITIAL_STATE, { type }) => {
         checking: false,
         state: CONNECTION_FAILED,
       });
+    case types.POST_DB_SETTINGS_SUCCESS:
+      return update(state, 'state', CONNECTION_TEST_REQUIRED);
     default:
       return state;
   }

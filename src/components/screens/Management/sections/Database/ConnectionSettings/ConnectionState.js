@@ -6,18 +6,20 @@ import {
   CONNECTION_FAILED,
   CONNECTION_TEST_REQUIRED,
 } from '~/modules/database/connectionReducer';
+import { testConnection } from '~/modules/database/actions';
 import Button from '~/components/shared/Button';
 import ConnectionIcon from '~/components/icons/ConnectionIcon';
 import ErrorIcon from '~/components/icons/ErrorIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 
-const ConnectionState = ({ loading, checking, state }) => {
+const ConnectionState = ({ loading, checking, state, ...props }) => {
   return (
     <>
       {state === CONNECTION_TEST_REQUIRED && (
         <Button
           Icon={checking || loading ? LoadingIcon : ConnectionIcon}
           disabled={loading || checking}
+          onClick={props.testConnection}
         >
           Test connection
         </Button>
@@ -46,9 +48,10 @@ ConnectionState.propTypes = {
   ]).isRequired,
   checking: PropTypes.bool.isRequired,
   loading: PropTypes.bool,
+  testConnection: PropTypes.func.isRequired,
 };
 
-ConnectionState.loading = {
+ConnectionState.defaultProps = {
   loading: false,
 };
 
@@ -57,6 +60,8 @@ const mapStateToProps = state => ({
   checking: state.database.connection.checking,
 });
 
-const actions = {};
+const actions = {
+  testConnection,
+};
 
 export default connect(mapStateToProps, actions)(ConnectionState);

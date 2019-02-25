@@ -76,7 +76,9 @@ class ConnectionSettings extends Component {
         <p className="iap-management-section__title">
           Database
 
-          <DatabaseConnectionState loading={fetching} />
+          {!editing && (
+            <DatabaseConnectionState loading={fetching} />
+          )}
         </p>
 
         <div className="iap-settings-section">
