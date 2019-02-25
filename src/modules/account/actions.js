@@ -31,7 +31,10 @@ const postAccountSettings = settings => async (dispatch, _, { account }) => {
   }
 };
 
+const resetAccountError = actionCreator(types.RESET_ACCOUNT_ERROR);
+
 export {
   fetchAccountSettings,
   postAccountSettings,
+  resetAccountError,
 };
