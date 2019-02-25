@@ -134,10 +134,10 @@ ConnectionSettings.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  fetching: state.database.fetching,
-  posting: state.database.posting,
-  settings: state.database.settings,
-  error: state.database.error,
+  fetching: state.database.settings.fetching,
+  posting: state.database.settings.posting,
+  settings: state.database.settings.config,
+  error: state.database.settings.error,
 });
 
 const actions = {

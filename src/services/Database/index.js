@@ -1,3 +1,5 @@
+import { getError } from '~/utils';
+
 const createDatabaseService = ({ httpClient }) => {
   const baseUrl = window.location.origin;
 
@@ -8,26 +10,30 @@ const createDatabaseService = ({ httpClient }) => {
       const response = await httpClient.post(url, settings);
       return response.data;
     } catch (err) {
-      if (err.response && err.response.data) {
-        throw new Error(err.response.data.message);
-      }
-
-      throw err;
+      throw getError(err);
     }
   };
 
   const fetchSettings = async () => {
     const url = `${baseUrl}/database`;
-    const response = await httpClient.get(url);
 
-    return response.data;
+    try {
+      const response = await httpClient.get(url);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
   };
 
   const postSettings = async (settings) => {
     const url = `${baseUrl}/database`;
-    const response = await httpClient.post(url, settings);
 
-    return response.data;
+    try {
+      const response = await httpClient.post(url, settings);
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
   };
 
   return Object.freeze({
