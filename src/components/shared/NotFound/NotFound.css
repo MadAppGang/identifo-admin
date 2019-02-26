@@ -1,6 +1,6 @@
 .iap-404-screen {
   width: 100%;
-  height: calc(100vh - 70px);
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,12 +9,17 @@
 
 .iap-404-screen__title {
   font-size: 18px;
-  margin-bottom: 5px;
+  margin-top: 15px;
   color: #aaa;
 }
 
 .iap-404-screen__subtitle {
   font-size: 22px;
-  margin-top: 15px;
+  margin-bottom: 20px;
   color: #3d3d3d;
+}
+
+.iap-404-screen__icon {
+  margin-bottom: 25px;
+  height: 120px;
 }

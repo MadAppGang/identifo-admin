@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginScreen from './screens/Login';
 import ManagementScreen from './screens/Management';
-import NotFoundScreen from './screens/NotFound';
+import NotFoundScreen from './screens/404';
 import ensureAuthState, { SIGNED_IN, SIGNED_OUT } from './hoc/ensureAuthState';
 
 import './index.css';
