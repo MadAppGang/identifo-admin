@@ -1,3 +1,5 @@
+import { pause } from '~/utils';
+
 const createAuthService = ({ httpClient }) => {
   const baseUrl = window.location.origin;
 
@@ -12,6 +14,8 @@ const createAuthService = ({ httpClient }) => {
   };
 
   const checkAuthState = async () => {
+    await pause(800);
+
     const url = `${baseUrl}/me`;
 
     try {

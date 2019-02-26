@@ -25,6 +25,18 @@ const logout = () => async (dispatch, _, { auth }) => {
   dispatch(logoutSuccess());
 };
 
+const checkAuthState = () => async (dispatch, _, { auth }) => {
+  dispatch(loginAttempt());
+
+  const authState = await auth.checkAuthState();
+
+  if (authState) {
+    dispatch(loginSuccess());
+  } else {
+    dispatch(loginFailure());
+  }
+};
+
 const resetError = () => ({
   type: types.LOGIN_FAILURE,
   payload: null,
@@ -34,4 +46,5 @@ export {
   login,
   logout,
   resetError,
+  checkAuthState,
 };

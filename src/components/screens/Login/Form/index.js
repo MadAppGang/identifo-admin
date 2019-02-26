@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login, resetError } from '~/modules/auth/actions';
+import { login, checkAuthState, resetError } from '~/modules/auth/actions';
 import Input from '~/components/shared/Input';
 import LoginButton from './LoginButton';
 import EmailIcon from '~/components/icons/EmailIcon';
@@ -21,6 +21,10 @@ class LoginForm extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleErrorClick = this.handleErrorClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.checkAuthState();
   }
 
   handleInput(event) {
@@ -59,6 +63,7 @@ class LoginForm extends Component {
           name="email"
           value={email}
           placeholder="Email"
+          disabled={signingIn}
           Icon={EmailIcon}
           onChange={this.handleInput}
         />
@@ -68,6 +73,7 @@ class LoginForm extends Component {
           type="password"
           value={password}
           placeholder="Password"
+          disabled={signingIn}
           Icon={PasswordIcon}
           onChange={this.handleInput}
         />
@@ -87,6 +93,7 @@ LoginForm.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string,
   }),
+  checkAuthState: PropTypes.func.isRequired,
 };
 
 LoginForm.defaultProps = {
@@ -104,6 +111,7 @@ const mapStateToProps = (state) => {
 const actions = {
   login,
   resetError,
+  checkAuthState,
 };
 
 export { LoginForm };
