@@ -24,12 +24,12 @@ describe('auth module reducer', () => {
   });
 
   test('sets sign in progress indicator to false on login success', () => {
-    const action = { type: types.LOGIN_SUCCESS };
+    const action = { type: types.AUTH_STATE_CHANGE, payload: false };
     expect(reducer(undefined, action).inProgress).toBe(false);
   });
 
   test('sets auth state to true on login success', () => {
-    const action = { type: types.LOGIN_SUCCESS };
+    const action = { type: types.AUTH_STATE_CHANGE, payload: true };
     expect(reducer(undefined, action).authenticated).toBe(true);
   });
 

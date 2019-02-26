@@ -24,7 +24,8 @@ describe('auth module actions', () => {
 
   test('dispatches login success with credentials on successful login', async () => {
     const expectedAction = {
-      type: types.LOGIN_SUCCESS,
+      type: types.AUTH_STATE_CHANGE,
+      payload: true,
     };
 
     await login('email', 'password')(dispatch, null, { auth });
@@ -59,7 +60,8 @@ describe('auth module actions', () => {
 
   test('dispatches logout success on logout', async () => {
     const expectedAction = {
-      type: types.LOGOUT_SUCCESS,
+      type: types.AUTH_STATE_CHANGE,
+      payload: false,
     };
 
     await logout()(dispatch, null, { auth });

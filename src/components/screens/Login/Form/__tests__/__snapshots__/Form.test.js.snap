@@ -12,6 +12,7 @@ exports[`<LoginForm /> renders as expected 1`] = `
   </p>
   <Input
     Icon={[Function]}
+    disabled={false}
     errorMessage=""
     name="email"
     onChange={[Function]}
@@ -21,6 +22,7 @@ exports[`<LoginForm /> renders as expected 1`] = `
   />
   <Input
     Icon={[Function]}
+    disabled={false}
     errorMessage=""
     name="password"
     onChange={[Function]}
@@ -59,6 +61,7 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
   </div>
   <Input
     Icon={[Function]}
+    disabled={false}
     errorMessage=""
     name="email"
     onChange={[Function]}
@@ -68,6 +71,7 @@ exports[`<LoginForm /> renders as expected when error 1`] = `
   />
   <Input
     Icon={[Function]}
+    disabled={false}
     errorMessage=""
     name="password"
     onChange={[Function]}
@@ -99,6 +103,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
   </p>
   <Input
     Icon={[Function]}
+    disabled={true}
     errorMessage=""
     name="email"
     onChange={[Function]}
@@ -108,6 +113,7 @@ exports[`<LoginForm /> renders as expected when signing in 1`] = `
   />
   <Input
     Icon={[Function]}
+    disabled={true}
     errorMessage=""
     name="password"
     onChange={[Function]}

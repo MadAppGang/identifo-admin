@@ -14,16 +14,14 @@ const createAuthService = ({ httpClient }) => {
   };
 
   const checkAuthState = async () => {
-    await pause(500);
-
     const url = `${baseUrl}/me`;
 
-    try {
-      await httpClient.get(url);
-      return true;
-    } catch (err) {
-      return false;
-    }
+    return new Promise((resolve) => {
+      httpClient.get(url)
+        .then(() => pause(500))
+        .then(() => resolve(true))
+        .catch(() => resolve(false));
+    });
   };
 
   return Object.freeze({
