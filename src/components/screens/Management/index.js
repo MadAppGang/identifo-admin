@@ -15,6 +15,7 @@ import SocialLoginSection from './sections/SocialLogin';
 import MultiFactorAuthSection from './sections/MultiFactorAuth';
 import PasswordlessLoginSection from './sections/PassworldlessLogin';
 import HostedPagesSection from './sections/HostedPages';
+import NotFoundSection from './sections/404';
 import Container from '~/components/shared/Container';
 import './Management.css';
 
@@ -37,6 +38,7 @@ const ManagementScreen = () => {
             <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
             <Route path="/management/passwordless_login" component={PasswordlessLoginSection} />
             <Route path="/management/hosted_pages" component={HostedPagesSection} />
+            <Route component={NotFoundSection} />
           </Switch>
         </Container>
       </Content>
