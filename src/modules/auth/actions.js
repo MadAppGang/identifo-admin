@@ -2,18 +2,16 @@ import actionCreator from '@madappgang/action-creator';
 import types from './types';
 
 const loginAttempt = actionCreator(types.LOGIN_ATTEMPT);
-const loginSuccess = actionCreator(types.LOGIN_SUCCESS);
 const loginFailure = actionCreator(types.LOGIN_FAILURE);
-
 const logoutAttempt = actionCreator(types.LOGOUT_ATTEMPT);
-const logoutSuccess = actionCreator(types.LOGOUT_SUCCESS);
+const authStateChange = actionCreator(types.AUTH_STATE_CHANGE);
 
 const login = (email, password) => async (dispatch, _, { auth }) => {
   dispatch(loginAttempt());
 
   try {
     await auth.login(email, password);
-    dispatch(loginSuccess());
+    dispatch(authStateChange(true));
   } catch (err) {
     dispatch(loginFailure(err));
   }
@@ -22,7 +20,13 @@ const login = (email, password) => async (dispatch, _, { auth }) => {
 const logout = () => async (dispatch, _, { auth }) => {
   dispatch(logoutAttempt());
   await auth.logout();
-  dispatch(logoutSuccess());
+  dispatch(authStateChange(false));
+};
+
+const checkAuthState = () => async (dispatch, _, { auth }) => {
+  dispatch(loginAttempt());
+  const authState = await auth.checkAuthState();
+  dispatch(authStateChange(authState));
 };
 
 const resetError = () => ({
@@ -34,4 +38,5 @@ export {
   login,
   logout,
   resetError,
+  checkAuthState,
 };

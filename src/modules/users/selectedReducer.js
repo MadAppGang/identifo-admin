@@ -16,6 +16,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return update(state, {
         fetching: true,
         user: null,
+        error: null,
       });
     case types.FETCH_USER_BY_ID_SUCCESS:
       return update(state, {

@@ -1,13 +1,13 @@
 import { pause } from '~/utils';
 
-const storageKey = 'auth_mock_token';
+const AUTH_STORAGE_KEY = 'auth_storage_key';
 
 const createAuthServiceMock = () => {
   const login = async (email, password) => {
     await pause(1000);
 
     if (email === 'email' && password === 'password') {
-      localStorage.setItem(storageKey, '8li5R5jfAc1iLfuWuJlvW')
+      localStorage.setItem(AUTH_STORAGE_KEY, 'helloworld');
       return;
     }
 
@@ -15,18 +15,19 @@ const createAuthServiceMock = () => {
   };
 
   const logout = async () => {
-    localStorage.removeItem(storageKey);
+    localStorage.removeItem(AUTH_STORAGE_KEY);
   };
 
-  const getAccessToken = () => localStorage.getItem(storageKey);
+  const checkAuthState = async () => {
+    await pause(500);
 
-  const isLoggedIn = () => !!getAccessToken();
+    return !!localStorage.getItem(AUTH_STORAGE_KEY);
+  };
 
   return Object.freeze({
     login,
     logout,
-    isLoggedIn,
-    getAccessToken,
+    checkAuthState,
   });
 };
 

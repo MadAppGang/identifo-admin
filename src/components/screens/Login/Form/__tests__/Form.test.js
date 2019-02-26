@@ -9,6 +9,7 @@ describe('<LoginForm />', () => {
       resetError: jest.fn(),
       signingIn: false,
       error: null,
+      checkAuthState: jest.fn(),
     };
   });
 

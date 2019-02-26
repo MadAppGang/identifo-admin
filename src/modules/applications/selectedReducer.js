@@ -23,7 +23,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.DELETE_APPLICATION_SUCCESS:
       return update(state, { saving: false });
     case types.FETCH_APPLICATION_BY_ID_ATTEMPT:
-      return update(state, { fetching: true });
+      return update(state, { fetching: true, error: null });
     case types.FETCH_APPLICATION_BY_ID_SUCCESS:
       return update(state, { fetching: false, application: payload });
     case types.FETCH_APPLICATION_BY_ID_FAILURE:
@@ -41,6 +41,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.ALTER_APPLICATION_FAILURE:
     case types.DELETE_APPLICATION_FAILURE:
       return update(state, { saving: false, error: payload });
+    case types.RESET_APPLICATION_ERROR:
+      return update(state, 'error', null);
     default:
       return state;
   }
