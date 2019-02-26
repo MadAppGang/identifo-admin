@@ -19,7 +19,7 @@ const createAuthServiceMock = () => {
   };
 
   const checkAuthState = async () => {
-    await pause(800);
+    await pause(500);
 
     return !!localStorage.getItem(AUTH_STORAGE_KEY);
   };

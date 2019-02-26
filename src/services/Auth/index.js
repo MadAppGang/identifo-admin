@@ -14,7 +14,7 @@ const createAuthService = ({ httpClient }) => {
   };
 
   const checkAuthState = async () => {
-    await pause(800);
+    await pause(500);
 
     const url = `${baseUrl}/me`;
 

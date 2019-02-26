@@ -3,7 +3,7 @@ import types from '../types';
 
 describe('auth module reducer', () => {
   test('sign in progress indicator is false by default', () => {
-    expect(reducer(undefined, {}).signingIn).toBe(false);
+    expect(reducer(undefined, {}).inProgress).toBe(false);
   });
 
   test('authentication state is false by default', () => {
@@ -15,17 +15,17 @@ describe('auth module reducer', () => {
   });
 
   test('sign out progress indicator is false by default', () => {
-    expect(reducer(undefined, {}).signingOut).toBe(false);
+    expect(reducer(undefined, {}).inProgress).toBe(false);
   });
 
   test('sets sign in progress indicator to true on login attempt', () => {
     const action = { type: types.LOGIN_ATTEMPT };
-    expect(reducer(undefined, action).signingIn).toBe(true);
+    expect(reducer(undefined, action).inProgress).toBe(true);
   });
 
   test('sets sign in progress indicator to false on login success', () => {
     const action = { type: types.LOGIN_SUCCESS };
-    expect(reducer(undefined, action).signingIn).toBe(false);
+    expect(reducer(undefined, action).inProgress).toBe(false);
   });
 
   test('sets auth state to true on login success', () => {
@@ -35,7 +35,7 @@ describe('auth module reducer', () => {
 
   test('sets sign in progress indicator to false on login failure', () => {
     const action = { type: types.LOGIN_FAILURE };
-    expect(reducer(undefined, action).signingIn).toBe(false);
+    expect(reducer(undefined, action).inProgress).toBe(false);
   });
 
   test('sets error on login failure', () => {
@@ -46,17 +46,17 @@ describe('auth module reducer', () => {
 
   test('sets sign out progress indicator to true on logout attempt', () => {
     const action = { type: types.LOGOUT_ATTEMPT };
-    expect(reducer(undefined, action).signingOut).toBe(true);
+    expect(reducer(undefined, action).inProgress).toBe(true);
   });
 
   test('sets sign out progress indicator to true on logout attempt', () => {
     const action = { type: types.LOGOUT_ATTEMPT };
-    expect(reducer(undefined, action).signingOut).toBe(true);
+    expect(reducer(undefined, action).inProgress).toBe(true);
   });
 
   test('sets sign out progress indicator to false on logout success', () => {
     const action = { type: types.LOGOUT_SUCCESS };
-    expect(reducer(undefined, action).signingOut).toBe(false);
+    expect(reducer(undefined, action).inProgress).toBe(false);
   });
 
   test('sets auth state to false on logout success', () => {

@@ -103,7 +103,7 @@ LoginForm.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    signingIn: state.auth.signingIn,
+    signingIn: state.auth.inProgress,
     error: state.auth.error,
   };
 };
