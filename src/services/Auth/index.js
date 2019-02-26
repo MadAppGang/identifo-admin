@@ -1,34 +1,31 @@
-const createAuthService = ({ httpClient, tokenStorage }) => {
+const createAuthService = ({ httpClient }) => {
   const baseUrl = window.location.origin;
 
   const login = async (email, password) => {
     const url = `${baseUrl}/login`;
-    const token = await httpClient.post(url, { email, password });
-
-    tokenStorage.set(token);
+    httpClient.post(url, { email, password });
   };
 
   const logout = async () => {
     const url = `${baseUrl}/logout`;
-
-    await httpClient.delete(url, {
-      headers: {
-        'X-Auth-Token': tokenStorage.get(),
-      },
-    });
-
-    tokenStorage.clear();
+    httpClient.post(url);
   };
 
-  const getAccessToken = () => tokenStorage.get();
+  const checkAuthState = async () => {
+    const url = `${baseUrl}/me`;
 
-  const isLoggedIn = () => !!getAccessToken();
+    try {
+      await httpClient.get(url);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
 
   return Object.freeze({
     login,
     logout,
-    isLoggedIn,
-    getAccessToken,
+    checkAuthState,
   });
 };
 

@@ -1,5 +1,4 @@
 import createHttpClient from './HttpClient';
-import createStorage from './Storage';
 import createAuthService from './Auth';
 import createDatabaseService from './Database';
 import createAccountService from './Account';
@@ -14,11 +13,7 @@ import createApplicationServiceMock from './Applications/mock';
 
 const httpClient = createHttpClient();
 
-const authService = createAuthService({
-  httpClient,
-  tokenStorage: createStorage(),
-});
-
+const authService = createAuthService({ httpClient });
 const databaseService = createDatabaseService({ httpClient });
 const accountService = createAccountService({ httpClient });
 const userService = createUserService({ httpClient });
