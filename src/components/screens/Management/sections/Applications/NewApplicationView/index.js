@@ -92,6 +92,8 @@ const actions = {
   resetError: resetApplicationError,
 };
 
+export { NewApplicationView };
+
 export default compose(
   withRouter,
   connect(mapStateToProps, actions),

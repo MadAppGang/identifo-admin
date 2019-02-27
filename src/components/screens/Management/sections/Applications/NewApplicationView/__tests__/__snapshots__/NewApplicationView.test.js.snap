@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewApplicationView /> renders as expected 1`] = `
+<section
+  className="iap-management-section"
+>
+  <header>
+    <div>
+      <Link
+        className="iap-management-section__back"
+        replace={false}
+        to="/management/applications"
+      >
+        ←  Applications
+      </Link>
+    </div>
+    <p
+      className="iap-management-section__title"
+    >
+      Create Application
+    </p>
+    <p
+      className="iap-management-section__description"
+    >
+      Configure the allowed Callback URLs and Secrets for your Application.
+    </p>
+  </header>
+  <main>
+    <ApplicationForm
+      application={null}
+      error={null}
+      loading={false}
+      onCancel={[Function]}
+      onSubmit={[MockFunction]}
+    />
+  </main>
+</section>
+`;
