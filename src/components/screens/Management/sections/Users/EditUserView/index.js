@@ -5,10 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import EditUserForm from './Form';
 import ActionsButton from '~/components/shared/ActionsButton';
 import {
-  fetchUserById,
-  alterUser,
-  deleteUserById,
-  resetUserError,
+  fetchUserById, alterUser, deleteUserById, resetUserError,
 } from '~/modules/users/actions';
 import { compose } from '~/utils/fn';
 
@@ -129,6 +126,8 @@ const actions = {
   alterUser,
   resetError: resetUserError,
 };
+
+export { EditUserView };
 
 export default compose(
   withRouter,
