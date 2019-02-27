@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserList /> renders as expected 1`] = `
+<div
+  className="iap-userlist"
+>
+  <div
+    className="iap-datagrid"
+  >
+    <UserHeader
+      config={
+        Object {
+          "email": Object {
+            "title": "Email",
+            "width": "31%",
+          },
+          "icon": Object {
+            "title": "",
+            "width": "10%",
+          },
+          "latestLogin": Object {
+            "title": "Latest Login",
+            "width": "18%",
+          },
+          "name": Object {
+            "title": "Name",
+            "width": "30%",
+          },
+          "numberOfLogins": Object {
+            "title": "# of Logins",
+            "width": "15%",
+          },
+        }
+      }
+    />
+    <main
+      className="iap-datagrid-body"
+    >
+      <Link
+        className="rrdl"
+        key="1234"
+        replace={false}
+        to="/management/users/1234"
+      >
+        <UserRow
+          config={
+            Object {
+              "email": Object {
+                "title": "Email",
+                "width": "31%",
+              },
+              "icon": Object {
+                "title": "",
+                "width": "10%",
+              },
+              "latestLogin": Object {
+                "title": "Latest Login",
+                "width": "18%",
+              },
+              "name": Object {
+                "title": "Name",
+                "width": "30%",
+              },
+              "numberOfLogins": Object {
+                "title": "# of Logins",
+                "width": "15%",
+              },
+            }
+          }
+          data={
+            Object {
+              "email": "email@gmail.com",
+              "id": "1234",
+              "latestLogin": "Never",
+              "name": "John Doe",
+              "numberOfLogins": 0,
+            }
+          }
+        />
+      </Link>
+      <Link
+        className="rrdl"
+        key="2345"
+        replace={false}
+        to="/management/users/2345"
+      >
+        <UserRow
+          config={
+            Object {
+              "email": Object {
+                "title": "Email",
+                "width": "31%",
+              },
+              "icon": Object {
+                "title": "",
+                "width": "10%",
+              },
+              "latestLogin": Object {
+                "title": "Latest Login",
+                "width": "18%",
+              },
+              "name": Object {
+                "title": "Name",
+                "width": "30%",
+              },
+              "numberOfLogins": Object {
+                "title": "# of Logins",
+                "width": "15%",
+              },
+            }
+          }
+          data={
+            Object {
+              "email": "different@email.com",
+              "id": "2345",
+              "latestLogin": "2 hours ago",
+              "name": "Foo Bazz",
+              "numberOfLogins": 2,
+            }
+          }
+        />
+      </Link>
+    </main>
+  </div>
+</div>
+`;
+
+exports[`<UserList /> renders as expected when loading 1`] = `
+<div
+  className="iap-userlist"
+>
+  <div
+    className="iap-datagrid"
+  >
+    <UserHeader
+      config={
+        Object {
+          "email": Object {
+            "title": "Email",
+            "width": "31%",
+          },
+          "icon": Object {
+            "title": "",
+            "width": "10%",
+          },
+          "latestLogin": Object {
+            "title": "Latest Login",
+            "width": "18%",
+          },
+          "name": Object {
+            "title": "Name",
+            "width": "30%",
+          },
+          "numberOfLogins": Object {
+            "title": "# of Logins",
+            "width": "15%",
+          },
+        }
+      }
+    />
+    <main
+      className="iap-datagrid-body"
+    >
+      <Preloader />
+    </main>
+  </div>
+</div>
+`;
+
+exports[`<UserList /> renders as expected when not loading and no users 1`] = `
+<div
+  className="iap-userlist"
+>
+  <div
+    className="iap-datagrid"
+  >
+    <UserHeader
+      config={
+        Object {
+          "email": Object {
+            "title": "Email",
+            "width": "31%",
+          },
+          "icon": Object {
+            "title": "",
+            "width": "10%",
+          },
+          "latestLogin": Object {
+            "title": "Latest Login",
+            "width": "18%",
+          },
+          "name": Object {
+            "title": "Name",
+            "width": "30%",
+          },
+          "numberOfLogins": Object {
+            "title": "# of Logins",
+            "width": "15%",
+          },
+        }
+      }
+    />
+    <main
+      className="iap-datagrid-body"
+    >
+      <DatagridNotFound
+        text="No Users Found"
+      />
+    </main>
+  </div>
+</div>
+`;
