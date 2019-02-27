@@ -115,6 +115,7 @@ class ApplicationForm extends Component {
 
         <Field label="Type">
           <Select
+            name="type"
             value={fields.type}
             disabled={loading}
             onChange={this.handleTypeChange}
