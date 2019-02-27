@@ -88,6 +88,8 @@ const actions = {
   resetError: resetUserError,
 };
 
+export { NewUserView };
+
 export default compose(
   withRouter,
   connect(mapStateToProps, actions),
