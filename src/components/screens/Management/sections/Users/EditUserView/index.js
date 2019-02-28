@@ -37,7 +37,6 @@ class EditUserView extends Component {
     if (doneSaving && !this.props.error) {
       this.goBack();
       this.props.createNotification({
-        id: '1',
         type: 'success',
         title: 'Update success',
         text: 'User has been updated successfully',
