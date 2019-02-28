@@ -35,21 +35,42 @@ class EditUserView extends Component {
     const doneSaving = prevProps.saving && !this.props.saving;
 
     if (doneSaving && !this.props.error) {
+      if (!this.props.user) {
+        this.notifyDeleteSuccess();
+      } else {
+        this.notifyCreationSuccess();
+      }
+
       this.goBack();
-      this.props.createNotification({
-        type: 'success',
-        title: 'Done',
-        text: 'User has been updated successfully',
-      });
     }
 
     if (doneSaving && this.props.error) {
-      this.props.createNotification({
-        type: 'failure',
-        title: 'Error',
-        text: 'User could not be updated',
-      });
+      this.notifyCreationFailure();
     }
+  }
+
+  notifyDeleteSuccess() {
+    this.props.createNotification({
+      type: 'success',
+      title: 'Deleted',
+      text: 'User has been deleted successfully',
+    });
+  }
+
+  notifyCreationSuccess() {
+    this.props.createNotification({
+      type: 'success',
+      title: 'Updated',
+      text: 'User has been updated successfully',
+    });
+  }
+
+  notifyCreationFailure() {
+    this.props.createNotification({
+      type: 'failure',
+      title: 'Error',
+      text: 'User could not be updated',
+    });
   }
 
   goBack() {

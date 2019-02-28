@@ -32,8 +32,8 @@ class NewUserView extends Component {
   notifyCreationSuccess() {
     this.props.createNotification({
       type: 'success',
-      title: 'Done',
-      text: 'User has been create successfully',
+      title: 'Created',
+      text: 'User has been created successfully',
     });
   }
 
