@@ -8,6 +8,7 @@ import SectionHeader from '~/components/shared/SectionHeader';
 import {
   fetchAccountSettings, postAccountSettings, resetAccountError,
 } from '~/modules/account/actions';
+import { createNotification } from '~/modules/notifications/actions';
 import EditIcon from '~/components/icons/EditIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import SettingsPlaceholder from './Placeholder';
@@ -31,8 +32,22 @@ class AdminAccountSettings extends Component {
 
   componentDidUpdate(prevProps) {
     const donePosting = prevProps.posting && !this.props.posting;
+
     if (donePosting && !this.props.error) {
       this.handleEditCancel();
+      this.props.createNotification({
+        type: 'success',
+        title: 'Saved',
+        text: 'Account settings have been successfully saved',
+      });
+    }
+
+    if (donePosting && this.props.error) {
+      this.props.createNotification({
+        type: 'failure',
+        title: 'Error',
+        text: 'Account settings could not be saved',
+      });
     }
   }
 
@@ -112,6 +127,7 @@ AdminAccountSettings.propTypes = {
   settings: PropTypes.shape({
     email: PropTypes.string,
   }),
+  createNotification: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Error),
 };
 
@@ -131,6 +147,7 @@ const actions = {
   fetchSettings: fetchAccountSettings,
   postSettings: postAccountSettings,
   resetError: resetAccountError,
+  createNotification,
 };
 
 export default connect(mapStateToProps, actions)(AdminAccountSettings);
