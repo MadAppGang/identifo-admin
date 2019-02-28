@@ -38,8 +38,16 @@ class EditUserView extends Component {
       this.goBack();
       this.props.createNotification({
         type: 'success',
-        title: 'Update success',
+        title: 'Done',
         text: 'User has been updated successfully',
+      });
+    }
+
+    if (doneSaving && this.props.error) {
+      this.props.createNotification({
+        type: 'failure',
+        title: 'Error',
+        text: 'User could not be updated',
       });
     }
   }
