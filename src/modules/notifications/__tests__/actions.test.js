@@ -7,7 +7,11 @@ describe('create notification action creator', () => {
   });
 
   test('dispatches a create notification action', () => {
-    expect(createNotification()).toEqual({ type: types.CREATE_NOTIFICATION });
+    expect(createNotification().type).toEqual(types.CREATE_NOTIFICATION);
+  });
+
+  test('created action contains an id', () => {
+    expect(createNotification().payload.id).not.toBe(undefined);
   });
 });
 
