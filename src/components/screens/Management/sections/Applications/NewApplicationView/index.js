@@ -6,6 +6,7 @@ import {
   postApplication,
   resetApplicationError,
 } from '~/modules/applications/actions';
+import { createNotification } from '~/modules/notifications/actions';
 import ApplicationForm from '../shared/ApplicationForm';
 import { compose } from '~/utils/fn';
 
@@ -24,6 +25,19 @@ class NewApplicationView extends Component {
 
     if (doneSaving && !this.props.error) {
       this.goBack();
+      this.props.createNotification({
+        type: 'success',
+        title: 'Created',
+        text: 'Application has been created successfully',
+      });
+    }
+
+    if (doneSaving && this.props.error) {
+      this.props.createNotification({
+        type: 'failure',
+        title: 'Error',
+        text: 'Application could not be created',
+      });
     }
   }
 
@@ -73,6 +87,7 @@ NewApplicationView.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   postApplication: PropTypes.func.isRequired,
+  createNotification: PropTypes.func.isRequired,
   resetError: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Error),
 };
@@ -90,6 +105,7 @@ const mapStateToProps = state => ({
 const actions = {
   postApplication,
   resetError: resetApplicationError,
+  createNotification,
 };
 
 export { NewApplicationView };
