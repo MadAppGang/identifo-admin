@@ -99,4 +99,6 @@ const actions = {
   fetchUsers,
 };
 
+export { UsersMainView };
+
 export default connect(mapStateToProps, actions)(UsersMainView);

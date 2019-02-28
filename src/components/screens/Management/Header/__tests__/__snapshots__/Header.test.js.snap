@@ -8,11 +8,17 @@ exports[`<ManagementScreenHeader /> renders as expected 1`] = `
     <div
       className="iap-management-header__inner"
     >
-      <span
-        className="iap-management-header__logo"
+      <Link
+        className="rrdl"
+        replace={false}
+        to="/management"
       >
-        Identifo
-      </span>
+        <span
+          className="iap-management-header__logo"
+        >
+          Identifo
+        </span>
+      </Link>
       <ProfileDropdown />
     </div>
   </Container>

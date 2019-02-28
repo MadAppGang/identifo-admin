@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import UserForm from './UserForm';
 import { postUser, resetUserError } from '~/modules/users/actions';
+import { createNotification } from '~/modules/notifications/actions';
 import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/users';
@@ -19,8 +20,29 @@ class NewUserView extends Component {
     const doneSaving = prevProps.saving && !this.props.saving;
 
     if (doneSaving && !this.props.error) {
+      this.notifyCreationSuccess();
       this.goBack();
     }
+
+    if (doneSaving && this.props.error) {
+      this.notifyCreationFailure();
+    }
+  }
+
+  notifyCreationSuccess() {
+    this.props.createNotification({
+      type: 'success',
+      title: 'Created',
+      text: 'User has been created successfully',
+    });
+  }
+
+  notifyCreationFailure() {
+    this.props.createNotification({
+      type: 'failure',
+      title: 'Error',
+      text: 'User could not be created',
+    });
   }
 
   goBack() {
@@ -71,6 +93,7 @@ NewUserView.propTypes = {
   saving: PropTypes.bool,
   error: PropTypes.instanceOf(Error),
   resetError: PropTypes.func.isRequired,
+  createNotification: PropTypes.func.isRequired,
 };
 
 NewUserView.defaultProps = {
@@ -86,7 +109,10 @@ const mapStateToProps = state => ({
 const actions = {
   postUser,
   resetError: resetUserError,
+  createNotification,
 };
+
+export { NewUserView };
 
 export default compose(
   withRouter,

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UsersPlaceholder /> renders as expected 1`] = `
+<div
+  className="iap-section-placeholder"
+>
+  <h2
+    className="iap-section-placeholder__title"
+  >
+    Users
+  </h2>
+  <UsersIcon
+    className="iap-section-placeholder__icon"
+  />
+  <p
+    className="iap-section-placeholder__msg"
+  >
+    No users have been added to your applications.
+  </p>
+  <Button
+    Icon={[Function]}
+    disabled={false}
+    error={false}
+    iconClassName=""
+    onClick={[MockFunction]}
+    stretch={false}
+    transparent={false}
+    type="button"
+  >
+    Create your first user
+  </Button>
+</div>
+`;

@@ -21,9 +21,13 @@ const reducer = (state = INITIAL_STATE, action) => {
         application: payload,
       });
     case types.DELETE_APPLICATION_SUCCESS:
-      return update(state, { saving: false });
+      return update(state, { saving: false, application: null });
     case types.FETCH_APPLICATION_BY_ID_ATTEMPT:
-      return update(state, { fetching: true, error: null });
+      return update(state, {
+        fetching: true,
+        error: null,
+        application: null,
+      });
     case types.FETCH_APPLICATION_BY_ID_SUCCESS:
       return update(state, { fetching: false, application: payload });
     case types.FETCH_APPLICATION_BY_ID_FAILURE:

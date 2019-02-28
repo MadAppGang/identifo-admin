@@ -22,7 +22,7 @@
 /* react router dom link */
 .rrdl { 
   text-decoration: none;
-  color: auto;
+  color: inherit;
 }
 
 @keyframes pulse {

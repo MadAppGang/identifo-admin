@@ -11,6 +11,7 @@ import {
 import { compose } from '~/utils/fn';
 import ApplicationForm from '../shared/ApplicationForm';
 import ActionsButton from '~/components/shared/ActionsButton';
+import { createNotification } from '~/modules/notifications/actions';
 
 const goBackPath = '/management/applications';
 
@@ -38,7 +39,28 @@ class EditApplicationView extends Component {
 
     if (doneSaving && !this.props.error) {
       this.goBack();
+      if (this.props.application) {
+        this.notifyUpdateSuccess();
+      } else {
+        this.notifyDeleteSuccess();
+      }
     }
+  }
+
+  notifyUpdateSuccess() {
+    this.props.createNotification({
+      type: 'success',
+      title: 'Updated',
+      text: 'Application has been updated successfully',
+    });
+  }
+
+  notifyDeleteSuccess() {
+    this.props.createNotification({
+      type: 'success',
+      title: 'Deleted',
+      text: 'Application has been deleted successfully',
+    });
   }
 
   handleSubmit(changes) {
@@ -105,6 +127,7 @@ EditApplicationView.propTypes = {
   id: PropTypes.string.isRequired,
   application: PropTypes.shape(),
   error: PropTypes.instanceOf(Error),
+  createNotification: PropTypes.func.isRequired,
 };
 
 EditApplicationView.defaultProps = {
@@ -127,6 +150,7 @@ const actions = {
   deleteApplicationById,
   fetchApplicationById,
   resetError: resetApplicationError,
+  createNotification,
 };
 
 export default compose(

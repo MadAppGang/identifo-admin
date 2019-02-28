@@ -10,6 +10,7 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import {
   fetchSettings, postSettings, resetError,
 } from '~/modules/database/actions';
+import { createNotification } from '~/modules/notifications/actions';
 import DatabasePlaceholder from './Placeholder';
 import DatabaseConnectionState from './ConnectionState';
 
@@ -42,6 +43,19 @@ class ConnectionSettings extends Component {
 
     if (donePosting && !this.props.error) {
       this.handleEditCancel();
+      this.props.createNotification({
+        type: 'success',
+        title: 'Saved',
+        text: 'Database settings have been successfully saved',
+      });
+    }
+
+    if (donePosting && this.props.error) {
+      this.props.createNotification({
+        type: 'failure',
+        title: 'Error',
+        text: 'Database settings could not be saved',
+      });
     }
   }
 
@@ -60,7 +74,7 @@ class ConnectionSettings extends Component {
 
   render() {
     const { editing } = this.state;
-    const { error, fetching, posting, settings, connectionState } = this.props;
+    const { error, fetching, posting, settings } = this.props;
 
     if (error && !editing) {
       return (
@@ -123,6 +137,7 @@ ConnectionSettings.propTypes = {
   fetchSettings: PropTypes.func.isRequired,
   postSettings: PropTypes.func.isRequired,
   resetError: PropTypes.func.isRequired,
+  createNotification: PropTypes.func.isRequired,
   settings: PropTypes.shape({
     endpoint: PropTypes.string,
     name: PropTypes.string,
@@ -147,6 +162,7 @@ const actions = {
   fetchSettings,
   postSettings,
   resetError,
+  createNotification,
 };
 
 export default connect(mapStateToProps, actions)(ConnectionSettings);
