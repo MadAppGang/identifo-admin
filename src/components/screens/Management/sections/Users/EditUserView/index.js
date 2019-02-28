@@ -7,6 +7,7 @@ import ActionsButton from '~/components/shared/ActionsButton';
 import {
   fetchUserById, alterUser, deleteUserById, resetUserError,
 } from '~/modules/users/actions';
+import { createNotification } from '~/modules/notifications/actions';
 import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/users';
@@ -35,6 +36,12 @@ class EditUserView extends Component {
 
     if (doneSaving && !this.props.error) {
       this.goBack();
+      this.props.createNotification({
+        id: '1',
+        type: 'success',
+        title: 'Update success',
+        text: 'User has been updated successfully',
+      });
     }
   }
 
@@ -103,6 +110,7 @@ EditUserView.propTypes = {
     email: PropTypes.string,
   }),
   error: PropTypes.instanceOf(Error),
+  createNotification: PropTypes.func.isRequired,
 };
 
 EditUserView.defaultProps = {
@@ -125,6 +133,7 @@ const actions = {
   deleteUserById,
   alterUser,
   resetError: resetUserError,
+  createNotification,
 };
 
 export { EditUserView };

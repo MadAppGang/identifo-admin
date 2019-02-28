@@ -53,7 +53,7 @@ class NotificationContainer extends Component {
     });
 
     return (
-      <div className="notification-container">
+      <div className="iap-notification-container">
         {list}
       </div>
     );
@@ -71,7 +71,7 @@ NotificationContainer.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  notifications: state.notification.list,
+  notifications: state.notifications.list,
 });
 
 const actions = {

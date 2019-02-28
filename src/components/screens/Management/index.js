@@ -17,6 +17,7 @@ import PasswordlessLoginSection from './sections/PassworldlessLogin';
 import HostedPagesSection from './sections/HostedPages';
 import NotFoundSection from './sections/404';
 import Container from '~/components/shared/Container';
+import { NotificationContainer } from '~/components/shared/Notifications';
 import './Management.css';
 
 const ManagementScreen = () => {
@@ -41,6 +42,7 @@ const ManagementScreen = () => {
             <Route component={NotFoundSection} />
           </Switch>
         </Container>
+        <NotificationContainer />
       </Content>
     </Layout>
   );
