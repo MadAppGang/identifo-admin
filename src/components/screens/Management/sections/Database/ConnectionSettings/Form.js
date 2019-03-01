@@ -117,6 +117,7 @@ class ConnectionSettingsForm extends Component {
 
           <Field label="Database type">
             <Select
+              name="type"
               value={type}
               disabled={posting}
               onChange={this.handleDBTypeChange}
