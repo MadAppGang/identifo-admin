@@ -1,7 +1,8 @@
+import { resolve as resolveUrl } from 'url';
 import { pause } from '~/utils';
 
 const createAuthService = ({ httpClient }) => {
-  const baseUrl = window.location.origin;
+  const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
 
   const login = async (email, password) => {
     const url = `${baseUrl}/login`;
@@ -25,9 +26,7 @@ const createAuthService = ({ httpClient }) => {
   };
 
   return Object.freeze({
-    login,
-    logout,
-    checkAuthState,
+    login, logout, checkAuthState,
   });
 };
 

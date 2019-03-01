@@ -1,7 +1,8 @@
+import { resolve as resolveUrl } from 'url';
 import { getError } from '~/utils';
 
 const createAccountService = ({ httpClient }) => {
-  const baseUrl = window.location.origin;
+  const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
 
   const fetchSettings = async () => {
     const url = `${baseUrl}/account/settings`;

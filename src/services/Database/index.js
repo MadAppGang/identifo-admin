@@ -1,7 +1,8 @@
+import { resolve as resolveUrl } from 'url';
 import { getError } from '~/utils';
 
 const createDatabaseService = ({ httpClient }) => {
-  const baseUrl = window.location.origin;
+  const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
 
   const testConnection = async (settings) => {
     const url = `${baseUrl}/database/test`;

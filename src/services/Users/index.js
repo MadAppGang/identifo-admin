@@ -1,8 +1,8 @@
-import { format as formatUrl } from 'url';
+import { format as formatUrl, resolve as resolveUrl } from 'url';
 import { getError } from '~/utils';
 
 const createUserService = ({ httpClient }) => {
-  const baseUrl = window.location.origin;
+  const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
 
   const fetchUsers = async (filters = {}) => {
     const { search } = filters;

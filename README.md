@@ -38,6 +38,11 @@ $ npm run test:cov
 ```
 Generated coverage report is going to appear as a `coverage` folder in the project's root.
 
+### Api url
+Api url is computed from the origin at with the app is running + `API_PATH` env variable value;
+For example if the app is up at `localhost:8000` and the env is configured as `API_PATH=/admin` the computed api url
+is going to be `http://localhost:8080/admin`;
+
 ### Mocking Api Calls
 
 Api calls are described in services `src/services`. Each service has it's mocked version. In order to make use of mocked services instead of actual ones you should set a `MOCK_API=true` environment variable either through cli or using `.env` file in the project's root.
