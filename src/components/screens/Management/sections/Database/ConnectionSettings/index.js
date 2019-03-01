@@ -165,4 +165,6 @@ const actions = {
   createNotification,
 };
 
+export { ConnectionSettings };
+
 export default connect(mapStateToProps, actions)(ConnectionSettings);
