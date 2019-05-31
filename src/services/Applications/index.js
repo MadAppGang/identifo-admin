@@ -5,7 +5,7 @@ const createApplicationService = ({ httpClient }) => {
   const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
 
   const fetchApplications = async () => {
-    const url = `${baseUrl}/applications`;
+    const url = `${baseUrl}/apps`;
 
     try {
       const response = await httpClient.get(url);
@@ -16,7 +16,7 @@ const createApplicationService = ({ httpClient }) => {
   };
 
   const fetchApplicationById = async (id) => {
-    const url = `${baseUrl}/applications/${id}`;
+    const url = `${baseUrl}/apps/${id}`;
 
     try {
       const response = await httpClient.get(url);
@@ -27,7 +27,7 @@ const createApplicationService = ({ httpClient }) => {
   };
 
   const postApplication = async (application) => {
-    const url = `${baseUrl}/applications`;
+    const url = `${baseUrl}/apps`;
 
     try {
       const response = await httpClient.post(url, application);
@@ -38,7 +38,7 @@ const createApplicationService = ({ httpClient }) => {
   };
 
   const alterApplication = async (id, changes) => {
-    const url = `${baseUrl}/applications/${id}`;
+    const url = `${baseUrl}/apps/${id}`;
 
     try {
       const response = await httpClient.put(url, changes);
@@ -49,7 +49,7 @@ const createApplicationService = ({ httpClient }) => {
   };
 
   const deleteApplicationById = async (id) => {
-    const url = `${baseUrl}/applicatoins/${id}`;
+    const url = `${baseUrl}/apps/${id}`;
 
     try {
       const response = await httpClient.delete(url);

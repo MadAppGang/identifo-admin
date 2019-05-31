@@ -5,7 +5,7 @@ const createAccountService = ({ httpClient }) => {
   const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
 
   const fetchSettings = async () => {
-    const url = `${baseUrl}/account/settings`;
+    const url = `${baseUrl}/settings/account`;
 
     try {
       const response = await httpClient.get(url);
@@ -16,7 +16,7 @@ const createAccountService = ({ httpClient }) => {
   };
 
   const postSettings = async (settings) => {
-    const url = `${baseUrl}/account/settings`;
+    const url = `${baseUrl}/settings/account`;
 
     try {
       await httpClient.post(url, settings);
