@@ -1,8 +1,7 @@
-import { resolve as resolveUrl } from 'url';
 import { getError } from '~/utils';
 
 const createApplicationService = ({ httpClient }) => {
-  const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
+  const baseUrl = process.env.API_URL;
 
   const fetchApplications = async () => {
     const url = `${baseUrl}/apps`;

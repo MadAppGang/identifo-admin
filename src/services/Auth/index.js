@@ -1,8 +1,7 @@
-import { resolve as resolveUrl } from 'url';
 import { pause } from '~/utils';
 
 const createAuthService = ({ httpClient }) => {
-  const baseUrl = resolveUrl(window.location.origin, process.env.API_PATH);
+  const baseUrl = process.env.API_URL;
 
   const login = (email, password) => {
     const url = `${baseUrl}/login`;
