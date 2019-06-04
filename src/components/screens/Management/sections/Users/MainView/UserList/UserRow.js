@@ -7,11 +7,11 @@ const UserRow = ({ data, config }) => (
   <DatagridRow>
     <div style={{ width: config.icon.width }}>
       <div className="iap-datagrid-row__user-icon">
-        {getInitials(data.name, data.email)}
+        {getInitials(data.username, data.email)}
       </div>
     </div>
     <div style={{ width: config.name.width }}>
-      {data.name || '-'}
+      {data.username || '-'}
     </div>
     <div style={{ width: config.email.width }}>
       {data.email}

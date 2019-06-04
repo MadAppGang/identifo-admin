@@ -20,13 +20,13 @@ class UserForm extends Component {
 
     this.state = {
       fields: {
-        name: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: '',
       },
       validation: {
-        name: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -85,7 +85,7 @@ class UserForm extends Component {
   render() {
     const { saving, error } = this.props;
     const { validation, fields } = this.state;
-    const { email, name, password, confirmPassword } = fields;
+    const { email, username, password, confirmPassword } = fields;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -95,8 +95,8 @@ class UserForm extends Component {
 
         <Field label="Name">
           <Input
-            name="name"
-            value={name}
+            name="username"
+            value={username}
             placeholder="Enter name"
             onChange={this.handleInput}
             onBlur={this.handleBlur}
