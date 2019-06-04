@@ -29,7 +29,7 @@ const createDatabaseService = ({ httpClient }) => {
     const url = `${baseUrl}/settings/database`;
 
     try {
-      const response = await httpClient.patch(url, { db_settings: settings });
+      const response = await httpClient.patch(url, settings);
       return response.data;
     } catch (err) {
       throw getError(err);
