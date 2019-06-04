@@ -6,6 +6,7 @@ const data = {
     name: 'identifo',
     region: '',
     endpoint: 'localhost:27017',
+    path: './db.db',
   },
 };
 
