@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import PropTypes from 'prop-types';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
@@ -8,7 +9,6 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import userFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
-import * as Validation from '~/utils/validation';
 
 import './UserForm.css';
 
@@ -100,7 +100,7 @@ class UserForm extends Component {
             placeholder="Enter name"
             onChange={this.handleInput}
             onBlur={this.handleBlur}
-            errorMessage={validation.name}
+            errorMessage={validation.username}
           />
         </Field>
 

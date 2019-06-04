@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
@@ -8,7 +9,6 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import databaseFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
-import * as Validation from '~/utils/validation';
 import { Select, Option } from '~/components/shared/Select';
 
 const MONGO_DB = 'mongodb';

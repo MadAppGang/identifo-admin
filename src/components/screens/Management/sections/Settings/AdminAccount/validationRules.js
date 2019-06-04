@@ -1,16 +1,16 @@
-import { matchesRule, emailFormatRule, notEmptyRule } from '~/utils/validation';
+import { matches, notEmpty, emailFormat } from '@dprovodnikov/validation';
 
 const rules = {
   email: [
-    notEmptyRule('Email should not be empty'),
-    emailFormatRule('Email format is invalid'),
+    notEmpty('Email should not be empty'),
+    emailFormat('Email format is invalid'),
   ],
   password: [
-    notEmptyRule('Password should not be empty'),
+    notEmpty('Password should not be empty'),
   ],
   confirmPassword: [
-    notEmptyRule('You should confirm password'),
-    matchesRule('password', 'Passwords do not match'),
+    notEmpty('You should confirm password'),
+    matches('password', 'Passwords do not match'),
   ],
 };
 

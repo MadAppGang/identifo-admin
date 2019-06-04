@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Toggle from '~/components/shared/Toggle';
@@ -9,7 +10,6 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import editUserFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
-import * as Validation from '~/utils/validation';
 
 class EditUserForm extends Component {
   constructor() {
@@ -20,13 +20,13 @@ class EditUserForm extends Component {
     this.state = {
       fields: {
         email: '',
-        name: '',
+        username: '',
         password: '',
         confirmPassword: '',
       },
       validation: {
         email: '',
-        name: '',
+        username: '',
         password: '',
         confirmPassword: '',
       },
@@ -46,7 +46,7 @@ class EditUserForm extends Component {
       this.setState(state => ({
         fields: update(state.fields, {
           email: user.email,
-          name: user.name,
+          username: user.username,
         }),
       }));
     }
@@ -66,8 +66,8 @@ class EditUserForm extends Component {
     const { name, value } = target;
     let { validation } = this.state;
 
-    if (validation[target.name]) {
-      validation = update(validation, { [target.name]: '' });
+    if (validation[name]) {
+      validation = update(validation, { [name]: '' });
     }
 
     this.setState(state => ({
@@ -124,12 +124,12 @@ class EditUserForm extends Component {
 
         <Field label="Name">
           <Input
-            name="name"
-            value={fields.name}
+            name="username"
+            value={fields.username}
             placeholder="Enter name"
             onChange={this.handleFieldChange}
             onBlur={this.handleBlur}
-            errorMessage={validation.name}
+            errorMessage={validation.username}
             disabled={loading}
           />
         </Field>

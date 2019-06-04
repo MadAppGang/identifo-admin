@@ -14,13 +14,13 @@ const UserRow = ({ data, config }) => (
       {data.username || '-'}
     </div>
     <div style={{ width: config.email.width }}>
-      {data.email}
+      {data.email || '-'}
     </div>
     <div style={{ width: config.latestLogin.width }}>
-      {data.latestLogin}
+      {data.latestLogin || '-'}
     </div>
     <div style={{ width: config.numberOfLogins.width }}>
-      {data.numberOfLogins}
+      {data.numberOfLogins || '-'}
     </div>
   </DatagridRow>
 );
