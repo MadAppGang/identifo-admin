@@ -6,6 +6,7 @@ import PreviewField from '~/components/shared/PreviewField';
 const displayDatabaseType = type => ({
   mongodb: 'MongoDB',
   dynamodb: 'DynamoDB',
+  boltdb: 'BoltDB',
 }[type]);
 
 const Preview = ({ fetching, settings }) => {
@@ -33,6 +34,11 @@ const Preview = ({ fetching, settings }) => {
       <PreviewField
         label="Endpoint"
         value={settings.endpoint}
+      />
+
+      <PreviewField
+        label="Path"
+        value={settings.path}
       />
     </div>
   );

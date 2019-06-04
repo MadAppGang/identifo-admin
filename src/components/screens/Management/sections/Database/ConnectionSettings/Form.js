@@ -13,6 +13,7 @@ import { Select, Option } from '~/components/shared/Select';
 
 const MONGO_DB = 'mongodb';
 const DYNAMO_DB = 'dynamodb';
+const BOLT_DB = 'boltdb';
 
 class ConnectionSettingsForm extends Component {
   constructor({ settings }) {
@@ -27,6 +28,7 @@ class ConnectionSettingsForm extends Component {
         endpoint: '',
         name: '',
         region: '',
+        path: '',
       },
     };
 
@@ -38,8 +40,9 @@ class ConnectionSettingsForm extends Component {
 
   getFieldsToOmitDuringValidation() {
     switch (this.state.settings.type) {
-      case DYNAMO_DB: return ['name'];
-      case MONGO_DB: return ['region'];
+      case DYNAMO_DB: return ['name', 'path', 'endpoint'];
+      case MONGO_DB: return ['region', 'path'];
+      case BOLT_DB: return ['region', 'endpoint'];
       default: return [];
     }
   }
@@ -98,6 +101,8 @@ class ConnectionSettingsForm extends Component {
     settings = update(settings, {
       region: region => settings.type === DYNAMO_DB ? region : '',
       name: name => settings.type === MONGO_DB ? name : '',
+      path: path => settings.type === BOLT_DB ? path : '',
+      endpoint: endpoint => settings.type !== BOLT_DB ? endpoint : '',
     });
 
     this.props.onSubmit(settings);
@@ -106,7 +111,7 @@ class ConnectionSettingsForm extends Component {
   render() {
     const { settings, validation } = this.state;
     const { posting, error } = this.props;
-    const { type, name, region, endpoint } = settings;
+    const { type, name, region, endpoint, path } = settings;
 
     return (
       <div className="iap-db-connection-section">
@@ -123,6 +128,7 @@ class ConnectionSettingsForm extends Component {
               onChange={this.handleDBTypeChange}
               placeholder="Select Database Type"
             >
+              <Option value={BOLT_DB} title="Bolt DB" />
               <Option value={MONGO_DB} title="Mongo DB" />
               <Option value={DYNAMO_DB} title="Dynamo DB" />
             </Select>
@@ -157,17 +163,33 @@ class ConnectionSettingsForm extends Component {
             </Field>
           )}
 
-          <Field label="Endpoint">
-            <Input
-              name="endpoint"
-              value={endpoint}
-              placeholder="e.g. localhost:27017"
-              disabled={posting}
-              onChange={this.handleInput}
-              onBlur={this.handleBlur}
-              errorMessage={validation.endpoint}
-            />
-          </Field>
+          {type === BOLT_DB && (
+            <Field label="Path">
+              <Input
+                name="path"
+                value={path}
+                placeholder="./db.db"
+                onChange={this.handleInput}
+                disabled={posting}
+                errorMessage={validation.path}
+                onBlur={this.handleBlur}
+              />
+            </Field>
+          )}
+
+          {type !== BOLT_DB && (
+            <Field label="Endpoint">
+              <Input
+                name="endpoint"
+                value={endpoint}
+                placeholder="e.g. localhost:27017"
+                disabled={posting}
+                onChange={this.handleInput}
+                onBlur={this.handleBlur}
+                errorMessage={validation.endpoint}
+              />
+            </Field>
+          )}
 
           <footer className="iap-db-form__footer">
             <Button

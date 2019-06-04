@@ -5,6 +5,7 @@ const rules = {
   region: [notEmptyRule('Region should not be empty')],
   name: [notEmptyRule('Name should not be empty')],
   endpoint: [notEmptyRule('Endpoint should not be empty')],
+  path: [notEmptyRule('Path should not be empty')],
 };
 
 export default rules;
