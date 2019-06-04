@@ -91,7 +91,6 @@ class ConnectionSettingsForm extends Component {
       omit: this.getFieldsToOmitDuringValidation(),
     });
 
-    console.log(validation);
     if (Validation.hasError(validation)) {
       this.setState({ validation });
       return;

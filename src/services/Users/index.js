@@ -16,7 +16,7 @@ const createUserService = ({ httpClient }) => {
 
     try {
       const response = await httpClient.get(url);
-      return response.data;
+      return response.data || [];
     } catch (err) {
       throw getError(err);
     }
