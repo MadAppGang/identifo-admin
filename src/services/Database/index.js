@@ -19,17 +19,17 @@ const createDatabaseService = ({ httpClient }) => {
 
     try {
       const response = await httpClient.get(url);
-      return response.data;
+      return response.data.db_settings;
     } catch (err) {
       throw getError(err);
     }
   };
 
   const postSettings = async (settings) => {
-    const url = `${baseUrl}/settings`;
+    const url = `${baseUrl}/settings/database`;
 
     try {
-      const response = await httpClient.put(url, settings);
+      const response = await httpClient.patch(url, { db_settings: settings });
       return response.data;
     } catch (err) {
       throw getError(err);

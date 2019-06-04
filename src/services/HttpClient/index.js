@@ -26,6 +26,11 @@ const createHttpClient = () => {
     return axios.put(url, body, result);
   };
 
+  const httpPatch = async (url, body, request) => {
+    const result = await applyMiddlewares(request);
+    return axios.patch(url, body, result);
+  };
+
   const httpDelete = async (url, request) => {
     const result = await applyMiddlewares(request);
     return axios.delete(url, result);
@@ -40,6 +45,7 @@ const createHttpClient = () => {
     post: httpPost,
     put: httpPut,
     delete: httpDelete,
+    patch: httpPatch,
     addMiddleware,
   });
 };
