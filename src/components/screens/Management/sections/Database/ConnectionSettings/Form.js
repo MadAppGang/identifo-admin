@@ -42,7 +42,7 @@ class ConnectionSettingsForm extends Component {
     switch (this.state.settings.type) {
       case DYNAMO_DB: return ['name', 'path', 'endpoint'];
       case MONGO_DB: return ['region', 'path'];
-      case BOLT_DB: return ['region', 'endpoint'];
+      case BOLT_DB: return ['name', 'region', 'endpoint'];
       default: return [];
     }
   }
@@ -91,6 +91,7 @@ class ConnectionSettingsForm extends Component {
       omit: this.getFieldsToOmitDuringValidation(),
     });
 
+    console.log(validation);
     if (Validation.hasError(validation)) {
       this.setState({ validation });
       return;
