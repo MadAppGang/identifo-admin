@@ -1,27 +1,18 @@
-import { getError } from '~/utils';
-
 const createAccountService = ({ httpClient }) => {
   const baseUrl = process.env.API_URL;
 
   const fetchSettings = async () => {
     const url = `${baseUrl}/settings/account`;
+    const { data } = await httpClient.get(url);
 
-    try {
-      const response = await httpClient.get(url);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const postSettings = async (settings) => {
     const url = `${baseUrl}/settings/account`;
+    const { data } = httpClient.patch(url, settings);
 
-    try {
-      await httpClient.patch(url, settings);
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   return Object.freeze({

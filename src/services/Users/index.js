@@ -1,69 +1,47 @@
 import { format as formatUrl } from 'url';
-import { getError } from '~/utils';
 
 const createUserService = ({ httpClient }) => {
   const baseUrl = process.env.API_URL;
 
   const fetchUsers = async (filters = {}) => {
     const { search } = filters;
-
     const url = formatUrl({
       pathname: `${baseUrl}/users`,
       query: {
         search,
       },
     });
+    const { data } = await httpClient.get(url);
 
-    try {
-      const response = await httpClient.get(url);
-      return response.data || [];
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const postUser = async (user) => {
     const url = `${baseUrl}/users`;
+    const { data } = await httpClient.post(url, user);
 
-    try {
-      const response = await httpClient.post(url, user);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const alterUser = async (id, changes) => {
     const url = `${baseUrl}/users/${id}`;
+    const { data } = await httpClient.put(url, changes);
 
-    try {
-      const response = await httpClient.put(url, changes);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const fetchUserById = async (id) => {
     const url = `${baseUrl}/users/${id}`;
+    const { data } = await httpClient.get(url);
 
-    try {
-      const response = await httpClient.get(url);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const deleteUserById = async (id) => {
     const url = `${baseUrl}/users/${id}`;
+    const { data } = await httpClient.delete(url);
 
-    try {
-      const response = await httpClient.delete(url);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   return Object.freeze({

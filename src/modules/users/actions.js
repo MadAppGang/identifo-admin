@@ -1,5 +1,6 @@
 import actionCreator from '@madappgang/action-creator';
 import types from './types';
+import { getError } from '~/utils';
 
 const fetchAttempt = actionCreator(types.FETCH_USERS_ATTEMPT);
 const fetchSuccess = actionCreator(types.FETCH_USERS_SUCCESS);
@@ -28,7 +29,7 @@ const fetchUsers = filters => async (dispatch, _, { users: userService }) => {
     const { users = [], total = 0 } = await userService.fetchUsers(filters);
     dispatch(fetchSuccess({ users, total }));
   } catch (err) {
-    dispatch(fetchFailure(err));
+    dispatch(fetchFailure(getError(err)));
   }
 };
 
@@ -39,7 +40,7 @@ const postUser = user => async (dispatch, _, { users: userService }) => {
     const result = await userService.postUser(user);
     dispatch(postSuccess(result));
   } catch (err) {
-    dispatch(postFailure(err));
+    dispatch(postFailure(getError(err)));
   }
 };
 
@@ -50,7 +51,7 @@ const alterUser = (id, changes) => async (dispatch, _, { users: userService }) =
     const user = await userService.alterUser(id, changes);
     dispatch(alterSuccess(user));
   } catch (err) {
-    dispatch(alterFailure(err));
+    dispatch(alterFailure(getError(err)));
   }
 };
 
@@ -61,7 +62,7 @@ const fetchUserById = id => async (dispatch, _, { users: userService }) => {
     const user = await userService.fetchUserById(id);
     dispatch(fetchByIdSuccess(user));
   } catch (err) {
-    dispatch(fetchByIdFailure(err));
+    dispatch(fetchByIdFailure(getError(err)));
   }
 };
 
@@ -72,7 +73,7 @@ const deleteUserById = id => async (dispatch, _, { users: userService }) => {
     await userService.deleteUserById(id);
     dispatch(deleteSuccess(id));
   } catch (err) {
-    dispatch(deleteFailure(err));
+    dispatch(deleteFailure(getError(err)));
   }
 };
 

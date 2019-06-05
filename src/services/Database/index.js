@@ -1,39 +1,25 @@
-import { getError } from '~/utils';
-
 const createDatabaseService = ({ httpClient }) => {
   const baseUrl = process.env.API_URL;
 
   const testConnection = async (settings) => {
     const url = `${baseUrl}/settings/database/test`;
+    const { data } = await httpClient.post(url, settings);
 
-    try {
-      const response = await httpClient.post(url, settings);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const fetchSettings = async () => {
     const url = `${baseUrl}/settings`;
+    const { data } = await httpClient.get(url);
 
-    try {
-      const response = await httpClient.get(url);
-      return response.data.db_settings;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data.db_settings;
   };
 
   const postSettings = async (settings) => {
     const url = `${baseUrl}/settings/database`;
+    const { data } = await httpClient.patch(url, settings);
 
-    try {
-      const response = await httpClient.patch(url, settings);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   return Object.freeze({

@@ -1,61 +1,39 @@
-import { getError } from '~/utils';
-
 const createApplicationService = ({ httpClient }) => {
   const baseUrl = process.env.API_URL;
 
   const fetchApplications = async () => {
     const url = `${baseUrl}/apps`;
+    const { data = [] } = await httpClient.get(url);
 
-    try {
-      const response = await httpClient.get(url);
-      return response.data || [];
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const fetchApplicationById = async (id) => {
     const url = `${baseUrl}/apps/${id}`;
+    const { data } = await httpClient.get(url);
 
-    try {
-      const response = await httpClient.get(url);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const postApplication = async (application) => {
     const url = `${baseUrl}/apps`;
+    const { data } = await httpClient.post(url, application);
 
-    try {
-      const response = await httpClient.post(url, application);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const alterApplication = async (id, changes) => {
     const url = `${baseUrl}/apps/${id}`;
+    const { data } = await httpClient.put(url, changes);
 
-    try {
-      const response = await httpClient.put(url, changes);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   const deleteApplicationById = async (id) => {
     const url = `${baseUrl}/apps/${id}`;
+    const { data } = await httpClient.delete(url);
 
-    try {
-      const response = await httpClient.delete(url);
-      return response.data;
-    } catch (err) {
-      throw getError(err);
-    }
+    return data;
   };
 
   return Object.freeze({

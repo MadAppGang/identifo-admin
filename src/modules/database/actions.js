@@ -1,5 +1,6 @@
 import actionCreator from '@madappgang/action-creator';
 import types from './types';
+import { getError } from '~/utils';
 
 const testConnectionAttempt = actionCreator(types.TEST_CONNECTION_ATTEMPT);
 const testConnectionSuccess = actionCreator(types.TEST_CONNECTION_SUCCESS);
@@ -20,7 +21,7 @@ const testConnection = () => async (dispatch, getState, { database: dbService })
     await dbService.testConnection(getState().database.settings.config);
     dispatch(testConnectionSuccess());
   } catch (err) {
-    dispatch(testConnectionFailure(err));
+    dispatch(testConnectionFailure(getError(err)));
   }
 };
 
@@ -31,7 +32,7 @@ const fetchSettings = () => async (dispatch, _, { database: dbService }) => {
     const settings = await dbService.fetchSettings();
     dispatch(fetchSettingsSuccess(settings));
   } catch (err) {
-    dispatch(fetchSettingsFailure(err));
+    dispatch(fetchSettingsFailure(getError(err)));
   }
 };
 
@@ -42,7 +43,7 @@ const postSettings = settings => async (dispatch, _, { database: dbService }) =>
     await dbService.postSettings(settings);
     dispatch(postSettingsSuccess(settings));
   } catch (err) {
-    dispatch(postSettingsFailure(err));
+    dispatch(postSettingsFailure(getError(err)));
   }
 };
 

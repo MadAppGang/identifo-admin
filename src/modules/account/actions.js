@@ -1,5 +1,6 @@
 import actionCreator from '@madappgang/action-creator';
 import types from './types';
+import { getError } from '~/utils';
 
 const fetchSettingsAttempt = actionCreator(types.FETCH_ACCOUNT_SETTINGS_ATTEMPT);
 const fetchSettingsSuccess = actionCreator(types.FETCH_ACCOUNT_SETTINGS_SUCCESS);
@@ -16,7 +17,7 @@ const fetchAccountSettings = () => async (dispatch, _, { account }) => {
     const settings = await account.fetchSettings();
     dispatch(fetchSettingsSuccess(settings));
   } catch (err) {
-    dispatch(fetchSettingsFailure(err));
+    dispatch(fetchSettingsFailure(getError(err)));
   }
 };
 
@@ -27,7 +28,7 @@ const postAccountSettings = settings => async (dispatch, _, { account }) => {
     await account.postSettings(settings);
     dispatch(postSettingsSuccess(settings));
   } catch (err) {
-    dispatch(postSettingsFailure(err));
+    dispatch(postSettingsFailure(getError(err)));
   }
 };
 

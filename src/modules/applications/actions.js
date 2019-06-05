@@ -1,5 +1,6 @@
 import actionCreator from '@madappgang/action-creator';
 import types from './types';
+import { getError } from '~/utils';
 
 const fetchAttempt = actionCreator(types.FETCH_APPLICATIONS_ATTEMPT);
 const fetchSuccess = actionCreator(types.FETCH_APPLICATIONS_SUCCESS);
@@ -28,7 +29,7 @@ const fetchApplications = () => async (dispatch, _, { applications }) => {
     const { apps = [], total = 0 } = await applications.fetchApplications();
     dispatch(fetchSuccess({ apps, total }));
   } catch (err) {
-    dispatch(fetchFailure(err));
+    dispatch(fetchFailure(getError(err)));
   }
 };
 
@@ -39,7 +40,7 @@ const fetchApplicationById = id => async (dispatch, _, { applications }) => {
     const application = await applications.fetchApplicationById(id);
     dispatch(fetchByIdSuccess(application));
   } catch (err) {
-    dispatch(fetchByIdFailure(err));
+    dispatch(fetchByIdFailure(getError(err)));
   }
 };
 
@@ -50,7 +51,7 @@ const postApplication = application => async (dispatch, _, { applications }) => 
     const result = await applications.postApplication(application);
     dispatch(postSuccess(result));
   } catch (err) {
-    dispatch(postFailure(err));
+    dispatch(postFailure(getError(err)));
   }
 };
 
@@ -61,7 +62,7 @@ const deleteApplicationById = id => async (dispatch, _, { applications }) => {
     await applications.deleteApplicationById(id);
     dispatch(deleteSuccess(id));
   } catch (err) {
-    dispatch(deleteFailure(err));
+    dispatch(deleteFailure(getError(err)));
   }
 };
 
@@ -72,7 +73,7 @@ const alterApplication = (id, changes) => async (dispatch, _, { applications }) 
     const result = await applications.alterApplication(id, changes);
     dispatch(alterSuccess(result));
   } catch (err) {
-    dispatch(alterFailure(err));
+    dispatch(alterFailure(getError(err)));
   }
 };
 
