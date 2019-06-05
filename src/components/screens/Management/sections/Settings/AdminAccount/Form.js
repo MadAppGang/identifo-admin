@@ -88,7 +88,7 @@ class AdminAccountForm extends Component {
 
     this.props.onSubmit({
       email,
-      password: editPassword ? password : null,
+      password: editPassword ? password : undefined,
     });
   }
 
