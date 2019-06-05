@@ -7,13 +7,11 @@ const data = {
       id: '507f1f77bcf86cd799439011',
       type: 'ios',
       name: 'Mobile Client (iOS)',
-      clientId: '4AOlbR7eGCsuuA43bhmahd9iZ14lzcPY',
     },
     {
       id: '507f1f77bcf86cd799439242',
       type: 'web',
       name: 'Single Page App',
-      clientId: 'TlWqkOPFr1hJVL70LjTk19eTayNst6cU',
     },
   ],
 };

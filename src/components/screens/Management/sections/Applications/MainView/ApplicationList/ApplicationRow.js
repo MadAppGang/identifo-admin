@@ -29,7 +29,7 @@ const ApplicationRow = ({ data, config }) => {
         <p className="iap-application-row__name">{data.name}</p>
       </div>
       <div style={{ width: config.clientId.width }}>
-        <p className="iap-application-row__clientid">{data.clientId}</p>
+        <p className="iap-application-row__clientid">{data.id}</p>
       </div>
       <div style={{ width: config.settings.width }} />
     </DatagridRow>
