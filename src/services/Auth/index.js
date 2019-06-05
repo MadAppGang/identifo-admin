@@ -1,11 +1,17 @@
-import { pause } from '~/utils';
+import { pause, getError } from '~/utils';
 
 const createAuthService = ({ httpClient }) => {
   const baseUrl = process.env.API_URL;
 
-  const login = (email, password) => {
+  const login = async (email, password) => {
     const url = `${baseUrl}/login`;
-    return httpClient.post(url, { email, password });
+
+    try {
+      const response = await httpClient.post(url, { email, password });
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
   };
 
   const logout = () => {
