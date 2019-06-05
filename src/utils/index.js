@@ -8,6 +8,16 @@ export const getError = (axiosErr) => {
   return axiosErr;
 };
 
+export const getStatus = (axiosErr) => {
+  const defaultStatus = 404;
+
+  if (axiosErr.response) {
+    return axiosErr.response.status || defaultStatus;
+  }
+
+  return defaultStatus;
+};
+
 export const getInitials = (fullName, email) => {
   const firstNOf = n => str => str.slice(0, n);
   const firstTwoOf = firstNOf(2);

@@ -1,6 +1,7 @@
 import actionCreator from '@madappgang/action-creator';
+import { getError, getStatus } from '~/utils';
 import types from './types';
-import { getError } from '~/utils';
+import { logout } from '../auth/actions';
 
 const fetchAttempt = actionCreator(types.FETCH_USERS_ATTEMPT);
 const fetchSuccess = actionCreator(types.FETCH_USERS_SUCCESS);
@@ -22,57 +23,89 @@ const deleteAttempt = actionCreator(types.DELETE_USER_BY_ID_ATTEMPT);
 const deleteSuccess = actionCreator(types.DELETE_USER_BY_ID_SUCCESS);
 const deleteFailure = actionCreator(types.DELETE_USER_BY_ID_FAILURE);
 
-const fetchUsers = filters => async (dispatch, _, { users: userService }) => {
+const UNAUTHORIZED = 401;
+
+const fetchUsers = filters => async (dispatch, _, services) => {
   dispatch(fetchAttempt());
 
   try {
-    const { users = [], total = 0 } = await userService.fetchUsers(filters);
+    const { users = [], total = 0 } = await services.users.fetchUsers(filters);
     dispatch(fetchSuccess({ users, total }));
   } catch (err) {
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+    }
+
     dispatch(fetchFailure(getError(err)));
   }
 };
 
-const postUser = user => async (dispatch, _, { users: userService }) => {
+const postUser = user => async (dispatch, _, services) => {
   dispatch(postAttempt());
 
   try {
-    const result = await userService.postUser(user);
+    const result = await services.users.postUser(user);
     dispatch(postSuccess(result));
   } catch (err) {
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+    }
+
     dispatch(postFailure(getError(err)));
   }
 };
 
-const alterUser = (id, changes) => async (dispatch, _, { users: userService }) => {
+const alterUser = (id, changes) => async (dispatch, _, services) => {
   dispatch(alterAttempt());
 
   try {
-    const user = await userService.alterUser(id, changes);
+    const user = await services.users.alterUser(id, changes);
     dispatch(alterSuccess(user));
   } catch (err) {
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+    }
+
     dispatch(alterFailure(getError(err)));
   }
 };
 
-const fetchUserById = id => async (dispatch, _, { users: userService }) => {
+const fetchUserById = id => async (dispatch, _, services) => {
   dispatch(fetchByIdAttempt());
 
   try {
-    const user = await userService.fetchUserById(id);
+    const user = await services.users.fetchUserById(id);
     dispatch(fetchByIdSuccess(user));
   } catch (err) {
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+    }
+
     dispatch(fetchByIdFailure(getError(err)));
   }
 };
 
-const deleteUserById = id => async (dispatch, _, { users: userService }) => {
+const deleteUserById = id => async (dispatch, _, services) => {
   dispatch(deleteAttempt());
 
   try {
-    await userService.deleteUserById(id);
+    await services.users.deleteUserById(id);
     dispatch(deleteSuccess(id));
   } catch (err) {
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+    }
+
     dispatch(deleteFailure(getError(err)));
   }
 };
