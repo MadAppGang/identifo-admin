@@ -20,7 +20,10 @@ const createApplicationServiceMock = () => {
   const fetchApplications = async () => {
     await pause(450);
 
-    return data.applications;
+    return {
+      apps: data.applications,
+      total: data.applications.length,
+    };
   };
 
   const fetchApplicationById = async (id) => {

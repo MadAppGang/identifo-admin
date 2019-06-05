@@ -43,7 +43,10 @@ const createUserServiceMock = () => {
 
     await pause(600);
 
-    return data.users;
+    return {
+      users: data.users,
+      total: data.users.length,
+    };
   };
 
   const postUser = async (user) => {

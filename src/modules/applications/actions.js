@@ -25,8 +25,8 @@ const fetchApplications = () => async (dispatch, _, { applications }) => {
   dispatch(fetchAttempt());
 
   try {
-    const list = await applications.fetchApplications();
-    dispatch(fetchSuccess(list));
+    const { apps = [], total = 0 } = await applications.fetchApplications();
+    dispatch(fetchSuccess({ apps, total }));
   } catch (err) {
     dispatch(fetchFailure(err));
   }

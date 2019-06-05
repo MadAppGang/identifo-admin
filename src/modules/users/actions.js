@@ -25,8 +25,8 @@ const fetchUsers = filters => async (dispatch, _, { users: userService }) => {
   dispatch(fetchAttempt());
 
   try {
-    const users = await userService.fetchUsers(filters);
-    dispatch(fetchSuccess(users));
+    const { users = [], total = 0 } = await userService.fetchUsers(filters);
+    dispatch(fetchSuccess({ users, total }));
   } catch (err) {
     dispatch(fetchFailure(err));
   }
