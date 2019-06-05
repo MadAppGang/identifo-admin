@@ -1,12 +1,8 @@
 import {
-  matches, notEmpty, emailFormat, longerThan, hasUpperLetter,
+  matches, notEmpty, longerThan, hasUpperLetter,
 } from '@dprovodnikov/validation';
 
 const rules = {
-  email: [
-    notEmpty('Email should not be empty'),
-    emailFormat('Email format is invalid'),
-  ],
   username: [notEmpty('Username should not be empty')],
   password: [
     notEmpty('Password should not be empty'),

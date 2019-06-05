@@ -21,13 +21,11 @@ class UserForm extends Component {
     this.state = {
       fields: {
         username: '',
-        email: '',
         password: '',
         confirmPassword: '',
       },
       validation: {
         username: '',
-        email: '',
         password: '',
         confirmPassword: '',
       },
@@ -85,7 +83,7 @@ class UserForm extends Component {
   render() {
     const { saving, error } = this.props;
     const { validation, fields } = this.state;
-    const { email, username, password, confirmPassword } = fields;
+    const { username, password, confirmPassword } = fields;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -93,25 +91,14 @@ class UserForm extends Component {
           <FormErrorMessage error={error} />
         )}
 
-        <Field label="Name">
+        <Field label="Username">
           <Input
             name="username"
             value={username}
-            placeholder="Enter name"
+            placeholder="Enter username"
             onChange={this.handleInput}
             onBlur={this.handleBlur}
             errorMessage={validation.username}
-          />
-        </Field>
-
-        <Field label="Email">
-          <Input
-            name="email"
-            value={email}
-            placeholder="Enter email"
-            onChange={this.handleInput}
-            onBlur={this.handleBlur}
-            errorMessage={validation.email}
           />
         </Field>
 

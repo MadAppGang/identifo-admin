@@ -122,11 +122,11 @@ class EditUserForm extends Component {
           <FormErrorMessage error={error} />
         )}
 
-        <Field label="Name">
+        <Field label="Username">
           <Input
             name="username"
             value={fields.username}
-            placeholder="Enter name"
+            placeholder="Enter username"
             onChange={this.handleFieldChange}
             onBlur={this.handleBlur}
             errorMessage={validation.username}
