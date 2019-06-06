@@ -20,8 +20,7 @@ const login = (email, password) => async (dispatch, _, { auth }) => {
 const logout = () => async (dispatch, _, { auth }) => {
   dispatch(logoutAttempt());
   await auth.logout();
-
-  window.location.reload();
+  dispatch(authStateChange(false));
 };
 
 const checkAuthState = () => async (dispatch, _, { auth }) => {
