@@ -9,8 +9,6 @@ const createAuthService = ({ httpClient }) => {
     try {
       const response = await httpClient.post(url, { email, password });
 
-      await pause(1000);
-
       return response.data;
     } catch (err) {
       throw getError(err);
