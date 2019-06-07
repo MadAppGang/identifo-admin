@@ -22,10 +22,12 @@ class ApplicationForm extends Component {
       fields: {
         type: '',
         name: '',
+        redirectUrl: '',
       },
       validation: {
         type: '',
         name: '',
+        redirectUrl: '',
       },
     };
 
@@ -126,6 +128,19 @@ class ApplicationForm extends Component {
             <Option value="android" title="Android Client (Mobile)" />
             <Option value="ios" title="iOS Client (Mobile)" />
           </Select>
+        </Field>
+
+        <Field label="Redirect URL">
+          <Input
+            name="redirectUrl"
+            value={fields.redirectUrl}
+            autoComplete="off"
+            placeholder="Enter redirect url"
+            onChange={this.handleInput}
+            onBlur={this.handleBlur}
+            errorMessage={validation.redirectUrl}
+            disabled={loading}
+          />
         </Field>
 
         <footer className="iap-apps-form__footer">
