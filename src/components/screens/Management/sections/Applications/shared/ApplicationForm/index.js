@@ -94,14 +94,18 @@ class ApplicationForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const validation = this.validate('all', this.state.fields);
+    const { fields } = this.state;
+    const validation = this.validate('all', fields);
 
     if (Validation.hasError(validation)) {
       this.setState({ validation });
       return;
     }
 
-    this.props.onSubmit(this.state.fields);
+    this.props.onSubmit(update(fields, {
+      redirect_url: fields.redirectUrl,
+      redirectUrl: undefined,
+    }));
   }
 
   render() {
