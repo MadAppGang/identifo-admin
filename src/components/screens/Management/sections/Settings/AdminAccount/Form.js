@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
@@ -9,7 +10,6 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import accountFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
-import * as Validation from '~/utils/validation';
 
 class AdminAccountForm extends Component {
   constructor({ settings }) {
@@ -88,7 +88,7 @@ class AdminAccountForm extends Component {
 
     this.props.onSubmit({
       email,
-      password: editPassword ? password : null,
+      password: editPassword ? password : undefined,
     });
   }
 

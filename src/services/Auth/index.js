@@ -1,19 +1,26 @@
-import { pause } from '~/utils';
+import { pause, getError } from '~/utils';
 
 const createAuthService = ({ httpClient }) => {
-  const baseUrl = window.location.origin;
+  const baseUrl = process.env.API_URL;
 
   const login = async (email, password) => {
     const url = `${baseUrl}/login`;
-    httpClient.post(url, { email, password });
+
+    try {
+      const response = await httpClient.post(url, { email, password });
+
+      return response.data;
+    } catch (err) {
+      throw getError(err);
+    }
   };
 
-  const logout = async () => {
+  const logout = () => {
     const url = `${baseUrl}/logout`;
-    httpClient.post(url);
+    return httpClient.post(url);
   };
 
-  const checkAuthState = async () => {
+  const checkAuthState = () => {
     const url = `${baseUrl}/me`;
 
     return new Promise((resolve) => {
@@ -25,9 +32,7 @@ const createAuthService = ({ httpClient }) => {
   };
 
   return Object.freeze({
-    login,
-    logout,
-    checkAuthState,
+    login, logout, checkAuthState,
   });
 };
 

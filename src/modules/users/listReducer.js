@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   list: [],
   error: null,
   fetching: false,
+  total: 0,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -18,7 +19,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.FETCH_USERS_SUCCESS:
       return update(state, {
         fetching: false,
-        list: payload,
+        list: payload.users,
+        total: payload.total,
       });
     case types.FETCH_USERS_FAILURE:
       return update(state, {

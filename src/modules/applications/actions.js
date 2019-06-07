@@ -1,5 +1,7 @@
 import actionCreator from '@madappgang/action-creator';
+import { getError, getStatus } from '~/utils';
 import types from './types';
+import { logout } from '../auth/actions';
 
 const fetchAttempt = actionCreator(types.FETCH_APPLICATIONS_ATTEMPT);
 const fetchSuccess = actionCreator(types.FETCH_APPLICATIONS_SUCCESS);
@@ -21,58 +23,95 @@ const fetchByIdAttempt = actionCreator(types.FETCH_APPLICATION_BY_ID_ATTEMPT);
 const fetchByIdSuccess = actionCreator(types.FETCH_APPLICATION_BY_ID_SUCCESS);
 const fetchByIdFailure = actionCreator(types.FETCH_APPLICATION_BY_ID_FAILURE);
 
-const fetchApplications = () => async (dispatch, _, { applications }) => {
+const UNAUTHORIZED = 401;
+
+const fetchApplications = () => async (dispatch, _, services) => {
   dispatch(fetchAttempt());
 
   try {
-    const list = await applications.fetchApplications();
-    dispatch(fetchSuccess(list));
+    const { apps = [], total = 0 } = await services.applications.fetchApplications();
+    dispatch(fetchSuccess({ apps, total }));
   } catch (err) {
-    dispatch(fetchFailure(err));
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+      return;
+    }
+
+    dispatch(fetchFailure(getError(err)));
   }
 };
 
-const fetchApplicationById = id => async (dispatch, _, { applications }) => {
+const fetchApplicationById = id => async (dispatch, _, services) => {
   dispatch(fetchByIdAttempt());
 
   try {
-    const application = await applications.fetchApplicationById(id);
+    const application = await services.applications.fetchApplicationById(id);
     dispatch(fetchByIdSuccess(application));
   } catch (err) {
-    dispatch(fetchByIdFailure(err));
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+      return;
+    }
+
+    dispatch(fetchByIdFailure(getError(err)));
   }
 };
 
-const postApplication = application => async (dispatch, _, { applications }) => {
+const postApplication = application => async (dispatch, _, services) => {
   dispatch(postAttempt());
 
   try {
-    const result = await applications.postApplication(application);
+    const result = await services.applications.postApplication(application);
     dispatch(postSuccess(result));
   } catch (err) {
-    dispatch(postFailure(err));
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+      return;
+    }
+
+    dispatch(postFailure(getError(err)));
   }
 };
 
-const deleteApplicationById = id => async (dispatch, _, { applications }) => {
+const deleteApplicationById = id => async (dispatch, _, services) => {
   dispatch(deleteAttempt());
 
   try {
-    await applications.deleteApplicationById(id);
+    await services.applications.deleteApplicationById(id);
     dispatch(deleteSuccess(id));
   } catch (err) {
-    dispatch(deleteFailure(err));
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+      return;
+    }
+
+    dispatch(deleteFailure(getError(err)));
   }
 };
 
-const alterApplication = (id, changes) => async (dispatch, _, { applications }) => {
+const alterApplication = (id, changes) => async (dispatch, _, services) => {
   dispatch(alterAttempt());
 
   try {
-    const result = await applications.alterApplication(id, changes);
+    const result = await services.applications.alterApplication(id, changes);
     dispatch(alterSuccess(result));
   } catch (err) {
-    dispatch(alterFailure(err));
+    const status = getStatus(err);
+
+    if (status === UNAUTHORIZED) {
+      logout()(dispatch, _, services);
+      return;
+    }
+
+    dispatch(alterFailure(getError(err)));
   }
 };
 

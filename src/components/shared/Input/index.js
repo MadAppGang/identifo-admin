@@ -18,6 +18,7 @@ const Input = ({ Icon, errorMessage, ...props }) => {
       <input
         {...props}
         spellCheck={false}
+        autoComplete="off"
         className={className}
       />
       {errorMessage && (

@@ -64,4 +64,6 @@ const actions = {
   testConnection,
 };
 
+export { ConnectionState };
+
 export default connect(mapStateToProps, actions)(ConnectionState);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import PropTypes from 'prop-types';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
@@ -8,7 +9,6 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import userFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
-import * as Validation from '~/utils/validation';
 
 import './UserForm.css';
 
@@ -20,14 +20,12 @@ class UserForm extends Component {
 
     this.state = {
       fields: {
-        name: '',
-        email: '',
+        username: '',
         password: '',
         confirmPassword: '',
       },
       validation: {
-        name: '',
-        email: '',
+        username: '',
         password: '',
         confirmPassword: '',
       },
@@ -85,7 +83,7 @@ class UserForm extends Component {
   render() {
     const { saving, error } = this.props;
     const { validation, fields } = this.state;
-    const { email, name, password, confirmPassword } = fields;
+    const { username, password, confirmPassword } = fields;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -93,25 +91,14 @@ class UserForm extends Component {
           <FormErrorMessage error={error} />
         )}
 
-        <Field label="Name">
+        <Field label="Username">
           <Input
-            name="name"
-            value={name}
-            placeholder="Enter name"
+            name="username"
+            value={username}
+            placeholder="Enter username"
             onChange={this.handleInput}
             onBlur={this.handleBlur}
-            errorMessage={validation.name}
-          />
-        </Field>
-
-        <Field label="Email">
-          <Input
-            name="email"
-            value={email}
-            placeholder="Enter email"
-            onChange={this.handleInput}
-            onBlur={this.handleBlur}
-            errorMessage={validation.email}
+            errorMessage={validation.username}
           />
         </Field>
 

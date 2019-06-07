@@ -3,7 +3,7 @@
 exports[`<LogoutSection /> renders as expected 1`] = `
 <button
   className="iap-profile-dropdown__section"
-  onClick={[MockFunction]}
+  onClick={[Function]}
   type="button"
 >
   <DropdownIcon />

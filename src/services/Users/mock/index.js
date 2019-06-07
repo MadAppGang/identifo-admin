@@ -6,21 +6,21 @@ const data = {
   users: [
     {
       id: '507f1f77bcf86cd799439011',
-      name: 'Denys Provodnikov',
+      username: 'Denys Provodnikov',
       email: 'dp@madappgang.com',
       latestLogin: 'Never',
       numberOfLogins: 0,
     },
     {
       id: '507f191e810c19729de860ea',
-      name: 'John Doe',
+      username: 'John Doe',
       email: 'john.doe@gmail.com',
       latestLogin: 'Yesterday',
       numberOfLogins: 3,
     },
     {
       id: '507f191e810c19729de860cf',
-      name: 'Jessica Bower',
+      username: 'Jessica Bower',
       email: 'jess@gmail.com',
       latestLogin: '2 hours ago',
       numberOfLogins: 14,
@@ -43,7 +43,10 @@ const createUserServiceMock = () => {
 
     await pause(600);
 
-    return data.users;
+    return {
+      users: data.users,
+      total: data.users.length,
+    };
   };
 
   const postUser = async (user) => {

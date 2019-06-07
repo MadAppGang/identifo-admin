@@ -24,7 +24,10 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: payload,
       });
     case types.LOGOUT_ATTEMPT:
-      return update(state, 'inProgress', true);
+      return update(state, {
+        inProgress: true,
+        error: null,
+      });
     default:
       return state;
   }

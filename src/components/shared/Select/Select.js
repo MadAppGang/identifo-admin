@@ -1,53 +1,48 @@
-import React, { Component, Children } from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
+import useDropdown from 'use-dropdown';
 import Input from '~/components/shared/Input';
-import Dropdown from '~/components/shared/Dropdown';
 
-class Select extends Component {
-  getDisplayValue(value) {
-    const child = Children
-      .toArray(this.props.children)
-      .find(ch => ch.props.value === value);
+const getDisplayValue = (value, children) => {
+  const child = Children
+    .toArray(children)
+    .find(ch => ch.props.value === value);
 
-    return child ? child.props.title : '';
-  }
+  return child ? child.props.title : '';
+};
 
-  render() {
-    const { children, value, disabled, placeholder, errorMessage } = this.props;
+const Select = (props) => {
+  const { children, value, disabled, placeholder, errorMessage } = props;
+  const [containerRef, isOpen, open, close] = useDropdown();
 
-    return (
-      <Dropdown>
-        {({ open, close, isOpen }) => (
-          <div className="iap-db-dropdown">
-            <Input
-              placeholder={placeholder}
-              style={{ caretColor: 'transparent' }}
-              value={this.getDisplayValue(value)}
-              disabled={disabled}
-              onFocus={open}
-              errorMessage={errorMessage}
-            />
-            {isOpen && (
-              <div className="iap-db-dropdown__options">
-                {Children.map(children, (child) => {
-                  const extraProps = {
-                    onClick: () => {
-                      close();
-                      this.props.onChange(child.props.value);
-                    },
-                    active: value === child.props.value,
-                  };
+  return (
+    <div className="iap-db-dropdown" ref={containerRef}>
+      <Input
+        placeholder={placeholder}
+        style={{ caretColor: 'transparent' }}
+        value={getDisplayValue(value, props.children)}
+        disabled={disabled}
+        onFocus={open}
+        errorMessage={errorMessage}
+      />
+      {isOpen && (
+        <div className="iap-db-dropdown__options">
+          {Children.map(children, (child) => {
+            const extraProps = {
+              onClick: () => {
+                close();
+                props.onChange(child.props.value);
+              },
+              active: value === child.props.value,
+            };
 
-                  return React.cloneElement(child, extraProps);
-                })}
-              </div>
-            )}
-          </div>
-        )}
-      </Dropdown>
-    );
-  }
-}
+            return React.cloneElement(child, extraProps);
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
 
 Select.propTypes = {
   disabled: PropTypes.bool,

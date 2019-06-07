@@ -14,7 +14,7 @@ const datagrid = {
     width: '10%',
   },
   name: {
-    title: 'Name',
+    title: 'Username',
     width: '30%',
   },
   email: {

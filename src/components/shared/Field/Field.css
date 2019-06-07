@@ -1,5 +1,6 @@
 .iap-form__field {
   margin: 10px 0;
+  position: relative;
 }
 
 .iap-form__label {
@@ -7,4 +8,13 @@
   font-weight: bold;
   font-size: 12px;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+
+.iap-form__label-icon {
+  height: 18px;
+  width: 18px;
+  margin-left: 5px;
+  fill: #5d5d5d;
 }

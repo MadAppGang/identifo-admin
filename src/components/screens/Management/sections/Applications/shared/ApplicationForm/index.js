@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import validationRules from './validationRules';
-import * as Validation from '~/utils/validation';
 import { Select, Option } from '~/components/shared/Select';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
+import SecretField from './SecretField';
 import './ApplicationForm.css';
 
 class ApplicationForm extends Component {
@@ -22,10 +23,12 @@ class ApplicationForm extends Component {
       fields: {
         type: '',
         name: '',
+        redirectUrl: '',
       },
       validation: {
         type: '',
         name: '',
+        redirectUrl: '',
       },
     };
 
@@ -126,6 +129,21 @@ class ApplicationForm extends Component {
             <Option value="android" title="Android Client (Mobile)" />
             <Option value="ios" title="iOS Client (Mobile)" />
           </Select>
+        </Field>
+
+        <SecretField value="507f1f77bcf86cd799439242" />
+
+        <Field label="Redirect URL">
+          <Input
+            name="redirectUrl"
+            value={fields.redirectUrl}
+            autoComplete="off"
+            placeholder="Enter redirect url"
+            onChange={this.handleInput}
+            onBlur={this.handleBlur}
+            errorMessage={validation.redirectUrl}
+            disabled={loading}
+          />
         </Field>
 
         <footer className="iap-apps-form__footer">

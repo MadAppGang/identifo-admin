@@ -2,10 +2,20 @@ export const pause = timeout => new Promise(resolve => setTimeout(resolve, timeo
 
 export const getError = (axiosErr) => {
   if (axiosErr.response && axiosErr.response.data) {
-    return new Error(axiosErr.response.data.message);
+    return new Error(axiosErr.response.data.error);
   }
 
   return axiosErr;
+};
+
+export const getStatus = (axiosErr) => {
+  const defaultStatus = 404;
+
+  if (axiosErr.response) {
+    return axiosErr.response.status || defaultStatus;
+  }
+
+  return defaultStatus;
 };
 
 export const getInitials = (fullName, email) => {

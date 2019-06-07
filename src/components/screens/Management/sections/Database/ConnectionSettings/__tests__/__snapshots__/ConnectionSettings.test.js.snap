@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`database <ConnectionSettings /> matches snapshot 1`] = `
+<Fragment>
+  <p
+    className="iap-management-section__title"
+  >
+    Database
+    <Connect(ConnectionState)
+      loading={false}
+    />
+  </p>
+  <div
+    className="iap-settings-section"
+  >
+    <SectionHeader
+      description="These values are used to create a connection to the database."
+      title="Connection Settings"
+    />
+    <main>
+      <Preview
+        fetching={false}
+        settings={
+          Object {
+            "endpoint": "endpoint:27017",
+            "name": "db",
+            "type": "mongodb",
+          }
+        }
+      />
+      <Button
+        Icon={[Function]}
+        disabled={false}
+        error={false}
+        iconClassName=""
+        onClick={[Function]}
+        stretch={false}
+        transparent={false}
+        type="button"
+      >
+        Edit database settings
+      </Button>
+    </main>
+  </div>
+</Fragment>
+`;
+
+exports[`database <ConnectionSettings /> matches snapshot in editing mode 1`] = `
+<Fragment>
+  <p
+    className="iap-management-section__title"
+  >
+    Database
+  </p>
+  <div
+    className="iap-settings-section"
+  >
+    <SectionHeader
+      description="You should select from supported database types and provide a connection for it."
+      title="Connection Settings"
+    />
+    <main>
+      <ConnectionSettingsForm
+        error={null}
+        onCancel={[Function]}
+        onSubmit={[Function]}
+        posting={false}
+        settings={
+          Object {
+            "endpoint": "endpoint:27017",
+            "name": "db",
+            "type": "mongodb",
+          }
+        }
+      />
+    </main>
+  </div>
+</Fragment>
+`;
+
+exports[`database <ConnectionSettings /> matches snapshot when error 1`] = `
+<DatabasePlaceholder
+  fetching={false}
+  onTryAgainClick={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+/>
+`;
+
+exports[`database <ConnectionSettings /> matches snapshot when fetching 1`] = `
+<Fragment>
+  <p
+    className="iap-management-section__title"
+  >
+    Database
+    <Connect(ConnectionState)
+      loading={true}
+    />
+  </p>
+  <div
+    className="iap-settings-section"
+  >
+    <SectionHeader
+      description="These values are used to create a connection to the database."
+      title="Connection Settings"
+    />
+    <main>
+      <Preview
+        fetching={true}
+        settings={
+          Object {
+            "endpoint": "endpoint:27017",
+            "name": "db",
+            "type": "mongodb",
+          }
+        }
+      />
+      <Button
+        Icon={[Function]}
+        disabled={true}
+        error={false}
+        iconClassName=""
+        onClick={[Function]}
+        stretch={false}
+        transparent={false}
+        type="button"
+      >
+        Edit database settings
+      </Button>
+    </main>
+  </div>
+</Fragment>
+`;
+
+exports[`database <ConnectionSettings /> matches snapshot when posting 1`] = `
+<Fragment>
+  <p
+    className="iap-management-section__title"
+  >
+    Database
+    <Connect(ConnectionState)
+      loading={false}
+    />
+  </p>
+  <div
+    className="iap-settings-section"
+  >
+    <SectionHeader
+      description="These values are used to create a connection to the database."
+      title="Connection Settings"
+    />
+    <main>
+      <Preview
+        fetching={false}
+        settings={
+          Object {
+            "endpoint": "endpoint:27017",
+            "name": "db",
+            "type": "mongodb",
+          }
+        }
+      />
+      <Button
+        Icon={[Function]}
+        disabled={false}
+        error={false}
+        iconClassName=""
+        onClick={[Function]}
+        stretch={false}
+        transparent={false}
+        type="button"
+      >
+        Edit database settings
+      </Button>
+    </main>
+  </div>
+</Fragment>
+`;
