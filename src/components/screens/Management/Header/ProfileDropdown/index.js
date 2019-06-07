@@ -8,7 +8,7 @@ import './Profile.css';
 const ProfileDropdown = () => {
   return (
     <Dropdown>
-      {({ isOpen, open }) => (
+      {({ isOpen, open, close }) => (
         <div className="iap-header-profile">
           <button
             type="button"
@@ -20,8 +20,8 @@ const ProfileDropdown = () => {
           </button>
           {isOpen && (
             <div className="iap-profile-dropdown">
-              <AccountSection />
-              <LogoutSection />
+              <AccountSection onClick={close} />
+              <LogoutSection onClick={close} />
             </div>
           )}
         </div>
