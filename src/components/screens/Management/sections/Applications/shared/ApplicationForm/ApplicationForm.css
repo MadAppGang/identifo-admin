@@ -8,3 +8,24 @@
   display: flex;
   align-items: center;
 }
+
+.iap-apps-form__secret-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iap-apps-form__secret-value {
+  padding: 10px 20px;
+  border-radius: 7px;
+  background-color: #f7fcff;
+  border: 1px solid #cbe7fb;
+  font-size: 15px;
+  outline: none;
+  color: #aaa;
+  width: 100%;
+  margin: 4px 5px 4px 0;
+  max-width: 233.5px;
+  overflow: hidden;
+  text-align: center;
+}

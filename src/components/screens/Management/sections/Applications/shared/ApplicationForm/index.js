@@ -10,6 +10,7 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import validationRules from './validationRules';
 import { Select, Option } from '~/components/shared/Select';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
+import SecretField from './SecretField';
 import './ApplicationForm.css';
 
 class ApplicationForm extends Component {
@@ -129,6 +130,8 @@ class ApplicationForm extends Component {
             <Option value="ios" title="iOS Client (Mobile)" />
           </Select>
         </Field>
+
+        <SecretField value="507f1f77bcf86cd799439242" />
 
         <Field label="Redirect URL">
           <Input

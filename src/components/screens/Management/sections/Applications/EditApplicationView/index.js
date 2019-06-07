@@ -95,7 +95,7 @@ class EditApplicationView extends Component {
           </div>
           <p className="iap-management-section__description">
             <span className="iap-section-description__id">
-              ClientID:&nbsp;
+              Client ID:&nbsp;
               {id}
             </span>
           </p>
