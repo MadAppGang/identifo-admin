@@ -23,7 +23,7 @@ exports[`<UserList /> renders as expected 1`] = `
             "width": "18%",
           },
           "name": Object {
-            "title": "Name",
+            "title": "Username",
             "width": "30%",
           },
           "numberOfLogins": Object {
@@ -58,7 +58,7 @@ exports[`<UserList /> renders as expected 1`] = `
                 "width": "18%",
               },
               "name": Object {
-                "title": "Name",
+                "title": "Username",
                 "width": "30%",
               },
               "numberOfLogins": Object {
@@ -100,7 +100,7 @@ exports[`<UserList /> renders as expected 1`] = `
                 "width": "18%",
               },
               "name": Object {
-                "title": "Name",
+                "title": "Username",
                 "width": "30%",
               },
               "numberOfLogins": Object {
@@ -148,7 +148,7 @@ exports[`<UserList /> renders as expected when loading 1`] = `
             "width": "18%",
           },
           "name": Object {
-            "title": "Name",
+            "title": "Username",
             "width": "30%",
           },
           "numberOfLogins": Object {
@@ -190,7 +190,7 @@ exports[`<UserList /> renders as expected when not loading and no users 1`] = `
             "width": "18%",
           },
           "name": Object {
-            "title": "Name",
+            "title": "Username",
             "width": "30%",
           },
           "numberOfLogins": Object {

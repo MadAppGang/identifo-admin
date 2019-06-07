@@ -6,16 +6,16 @@ exports[`edit user <UserForm /> renders as expected 1`] = `
   onSubmit={[Function]}
 >
   <Field
-    label="Name"
+    label="Username"
   >
     <Input
       Icon={null}
       disabled={false}
       errorMessage=""
-      name="name"
+      name="username"
       onBlur={[Function]}
       onChange={[Function]}
-      placeholder="Enter name"
+      placeholder="Enter username"
       type="text"
       value=""
     />
@@ -76,16 +76,16 @@ exports[`edit user <UserForm /> renders as expected in "edit password" mode 1`] 
   onSubmit={[Function]}
 >
   <Field
-    label="Name"
+    label="Username"
   >
     <Input
       Icon={null}
       disabled={false}
       errorMessage=""
-      name="name"
+      name="username"
       onBlur={[Function]}
       onChange={[Function]}
-      placeholder="Enter name"
+      placeholder="Enter username"
       type="text"
       value=""
     />
@@ -179,16 +179,16 @@ exports[`edit user <UserForm /> renders as expected with error 1`] = `
     error={[Error: error]}
   />
   <Field
-    label="Name"
+    label="Username"
   >
     <Input
       Icon={null}
       disabled={false}
       errorMessage=""
-      name="name"
+      name="username"
       onBlur={[Function]}
       onChange={[Function]}
-      placeholder="Enter name"
+      placeholder="Enter username"
       type="text"
       value=""
     />

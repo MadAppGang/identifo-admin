@@ -6,29 +6,15 @@ exports[`new user screen <UserForm /> renders as expected in saving state 1`] = 
   onSubmit={[Function]}
 >
   <Field
-    label="Name"
+    label="Username"
   >
     <Input
       Icon={null}
       errorMessage=""
-      name="name"
+      name="username"
       onBlur={[Function]}
       onChange={[Function]}
-      placeholder="Enter name"
-      type="text"
-      value=""
-    />
-  </Field>
-  <Field
-    label="Email"
-  >
-    <Input
-      Icon={null}
-      errorMessage=""
-      name="email"
-      onBlur={[Function]}
-      onChange={[Function]}
-      placeholder="Enter email"
+      placeholder="Enter username"
       type="text"
       value=""
     />
@@ -98,29 +84,15 @@ exports[`new user screen <UserForm /> renders as expected with no error 1`] = `
   onSubmit={[Function]}
 >
   <Field
-    label="Name"
+    label="Username"
   >
     <Input
       Icon={null}
       errorMessage=""
-      name="name"
+      name="username"
       onBlur={[Function]}
       onChange={[Function]}
-      placeholder="Enter name"
-      type="text"
-      value=""
-    />
-  </Field>
-  <Field
-    label="Email"
-  >
-    <Input
-      Icon={null}
-      errorMessage=""
-      name="email"
-      onBlur={[Function]}
-      onChange={[Function]}
-      placeholder="Enter email"
+      placeholder="Enter username"
       type="text"
       value=""
     />
@@ -193,29 +165,15 @@ exports[`new user screen <UserForm /> renders as expected with passed error 1`] 
     error={[Error: error]}
   />
   <Field
-    label="Name"
+    label="Username"
   >
     <Input
       Icon={null}
       errorMessage=""
-      name="name"
+      name="username"
       onBlur={[Function]}
       onChange={[Function]}
-      placeholder="Enter name"
-      type="text"
-      value=""
-    />
-  </Field>
-  <Field
-    label="Email"
-  >
-    <Input
-      Icon={null}
-      errorMessage=""
-      name="email"
-      onBlur={[Function]}
-      onChange={[Function]}
-      placeholder="Enter email"
+      placeholder="Enter username"
       type="text"
       value=""
     />

@@ -22,6 +22,12 @@ exports[`<DatabaseForm /> matches snapshot 1`] = `
         <SelectOption
           active={false}
           onClick={[Function]}
+          title="Bolt DB"
+          value="boltdb"
+        />
+        <SelectOption
+          active={false}
+          onClick={[Function]}
           title="Mongo DB"
           value="mongodb"
         />
@@ -121,6 +127,12 @@ exports[`<DatabaseForm /> matches snapshot when error 1`] = `
         <SelectOption
           active={false}
           onClick={[Function]}
+          title="Bolt DB"
+          value="boltdb"
+        />
+        <SelectOption
+          active={false}
+          onClick={[Function]}
           title="Mongo DB"
           value="mongodb"
         />
@@ -214,6 +226,12 @@ exports[`<DatabaseForm /> matches snapshot when posting 1`] = `
         placeholder="Select Database Type"
         value="mongodb"
       >
+        <SelectOption
+          active={false}
+          onClick={[Function]}
+          title="Bolt DB"
+          value="boltdb"
+        />
         <SelectOption
           active={false}
           onClick={[Function]}
@@ -313,6 +331,12 @@ exports[`<DatabaseForm /> matches snapshot when type is dynamodb 1`] = `
         <SelectOption
           active={false}
           onClick={[Function]}
+          title="Bolt DB"
+          value="boltdb"
+        />
+        <SelectOption
+          active={false}
+          onClick={[Function]}
           title="Mongo DB"
           value="mongodb"
         />
@@ -405,6 +429,12 @@ exports[`<DatabaseForm /> matches snapshot when type is mongodb 1`] = `
         placeholder="Select Database Type"
         value="mongodb"
       >
+        <SelectOption
+          active={false}
+          onClick={[Function]}
+          title="Bolt DB"
+          value="boltdb"
+        />
         <SelectOption
           active={false}
           onClick={[Function]}
