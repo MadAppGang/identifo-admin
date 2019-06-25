@@ -7,12 +7,9 @@ import Button from '~/components/shared/Button';
 import SectionHeader from '~/components/shared/SectionHeader';
 import EditIcon from '~/components/icons/EditIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import {
-  fetchSettings, postSettings, resetError,
-} from '~/modules/database/actions';
+import { fetchSettings, postSettings, resetError } from '~/modules/database/actions';
 import { createNotification } from '~/modules/notifications/actions';
 import DatabasePlaceholder from './Placeholder';
-import DatabaseConnectionState from './ConnectionState';
 
 import './index.css';
 
@@ -86,47 +83,35 @@ class ConnectionSettings extends Component {
     }
 
     return (
-      <>
-        <p className="iap-management-section__title">
-          Database
-
-          {!editing && (
-            <DatabaseConnectionState loading={fetching} />
+      <div className="iap-settings-section">
+        <SectionHeader
+          title="Connection Settings"
+          description={this.sectionDescription[editing ? 'editing' : 'preview']}
+        />
+        <main>
+          {editing && (
+            <Form
+              error={error}
+              posting={posting}
+              settings={settings}
+              onSubmit={this.handleFormSubmit}
+              onCancel={this.handleEditCancel}
+            />
           )}
-        </p>
-
-        <div className="iap-settings-section">
-
-          <SectionHeader
-            title="Connection Settings"
-            description={this.sectionDescription[editing ? 'editing' : 'preview']}
-          />
-
-          <main>
-            {editing && (
-              <Form
-                error={error}
-                posting={posting}
-                settings={settings}
-                onSubmit={this.handleFormSubmit}
-                onCancel={this.handleEditCancel}
-              />
-            )}
-            {!editing && (
-              <>
-                <Preview fetching={fetching} settings={this.props.settings} />
-                <Button
-                  disabled={fetching}
-                  Icon={fetching ? LoadingIcon : EditIcon}
-                  onClick={this.handleEditClick}
-                >
-                  Edit database settings
-                </Button>
-              </>
-            )}
-          </main>
-        </div>
-      </>
+          {!editing && (
+            <>
+              <Preview fetching={fetching} settings={this.props.settings} />
+              <Button
+                disabled={fetching}
+                Icon={fetching ? LoadingIcon : EditIcon}
+                onClick={this.handleEditClick}
+              >
+                Edit database settings
+              </Button>
+            </>
+          )}
+        </main>
+      </div>
     );
   }
 }
