@@ -76,8 +76,8 @@ UsersMainView.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     email: PropTypes.string,
-    latestLogin: PropTypes.string,
-    numberOfLogins: PropTypes.number,
+    latest_login_time: PropTypes.number,
+    num_of_logins: PropTypes.number,
   })),
   fetching: PropTypes.bool,
   history: PropTypes.shape({
