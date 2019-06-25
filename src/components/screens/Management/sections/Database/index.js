@@ -1,5 +1,6 @@
 import React from 'react';
 import AppStorageSettings from './AppStorageSettings';
+import UserStorageSettings from './UserStorageSettings';
 
 const DatabaseSection = () => {
   return (
@@ -10,6 +11,7 @@ const DatabaseSection = () => {
         </p>
       </header>
       <AppStorageSettings />
+      <UserStorageSettings />
     </section>
   );
 };

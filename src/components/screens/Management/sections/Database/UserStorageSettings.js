@@ -88,8 +88,8 @@ const AppStorageSettings = () => {
   return (
     <div className="iap-settings-section">
       <SectionHeader
-        title="Application Storage"
-        description="These values are used to create a connection to the database all your applications are stored at."
+        title="User Storage"
+        description="These values are used to create a connection to the database all your users are stored at."
       />
       <main>
         {editing && (

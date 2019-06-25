@@ -2,6 +2,10 @@
   margin: 25px 0;
 }
 
+.iap-settings-section + .iap-settings-section {
+  margin-top: 50px;
+}
+
 .iap-settings-form {
   width: 350px;
   margin: 50px 0;
