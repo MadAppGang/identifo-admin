@@ -1,7 +1,5 @@
 import React from 'react';
-import Settings from './ConnectionSettings';
 import AppStorageSettings from './AppStorageSettings';
-import DatabaseConnectionState from './ConnectionSettings/ConnectionState';
 
 const DatabaseSection = () => {
   return (
@@ -10,9 +8,7 @@ const DatabaseSection = () => {
         <p className="iap-management-section__title">
           Database
         </p>
-        <DatabaseConnectionState />
       </header>
-      {/* <Settings /> */}
       <AppStorageSettings />
     </section>
   );
