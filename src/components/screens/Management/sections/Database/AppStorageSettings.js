@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import Preview from './ConnectionSettings/Preview';
 import Form from './ConnectionSettings/Form';
 import Button from '~/components/shared/Button';
@@ -17,7 +17,10 @@ const sectionDescription = {
 };
 
 const AppStorageSettings = (props) => {
-  const { posting, error, settings } = props;
+  const posting = useSelector(state => state.database.settings.posting);
+  const settings = useSelector(state => state.database.settings.config);
+  const error = useSelector(state => state.database.settings.error);
+
   const [editing, setEditing] = useState(false);
   const [fetching, setFetching] = useState(false);
 
@@ -101,29 +104,11 @@ const AppStorageSettings = (props) => {
 };
 
 AppStorageSettings.propTypes = {
-  posting: PropTypes.bool.isRequired,
   fetchSettings: PropTypes.func.isRequired,
   postSettings: PropTypes.func.isRequired,
   resetError: PropTypes.func.isRequired,
   createNotification: PropTypes.func.isRequired,
-  settings: PropTypes.shape({
-    endpoint: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-  }),
-  error: PropTypes.instanceOf(Error),
 };
-
-AppStorageSettings.defaultProps = {
-  settings: null,
-  error: null,
-};
-
-const mapStateToProps = state => ({
-  posting: state.database.settings.posting,
-  settings: state.database.settings.config,
-  error: state.database.settings.error,
-});
 
 const actions = {
   fetchSettings,
@@ -134,4 +119,4 @@ const actions = {
 
 export { AppStorageSettings as ConnectionSettings };
 
-export default connect(mapStateToProps, actions)(AppStorageSettings);
+export default connect(null, actions)(AppStorageSettings);
