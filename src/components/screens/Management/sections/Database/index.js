@@ -3,7 +3,7 @@ import update from '@madappgang/update-by-path';
 import { useDispatch, useSelector } from 'react-redux';
 import StorageSettings from './StorageSettings';
 import { fetchSettings, postSettings } from '~/modules/database/actions';
-import DatabasePlaceholder from './ConnectionSettings/Placeholder';
+import DatabasePlaceholder from './Placeholder';
 
 const DatabaseSection = () => {
   const dispatch = useDispatch();

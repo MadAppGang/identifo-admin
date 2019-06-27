@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Preview from './ConnectionSettings/Preview';
-import Form from './ConnectionSettings/Form';
 import Button from '~/components/shared/Button';
 import EditIcon from '~/components/icons/EditIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import SectionHeader from '~/components/shared/SectionHeader';
 import { resetError } from '~/modules/database/actions';
 import { createNotification } from '~/modules/notifications/actions';
-import SectionHeader from '~/components/shared/SectionHeader';
+import Preview from './Preview';
+import Form from './Form';
 
-import './ConnectionSettings/index.css';
+import './index.css';
 
 function useDidMount() {
   const [didMount, setDidMount] = useState(false);
@@ -100,7 +100,11 @@ StorageSettings.propTypes = {
     path: PropTypes.string,
     name: PropTypes.string,
     region: PropTypes.string,
-  }).isRequired,
+  }),
+};
+
+StorageSettings.defaultProps = {
+  settings: null,
 };
 
 export default StorageSettings;
