@@ -18,7 +18,7 @@ const UserRow = ({ data, config }) => (
       {data.email || '-'}
     </div>
     <div style={{ width: config.latest_login_time.width }}>
-      {formatDateForTable(data.latest_login_time)}
+      {formatDateForTable(data.latest_login_time ? data.latest_login_time * 1000 : 0)}
     </div>
     <div style={{ width: config.num_of_logins.width }}>
       {data.num_of_logins || 0}
