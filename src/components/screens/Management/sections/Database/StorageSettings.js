@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import Preview from './ConnectionSettings/Preview';
 import Form from './ConnectionSettings/Form';
 import Button from '~/components/shared/Button';
@@ -18,7 +19,7 @@ function useDidMount() {
   return didMount;
 }
 
-const AppStorageSettings = (props) => {
+const StorageSettings = (props) => {
   const { title, description, settings, fetching, postSettings } = props;
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
@@ -88,4 +89,18 @@ const AppStorageSettings = (props) => {
   );
 };
 
-export default AppStorageSettings;
+StorageSettings.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  fetching: PropTypes.bool.isRequired,
+  postSettings: PropTypes.func.isRequired,
+  settings: PropTypes.shape({
+    type: PropTypes.string,
+    endpoint: PropTypes.string,
+    path: PropTypes.string,
+    name: PropTypes.string,
+    region: PropTypes.string,
+  }).isRequired,
+};
+
+export default StorageSettings;
