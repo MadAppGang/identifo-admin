@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector  } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import { compose } from '~/utils/fn';
 
 const SIGNED_IN = true;
 const SIGNED_OUT = false;
 
 const ensureAuthState = (expectedAuthState, Component, redirectPath) => {
-  const ConnectedComponent = ({ actualAuthState, location, ...props }) => {
+  const ConnectedComponent = ({ location, ...props }) => {
+    const actualAuthState = useSelector(state => state.auth.authenticated);
+
     if (expectedAuthState !== actualAuthState) {
       if (expectedAuthState === SIGNED_IN) {
         const to = {
@@ -30,18 +31,13 @@ const ensureAuthState = (expectedAuthState, Component, redirectPath) => {
   };
 
   ConnectedComponent.propTypes = {
-    actualAuthState: PropTypes.bool.isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string,
       state: PropTypes.object,
     }).isRequired,
   };
 
-  const mapStateToProps = state => ({
-    actualAuthState: state.auth.authenticated,
-  });
-
-  return compose(withRouter, connect(mapStateToProps))(ConnectedComponent);
+  return withRouter(ConnectedComponent);
 };
 
 export {

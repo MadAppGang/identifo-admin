@@ -21,11 +21,11 @@ const datagrid = {
     title: 'Email',
     width: '31%',
   },
-  latestLogin: {
+  latest_login_time: {
     title: 'Latest Login',
     width: '18%',
   },
-  numberOfLogins: {
+  num_of_logins: {
     title: '# of Logins',
     width: '15%',
   },

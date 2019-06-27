@@ -113,3 +113,10 @@
   font-size: 14px;
   letter-spacing: .8px;
 }
+
+.iap-management-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

@@ -10,6 +10,7 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import validationRules from './validationRules';
 import { Select, Option } from '~/components/shared/Select';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
+import Toggle from '~/components/shared/Toggle';
 import SecretField from './SecretField';
 import './ApplicationForm.css';
 
@@ -24,6 +25,7 @@ class ApplicationForm extends Component {
         type: '',
         name: '',
         redirectUrl: '',
+        offline: false,
       },
       validation: {
         type: '',
@@ -36,13 +38,16 @@ class ApplicationForm extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
+    this.toggleAllowOffline = this.toggleAllowOffline.bind(this);
   }
 
   componentDidUpdate(prevProps) {
     const { application } = this.props;
 
     if (application && application !== prevProps.application) {
-      this.setState({ fields: application });
+      this.setState(state => ({
+        fields: update(state.fields, application),
+      }));
     }
   }
 
@@ -80,17 +85,27 @@ class ApplicationForm extends Component {
     }));
   }
 
+  toggleAllowOffline(offline) {
+    this.setState(state => ({
+      fields: update(state.fields, { offline }),
+    }));
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
-    const validation = this.validate('all', this.state.fields);
+    const { fields } = this.state;
+    const validation = this.validate('all', fields);
 
     if (Validation.hasError(validation)) {
       this.setState({ validation });
       return;
     }
 
-    this.props.onSubmit(this.state.fields);
+    this.props.onSubmit(update(fields, {
+      redirect_url: fields.redirectUrl,
+      redirectUrl: undefined,
+    }));
   }
 
   render() {
@@ -145,6 +160,12 @@ class ApplicationForm extends Component {
             disabled={loading}
           />
         </Field>
+
+        <Toggle
+          label="Allow Offline"
+          value={fields.offline}
+          onChange={this.toggleAllowOffline}
+        />
 
         <footer className="iap-apps-form__footer">
           <Button

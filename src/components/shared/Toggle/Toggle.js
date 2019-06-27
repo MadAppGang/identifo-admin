@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import useToggle from '@dprovodnikov/use-toggle';
 import classnames from 'classnames';
 
-const Toggle = ({ label, onChange }) => {
-  const [isOn, toggle] = useToggle(false, onChange);
+const Toggle = ({ label, value, onChange }) => {
+  const [isOn, toggle] = useToggle(value, onChange);
 
   const rootClassName = classnames({
     'iap-default-toggle__body': true,
@@ -29,11 +29,13 @@ const Toggle = ({ label, onChange }) => {
 
 Toggle.propTypes = {
   label: PropTypes.string,
+  value: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
 Toggle.defaultProps = {
   label: '',
+  value: false,
   onChange: () => {},
 };
 

@@ -8,22 +8,22 @@ const data = {
       id: '507f1f77bcf86cd799439011',
       username: 'Denys Provodnikov',
       email: 'dp@madappgang.com',
-      latestLogin: 'Never',
-      numberOfLogins: 0,
+      latest_login_time: Date.now(),
+      num_of_logins: 0,
     },
     {
       id: '507f191e810c19729de860ea',
       username: 'John Doe',
       email: 'john.doe@gmail.com',
-      latestLogin: 'Yesterday',
-      numberOfLogins: 3,
+      latest_login_time: new Date('2019-06-21').getTime(),
+      num_of_logins: 3,
     },
     {
       id: '507f191e810c19729de860cf',
       username: 'Jessica Bower',
       email: 'jess@gmail.com',
-      latestLogin: '2 hours ago',
-      numberOfLogins: 14,
+      latest_login_time: Date.now(),
+      num_of_logins: 14,
     },
   ],
 };
@@ -59,8 +59,8 @@ const createUserServiceMock = () => {
     const insertion = {
       ...user,
       id: Date.now().toString(),
-      numberOfLogins: 0,
-      latestLogin: 'Never',
+      num_of_logins: 0,
+      latest_login_time: undefined,
       password: undefined,
     };
 
