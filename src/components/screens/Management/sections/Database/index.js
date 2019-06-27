@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import StorageSettings from './StorageSettings';
 import { fetchSettings, postSettings } from '~/modules/database/actions';
 import DatabasePlaceholder from './Placeholder';
+import { Tabs, Tab } from '~/components/shared/Tabs';
 
 const DatabaseSection = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,39 @@ const DatabaseSection = () => {
     );
   }
 
+  const getStorageSettingsProps = (index) => {
+    return [
+      {
+        title: 'Application Storage',
+        description: 'Setup a connection to the database all the applications are stored at.',
+        settings: settings ? settings.appStorage : null,
+        postSettings: handleSettingsSubmit('appStorage'),
+      },
+      {
+        title: 'User Storage',
+        description: 'Setup a connection to the database all the users are stored at.',
+        settings: settings ? settings.userStorage : null,
+        postSettings: handleSettingsSubmit('userStorage'),
+      },
+      {
+        title: 'Token Storage',
+        description: 'Setup a connection to the database all the tokens are stored at.',
+        settings: settings ? settings.tokenStorage : null,
+        postSettings: handleSettingsSubmit('tokenStorage'),
+      },
+      {
+        title: 'Verification Code Storage',
+        description: 'Setup a connection to the database all the verification codes are stored at.',
+        settings: settings ? settings.verificationCodeStorage : null,
+        postSettings: handleSettingsSubmit('verificationCodeStorage'),
+      },
+    ][index];
+  };
+
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const storageSettingsProps = getStorageSettingsProps(tabIndex);
+
   return (
     <section className="iap-management-section">
       <header className="iap-management-section__header">
@@ -50,34 +84,16 @@ const DatabaseSection = () => {
           Database
         </p>
       </header>
-      <StorageSettings
-        title="Application Storage"
-        description="These values are used to create a connection to the database all your applications are stored at."
-        fetching={fetching}
-        settings={settings ? settings.appStorage : null}
-        postSettings={handleSettingsSubmit('appStorage')}
-      />
-      <StorageSettings
-        title="User Storage"
-        description="These values are used to create a connection to the database all your users are stored at."
-        fetching={fetching}
-        settings={settings ? settings.userStorage : null}
-        postSettings={handleSettingsSubmit('userStorage')}
-      />
-      <StorageSettings
-        title="Token Storage"
-        description="These values are used to create a connection to the database all your users are stored at."
-        fetching={fetching}
-        settings={settings ? settings.tokenStorage : null}
-        postSettings={handleSettingsSubmit('tokenStorage')}
-      />
-      <StorageSettings
-        title="Verification Code Storage"
-        description="These values are used to create a connection to the database all your users are stored at."
-        fetching={fetching}
-        settings={settings ? settings.verificationCodeStorage : null}
-        postSettings={handleSettingsSubmit('verificationCodeStorage')}
-      />
+
+      <Tabs activeTabIndex={tabIndex} onChange={setTabIndex}>
+        <Tab title="Applications" />
+        <Tab title="Users" />
+        <Tab title="Tokens" />
+        <Tab title="Verification Codes" />
+
+        <StorageSettings fetching={fetching} {...storageSettingsProps} />
+      </Tabs>
+
     </section>
   );
 };

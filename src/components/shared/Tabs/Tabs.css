@@ -1,0 +1,29 @@
+.iap-tabs-tablist {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.iap-tabs-tab {
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  border-bottom: 2px solid #fff;
+  background-color: #fff;
+  color: #3d3d3d;
+  padding: 6px 0px;
+}
+
+.iap-tabs-tab + .iap-tabs-tab {
+  margin-left: 15px;
+}
+
+.iap-tabs-tab:hover {
+  color: #6d6d6d;
+}
+
+.iap-tabs-tab.iap-tabs-tab--active {
+  color: #3CA6F5;
+}
