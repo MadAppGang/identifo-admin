@@ -5,9 +5,8 @@ import Form from './ConnectionSettings/Form';
 import Button from '~/components/shared/Button';
 import EditIcon from '~/components/icons/EditIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import { fetchSettings, postSettings, resetError } from '~/modules/database/actions';
+import { resetError } from '~/modules/database/actions';
 import { createNotification } from '~/modules/notifications/actions';
-import DatabasePlaceholder from './ConnectionSettings/Placeholder';
 import SectionHeader from '~/components/shared/SectionHeader';
 
 import './ConnectionSettings/index.css';
@@ -19,14 +18,10 @@ function useDidMount() {
   return didMount;
 }
 
-const AppStorageSettings = () => {
-  const settings = useSelector(state => state.database.settings.config);
-  const error = useSelector(state => state.database.settings.error);
-
+const AppStorageSettings = (props) => {
+  const { title, description, settings, fetching, postSettings } = props;
   const dispatch = useDispatch();
-
   const [editing, setEditing] = useState(false);
-  const [fetching, setFetching] = useState(false);
   const [posting, setPosting] = useState(false);
 
   const didMount = useDidMount();
@@ -37,64 +32,39 @@ const AppStorageSettings = () => {
   };
 
   useEffect(() => {
-    setFetching(true);
-    dispatch(fetchSettings());
-  }, []);
-
-  useEffect(() => {
-    if (settings || error) {
-      setFetching(false);
+    if (settings) {
       setPosting(false);
     }
-  }, [settings, error]);
+  }, [settings]);
 
   useEffect(() => {
-    if (posting) {
+    if (posting || !didMount) {
       return;
     }
 
-    if (!error) {
-      handleEditCancel();
-      if (didMount) {
-        dispatch(createNotification({
-          type: 'success',
-          title: 'Saved',
-          text: 'Database settings have been successfully saved',
-        }));
-      }
-    } else {
-      dispatch(createNotification({
-        type: 'failure',
-        title: 'Error',
-        text: 'Database settings could not be saved',
-      }));
-    }
+    handleEditCancel();
+
+    dispatch(createNotification({
+      type: 'success',
+      title: 'Saved',
+      text: 'Storage settings have been successfully saved',
+    }));
   }, [posting]);
 
   const handlePostClick = (data) => {
     setPosting(true);
-    dispatch(postSettings(data));
+    postSettings(data);
   };
-
-  if (error && !editing) {
-    return (
-      <DatabasePlaceholder
-        fetching={fetching}
-        onTryAgainClick={() => dispatch(fetchSettings)}
-      />
-    );
-  }
 
   return (
     <div className="iap-settings-section">
       <SectionHeader
-        title="Application Storage"
-        description="These values are used to create a connection to the database all your applications are stored at."
+        title={title}
+        description={description}
       />
       <main>
         {editing && (
           <Form
-            error={error}
             posting={posting}
             settings={settings}
             onSubmit={handlePostClick}
@@ -109,7 +79,7 @@ const AppStorageSettings = () => {
               Icon={fetching ? LoadingIcon : EditIcon}
               onClick={() => setEditing(true)}
             >
-              Edit Storage
+              {`Edit ${title}`}
             </Button>
           </>
         )}

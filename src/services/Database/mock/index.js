@@ -1,12 +1,35 @@
 import { pause } from '~/utils';
 
 const data = {
-  settings: {
-    type: 'mongodb',
-    name: 'identifo',
-    region: '',
-    endpoint: 'localhost:27017',
-    path: './db.db',
+  storage: {
+    appStorage: {
+      type: 'boltdb',
+      name: 'identifo',
+      endpoint: 'localhost:27017',
+      region: 'us-west-2',
+      path: './db.db',
+    },
+    userStorage: {
+      type: 'boltdb',
+      name: 'identifo',
+      endpoint: 'localhost:27017',
+      region: 'us-west-2',
+      path: './db.db',
+    },
+    tokenStorage: {
+      type: 'boltdb',
+      name: 'identifo',
+      endpoint: 'localhost:27017',
+      region: 'us-west-2',
+      path: './db.db',
+    },
+    verificationCodeStorage: {
+      type: 'boltdb',
+      name: 'identifo',
+      endpoint: 'localhost:27017',
+      region: 'us-west-2',
+      path: './db.db',
+    },
   },
 };
 
@@ -24,17 +47,13 @@ const createDatabaseServiceMock = () => {
   const fetchSettings = async () => {
     await pause(1000);
 
-    return data.settings;
+    return data.storage;
   };
 
   const postSettings = async (settings) => {
     await pause(1000);
 
-    if (settings.name === 'Trigger Error') {
-      throw new Error('This database name is not allowed');
-    }
-
-    data.settings = settings;
+    data.storage = settings;
   };
 
   return Object.freeze({

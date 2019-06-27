@@ -49,7 +49,7 @@ const fetchSettings = () => async (dispatch, _, services) => {
       return;
     }
 
-    dispatch(fetchSettingsFailure(getError(err)));
+    dispatch(fetchSettingsFailure(new Error(getError(err))));
   }
 };
 
@@ -67,7 +67,7 @@ const postSettings = settings => async (dispatch, _, services) => {
       return;
     }
 
-    dispatch(postSettingsFailure(getError(err)));
+    dispatch(postSettingsFailure(new Error(getError(err))));
   }
 };
 

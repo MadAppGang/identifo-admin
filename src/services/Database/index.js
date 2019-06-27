@@ -15,9 +15,9 @@ const createDatabaseService = ({ httpClient }) => {
     return data.db_settings;
   };
 
-  const postSettings = async (settings) => {
+  const postSettings = async (storage) => {
     const url = `${baseUrl}/settings/database`;
-    const { data } = await httpClient.patch(url, settings);
+    const { data } = await httpClient.patch(url, { storage });
 
     return data;
   };
