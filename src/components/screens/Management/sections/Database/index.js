@@ -49,26 +49,26 @@ const DatabaseSection = () => {
       {
         title: 'Application Storage',
         description: 'Setup a connection to the database all the applications are stored at.',
-        settings: settings ? settings.appStorage : null,
-        postSettings: handleSettingsSubmit('appStorage'),
+        settings: settings ? settings.app_storage : null,
+        postSettings: handleSettingsSubmit('app_storage'),
       },
       {
         title: 'User Storage',
         description: 'Setup a connection to the database all the users are stored at.',
-        settings: settings ? settings.userStorage : null,
-        postSettings: handleSettingsSubmit('userStorage'),
+        settings: settings ? settings.user_storage : null,
+        postSettings: handleSettingsSubmit('user_storage'),
       },
       {
         title: 'Token Storage',
         description: 'Setup a connection to the database all the tokens are stored at.',
-        settings: settings ? settings.tokenStorage : null,
-        postSettings: handleSettingsSubmit('tokenStorage'),
+        settings: settings ? settings.token_storage : null,
+        postSettings: handleSettingsSubmit('token_storage'),
       },
       {
         title: 'Verification Code Storage',
         description: 'Setup a connection to the database all the verification codes are stored at.',
-        settings: settings ? settings.verificationCodeStorage : null,
-        postSettings: handleSettingsSubmit('verificationCodeStorage'),
+        settings: settings ? settings.verification_code_storage : null,
+        postSettings: handleSettingsSubmit('verification_code_storage'),
       },
     ][index];
   };

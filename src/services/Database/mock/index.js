@@ -2,28 +2,28 @@ import { pause } from '~/utils';
 
 const data = {
   storage: {
-    appStorage: {
+    app_storage: {
       type: 'boltdb',
       name: 'identifo',
       endpoint: 'localhost:27017',
       region: 'us-west-2',
       path: './db.db',
     },
-    userStorage: {
+    user_storage: {
       type: 'boltdb',
       name: 'identifo',
       endpoint: 'localhost:27017',
       region: 'us-west-2',
       path: './db.db',
     },
-    tokenStorage: {
+    token_storage: {
       type: 'boltdb',
       name: 'identifo',
       endpoint: 'localhost:27017',
       region: 'us-west-2',
       path: './db.db',
     },
-    verificationCodeStorage: {
+    verification_code_storage: {
       type: 'boltdb',
       name: 'identifo',
       endpoint: 'localhost:27017',
