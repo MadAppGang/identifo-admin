@@ -12,7 +12,7 @@ const createDatabaseService = ({ httpClient }) => {
     const url = `${baseUrl}/settings`;
     const { data } = await httpClient.get(url);
 
-    return data.db_settings;
+    return data.storage;
   };
 
   const postSettings = async (storage) => {
