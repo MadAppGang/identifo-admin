@@ -19,7 +19,7 @@ const accountService = createAccountService({ httpClient });
 const userService = createUserService({ httpClient });
 const applicationService = createApplicationService({ httpClient });
 
-const useMock = !!process.env.MOCK_API;
+const useMock = process.env.MOCK_API === 'true';
 
 const services = {
   auth: useMock ? createAuthServiceMock() : authService,

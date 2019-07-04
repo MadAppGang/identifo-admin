@@ -1,6 +1,17 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
-const DotenvPlugin = require('dotenv-webpack');
+
+const dotenv = require('dotenv')
+  .config({ path: path.resolve(__dirname, '../../.env') });
+
+const env = {
+  ...dotenv.parsed,
+  MOCK_API: process.env.MOCK_API,
+  PUBLIC_PATH: process.env.PUBLIC_PATH,
+  ASSETS_PATH: process.env.ASSETS_PATH,
+  API_URL: process.env.API_URL,
+};
 
 module.exports = {
   mode: 'development',
@@ -12,7 +23,7 @@ module.exports = {
 
   output: {
     filename: '[name].[hash].bundle.js',
-    publicPath: '/',
+    publicPath: env.ASSETS_PATH || '/',
   },
 
   devtool: 'inline-source-map',
@@ -47,8 +58,8 @@ module.exports = {
       title: 'Identifo Admin',
       template: path.resolve(__dirname, '../..', 'index.template.html'),
     }),
-    new DotenvPlugin({
-      systemvars: true,
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(env),
     }),
   ],
 
