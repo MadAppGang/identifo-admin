@@ -49,11 +49,11 @@ class ApplicationForm extends Component {
     if (application && application !== prevProps.application) {
       this.setState(state => ({
         fields: update(state.fields, {
-          redirectUrl: application.redirect_url,
-          offline: application.offline,
-          type: application.type,
-          name: application.name,
-          secret: application.secret,
+          redirectUrl: application.redirect_url || '',
+          offline: application.offline || false,
+          type: application.type || 'web',
+          name: application.name || '',
+          secret: application.secret || '',
         }),
       }));
     }

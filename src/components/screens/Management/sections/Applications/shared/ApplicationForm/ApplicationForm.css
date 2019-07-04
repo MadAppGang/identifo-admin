@@ -17,6 +17,7 @@
 
 .iap-apps-form__secret-value {
   padding: 10px 16px;
+  min-height: 45px;
   border-radius: 7px;
   background-color: #f7fcff;
   border: 1px solid #cbe7fb;

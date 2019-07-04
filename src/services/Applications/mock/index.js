@@ -4,20 +4,13 @@ import randomstring from 'randomstring';
 const data = {
   applications: [
     {
-      id: '507f1f77bcf86cd799439011',
-      type: 'ios',
-      name: 'Mobile Client (iOS)',
-      secret: 'XwPp9xazJ0ku5CZnlmgAx2Dl',
-      redirect_url: '',
+      id: '5d08ee44e89bde6d23cdf031',
+      active: false,
+      name: 'Add',
       offline: false,
-    },
-    {
-      id: '507f1f77bcf86cd799439242',
       type: 'web',
-      name: 'Single Page App',
-      secret: 'CwPp9xazJ0ku5CZnlmgAx2Da',
-      redirect_url: 'https://client.identifo.com/callback',
-      offline: true,
+      redirect_url: 'https://hlsaf.com',
+      registration_forbidden: false,
     },
   ],
 };
