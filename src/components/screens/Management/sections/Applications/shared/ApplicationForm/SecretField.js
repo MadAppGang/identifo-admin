@@ -4,8 +4,9 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import RevealIcon from '~/components/icons/RevealIcon';
 import HideIcon from '~/components/icons/HideIcon';
+import { generateSecret } from '~/utils';
 
-const SecretField = ({ value }) => {
+const SecretField = ({ value, onChange }) => {
   const [reveal, setReveal] = useState(false);
 
   const iconProps = {
@@ -26,7 +27,10 @@ const SecretField = ({ value }) => {
           {reveal ? value : '•'.repeat(value.length * 2)}
         </span>
 
-        <Button>
+        <Button
+          disabled={!reveal}
+          onClick={() => onChange(generateSecret())}
+        >
           Generate
         </Button>
       </div>
@@ -36,6 +40,7 @@ const SecretField = ({ value }) => {
 
 SecretField.propTypes = {
   value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SecretField;

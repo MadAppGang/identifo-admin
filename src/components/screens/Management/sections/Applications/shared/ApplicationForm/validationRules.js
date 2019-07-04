@@ -10,11 +10,19 @@ const urlFormat = message => (value) => {
   return '';
 };
 
+const redirectUrlRule = message => (value) => {
+  if (!value) {
+    return '';
+  }
+
+  return urlFormat(message)(value);
+};
+
 const rules = {
   name: [notEmpty('Application name should not be empty')],
   type: [notEmpty('Application type should be selected')],
   redirectUrl: [
-    urlFormat('Url format is invalid. Make sure you include protocol.'),
+    redirectUrlRule('Url format is invalid. Make sure you include protocol.'),
   ],
 };
 

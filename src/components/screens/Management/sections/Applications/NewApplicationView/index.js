@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import {
-  postApplication,
-  resetApplicationError,
+  postApplication, resetApplicationError,
 } from '~/modules/applications/actions';
 import { createNotification } from '~/modules/notifications/actions';
 import ApplicationForm from '../shared/ApplicationForm';
-import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/applications';
 
@@ -110,7 +108,4 @@ const actions = {
 
 export { NewApplicationView };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, actions),
-)(NewApplicationView);
+export default withRouter(connect(mapStateToProps, actions)(NewApplicationView));

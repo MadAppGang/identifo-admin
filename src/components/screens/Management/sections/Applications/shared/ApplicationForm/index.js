@@ -26,6 +26,7 @@ class ApplicationForm extends Component {
         name: '',
         redirectUrl: '',
         offline: false,
+        secret: '',
       },
       validation: {
         type: '',
@@ -39,6 +40,7 @@ class ApplicationForm extends Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.toggleAllowOffline = this.toggleAllowOffline.bind(this);
+    this.handleSecretChange = this.handleSecretChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -46,7 +48,13 @@ class ApplicationForm extends Component {
 
     if (application && application !== prevProps.application) {
       this.setState(state => ({
-        fields: update(state.fields, application),
+        fields: update(state.fields, {
+          redirectUrl: application.redirect_url,
+          offline: application.offline,
+          type: application.type,
+          name: application.name,
+          secret: application.secret,
+        }),
       }));
     }
   }
@@ -108,6 +116,12 @@ class ApplicationForm extends Component {
     }));
   }
 
+  handleSecretChange(secret) {
+    this.setState(state => ({
+      fields: update(state.fields, { secret }),
+    }));
+  }
+
   render() {
     const { fields, validation } = this.state;
     const { loading, error } = this.props;
@@ -146,7 +160,7 @@ class ApplicationForm extends Component {
           </Select>
         </Field>
 
-        <SecretField value="507f1f77bcf86cd799439242" />
+        <SecretField value={fields.secret} onChange={this.handleSecretChange} />
 
         <Field label="Redirect URL">
           <Input
@@ -171,7 +185,7 @@ class ApplicationForm extends Component {
           <Button
             type="submit"
             Icon={loading ? LoadingIcon : SaveIcon}
-            disabled={loading}
+            disabled={loading || Validation.hasError(validation)}
             error={!loading && !!error}
           >
             Save changes

@@ -16,11 +16,12 @@
 }
 
 .iap-apps-form__secret-value {
-  padding: 10px 20px;
+  padding: 10px 16px;
   border-radius: 7px;
   background-color: #f7fcff;
   border: 1px solid #cbe7fb;
-  font-size: 15px;
+  font-size: 14px;
+  font-family: 'Circe', monospace;
   outline: none;
   color: #aaa;
   width: 100%;

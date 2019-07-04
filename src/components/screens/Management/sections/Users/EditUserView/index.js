@@ -8,7 +8,6 @@ import {
   fetchUserById, alterUser, deleteUserById, resetUserError,
 } from '~/modules/users/actions';
 import { createNotification } from '~/modules/notifications/actions';
-import { compose } from '~/utils/fn';
 
 const goBackPath = '/management/users';
 
@@ -166,7 +165,4 @@ const actions = {
 
 export { EditUserView };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, actions),
-)(EditUserView);
+export default withRouter(connect(mapStateToProps, actions)(EditUserView));

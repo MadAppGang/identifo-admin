@@ -17,10 +17,11 @@ const Tab = ({ isActive, title, onClick }) => {
 Tab.propTypes = {
   isActive: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 Tab.defaultProps = {
+  onClick: () => {},
   isActive: false,
 };
 

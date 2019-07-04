@@ -8,7 +8,6 @@ import {
   fetchApplicationById,
   resetApplicationError,
 } from '~/modules/applications/actions';
-import { compose } from '~/utils/fn';
 import ApplicationForm from '../shared/ApplicationForm';
 import ActionsButton from '~/components/shared/ActionsButton';
 import { createNotification } from '~/modules/notifications/actions';
@@ -153,7 +152,4 @@ const actions = {
   createNotification,
 };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, actions),
-)(EditApplicationView);
+export default withRouter(connect(mapStateToProps, actions)(EditApplicationView));

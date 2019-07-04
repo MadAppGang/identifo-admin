@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useToggle from '@dprovodnikov/use-toggle';
 import classnames from 'classnames';
 
 const Toggle = ({ label, value, onChange }) => {
   const [isOn, toggle] = useToggle(value, onChange);
+
+  useEffect(() => {
+    if (value && !isOn) {
+      toggle();
+    }
+  }, [value]);
 
   const rootClassName = classnames({
     'iap-default-toggle__body': true,

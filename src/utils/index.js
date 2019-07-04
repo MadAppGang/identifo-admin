@@ -1,3 +1,4 @@
+import randomstring from 'randomstring';
 export const pause = timeout => new Promise(resolve => setTimeout(resolve, timeout));
 
 export const getError = (axiosErr) => {
@@ -34,4 +35,8 @@ export const getInitials = (fullName, email) => {
   }
 
   return `${firstOneOf(firstName)}${firstOneOf(lastName)}`.toUpperCase();
+};
+
+export const generateSecret = (length = 24) => {
+  return randomstring.generate(length, { charset: 'hex' });
 };
