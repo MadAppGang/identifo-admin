@@ -1,5 +1,15 @@
 .iap-default-toggle {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.iap-form__field + .iap-default-toggle {
+  margin-top: 20px;
+}
+
+.iap-default-toggle + .iap-default-toggle {
+  margin-top: 10px;
 }
 
 .iap-default-toggle > button {

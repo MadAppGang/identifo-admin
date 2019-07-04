@@ -19,6 +19,9 @@ const Toggle = ({ label, value, onChange }) => {
 
   return (
     <div className="iap-default-toggle">
+      <span>
+        {label}
+      </span>
       <button
         type="button"
         className={rootClassName}
@@ -26,9 +29,6 @@ const Toggle = ({ label, value, onChange }) => {
       >
         <div className="iap-default-toggle__handle" />
       </button>
-      <span>
-        {label}
-      </span>
     </div>
   );
 };

@@ -27,6 +27,7 @@ class ApplicationForm extends Component {
         redirectUrl: '',
         offline: false,
         secret: '',
+        allowRegistration: '',
       },
       validation: {
         type: '',
@@ -40,6 +41,7 @@ class ApplicationForm extends Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.toggleAllowOffline = this.toggleAllowOffline.bind(this);
+    this.toggleAllowRegistration = this.toggleAllowRegistration.bind(this);
     this.handleSecretChange = this.handleSecretChange.bind(this);
   }
 
@@ -54,6 +56,7 @@ class ApplicationForm extends Component {
           type: application.type || 'web',
           name: application.name || '',
           secret: application.secret || '',
+          allowRegistration: !application.registration_forbidden,
         }),
       }));
     }
@@ -99,6 +102,12 @@ class ApplicationForm extends Component {
     }));
   }
 
+  toggleAllowRegistration(allow) {
+    this.setState(state => ({
+      fields: update(state.fields, { allowRegistration: allow }),
+    }));
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -113,6 +122,8 @@ class ApplicationForm extends Component {
     this.props.onSubmit(update(fields, {
       redirect_url: fields.redirectUrl,
       redirectUrl: undefined,
+      registration_forbidden: !fields.allowRegistration,
+      allowRegistration: undefined,
     }));
   }
 
@@ -174,6 +185,12 @@ class ApplicationForm extends Component {
             disabled={loading}
           />
         </Field>
+
+        <Toggle
+          label="Allow Registration"
+          value={fields.allowRegistration}
+          onChange={this.toggleAllowRegistration}
+        />
 
         <Toggle
           label="Allow Offline"
