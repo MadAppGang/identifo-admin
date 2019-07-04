@@ -52,7 +52,7 @@ Api calls are described in services `src/services`. Each service has it's mocked
 To configure the SPA to work correctly on subdirectory you need to set `BASE_URL` environment variable.
 E.g. if you are deploying to `localhost:8000/admin` set `BASE_URL=admin` in the `.env` file.
 
-If your assets are not served from the root you need to set `ASSETS_PATH=admin` variable to be the root path to fetch the assets from. In most cases your `BASE_URL` and `ASSETS_PATH` variables will be identical.
+If your assets are not served from the root you need to set `ASSETS_PATH=/admin/` variable to be the root path to fetch the assets from. Note that in case of `ASSETS_PATH` the value should be surrounded by slashes as it takes part in different sorts of concatenations.
 
 ### Deploying to Github Pages
 
