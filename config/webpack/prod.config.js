@@ -1,7 +1,18 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-const DotenvPlugin = require('dotenv-webpack');
+
+const dotenv = require('dotenv')
+  .config({ path: path.resolve(__dirname, '../../.env') });
+
+const env = {
+  ...dotenv.parsed,
+  MOCK_API: process.env.MOCK_API,
+  PUBLIC_PATH: process.env.PUBLIC_PATH,
+  ASSETS_PATH: process.env.ASSETS_PATH,
+  API_URL: process.env.API_URL,
+};
 
 const BUILD_FOLDER = 'build';
 
@@ -16,7 +27,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../../', BUILD_FOLDER),
-    publicPath: '/',
+    publicPath: env.ASSETS_PATH || '/',
   },
 
   performance: {
@@ -63,8 +74,8 @@ module.exports = {
     new CleanPlugin([BUILD_FOLDER], {
       root: path.resolve(__dirname, '../../'),
     }),
-    new DotenvPlugin({
-      systemvars: true,
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(env),
     }),
   ],
 };
