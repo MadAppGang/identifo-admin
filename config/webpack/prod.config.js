@@ -9,7 +9,7 @@ const dotenv = require('dotenv')
 const env = {
   ...dotenv.parsed,
   MOCK_API: process.env.MOCK_API,
-  PUBLIC_PATH: process.env.PUBLIC_PATH,
+  BASE_URL: process.env.BASE_URL,
   ASSETS_PATH: process.env.ASSETS_PATH,
   API_URL: process.env.API_URL,
 };
