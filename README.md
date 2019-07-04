@@ -39,9 +39,8 @@ $ npm run test:cov
 Generated coverage report is going to appear as a `coverage` folder in the project's root.
 
 ### Api url
-Api url is computed from the origin at with the app is running + `API_PATH` env variable value;
-For example if the app is up at `localhost:8000` and the env is configured as `API_PATH=/admin` the computed api url
-is going to be `http://localhost:8080/admin`;
+You can specify api url by setting an `API_URL` env variable containing the full address.
+For example: `https://api.identifo.com/admin
 
 ### Mocking Api Calls
 
@@ -50,10 +49,10 @@ Api calls are described in services `src/services`. Each service has it's mocked
 
 ### Deploying to subdirectory
 
-To configure the SPA to work correctly on subdirectory you need to set `PUBLIC_PATH` environment variable.
-E.g. if you are deploying to `localhost:8000/admin` set `PUBLIC_PATH=admin` in the `.env` file.
+To configure the SPA to work correctly on subdirectory you need to set `BASE_URL` environment variable.
+E.g. if you are deploying to `localhost:8000/admin` set `BASE_URL=admin` in the `.env` file.
 
-You might also need to change `publicPath` property in webpack config if the assets (such as css styles) are not served from the root.
+If your assets are not served from the root you need to set `ASSETS_PATH=admin` variable to be the root path to fetch the assets from. In most cases your `BASE_URL` and `ASSETS_PATH` variables will be identical.
 
 ### Deploying to Github Pages
 
