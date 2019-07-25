@@ -39,6 +39,13 @@
   font-size: 14px;
   color: #3d3d3d;
   margin-top: 3px;
+  padding-right: 5px;
+}
+
+.iap-application-row__tfa-status {
+  font-size: 14px;
+  color: #3d3d3d;
+  text-transform: capitalize;
 }
 
 .iap-apps-row__fake-icon {

@@ -31,6 +31,9 @@ const ApplicationRow = ({ data, config }) => {
       <div style={{ width: config.clientId.width }}>
         <p className="iap-application-row__clientid">{data.id}</p>
       </div>
+      <div style={{ width: config.tfaStatus.width }}>
+        <p className="iap-application-row__tfa-status">{data.tfaStatus || 'disabled'}</p>
+      </div>
       <div style={{ width: config.settings.width }} />
     </DatagridRow>
   );

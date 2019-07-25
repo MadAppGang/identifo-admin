@@ -11,15 +11,19 @@ import './ApplicationList.css';
 const datagrid = {
   icon: {
     title: '',
-    width: '16%',
+    width: '15%',
   },
   type: {
     title: 'Application',
-    width: '34%',
+    width: '30%',
   },
   clientId: {
     title: 'Client ID',
-    width: '50%',
+    width: '37%',
+  },
+  tfaStatus: {
+    title: 'TFA',
+    width: '18%',
   },
   settings: {
     title: '',
