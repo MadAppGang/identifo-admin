@@ -90,7 +90,7 @@ class UserForm extends Component {
   }
 
   toggleTFA(value) {
-    this.handleInput({ target: { name: 'tfaEnabled', value }});
+    this.handleInput({ target: { name: 'tfaEnabled', value } });
   }
 
   render() {

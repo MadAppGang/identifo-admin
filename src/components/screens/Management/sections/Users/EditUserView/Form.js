@@ -23,6 +23,7 @@ class EditUserForm extends Component {
         username: '',
         password: '',
         confirmPassword: '',
+        tfaEnabled: false,
       },
       validation: {
         email: '',
@@ -37,6 +38,7 @@ class EditUserForm extends Component {
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.toggleTFA = this.toggleTFA.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -47,6 +49,7 @@ class EditUserForm extends Component {
         fields: update(state.fields, {
           email: user.email,
           username: user.username,
+          tfaEnabled: user.tfa_info ? user.tfa_info.is_enabled : false,
         }),
       }));
     }
@@ -78,6 +81,10 @@ class EditUserForm extends Component {
     }));
   }
 
+  toggleTFA(value) {
+    this.handleFieldChange({ target: { name: 'tfaEnabled', value } });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -95,6 +102,10 @@ class EditUserForm extends Component {
     this.props.onSubmit(update(fields, {
       password: password => editPassword ? password : '',
       confirmPassword: '',
+      tfaEnabled: undefined,
+      tfa_info: {
+        is_enabled: fields.tfaEnabled,
+      },
     }));
   }
 
@@ -146,7 +157,17 @@ class EditUserForm extends Component {
           />
         </Field>
 
-        <Toggle label="Edit Password" onChange={this.toggleEditPassword} />
+        <Toggle
+          label="Enable 2FA"
+          value={fields.tfaEnabled}
+          onChange={this.toggleTFA}
+        />
+
+        <Toggle
+          label="Edit Password"
+          value={editPassword}
+          onChange={this.toggleEditPassword}
+        />
 
         {editPassword && (
           <>

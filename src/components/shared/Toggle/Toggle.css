@@ -6,14 +6,15 @@
 
 .iap-form__field + .iap-default-toggle {
   margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.iap-default-toggle + .iap-form__field {
+  margin-top: 20px;
 }
 
 .iap-default-toggle + .iap-default-toggle {
   margin-top: 10px;
-}
-
-.iap-default-toggle > button {
-  margin-right: 10px;
 }
 
 .iap-default-toggle > span {
