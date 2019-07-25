@@ -10,20 +10,9 @@ const data = {
       email: 'dp@madappgang.com',
       latest_login_time: Date.now(),
       num_of_logins: 0,
-    },
-    {
-      id: '507f191e810c19729de860ea',
-      username: 'John Doe',
-      email: 'john.doe@gmail.com',
-      latest_login_time: new Date('2019-06-21').getTime(),
-      num_of_logins: 3,
-    },
-    {
-      id: '507f191e810c19729de860cf',
-      username: 'Jessica Bower',
-      email: 'jess@gmail.com',
-      latest_login_time: Date.now(),
-      num_of_logins: 14,
+      tfa_info: {
+        is_enabled: true,
+      }
     },
   ],
 };

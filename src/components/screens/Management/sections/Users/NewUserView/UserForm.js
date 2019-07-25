@@ -7,6 +7,7 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import Toggle from '~/components/shared/Toggle';
 import userFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 
@@ -23,6 +24,7 @@ class UserForm extends Component {
         username: '',
         password: '',
         confirmPassword: '',
+        tfaEnabled: false,
       },
       validation: {
         username: '',
@@ -34,6 +36,7 @@ class UserForm extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.toggleTFA = this.toggleTFA.bind(this);
   }
 
   handleInput({ target }) {
@@ -77,7 +80,17 @@ class UserForm extends Component {
 
     const { fields } = this.state;
 
-    this.props.onSubmit(update(fields, 'confirmPassword', undefined));
+    this.props.onSubmit(update(fields, {
+      confirmPassword: undefined,
+      tfaEnabled: undefined,
+      tfa_info: {
+        is_enabled: fields.tfaEnabled,
+      },
+    }));
+  }
+
+  toggleTFA(value) {
+    this.handleInput({ target: { name: 'tfaEnabled', value }});
   }
 
   render() {
@@ -126,6 +139,11 @@ class UserForm extends Component {
           />
         </Field>
 
+        <Toggle
+          label="Enable 2FA"
+          value={fields.tfaEnabled}
+          onChange={this.toggleTFA}
+        />
 
         <footer className="iap-users-form__footer">
           <Button
