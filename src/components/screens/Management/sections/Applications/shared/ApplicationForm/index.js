@@ -28,6 +28,7 @@ class ApplicationForm extends Component {
         offline: false,
         secret: '',
         allowRegistration: '',
+        tfaStatus: '',
       },
       validation: {
         type: '',
@@ -43,6 +44,7 @@ class ApplicationForm extends Component {
     this.toggleAllowOffline = this.toggleAllowOffline.bind(this);
     this.toggleAllowRegistration = this.toggleAllowRegistration.bind(this);
     this.handleSecretChange = this.handleSecretChange.bind(this);
+    this.handleTFAStatusChange = this.handleTFAStatusChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -57,6 +59,7 @@ class ApplicationForm extends Component {
           name: application.name || '',
           secret: application.secret || '',
           allowRegistration: !application.registration_forbidden,
+          tfaStatus: application.tfa_status || 'disabled',
         }),
       }));
     }
@@ -80,6 +83,10 @@ class ApplicationForm extends Component {
 
   handleTypeChange(value) {
     this.handleInput({ target: { name: 'type', value } });
+  }
+
+  handleTFAStatusChange(value) {
+    this.handleInput({ target: { name: 'tfaStatus', value } });
   }
 
   handleBlur({ target }) {
@@ -124,6 +131,8 @@ class ApplicationForm extends Component {
       redirectUrl: undefined,
       registration_forbidden: !fields.allowRegistration,
       allowRegistration: undefined,
+      tfa_status: fields.tfaStatus,
+      tfaStatus: undefined,
     }));
   }
 
@@ -170,6 +179,21 @@ class ApplicationForm extends Component {
             <Option value="ios" title="iOS Client (Mobile)" />
           </Select>
         </Field>
+
+        <Field label="TFA Status">
+          <Select
+            name="tfaStatus"
+            value={fields.tfaStatus}
+            disabled={loading}
+            onChange={this.handleTFAStatusChange}
+            placeholder="Select TFA Status"
+          >
+            <Option value="disabled" title="Disabled" />
+            <Option value="mandaroty" title="Mandatory" />
+            <Option value="optional" title="Optional" />
+          </Select>
+        </Field>
+
 
         <SecretField value={fields.secret} onChange={this.handleSecretChange} />
 
