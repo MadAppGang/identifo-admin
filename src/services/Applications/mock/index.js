@@ -12,6 +12,7 @@ const data = {
       redirect_url: 'https://hlsaf.com',
       registration_forbidden: false,
       tfa_status: 'disabled',
+      authorization_way: 'no_authorization',
     },
   ],
 };

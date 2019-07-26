@@ -29,6 +29,7 @@ class ApplicationForm extends Component {
         secret: '',
         allowRegistration: '',
         tfaStatus: '',
+        authWay: '',
       },
       validation: {
         type: '',
@@ -45,6 +46,7 @@ class ApplicationForm extends Component {
     this.toggleAllowRegistration = this.toggleAllowRegistration.bind(this);
     this.handleSecretChange = this.handleSecretChange.bind(this);
     this.handleTFAStatusChange = this.handleTFAStatusChange.bind(this);
+    this.handleAuthWayChange = this.handleAuthWayChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -60,6 +62,7 @@ class ApplicationForm extends Component {
           secret: application.secret || '',
           allowRegistration: !application.registration_forbidden,
           tfaStatus: application.tfa_status || 'disabled',
+          authWay: application.authorization_way || 'no_authorization',
         }),
       }));
     }
@@ -87,6 +90,10 @@ class ApplicationForm extends Component {
 
   handleTFAStatusChange(value) {
     this.handleInput({ target: { name: 'tfaStatus', value } });
+  }
+
+  handleAuthWayChange(value) {
+    this.handleInput({ target: { name: 'authWay', value } });
   }
 
   handleBlur({ target }) {
@@ -133,6 +140,8 @@ class ApplicationForm extends Component {
       allowRegistration: undefined,
       tfa_status: fields.tfaStatus,
       tfaStatus: undefined,
+      authorization_way: fields.authWay,
+      authWay: undefined,
     }));
   }
 
@@ -180,7 +189,7 @@ class ApplicationForm extends Component {
           </Select>
         </Field>
 
-        <Field label="TFA Status">
+        <Field label="2FA Status">
           <Select
             name="tfaStatus"
             value={fields.tfaStatus}
@@ -194,6 +203,21 @@ class ApplicationForm extends Component {
           </Select>
         </Field>
 
+        <Field label="Authorization Way">
+          <Select
+            name="authWay"
+            value={fields.authWay}
+            disabled={loading}
+            onChange={this.handleAuthWayChange}
+            placeholder="Select Authorization Way"
+          >
+            <Option value="no_authorization" title="No Authorization" />
+            <Option value="internal" title="Internal" />
+            <Option value="whitelist" title="Whitelist" />
+            <Option value="blacklist" title="Blacklist" />
+            <Option value="external" title="External" />
+          </Select>
+        </Field>
 
         <SecretField value={fields.secret} onChange={this.handleSecretChange} />
 
