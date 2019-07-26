@@ -13,6 +13,7 @@ const data = {
       registration_forbidden: false,
       tfa_status: 'disabled',
       authorization_way: 'no_authorization',
+      new_user_default_role: '',
     },
   ],
 };

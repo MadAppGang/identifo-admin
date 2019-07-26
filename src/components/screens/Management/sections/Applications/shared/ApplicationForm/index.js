@@ -30,6 +30,7 @@ class ApplicationForm extends Component {
         allowRegistration: '',
         tfaStatus: '',
         authWay: '',
+        defaultRole: '',
       },
       validation: {
         type: '',
@@ -63,6 +64,7 @@ class ApplicationForm extends Component {
           allowRegistration: !application.registration_forbidden,
           tfaStatus: application.tfa_status || 'disabled',
           authWay: application.authorization_way || 'no_authorization',
+          defaultRole: application.new_user_default_role || '',
         }),
       }));
     }
@@ -142,6 +144,8 @@ class ApplicationForm extends Component {
       tfaStatus: undefined,
       authorization_way: fields.authWay,
       authWay: undefined,
+      new_user_default_role: fields.defaultRole,
+      defaultRole: undefined,
     }));
   }
 
@@ -230,6 +234,18 @@ class ApplicationForm extends Component {
             onChange={this.handleInput}
             onBlur={this.handleBlur}
             errorMessage={validation.redirectUrl}
+            disabled={loading}
+          />
+        </Field>
+
+        <Field label="New User Default Role">
+          <Input
+            name="defaultRole"
+            value={fields.defaultRole}
+            autoComplete="off"
+            placeholder="User role"
+            onChange={this.handleInput}
+            onBlur={this.handleBlur}
             disabled={loading}
           />
         </Field>
