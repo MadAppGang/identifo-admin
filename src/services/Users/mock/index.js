@@ -12,7 +12,8 @@ const data = {
       num_of_logins: 0,
       tfa_info: {
         is_enabled: true,
-      }
+      },
+      access_role: '',
     },
   ],
 };

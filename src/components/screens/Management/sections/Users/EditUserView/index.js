@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import EditUserForm from './Form';
 import ActionsButton from '~/components/shared/ActionsButton';
 import {
@@ -165,4 +165,4 @@ const actions = {
 
 export { EditUserView };
 
-export default withRouter(connect(mapStateToProps, actions)(EditUserView));
+export default connect(mapStateToProps, actions)(EditUserView);

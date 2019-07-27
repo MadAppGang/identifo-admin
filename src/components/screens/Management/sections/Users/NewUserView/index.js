@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserForm from './UserForm';
 import { postUser, resetUserError } from '~/modules/users/actions';
 import { createNotification } from '~/modules/notifications/actions';
@@ -113,4 +113,4 @@ const actions = {
 
 export { NewUserView };
 
-export default withRouter(connect(mapStateToProps, actions)(NewUserView));
+export default connect(mapStateToProps, actions)(NewUserView);

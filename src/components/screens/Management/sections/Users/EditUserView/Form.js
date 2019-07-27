@@ -11,6 +11,11 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import editUserFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 
+const sanitize = (fields) => {
+  const { tfaEnabled, role, ...sanitized } = fields;
+  return sanitized;
+};
+
 class EditUserForm extends Component {
   constructor() {
     super();
@@ -24,6 +29,7 @@ class EditUserForm extends Component {
         password: '',
         confirmPassword: '',
         tfaEnabled: false,
+        role: '',
       },
       validation: {
         email: '',
@@ -50,6 +56,7 @@ class EditUserForm extends Component {
           email: user.email,
           username: user.username,
           tfaEnabled: user.tfa_info ? user.tfa_info.is_enabled : false,
+          role: user.access_role || '',
         }),
       }));
     }
@@ -99,13 +106,13 @@ class EditUserForm extends Component {
       return;
     }
 
-    this.props.onSubmit(update(fields, {
+    this.props.onSubmit(update(sanitize(fields), {
       password: password => editPassword ? password : '',
       confirmPassword: '',
-      tfaEnabled: undefined,
       tfa_info: {
         is_enabled: fields.tfaEnabled,
       },
+      access_role: fields.role,
     }));
   }
 
@@ -141,6 +148,17 @@ class EditUserForm extends Component {
             onChange={this.handleFieldChange}
             onBlur={this.handleBlur}
             errorMessage={validation.username}
+            disabled={loading}
+          />
+        </Field>
+
+        <Field label="Access Role">
+          <Input
+            name="role"
+            value={fields.role}
+            placeholder="Enter access role"
+            onChange={this.handleFieldChange}
+            onBlur={this.handleBlur}
             disabled={loading}
           />
         </Field>

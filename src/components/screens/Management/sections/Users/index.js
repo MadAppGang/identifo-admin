@@ -7,9 +7,19 @@ import EditUserView from './EditUserView';
 const UsersSection = () => {
   return (
     <Switch>
-      <Route exact path="/management/users" component={UsersMainView} />
-      <Route path="/management/users/new" component={NewUserView} />
-      <Route path="/management/users/:userid" component={EditUserView} />
+      <Route
+        exact
+        path="/management/users"
+        render={props => <UsersMainView {...props} />}
+      />
+      <Route
+        path="/management/users/new"
+        render={props => <NewUserView {...props} />}
+      />
+      <Route
+        path="/management/users/:userid"
+        render={props => <EditUserView {...props} />}
+      />
     </Switch>
   );
 };

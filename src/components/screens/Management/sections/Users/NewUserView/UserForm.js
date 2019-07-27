@@ -13,6 +13,11 @@ import FormErrorMessage from '~/components/shared/FormErrorMessage';
 
 import './UserForm.css';
 
+const sanitize = (fields) => {
+  const { confirmPassword, tfaEnabled, role, ...sanitized } = fields;
+  return sanitized;
+};
+
 class UserForm extends Component {
   constructor() {
     super();
@@ -25,6 +30,7 @@ class UserForm extends Component {
         password: '',
         confirmPassword: '',
         tfaEnabled: false,
+        role: '',
       },
       validation: {
         username: '',
@@ -80,9 +86,8 @@ class UserForm extends Component {
 
     const { fields } = this.state;
 
-    this.props.onSubmit(update(fields, {
-      confirmPassword: undefined,
-      tfaEnabled: undefined,
+    this.props.onSubmit(update(sanitize(fields), {
+      access_role: fields.role,
       tfa_info: {
         is_enabled: fields.tfaEnabled,
       },
@@ -96,7 +101,7 @@ class UserForm extends Component {
   render() {
     const { saving, error } = this.props;
     const { validation, fields } = this.state;
-    const { username, password, confirmPassword } = fields;
+    const { username, role, password, confirmPassword } = fields;
 
     return (
       <form className="iap-users-form" onSubmit={this.handleSubmit}>
@@ -112,6 +117,16 @@ class UserForm extends Component {
             onChange={this.handleInput}
             onBlur={this.handleBlur}
             errorMessage={validation.username}
+          />
+        </Field>
+
+        <Field label="Access Role">
+          <Input
+            name="role"
+            value={role}
+            placeholder="Enter access role"
+            onChange={this.handleInput}
+            onBlur={this.handleBlur}
           />
         </Field>
 
