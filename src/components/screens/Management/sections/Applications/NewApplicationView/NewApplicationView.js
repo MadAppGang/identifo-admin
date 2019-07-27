@@ -70,6 +70,7 @@ class NewApplicationView extends Component {
           <ApplicationForm
             error={error}
             loading={saving}
+            excludeFields={['secret']}
             onCancel={this.handleCancel}
             onSubmit={this.props.postApplication}
           />
