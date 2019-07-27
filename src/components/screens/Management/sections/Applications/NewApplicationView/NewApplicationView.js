@@ -6,7 +6,7 @@ import {
   postApplication, resetApplicationError,
 } from '~/modules/applications/actions';
 import { createNotification } from '~/modules/notifications/actions';
-import ApplicationForm from '../shared/ApplicationForm';
+import ApplicationForm from '../ApplicationForm';
 
 const goBackPath = '/management/applications';
 

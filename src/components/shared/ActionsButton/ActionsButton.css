@@ -2,6 +2,12 @@
   position: relative;
 }
 
+.iap-actions-btn--stuck {
+  position: fixed;
+  right: auto;
+  top: 87px;
+}
+
 .iap-actions-btn__icon {
   height: 12px;
   width: 12px;

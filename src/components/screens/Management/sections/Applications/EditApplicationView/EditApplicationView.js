@@ -8,7 +8,7 @@ import {
   fetchApplicationById,
   resetApplicationError,
 } from '~/modules/applications/actions';
-import ApplicationForm from '../shared/ApplicationForm';
+import ApplicationForm from '../ApplicationForm';
 import ActionsButton from '~/components/shared/ActionsButton';
 import { createNotification } from '~/modules/notifications/actions';
 
@@ -90,7 +90,11 @@ class EditApplicationView extends Component {
           </div>
           <div className="iap-management-section__title">
             Application Details
-            <ActionsButton loading={saving} actions={this.availableActions} />
+
+            <ActionsButton
+              loading={saving}
+              actions={this.availableActions}
+            />
           </div>
           <p className="iap-management-section__description">
             <span className="iap-section-description__id">

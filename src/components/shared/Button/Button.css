@@ -116,3 +116,7 @@
 .iap-btn__icon circle {
   fill: #fff;
 }
+
+.iap-btn.iap-btn--section-title-sticky-btn {
+  background-color: red !important;
+}
