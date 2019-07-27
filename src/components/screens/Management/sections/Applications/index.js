@@ -10,10 +10,16 @@ const ApplicationsSection = () => {
       <Route
         exact
         path="/management/applications/"
-        component={ApplicationsMainView}
+        render={props => <ApplicationsMainView {...props} />}
       />
-      <Route path="/management/applications/new" component={NewApplicationView} />
-      <Route path="/management/applications/:appid" component={EditApplicationView} />
+      <Route
+        path="/management/applications/new"
+        render={props => <NewApplicationView {...props} />}
+      />
+      <Route
+        path="/management/applications/:appid"
+        render={props => <EditApplicationView {...props} />}
+      />
     </Switch>
   );
 };

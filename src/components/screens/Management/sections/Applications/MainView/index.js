@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import ApplicationsPlaceholder from './Placeholder';
 import Button from '~/components/shared/Button';
 import AddIcon from '~/components/icons/AddIcon';
 import { fetchApplications } from '~/modules/applications/actions';
 import ApplicationList from './ApplicationList';
-import { compose } from '~/utils/fn';
 
 class ApplicationsMainView extends Component {
   constructor() {
@@ -82,7 +80,4 @@ const actions = {
   fetchApplications,
 };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, actions),
-)(ApplicationsMainView);
+export default connect(mapStateToProps, actions)(ApplicationsMainView);

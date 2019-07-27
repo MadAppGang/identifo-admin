@@ -252,13 +252,13 @@ class ApplicationForm extends Component {
 
         <Toggle
           label="Allow Registration"
-          value={fields.allowRegistration}
+          value={!!fields.allowRegistration}
           onChange={this.toggleAllowRegistration}
         />
 
         <Toggle
           label="Allow Offline"
-          value={fields.offline}
+          value={!!fields.offline}
           onChange={this.toggleAllowOffline}
         />
 
