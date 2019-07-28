@@ -5,7 +5,7 @@ import AccountIcon from '~/components/icons/AccountIcon';
 
 const AccountSection = ({ history, onClick }) => {
   const handleClick = () => {
-    history.push('/management/settings');
+    history.push('/management/account');
     onClick();
   };
 

@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 import UsersSection from './sections/Users';
 import DatabaseSection from './sections/Database';
 import ApplicationsSection from './sections/Applications';
-import SettingsSection from './sections/Settings';
+import AccountSection from './sections/Account';
 import GettingStartedSection from './sections/GettingStarted';
 import EmailIntegrationSection from './sections/EmailIntegration';
 import OpenIDSection from './sections/OpenID';
@@ -33,7 +33,7 @@ const ManagementScreen = () => {
             <Route path="/management/database" component={DatabaseSection} />
             <Route path="/management/applications" component={ApplicationsSection} />
             <Route path="/management/email_integration" component={EmailIntegrationSection} />
-            <Route path="/management/settings" component={SettingsSection} />
+            <Route path="/management/account" component={AccountSection} />
             <Route path="/management/openid" component={OpenIDSection} />
             <Route path="/management/social_login" component={SocialLoginSection} />
             <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />

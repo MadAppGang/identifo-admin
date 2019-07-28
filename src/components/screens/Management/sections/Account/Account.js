@@ -1,13 +1,13 @@
 import React from 'react';
-import Settings from './AdminAccount';
+import AccountSettings from './AdminAccount';
 import './Settings.css';
 
-const SettingsSection = () => {
+const AccountSection = () => {
   return (
     <section className="iap-management-section">
-      <Settings />
+      <AccountSettings />
     </section>
   );
 };
 
-export default SettingsSection;
+export default AccountSection;
