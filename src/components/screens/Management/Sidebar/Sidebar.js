@@ -22,7 +22,7 @@ class Sidebar extends Component {
         {
           title: 'Account',
           path: '/management/account',
-          Icon: icons.SettingsIcon,
+          Icon: icons.AccountIcon,
         },
         {
           title: 'Database',

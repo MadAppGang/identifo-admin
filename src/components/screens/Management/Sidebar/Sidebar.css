@@ -30,13 +30,3 @@
 .iap-management-sidebar__section.iap-management-sidebar__section--active:hover {
   opacity: 1;
 }
-
-.iap-management-sidebar__indicator {
-  position: absolute;
-  left: 0;
-  height: 4px;
-  width: 4px;
-  background: #1B9CFC;
-  left: -13px;
-  display: none;
-}

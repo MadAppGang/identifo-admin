@@ -47,8 +47,12 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
+        test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
         use: 'url-loader?limit=30000&name=[path][name].[ext]',
+      },
+      {
+        test: /\.svg$/,
+        use: ['babel-loader', 'react-svg-loader'],
       },
     ],
   },
