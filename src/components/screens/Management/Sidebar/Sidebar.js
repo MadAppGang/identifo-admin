@@ -35,6 +35,11 @@ class Sidebar extends Component {
           Icon: icons.ApplicationsIcon,
         },
         {
+          title: 'Settings',
+          path: '/management/settings',
+          Icon: icons.OpenIDIcon,
+        },
+        {
           title: 'Email Integration',
           path: '/management/email_integration',
           Icon: icons.EmailIcon,
@@ -45,19 +50,9 @@ class Sidebar extends Component {
           Icon: icons.OpenIDIcon,
         },
         {
-          title: 'Social Login',
-          path: '/management/social_login',
-          Icon: icons.SocialIcon,
-        },
-        {
           title: 'Multi-factor Auth',
           path: '/management/multi-factor_auth',
           Icon: icons.MultiFactorAuthIcon,
-        },
-        {
-          title: 'Passwordless Login',
-          path: '/management/passwordless_login',
-          Icon: icons.PasswordlessLoginIcon,
         },
         {
           title: 'Hosted Pages',

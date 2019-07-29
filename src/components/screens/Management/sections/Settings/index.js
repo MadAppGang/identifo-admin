@@ -1,13 +1,13 @@
 import React from 'react';
 
-const PasswordlessLoginSection = () => {
+const SettingsSection = () => {
   return (
     <section className="iap-management-section">
       <p className="iap-management-section__title">
-        Passwordless Login
+        Settings
       </p>
     </section>
   );
 };
 
-export default PasswordlessLoginSection;
+export default SettingsSection;

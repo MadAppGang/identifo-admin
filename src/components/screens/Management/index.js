@@ -11,9 +11,8 @@ import AccountSection from './sections/Account';
 import GettingStartedSection from './sections/GettingStarted';
 import EmailIntegrationSection from './sections/EmailIntegration';
 import OpenIDSection from './sections/OpenID';
-import SocialLoginSection from './sections/SocialLogin';
+import SettingsSection from './sections/Settings';
 import MultiFactorAuthSection from './sections/MultiFactorAuth';
-import PasswordlessLoginSection from './sections/PassworldlessLogin';
 import HostedPagesSection from './sections/HostedPages';
 import NotFoundSection from './sections/404';
 import Container from '~/components/shared/Container';
@@ -35,9 +34,8 @@ const ManagementScreen = () => {
             <Route path="/management/email_integration" component={EmailIntegrationSection} />
             <Route path="/management/account" component={AccountSection} />
             <Route path="/management/openid" component={OpenIDSection} />
-            <Route path="/management/social_login" component={SocialLoginSection} />
+            <Route path="/management/settings" component={SettingsSection} />
             <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
-            <Route path="/management/passwordless_login" component={PasswordlessLoginSection} />
             <Route path="/management/hosted_pages" component={HostedPagesSection} />
             <Route component={NotFoundSection} />
           </Switch>
