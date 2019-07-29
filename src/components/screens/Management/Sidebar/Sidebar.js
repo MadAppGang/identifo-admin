@@ -35,9 +35,9 @@ class Sidebar extends Component {
           Icon: icons.ApplicationsIcon,
         },
         {
-          title: 'Settings',
+          title: 'Login Types',
           path: '/management/settings',
-          Icon: icons.OpenIDIcon,
+          Icon: icons.PasswordlessLoginIcon,
         },
         {
           title: 'Email Integration',
