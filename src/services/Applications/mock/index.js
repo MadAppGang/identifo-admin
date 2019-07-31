@@ -14,7 +14,6 @@ const data = {
       tfa_status: 'disabled',
       authorization_way: 'no_authorization',
       new_user_default_role: '',
-      tokenLifespan: 0,
     },
   ],
 };

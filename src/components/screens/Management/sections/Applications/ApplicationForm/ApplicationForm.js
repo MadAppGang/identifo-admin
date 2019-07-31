@@ -14,6 +14,14 @@ import Toggle from '~/components/shared/Toggle';
 import SecretField from './SecretField';
 import './ApplicationForm.css';
 
+const sanitize = (fields) => {
+  const {
+    redirectUrl, allowRegistration, tfaStatus, authWay, defaultRole, tokenLifespan,
+    ...sanitized } = fields;
+
+  return sanitized;
+};
+
 class ApplicationForm extends Component {
   constructor() {
     super();
@@ -31,12 +39,14 @@ class ApplicationForm extends Component {
         tfaStatus: '',
         authWay: '',
         defaultRole: '',
-        active: false,
+        active: true,
+        tokenLifespan: '',
       },
       validation: {
         type: '',
         name: '',
         redirectUrl: '',
+        tokenLifespan: '',
       },
     };
 
@@ -68,6 +78,7 @@ class ApplicationForm extends Component {
           authWay: application.authorization_way || 'no_authorization',
           defaultRole: application.new_user_default_role || '',
           active: application.active || false,
+          tokenLifespan: application.token_lifespan || '',
         }),
       }));
     }
@@ -148,17 +159,13 @@ class ApplicationForm extends Component {
       return;
     }
 
-    this.props.onSubmit(update(fields, {
+    this.props.onSubmit(update(sanitize(fields), {
       redirect_url: fields.redirectUrl,
-      redirectUrl: undefined,
       registration_forbidden: !fields.allowRegistration,
-      allowRegistration: undefined,
       tfa_status: fields.tfaStatus,
-      tfaStatus: undefined,
       authorization_way: fields.authWay,
-      authWay: undefined,
       new_user_default_role: fields.defaultRole,
-      defaultRole: undefined,
+      token_lifespan: Number(fields.tokenLifespan) || undefined,
     }));
   }
 
@@ -281,6 +288,21 @@ class ApplicationForm extends Component {
               onChange={this.handleInput}
               onBlur={this.handleBlur}
               errorMessage={validation.redirectUrl}
+              disabled={loading}
+            />
+          </Field>
+        )}
+
+        {!this.isExcluded('tokenLifespan') && (
+          <Field label="Token Lifespan">
+            <Input
+              name="tokenLifespan"
+              value={fields.tokenLifespan}
+              autoComplete="off"
+              placeholder="Specify token lifespan"
+              onChange={this.handleInput}
+              onBlur={this.handleBlur}
+              errorMessage={validation.tokenLifespan}
               disabled={loading}
             />
           </Field>
