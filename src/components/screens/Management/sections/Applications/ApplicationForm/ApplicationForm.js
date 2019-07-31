@@ -31,6 +31,7 @@ class ApplicationForm extends Component {
         tfaStatus: '',
         authWay: '',
         defaultRole: '',
+        active: false,
       },
       validation: {
         type: '',
@@ -45,6 +46,7 @@ class ApplicationForm extends Component {
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.toggleAllowOffline = this.toggleAllowOffline.bind(this);
     this.toggleAllowRegistration = this.toggleAllowRegistration.bind(this);
+    this.toggleActive = this.toggleActive.bind(this);
     this.handleSecretChange = this.handleSecretChange.bind(this);
     this.handleTFAStatusChange = this.handleTFAStatusChange.bind(this);
     this.handleAuthWayChange = this.handleAuthWayChange.bind(this);
@@ -65,6 +67,7 @@ class ApplicationForm extends Component {
           tfaStatus: application.tfa_status || 'disabled',
           authWay: application.authorization_way || 'no_authorization',
           defaultRole: application.new_user_default_role || '',
+          active: application.active || false,
         }),
       }));
     }
@@ -128,6 +131,12 @@ class ApplicationForm extends Component {
     }));
   }
 
+  toggleActive(active) {
+    this.setState(state => ({
+      fields: update(state.fields, { active }),
+    }));
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -184,6 +193,15 @@ class ApplicationForm extends Component {
           </Field>
         )}
 
+        {!this.isExcluded('active') && (
+          <Toggle
+            label="Active"
+            value={!!fields.active}
+            onChange={this.toggleActive}
+          />
+        )}
+
+
         {!this.isExcluded('type') && (
           <Field label="Type">
             <Select
@@ -235,6 +253,20 @@ class ApplicationForm extends Component {
           </Field>
         )}
 
+        {!this.isExcluded('defaultRole') && (
+          <Field label="New User Default Role">
+            <Input
+              name="defaultRole"
+              value={fields.defaultRole}
+              autoComplete="off"
+              placeholder="User role"
+              onChange={this.handleInput}
+              onBlur={this.handleBlur}
+              disabled={loading}
+            />
+          </Field>
+        )}
+
         {!this.isExcluded('secret') && (
           <SecretField value={fields.secret} onChange={this.handleSecretChange} />
         )}
@@ -249,20 +281,6 @@ class ApplicationForm extends Component {
               onChange={this.handleInput}
               onBlur={this.handleBlur}
               errorMessage={validation.redirectUrl}
-              disabled={loading}
-            />
-          </Field>
-        )}
-
-        {!this.isExcluded('defaultRole') && (
-          <Field label="New User Default Role">
-            <Input
-              name="defaultRole"
-              value={fields.defaultRole}
-              autoComplete="off"
-              placeholder="User role"
-              onChange={this.handleInput}
-              onBlur={this.handleBlur}
               disabled={loading}
             />
           </Field>

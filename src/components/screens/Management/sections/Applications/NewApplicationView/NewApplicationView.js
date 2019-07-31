@@ -63,14 +63,14 @@ class NewApplicationView extends Component {
             Create Application
           </p>
           <p className="iap-management-section__description">
-            Configure the allowed Callback URLs and Secrets for your Application.
+            Configure allowed callback URLs and Secrets for your application.
           </p>
         </header>
         <main>
           <ApplicationForm
             error={error}
             loading={saving}
-            excludeFields={['secret']}
+            excludeFields={['secret', 'active']}
             onCancel={this.handleCancel}
             onSubmit={this.props.postApplication}
           />
