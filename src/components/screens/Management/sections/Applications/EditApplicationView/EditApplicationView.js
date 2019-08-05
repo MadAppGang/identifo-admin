@@ -12,6 +12,8 @@ import ApplicationForm from '../ApplicationForm';
 import ActionsButton from '~/components/shared/ActionsButton';
 import { createNotification } from '~/modules/notifications/actions';
 import { Tabs, Tab } from '~/components/shared/Tabs';
+import ApplicationWhitelistForm from './WhitelistForm';
+import ApplicationBlacklistForm from './BlacklistForm';
 
 const goBackPath = '/management/applications';
 
@@ -80,8 +82,38 @@ class EditApplicationView extends Component {
     this.props.history.push(goBackPath);
   }
 
+  renderTabsContent() {
+    const { saving, fetching, application, error } = this.props;
+
+    if (this.state.tabIndex === 0) {
+      return (
+        <ApplicationForm
+          error={error}
+          loading={saving || fetching}
+          application={application}
+          onCancel={this.handleCancel}
+          onSubmit={this.handleSubmit}
+        />
+      );
+    }
+
+    if (this.state.tabIndex === 1) {
+      return (
+        <ApplicationWhitelistForm />
+      );
+    }
+
+    if (this.state.tabIndex === 2) {
+      return (
+        <ApplicationBlacklistForm />
+      );
+    }
+
+    return null;
+  }
+
   render() {
-    const { id, saving, fetching, application, error } = this.props;
+    const { id, saving } = this.props;
 
     return (
       <section className="iap-management-section">
@@ -115,15 +147,8 @@ class EditApplicationView extends Component {
               <Tab title="General" />
               <Tab title="Whitelist" />
               <Tab title="Blacklist" />
-              <Tab title="Casbin" />
 
-              <ApplicationForm
-                error={error}
-                loading={saving || fetching}
-                application={application}
-                onCancel={this.handleCancel}
-                onSubmit={this.handleSubmit}
-              />
+              {this.renderTabsContent()}
             </Tabs>
           </div>
         </main>
