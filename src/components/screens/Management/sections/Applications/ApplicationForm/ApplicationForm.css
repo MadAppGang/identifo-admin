@@ -3,6 +3,10 @@
   margin: 50px 0;
 }
 
+.iap-tabs-tablist + .iap-apps-form {
+  margin: 20px 0;
+}
+
 .iap-apps-form__footer {
   margin-top: 30px;
   display: flex;

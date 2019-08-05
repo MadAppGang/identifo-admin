@@ -11,6 +11,7 @@ import {
 import ApplicationForm from '../ApplicationForm';
 import ActionsButton from '~/components/shared/ActionsButton';
 import { createNotification } from '~/modules/notifications/actions';
+import { Tabs, Tab } from '~/components/shared/Tabs';
 
 const goBackPath = '/management/applications';
 
@@ -18,7 +19,9 @@ class EditApplicationView extends Component {
   constructor(props) {
     super();
 
-    this.state = {};
+    this.state = {
+      tabIndex: 0,
+    };
 
     this.availableActions = [{
       title: 'Delete Application',
@@ -104,13 +107,25 @@ class EditApplicationView extends Component {
           </p>
         </header>
         <main>
-          <ApplicationForm
-            error={error}
-            loading={saving || fetching}
-            application={application}
-            onCancel={this.handleCancel}
-            onSubmit={this.handleSubmit}
-          />
+          <div className="iap-management-section__tabs">
+            <Tabs
+              activeTabIndex={this.state.tabIndex}
+              onChange={index => this.setState({ tabIndex: index })}
+            >
+              <Tab title="General" />
+              <Tab title="Whitelist" />
+              <Tab title="Blacklist" />
+              <Tab title="Casbin" />
+
+              <ApplicationForm
+                error={error}
+                loading={saving || fetching}
+                application={application}
+                onCancel={this.handleCancel}
+                onSubmit={this.handleSubmit}
+              />
+            </Tabs>
+          </div>
         </main>
       </section>
     );
