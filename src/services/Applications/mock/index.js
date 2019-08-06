@@ -12,11 +12,11 @@ const data = {
       redirect_url: 'https://hlsaf.com',
       registration_forbidden: false,
       tfa_status: 'disabled',
-      authorization_way: 'no_authorization',
+      authorization_way: 'whitelist',
       new_user_default_role: '',
       secret: 'E0y2kZGoXXAuhwbwo7kyrdtR',
       roles_whitelist: ['Manager', 'Admin'],
-      roles_blacklist: ['Manager', 'Admin'],
+      roles_blacklist: ['Plain user'],
     },
   ],
 };
