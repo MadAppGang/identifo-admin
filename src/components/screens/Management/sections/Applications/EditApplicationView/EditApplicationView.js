@@ -98,7 +98,11 @@ class EditApplicationView extends Component {
 
     if (this.state.tabIndex === 1) {
       return (
-        <ApplicationAuthSettings />
+        <ApplicationAuthSettings
+          application={application}
+          onCancel={this.handleCancel}
+          onSubmit={this.handleSubmit}
+        />
       );
     }
 

@@ -12,7 +12,6 @@ import { Select, Option } from '~/components/shared/Select';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import Toggle from '~/components/shared/Toggle';
 import SecretField from './SecretField';
-import './ApplicationForm.css';
 
 const sanitize = (fields) => {
   const { redirectUrl, allowRegistration, tfaStatus, tokenLifespan, ...sanitized } = fields;
@@ -188,15 +187,6 @@ class ApplicationGeneralSettingsForm extends Component {
           </Field>
         )}
 
-        {!this.isExcluded('active') && (
-          <Toggle
-            label="Active"
-            value={!!fields.active}
-            onChange={this.toggleActive}
-          />
-        )}
-
-
         {!this.isExcluded('type') && (
           <Field label="Type">
             <Select
@@ -264,21 +254,31 @@ class ApplicationGeneralSettingsForm extends Component {
           </Field>
         )}
 
-        {!this.isExcluded('allowRegistration') && (
-          <Toggle
-            label="Allow Registration"
-            value={!!fields.allowRegistration}
-            onChange={this.toggleAllowRegistration}
-          />
-        )}
+        <div>
+          {!this.isExcluded('allowRegistration') && (
+            <Toggle
+              label="Allow Registration"
+              value={!!fields.allowRegistration}
+              onChange={this.toggleAllowRegistration}
+            />
+          )}
 
-        {!this.isExcluded('offline') && (
-          <Toggle
-            label="Allow Offline"
-            value={!!fields.offline}
-            onChange={this.toggleAllowOffline}
-          />
-        )}
+          {!this.isExcluded('offline') && (
+            <Toggle
+              label="Allow Offline"
+              value={!!fields.offline}
+              onChange={this.toggleAllowOffline}
+            />
+          )}
+
+          {!this.isExcluded('active') && (
+            <Toggle
+              label="Active"
+              value={!!fields.active}
+              onChange={this.toggleActive}
+            />
+          )}
+        </div>
 
         <footer className="iap-apps-form__footer">
           <Button
