@@ -18,11 +18,13 @@ const ApplicationAuthSettings = (props) => {
   const [authWay, setAuthWay] = useState(application.authorization_way || '');
   const [defaultRole, setDefaultRole] = useState(application.new_user_default_role || '');
   const [whitelist, setWhitelist] = useState(application.roles_whitelist || []);
+  const [blacklist, setBlacklist] = useState(application.roles_blacklist || []);
 
   useEffect(() => {
     setAuthWay(application.authorization_way || '');
     setDefaultRole(application.new_user_default_role || '');
     setWhitelist(application.roles_whitelist || []);
+    setBlacklist(application.roles_blacklist || []);
   }, [props.application]);
 
   const handleSubmit = (event) => {
@@ -52,13 +54,25 @@ const ApplicationAuthSettings = (props) => {
         </Select>
       </Field>
 
-      <Field label="Roles Whitelist">
-        <MultipleInput
-          values={whitelist}
-          placeholder="Hit enter to add role"
-          onChange={setWhitelist}
-        />
-      </Field>
+      {authWay === 'whitelist' && (
+        <Field label="Roles Whitelist">
+          <MultipleInput
+            values={whitelist}
+            placeholder="Hit enter to add role"
+            onChange={setWhitelist}
+          />
+        </Field>
+      )}
+
+      {authWay === 'blacklist' && (
+        <Field label="Roles Blacklist">
+          <MultipleInput
+            values={blacklist}
+            placeholder="Hit enter to add role"
+            onChange={setBlacklist}
+          />
+        </Field>
+      )}
 
       <Field label="New User Default Role">
         <Input

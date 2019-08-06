@@ -141,8 +141,8 @@ class EditApplicationView extends Component {
               activeTabIndex={this.state.tabIndex}
               onChange={index => this.setState({ tabIndex: index })}
             >
-              <Tab title="General" />
-              <Tab title="Authorization" />
+              <Tab title="General Settings" />
+              <Tab title="Authorization Settings" />
 
               {this.renderTabsContent()}
             </Tabs>

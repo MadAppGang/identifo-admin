@@ -11,6 +11,10 @@ const MultipleInput = (props) => {
   };
 
   const addValue = () => {
+    if (!value.trim()) {
+      return;
+    }
+
     if (!values.includes(value.trim())) {
       onChange(values.concat(value));
     }

@@ -16,6 +16,7 @@ const data = {
       new_user_default_role: '',
       secret: 'E0y2kZGoXXAuhwbwo7kyrdtR',
       roles_whitelist: ['Manager', 'Admin'],
+      roles_blacklist: ['Manager', 'Admin'],
     },
   ],
 };

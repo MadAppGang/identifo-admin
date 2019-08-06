@@ -1,7 +1,7 @@
 .multiple-input__value-tags {
   display: flex;
   align-items: center;
-  margin-top: 5px;
+  flex-wrap: wrap;
 }
 
 .value-tag {
@@ -14,10 +14,8 @@
   list-style: none;
   display: flex;
   align-items: center;
-}
-
-.value-tag + .value-tag {
-  margin-left: 5px;
+  margin-top: 4px;
+  margin-right: 3px;
 }
 
 .value-tag__delete {
