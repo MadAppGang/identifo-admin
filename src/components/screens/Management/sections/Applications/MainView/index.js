@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ApplicationsPlaceholder from './Placeholder';
+import ApplicationsPlaceholder from './ApplicationsPlaceholder';
 import Button from '~/components/shared/Button';
 import AddIcon from '~/components/icons/AddIcon';
 import { fetchApplications } from '~/modules/applications/actions';
