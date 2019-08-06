@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import update from '@madappgang/update-by-path';
 import * as Validation from '@dprovodnikov/validation';
 import Input from '~/components/shared/Input';
@@ -13,310 +12,210 @@ import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import Toggle from '~/components/shared/Toggle';
 import SecretField from './SecretField';
 
-const sanitize = (fields) => {
-  const { redirectUrl, allowRegistration, tfaStatus, tokenLifespan, ...sanitized } = fields;
-  return sanitized;
-};
+const extractValue = fn => event => fn(event.target.value);
 
-class ApplicationGeneralSettingsForm extends Component {
-  constructor(props) {
-    super();
+const ApplicationGeneralSettingsForm = (props) => {
+  const { loading, error, excludeFields, onSubmit, onCancel } = props;
+  const application = props.application || {};
 
-    this.validate = Validation.applyRules(validationRules);
+  const [redirectUrl, setRedirectUrl] = useState(application.redirect_url || '');
+  const [offline, setOffline] = useState(application.offline || false);
+  const [type, setType] = useState(application.type || 'web');
+  const [name, setName] = useState(application.name || '');
+  const [secret, setSecret] = useState(application.secret || '');
+  const [allowRegistration, setAllowRegistration] = useState(!application.registration_forbidden);
+  const [tfaStatus, setTfaStatus] = useState(application.tfa_status || 'disabled');
+  const [active, setActive] = useState(application.active || false);
+  const [tokenLifespan, setTokenLifespan] = useState(application.token_lifespan || '');
 
-    const application = props.application || {};
+  const validate = Validation.applyRules(validationRules);
 
-    this.state = {
-      fields: {
-        redirectUrl: application.redirect_url || '',
-        offline: application.offline || false,
-        type: application.type || 'web',
-        name: application.name || '',
-        secret: application.secret || '',
-        allowRegistration: !application.registration_forbidden,
-        tfaStatus: application.tfa_status || 'disabled',
-        active: application.active || false,
-        tokenLifespan: application.token_lifespan || '',
-      },
-      validation: {
-        type: '',
-        name: '',
-        redirectUrl: '',
-        tokenLifespan: '',
-      },
-    };
+  const [validation, setValidation] = useState({
+    type: '',
+    name: '',
+    redirectUrl: '',
+    tokenLifespan: '',
+  });
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleTypeChange = this.handleTypeChange.bind(this);
-    this.toggleAllowOffline = this.toggleAllowOffline.bind(this);
-    this.toggleAllowRegistration = this.toggleAllowRegistration.bind(this);
-    this.toggleActive = this.toggleActive.bind(this);
-    this.handleSecretChange = this.handleSecretChange.bind(this);
-    this.handleTFAStatusChange = this.handleTFAStatusChange.bind(this);
-  }
+  useEffect(() => {
+    if (!application) return;
 
-  componentDidUpdate(prevProps) {
-    const { application } = this.props;
+    setRedirectUrl(application.redirect_url || '');
+    setOffline(application.offline || false);
+    setType(application.type || 'web');
+    setName(application.name || '');
+    setSecret(application.secret || '');
+    setAllowRegistration(!application.registration_forbidden);
+    setTfaStatus(application.tfa_status || 'disabled');
+    setActive(application.active || false);
+    setTokenLifespan(application.token_lifespan || '');
+  }, [props.application]);
 
-    if (application && application !== prevProps.application) {
-      this.setState(state => ({
-        fields: update(state.fields, {
-          redirectUrl: application.redirect_url || '',
-          offline: application.offline || false,
-          type: application.type || 'web',
-          name: application.name || '',
-          secret: application.secret || '',
-          allowRegistration: !application.registration_forbidden,
-          tfaStatus: application.tfa_status || 'disabled',
-          active: application.active || false,
-          tokenLifespan: application.token_lifespan || '',
-        }),
-      }));
+  const isExcluded = (field) => {
+    return excludeFields.includes(field);
+  };
+
+  const handleInput = (field, value, setValue) => {
+    if (field in validation) {
+      setValidation(update(validation, { [field]: '' }));
     }
-  }
+    setValue(value);
+  };
 
-  isExcluded(field) {
-    return this.props.excludeFields.includes(field);
-  }
+  const handleBlur = (field, value) => {
+    const validationMessage = validate(field, { [field]: value });
 
-  handleInput({ target }) {
-    const { name, value } = target;
-    let { validation } = this.state;
-
-    if (validation[target.name]) {
-      validation = update(validation, { [target.name]: '' });
-    }
-
-    this.setState(state => ({
-      fields: update(state.fields, {
-        [name]: value,
-      }),
-      validation,
+    setValidation(update(validation, {
+      [field]: validationMessage,
     }));
-  }
+  };
 
-  handleTypeChange(value) {
-    this.handleInput({ target: { name: 'type', value } });
-  }
-
-  handleTFAStatusChange(value) {
-    this.handleInput({ target: { name: 'tfaStatus', value } });
-  }
-
-  handleBlur({ target }) {
-    const { name, value } = target;
-    const validationMessage = this.validate(name, {
-      ...this.state.fields,
-      [name]: value,
-    });
-
-    this.setState(state => ({
-      validation: update(state.validation, {
-        [name]: validationMessage,
-      }),
-    }));
-  }
-
-  toggleAllowOffline(offline) {
-    this.setState(state => ({
-      fields: update(state.fields, { offline }),
-    }));
-  }
-
-  toggleAllowRegistration(allow) {
-    this.setState(state => ({
-      fields: update(state.fields, { allowRegistration: allow }),
-    }));
-  }
-
-  toggleActive(active) {
-    this.setState(state => ({
-      fields: update(state.fields, { active }),
-    }));
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    const { fields } = this.state;
-    const validation = this.validate('all', fields);
+    const report = validate('all', {
+      name, type, redirectUrl, tokenLifespan,
+    });
 
-    if (Validation.hasError(validation)) {
-      this.setState({ validation });
+    if (Validation.hasError(report)) {
+      setValidation(report);
       return;
     }
 
-    this.props.onSubmit(update(sanitize(fields), {
-      redirect_url: fields.redirectUrl,
-      registration_forbidden: !fields.allowRegistration,
-      tfa_status: fields.tfaStatus,
-      token_lifespan: Number(fields.tokenLifespan) || undefined,
-    }));
-  }
+    onSubmit({
+      offline,
+      type,
+      name,
+      secret,
+      active,
+      tfa_status: tfaStatus,
+      redirect_url: redirectUrl,
+      token_lifespan: tokenLifespan,
+      registration_forbidden: !allowRegistration,
+    });
+  };
 
-  handleSecretChange(secret) {
-    this.setState(state => ({
-      fields: update(state.fields, { secret }),
-    }));
-  }
+  return (
+    <form className="iap-apps-form" onSubmit={handleSubmit}>
+      {!!error && (
+        <FormErrorMessage error={error} />
+      )}
 
-  render() {
-    const { fields, validation } = this.state;
-    const { loading, error } = this.props;
-
-    return (
-      <form className="iap-apps-form" onSubmit={this.handleSubmit}>
-        {!!error && (
-          <FormErrorMessage error={error} />
-        )}
-
-        {!this.isExcluded('name') && (
-          <Field label="Name">
-            <Input
-              name="name"
-              value={fields.name}
-              autoComplete="off"
-              placeholder="Enter name"
-              onChange={this.handleInput}
-              onBlur={this.handleBlur}
-              errorMessage={validation.name}
-              disabled={loading}
-            />
-          </Field>
-        )}
-
-        {!this.isExcluded('type') && (
-          <Field label="Type">
-            <Select
-              name="type"
-              value={fields.type}
-              disabled={loading}
-              onChange={this.handleTypeChange}
-              placeholder="Select Application Type"
-              errorMessage={validation.type}
-            >
-              <Option value="web" title="Single Page Application (Web)" />
-              <Option value="android" title="Android Client (Mobile)" />
-              <Option value="ios" title="iOS Client (Mobile)" />
-            </Select>
-          </Field>
-        )}
-
-        {!this.isExcluded('tfaStatus') && (
-          <Field label="2FA Status">
-            <Select
-              name="tfaStatus"
-              value={fields.tfaStatus}
-              disabled={loading}
-              onChange={this.handleTFAStatusChange}
-              placeholder="Select TFA Status"
-            >
-              <Option value="disabled" title="Disabled" />
-              <Option value="mandaroty" title="Mandatory" />
-              <Option value="optional" title="Optional" />
-            </Select>
-          </Field>
-        )}
-
-        {!this.isExcluded('secret') && (
-          <SecretField value={fields.secret} onChange={this.handleSecretChange} />
-        )}
-
-        {!this.isExcluded('redirectUrl') && (
-          <Field label="Redirect URL">
-            <Input
-              name="redirectUrl"
-              value={fields.redirectUrl}
-              autoComplete="off"
-              placeholder="Enter redirect url"
-              onChange={this.handleInput}
-              onBlur={this.handleBlur}
-              errorMessage={validation.redirectUrl}
-              disabled={loading}
-            />
-          </Field>
-        )}
-
-        {!this.isExcluded('tokenLifespan') && (
-          <Field label="Token Lifespan">
-            <Input
-              name="tokenLifespan"
-              value={fields.tokenLifespan}
-              autoComplete="off"
-              placeholder="Specify token lifespan"
-              onChange={this.handleInput}
-              onBlur={this.handleBlur}
-              errorMessage={validation.tokenLifespan}
-              disabled={loading}
-            />
-          </Field>
-        )}
-
-        <div>
-          {!this.isExcluded('allowRegistration') && (
-            <Toggle
-              label="Allow Registration"
-              value={!!fields.allowRegistration}
-              onChange={this.toggleAllowRegistration}
-            />
-          )}
-
-          {!this.isExcluded('offline') && (
-            <Toggle
-              label="Allow Offline"
-              value={!!fields.offline}
-              onChange={this.toggleAllowOffline}
-            />
-          )}
-
-          {!this.isExcluded('active') && (
-            <Toggle
-              label="Active"
-              value={!!fields.active}
-              onChange={this.toggleActive}
-            />
-          )}
-        </div>
-
-        <footer className="iap-apps-form__footer">
-          <Button
-            type="submit"
-            Icon={loading ? LoadingIcon : SaveIcon}
-            disabled={loading || Validation.hasError(validation)}
-            error={!loading && !!error}
-          >
-            Save changes
-          </Button>
-          <Button
-            transparent
+      {!isExcluded('name') && (
+        <Field label="Name">
+          <Input
+            value={name}
+            autoComplete="off"
+            placeholder="Enter name"
+            onChange={extractValue(v => handleInput('name', v, setName))}
+            onBlur={extractValue(v => handleBlur('name', v))}
+            errorMessage={validation.name}
             disabled={loading}
-            onClick={this.props.onCancel}
-          >
-            Cancel
-          </Button>
-        </footer>
-      </form>
-    );
-  }
-}
+          />
+        </Field>
+      )}
 
-ApplicationGeneralSettingsForm.propTypes = {
-  loading: PropTypes.bool,
-  onSubmit: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  application: PropTypes.shape({
-    name: PropTypes.string,
-  }),
-  error: PropTypes.instanceOf(Error),
-  excludeFields: PropTypes.arrayOf(PropTypes.string),
+      {!isExcluded('type') && (
+        <Field label="Type">
+          <Select
+            name="type"
+            value={type}
+            disabled={loading}
+            onChange={setType}
+            placeholder="Select Application Type"
+            errorMessage={validation.type}
+          >
+            <Option value="web" title="Single Page Application (Web)" />
+            <Option value="android" title="Android Client (Mobile)" />
+            <Option value="ios" title="iOS Client (Mobile)" />
+          </Select>
+        </Field>
+      )}
+
+      {!isExcluded('tfaStatus') && (
+        <Field label="2FA Status">
+          <Select
+            name="tfaStatus"
+            value={tfaStatus}
+            disabled={loading}
+            onChange={setTfaStatus}
+            placeholder="Select TFA Status"
+          >
+            <Option value="disabled" title="Disabled" />
+            <Option value="mandaroty" title="Mandatory" />
+            <Option value="optional" title="Optional" />
+          </Select>
+        </Field>
+      )}
+
+      {!isExcluded('secret') && (
+        <SecretField value={secret} onChange={setSecret} />
+      )}
+
+      {!isExcluded('redirectUrl') && (
+        <Field label="Redirect URL">
+          <Input
+            value={redirectUrl}
+            autoComplete="off"
+            placeholder="Enter redirect url"
+            onChange={extractValue(v => handleInput('redirectUrl', v, setRedirectUrl))}
+            onBlur={extractValue(v => handleBlur('redirectUrl', v))}
+            errorMessage={validation.redirectUrl}
+            disabled={loading}
+          />
+        </Field>
+      )}
+
+      {!isExcluded('tokenLifespan') && (
+        <Field label="Token Lifespan">
+          <Input
+            value={tokenLifespan.toString()}
+            autoComplete="off"
+            placeholder="Specify token lifespan"
+            onChange={extractValue(v => handleInput('tokenLifespan', v, setTokenLifespan))}
+            onBlur={extractValue(v => handleBlur('tokenLifespan', v))}
+            errorMessage={validation.tokenLifespan}
+            disabled={loading}
+          />
+        </Field>
+      )}
+
+      <div>
+        {!isExcluded('allowRegistration') && (
+          <Toggle
+            label="Allow Registration"
+            value={!!allowRegistration}
+            onChange={setAllowRegistration}
+          />
+        )}
+
+        {!isExcluded('offline') && (
+          <Toggle label="Allow Offline" value={!!offline} onChange={setOffline} />
+        )}
+
+        {!isExcluded('active') && (
+          <Toggle label="Active" value={!!active} onChange={setActive} />
+        )}
+      </div>
+
+      <footer className="iap-apps-form__footer">
+        <Button
+          type="submit"
+          Icon={loading ? LoadingIcon : SaveIcon}
+          disabled={loading || Validation.hasError(validation)}
+          error={!loading && !!error}
+        >
+          Save changes
+        </Button>
+        <Button transparent disabled={loading} onClick={onCancel}>
+          Cancel
+        </Button>
+      </footer>
+    </form>
+  );
 };
 
 ApplicationGeneralSettingsForm.defaultProps = {
-  loading: false,
-  application: null,
-  error: null,
   excludeFields: [],
 };
 

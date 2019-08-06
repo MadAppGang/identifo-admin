@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ApplicationsMainView from './MainView';
-import NewApplicationView from './NewApplicationView';
+import CreateApplicationView from './CreateApplicationView';
 import EditApplicationView from './EditApplicationView';
 
 const ApplicationsSection = () => {
@@ -14,7 +14,7 @@ const ApplicationsSection = () => {
       />
       <Route
         path="/management/applications/new"
-        render={props => <NewApplicationView {...props} />}
+        render={props => <CreateApplicationView {...props} />}
       />
       <Route
         path="/management/applications/:appid"

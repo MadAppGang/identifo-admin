@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { useState, useEffect } from 'react';
 import update from '@madappgang/update-by-path';
 import Input from '~/components/shared/Input';
@@ -60,17 +58,10 @@ const ApplicationAuthSettings = (props) => {
       </Field>
 
       <footer className="iap-apps-form__footer">
-        <Button
-          type="submit"
-          Icon={loading ? LoadingIcon : SaveIcon}
-        >
+        <Button type="submit" Icon={loading ? LoadingIcon : SaveIcon}>
           Save changes
         </Button>
-        <Button
-          transparent
-          disabled={loading}
-          onClick={onCancel}
-        >
+        <Button transparent disabled={loading} onClick={onCancel}>
           Cancel
         </Button>
       </footer>

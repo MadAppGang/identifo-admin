@@ -6,11 +6,11 @@ import {
   postApplication, resetApplicationError,
 } from '~/modules/applications/actions';
 import { createNotification } from '~/modules/notifications/actions';
-import ApplicationGeneralSettings from '../GeneralSettingsForm';
+import ApplicationGeneralSettings from './GeneralSettingsForm';
 
 const goBackPath = '/management/applications';
 
-class NewApplicationView extends Component {
+class CreateApplicationView extends Component {
   constructor() {
     super();
 
@@ -80,7 +80,7 @@ class NewApplicationView extends Component {
   }
 }
 
-NewApplicationView.propTypes = {
+CreateApplicationView.propTypes = {
   saving: PropTypes.bool,
   history: PropTypes.shape({
     push: PropTypes.func,
@@ -91,7 +91,7 @@ NewApplicationView.propTypes = {
   error: PropTypes.instanceOf(Error),
 };
 
-NewApplicationView.defaultProps = {
+CreateApplicationView.defaultProps = {
   saving: false,
   error: null,
 };
@@ -107,6 +107,6 @@ const actions = {
   createNotification,
 };
 
-export { NewApplicationView };
+export { CreateApplicationView as NewApplicationView };
 
-export default connect(mapStateToProps, actions)(NewApplicationView);
+export default connect(mapStateToProps, actions)(CreateApplicationView);

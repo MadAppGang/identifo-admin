@@ -11,8 +11,8 @@ import {
 import ActionsButton from '~/components/shared/ActionsButton';
 import { createNotification } from '~/modules/notifications/actions';
 import { Tabs, Tab } from '~/components/shared/Tabs';
-import ApplicationGeneralSettings from '../GeneralSettingsForm';
-import ApplicationAuthSettings from '../AuthSettingsForm';
+import ApplicationGeneralSettings from './GeneralSettingsForm';
+import ApplicationAuthSettings from './AuthSettingsForm';
 
 const goBackPath = '/management/applications';
 
