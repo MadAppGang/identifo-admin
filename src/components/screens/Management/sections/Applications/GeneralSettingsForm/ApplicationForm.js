@@ -15,32 +15,29 @@ import SecretField from './SecretField';
 import './ApplicationForm.css';
 
 const sanitize = (fields) => {
-  const {
-    redirectUrl, allowRegistration, tfaStatus, authWay, defaultRole, tokenLifespan,
-    ...sanitized } = fields;
-
+  const { redirectUrl, allowRegistration, tfaStatus, tokenLifespan, ...sanitized } = fields;
   return sanitized;
 };
 
-class ApplicationForm extends Component {
-  constructor() {
+class ApplicationGeneralSettingsForm extends Component {
+  constructor(props) {
     super();
 
     this.validate = Validation.applyRules(validationRules);
 
+    const application = props.application || {};
+
     this.state = {
       fields: {
-        type: '',
-        name: '',
-        redirectUrl: '',
-        offline: false,
-        secret: '',
-        allowRegistration: '',
-        tfaStatus: '',
-        authWay: '',
-        defaultRole: '',
-        active: true,
-        tokenLifespan: '',
+        redirectUrl: application.redirect_url || '',
+        offline: application.offline || false,
+        type: application.type || 'web',
+        name: application.name || '',
+        secret: application.secret || '',
+        allowRegistration: !application.registration_forbidden,
+        tfaStatus: application.tfa_status || 'disabled',
+        active: application.active || false,
+        tokenLifespan: application.token_lifespan || '',
       },
       validation: {
         type: '',
@@ -59,7 +56,6 @@ class ApplicationForm extends Component {
     this.toggleActive = this.toggleActive.bind(this);
     this.handleSecretChange = this.handleSecretChange.bind(this);
     this.handleTFAStatusChange = this.handleTFAStatusChange.bind(this);
-    this.handleAuthWayChange = this.handleAuthWayChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -75,8 +71,6 @@ class ApplicationForm extends Component {
           secret: application.secret || '',
           allowRegistration: !application.registration_forbidden,
           tfaStatus: application.tfa_status || 'disabled',
-          authWay: application.authorization_way || 'no_authorization',
-          defaultRole: application.new_user_default_role || '',
           active: application.active || false,
           tokenLifespan: application.token_lifespan || '',
         }),
@@ -110,10 +104,6 @@ class ApplicationForm extends Component {
 
   handleTFAStatusChange(value) {
     this.handleInput({ target: { name: 'tfaStatus', value } });
-  }
-
-  handleAuthWayChange(value) {
-    this.handleInput({ target: { name: 'authWay', value } });
   }
 
   handleBlur({ target }) {
@@ -163,8 +153,6 @@ class ApplicationForm extends Component {
       redirect_url: fields.redirectUrl,
       registration_forbidden: !fields.allowRegistration,
       tfa_status: fields.tfaStatus,
-      authorization_way: fields.authWay,
-      new_user_default_role: fields.defaultRole,
       token_lifespan: Number(fields.tokenLifespan) || undefined,
     }));
   }
@@ -242,38 +230,6 @@ class ApplicationForm extends Component {
           </Field>
         )}
 
-        {!this.isExcluded('authWay') && (
-          <Field label="Authorization Way">
-            <Select
-              name="authWay"
-              value={fields.authWay}
-              disabled={loading}
-              onChange={this.handleAuthWayChange}
-              placeholder="Select Authorization Way"
-            >
-              <Option value="no_authorization" title="No Authorization" />
-              <Option value="internal" title="Internal" />
-              <Option value="whitelist" title="Whitelist" />
-              <Option value="blacklist" title="Blacklist" />
-              <Option value="external" title="External" />
-            </Select>
-          </Field>
-        )}
-
-        {!this.isExcluded('defaultRole') && (
-          <Field label="New User Default Role">
-            <Input
-              name="defaultRole"
-              value={fields.defaultRole}
-              autoComplete="off"
-              placeholder="User role"
-              onChange={this.handleInput}
-              onBlur={this.handleBlur}
-              disabled={loading}
-            />
-          </Field>
-        )}
-
         {!this.isExcluded('secret') && (
           <SecretField value={fields.secret} onChange={this.handleSecretChange} />
         )}
@@ -346,7 +302,7 @@ class ApplicationForm extends Component {
   }
 }
 
-ApplicationForm.propTypes = {
+ApplicationGeneralSettingsForm.propTypes = {
   loading: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
@@ -357,11 +313,11 @@ ApplicationForm.propTypes = {
   excludeFields: PropTypes.arrayOf(PropTypes.string),
 };
 
-ApplicationForm.defaultProps = {
+ApplicationGeneralSettingsForm.defaultProps = {
   loading: false,
   application: null,
   error: null,
   excludeFields: [],
 };
 
-export default ApplicationForm;
+export default ApplicationGeneralSettingsForm;

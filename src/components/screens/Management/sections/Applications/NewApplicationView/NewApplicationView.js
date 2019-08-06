@@ -6,7 +6,7 @@ import {
   postApplication, resetApplicationError,
 } from '~/modules/applications/actions';
 import { createNotification } from '~/modules/notifications/actions';
-import ApplicationForm from '../ApplicationForm';
+import ApplicationGeneralSettings from '../GeneralSettingsForm';
 
 const goBackPath = '/management/applications';
 
@@ -67,7 +67,7 @@ class NewApplicationView extends Component {
           </p>
         </header>
         <main>
-          <ApplicationForm
+          <ApplicationGeneralSettings
             error={error}
             loading={saving}
             excludeFields={['secret', 'active']}

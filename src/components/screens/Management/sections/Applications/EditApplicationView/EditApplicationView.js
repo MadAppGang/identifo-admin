@@ -8,12 +8,11 @@ import {
   fetchApplicationById,
   resetApplicationError,
 } from '~/modules/applications/actions';
-import ApplicationForm from '../ApplicationForm';
 import ActionsButton from '~/components/shared/ActionsButton';
 import { createNotification } from '~/modules/notifications/actions';
 import { Tabs, Tab } from '~/components/shared/Tabs';
-import ApplicationWhitelistForm from './WhitelistForm';
-import ApplicationBlacklistForm from './BlacklistForm';
+import ApplicationGeneralSettings from '../GeneralSettingsForm';
+import ApplicationAuthSettings from '../AuthSettingsForm';
 
 const goBackPath = '/management/applications';
 
@@ -87,7 +86,7 @@ class EditApplicationView extends Component {
 
     if (this.state.tabIndex === 0) {
       return (
-        <ApplicationForm
+        <ApplicationGeneralSettings
           error={error}
           loading={saving || fetching}
           application={application}
@@ -99,13 +98,7 @@ class EditApplicationView extends Component {
 
     if (this.state.tabIndex === 1) {
       return (
-        <ApplicationWhitelistForm />
-      );
-    }
-
-    if (this.state.tabIndex === 2) {
-      return (
-        <ApplicationBlacklistForm />
+        <ApplicationAuthSettings />
       );
     }
 
@@ -145,8 +138,7 @@ class EditApplicationView extends Component {
               onChange={index => this.setState({ tabIndex: index })}
             >
               <Tab title="General" />
-              <Tab title="Whitelist" />
-              <Tab title="Blacklist" />
+              <Tab title="Authorization" />
 
               {this.renderTabsContent()}
             </Tabs>
