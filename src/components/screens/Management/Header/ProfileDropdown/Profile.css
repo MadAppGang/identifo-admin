@@ -53,6 +53,8 @@
   padding: 10px 16px;
   cursor: pointer;
   color: #616161;
+  display: flex;
+  align-items: center;
 }
 
 .iap-profile-dropdown__section:hover,
@@ -68,4 +70,11 @@
   height: 11px;
   width: 11px;
   display: inline-block;
+}
+
+.iap-profile-dropdown__icon {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  transform: translateY(-2px);
 }

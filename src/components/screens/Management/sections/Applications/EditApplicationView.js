@@ -21,7 +21,7 @@ class EditApplicationView extends Component {
     super();
 
     this.state = {
-      tabIndex: 0,
+      tabIndex: 1,
     };
 
     this.availableActions = [{
