@@ -31,12 +31,19 @@ const MultipleInput = (props) => {
     event.preventDefault();
   };
 
+  const handleBlur = () => {
+    if (value.trim()) {
+      addValue(value);
+    }
+  };
+
   return (
     <div>
       <Input
         value={value}
         onChange={e => setValue(e.target.value)}
         onKeyPress={handleKeyPress}
+        onBlur={handleBlur}
         placeholder={props.placeholder}
         autoComplete="off"
       />
