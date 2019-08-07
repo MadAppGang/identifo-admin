@@ -84,7 +84,11 @@ const ApplicationAuthSettings = (props) => {
       </Field>
 
       <footer className="iap-apps-form__footer">
-        <Button type="submit" Icon={loading ? LoadingIcon : SaveIcon}>
+        <Button
+          type="submit"
+          disabled={loading}
+          Icon={loading ? LoadingIcon : SaveIcon}
+        >
           Save changes
         </Button>
         <Button transparent disabled={loading} onClick={onCancel}>

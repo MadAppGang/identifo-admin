@@ -41,11 +41,11 @@ class EditApplicationView extends Component {
     const doneSaving = prevProps.saving && !this.props.saving;
 
     if (doneSaving && !this.props.error) {
-      this.goBack();
       if (this.props.application) {
         this.notifyUpdateSuccess();
       } else {
         this.notifyDeleteSuccess();
+        this.goBack();
       }
     }
   }
@@ -99,6 +99,7 @@ class EditApplicationView extends Component {
     if (this.state.tabIndex === 1) {
       return (
         <ApplicationAuthSettings
+          loading={saving || fetching}
           application={application}
           onCancel={this.handleCancel}
           onSubmit={this.handleSubmit}
