@@ -34,3 +34,28 @@
   width: 9px;
   fill: white;
 }
+
+.multiple-input__add-btn {
+  background-color: transparent;
+  cursor: pointer;
+  color: #3CA6F5;
+  font-size: 13px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  outline: none;
+}
+
+.multiple-input__add-btn:hover {
+  background-color: #eee;
+}
+
+.multiple-input__add-btn-icon {
+  fill: #3CA6F5;
+  height: 17px;
+  width: 17px;
+}

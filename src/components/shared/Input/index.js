@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Input.css';
 
-const Input = ({ Icon, errorMessage, ...props }) => {
+const Input = ({ Icon, errorMessage, renderButton, ...props }) => {
   const className = classnames({
     'iap-login-form__input': true,
     'iap-login-form__input--iconized': !!Icon,
@@ -21,6 +21,12 @@ const Input = ({ Icon, errorMessage, ...props }) => {
         autoComplete="off"
         className={className}
       />
+
+      {!!renderButton && (
+        <div className="iap-input-btn">
+          {renderButton()}
+        </div>
+      )}
       {errorMessage && (
         <p className="iap-input-error">
           {errorMessage}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from '~/components/shared/Input';
 import ValueTag from './ValueTag';
+import AddIcon from '~/components/icons/AddIcon';
 
 const MultipleInput = (props) => {
   const { values, onChange } = props;
@@ -46,6 +47,18 @@ const MultipleInput = (props) => {
         onBlur={handleBlur}
         placeholder={props.placeholder}
         autoComplete="off"
+        renderButton={() => (
+          <button
+            type="button"
+            className="multiple-input__add-btn"
+            onClick={() => addValue(value)}
+          >
+            <AddIcon className="multiple-input__add-btn-icon" />
+          </button>
+        )}
+        style={{
+          paddingRight: '50px',
+        }}
       />
       <ul className="multiple-input__value-tags">
         {values.map(item => (

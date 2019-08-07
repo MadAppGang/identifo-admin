@@ -62,3 +62,8 @@
   display: block;
   text-align: left;
 }
+
+.iap-input-btn {
+  position: absolute;
+  right: 15px;
+}
