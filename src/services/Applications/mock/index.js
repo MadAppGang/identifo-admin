@@ -17,6 +17,7 @@ const data = {
       secret: 'E0y2kZGoXXAuhwbwo7kyrdtR',
       roles_whitelist: ['Manager', 'Admin'],
       roles_blacklist: ['Plain user'],
+      debug_tfa_code: undefined,
     },
   ],
 };

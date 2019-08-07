@@ -27,6 +27,7 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [tfaStatus, setTfaStatus] = useState(application.tfa_status || 'disabled');
   const [active, setActive] = useState(application.active || false);
   const [tokenLifespan, setTokenLifespan] = useState(application.token_lifespan || '');
+  const [debugTfaCode, setDebugTfaCode] = useState(application.debug_tfa_code || '');
 
   const validate = Validation.applyRules(validationRules);
 
@@ -49,6 +50,7 @@ const ApplicationGeneralSettingsForm = (props) => {
     setTfaStatus(application.tfa_status || 'disabled');
     setActive(application.active || false);
     setTokenLifespan(application.token_lifespan || '');
+    setDebugTfaCode(application.debug_tfa_code || '');
   }, [props.application]);
 
   const isExcluded = (field) => {
@@ -92,6 +94,7 @@ const ApplicationGeneralSettingsForm = (props) => {
       redirect_url: redirectUrl,
       token_lifespan: tokenLifespan,
       registration_forbidden: !allowRegistration,
+      debug_tfa_code: debugTfaCode || undefined,
     });
   };
 
@@ -175,6 +178,19 @@ const ApplicationGeneralSettingsForm = (props) => {
             onChange={extractValue(v => handleInput('tokenLifespan', v, setTokenLifespan))}
             onBlur={extractValue(v => handleBlur('tokenLifespan', v))}
             errorMessage={validation.tokenLifespan}
+            disabled={loading}
+          />
+        </Field>
+      )}
+
+      {!isExcluded('debugTfaCode') && (
+        <Field label="Debug TFA Code">
+          <Input
+            value={debugTfaCode}
+            autoComplete="off"
+            placeholder="Debug TFA Code"
+            onChange={extractValue(v => handleInput('debugTfaCode', v, setDebugTfaCode))}
+            onBlur={extractValue(v => handleBlur('debugTfaCode', v))}
             disabled={loading}
           />
         </Field>
