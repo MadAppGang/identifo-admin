@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  postApplication, resetApplicationError,
-} from '~/modules/applications/actions';
+import { postApplication, resetApplicationError } from '~/modules/applications/actions';
 import { createNotification } from '~/modules/notifications/actions';
 import ApplicationGeneralSettings from './GeneralSettingsForm';
 
@@ -22,12 +19,13 @@ class CreateApplicationView extends Component {
     const doneSaving = prevProps.saving && !this.props.saving;
 
     if (doneSaving && !this.props.error) {
-      this.goBack();
       this.props.createNotification({
         type: 'success',
         title: 'Created',
         text: 'Application has been created successfully',
       });
+
+      this.goForward(this.props.application.id);
     }
 
     if (doneSaving && this.props.error) {
@@ -46,6 +44,10 @@ class CreateApplicationView extends Component {
 
   goBack() {
     this.props.history.push(goBackPath);
+  }
+
+  goForward(id) {
+    this.props.history.push(`/management/applications/${id}`);
   }
 
   render() {
@@ -70,7 +72,7 @@ class CreateApplicationView extends Component {
           <ApplicationGeneralSettings
             error={error}
             loading={saving}
-            excludeFields={['secret', 'active']}
+            excludeFields={['secret', 'active', 'tfaStatus', 'redirectUrl', 'tokenLifespan', 'allowRegistration']}
             onCancel={this.handleCancel}
             onSubmit={this.props.postApplication}
           />
@@ -80,17 +82,6 @@ class CreateApplicationView extends Component {
   }
 }
 
-CreateApplicationView.propTypes = {
-  saving: PropTypes.bool,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-  postApplication: PropTypes.func.isRequired,
-  createNotification: PropTypes.func.isRequired,
-  resetError: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Error),
-};
-
 CreateApplicationView.defaultProps = {
   saving: false,
   error: null,
@@ -99,6 +90,7 @@ CreateApplicationView.defaultProps = {
 const mapStateToProps = state => ({
   saving: state.selectedApplication.saving,
   error: state.selectedApplication.error,
+  application: state.selectedApplication.application,
 });
 
 const actions = {
