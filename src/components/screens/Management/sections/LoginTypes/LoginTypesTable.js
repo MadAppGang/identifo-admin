@@ -23,17 +23,17 @@ const datagrid = {
 const LoginTypesTable = () => {
   const loginTypes = [
     {
-      id: 2,
-      type: 'phone',
-      title: 'Phone Number',
-      Icon: PhoneLoginIcon,
-      enabled: false,
-    },
-    {
       id: 1,
       type: 'username',
       title: 'Username and Password',
       Icon: UsernameLoginIcon,
+      enabled: false,
+    },
+    {
+      id: 2,
+      type: 'phone',
+      title: 'Phone Number',
+      Icon: PhoneLoginIcon,
       enabled: false,
     },
     {
