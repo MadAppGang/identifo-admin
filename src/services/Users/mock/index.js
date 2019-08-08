@@ -8,12 +8,14 @@ const data = {
       id: '507f1f77bcf86cd799439011',
       username: 'Denys Provodnikov',
       email: 'dp@madappgang.com',
-      latest_login_time: Date.now(),
+      latest_login_time: Date.now() / 1000,
       num_of_logins: 0,
       tfa_info: {
         is_enabled: true,
       },
       access_role: '',
+      active: false,
+      phone: '+380993233430',
     },
   ],
 };

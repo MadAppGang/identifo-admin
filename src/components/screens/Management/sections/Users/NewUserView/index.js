@@ -20,7 +20,7 @@ class NewUserView extends Component {
 
     if (doneSaving && !this.props.error) {
       this.notifyCreationSuccess();
-      this.goBack();
+      this.goForwards(this.props.user.id);
     }
 
     if (doneSaving && this.props.error) {
@@ -42,6 +42,10 @@ class NewUserView extends Component {
       title: 'Error',
       text: 'User could not be created',
     });
+  }
+
+  goForwards(id) {
+    this.props.history.push(`/management/users/${id}`);
   }
 
   goBack() {
@@ -101,6 +105,7 @@ NewUserView.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+  user: state.selectedUser.user,
   saving: state.selectedUser.saving,
   error: state.selectedUser.error,
 });

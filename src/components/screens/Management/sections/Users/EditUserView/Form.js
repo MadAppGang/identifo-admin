@@ -30,10 +30,13 @@ class EditUserForm extends Component {
         confirmPassword: '',
         tfaEnabled: false,
         role: '',
+        phone: '',
+        active: false,
       },
       validation: {
         email: '',
         username: '',
+        phone: '',
         password: '',
         confirmPassword: '',
       },
@@ -45,6 +48,7 @@ class EditUserForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.toggleTFA = this.toggleTFA.bind(this);
+    this.toggleActive = this.toggleActive.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -57,6 +61,8 @@ class EditUserForm extends Component {
           username: user.username,
           tfaEnabled: user.tfa_info ? user.tfa_info.is_enabled : false,
           role: user.access_role || '',
+          active: user.active || false,
+          phone: user.phone || '',
         }),
       }));
     }
@@ -90,6 +96,10 @@ class EditUserForm extends Component {
 
   toggleTFA(value) {
     this.handleFieldChange({ target: { name: 'tfaEnabled', value } });
+  }
+
+  toggleActive(value) {
+    this.handleFieldChange({ target: { name: 'active', value } });
   }
 
   handleSubmit(event) {
@@ -175,17 +185,37 @@ class EditUserForm extends Component {
           />
         </Field>
 
-        <Toggle
-          label="Enable 2FA"
-          value={fields.tfaEnabled}
-          onChange={this.toggleTFA}
-        />
+        <Field label="Pnone Number">
+          <Input
+            name="phone"
+            value={fields.phone}
+            placeholder="Enter phone number"
+            onChange={this.handleFieldChange}
+            onBlur={this.handleBlur}
+            errorMessage={validation.phone}
+            disabled={loading}
+          />
+        </Field>
 
-        <Toggle
-          label="Edit Password"
-          value={editPassword}
-          onChange={this.toggleEditPassword}
-        />
+        <div>
+          <Toggle
+            label="Enable 2FA"
+            value={fields.tfaEnabled}
+            onChange={this.toggleTFA}
+          />
+
+          <Toggle
+            label="Active"
+            value={fields.active}
+            onChange={this.toggleActive}
+          />
+
+          <Toggle
+            label="Edit Password"
+            value={editPassword}
+            onChange={this.toggleEditPassword}
+          />
+        </div>
 
         {editPassword && (
           <>

@@ -1,14 +1,4 @@
-import { notEmpty } from '@dprovodnikov/validation';
-
-const urlFormat = message => (value) => {
-  const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
-
-  if (!regex.test(value)) {
-    return message;
-  }
-
-  return '';
-};
+import { notEmpty, urlFormat } from '@dprovodnikov/validation';
 
 const redirectUrlRule = message => (value) => {
   if (!value) {

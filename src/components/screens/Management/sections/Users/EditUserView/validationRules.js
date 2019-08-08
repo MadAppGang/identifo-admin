@@ -2,6 +2,20 @@ import {
   matches, notEmpty, emailFormat, longerThan, hasUpperLetter,
 } from '@dprovodnikov/validation';
 
+const phoneNumberRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+
+const phoneNumberRule = message => (value) => {
+  if (!value) {
+    return '';
+  }
+
+  if (!phoneNumberRegExp.test(value)) {
+    return message;
+  }
+
+  return '';
+};
+
 const rules = {
   username: [notEmpty('Username should not be empty')],
   email: [
@@ -16,6 +30,9 @@ const rules = {
   confirmPassword: [
     notEmpty('You should confirm password'),
     matches('password', 'Passwords do not match'),
+  ],
+  phone: [
+    phoneNumberRule('Phone number format is invalid'),
   ],
 };
 
