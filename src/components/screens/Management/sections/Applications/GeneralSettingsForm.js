@@ -23,6 +23,7 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [offline, setOffline] = useState(application.offline || false);
   const [type, setType] = useState(application.type || 'web');
   const [name, setName] = useState(application.name || '');
+  const [description, setDescription] = useState(application.description || '');
   const [secret, setSecret] = useState(application.secret || '');
   const [allowRegistration, setAllowRegistration] = useState(!application.registration_forbidden);
   const [tfaStatus, setTfaStatus] = useState(application.tfa_status || 'disabled');
@@ -40,7 +41,7 @@ const ApplicationGeneralSettingsForm = (props) => {
     tokenLifespan: '',
   });
 
-  /* update fields values after props update */
+  /* update field values after props update */
   useEffect(() => {
     if (!application) return;
 
@@ -58,6 +59,10 @@ const ApplicationGeneralSettingsForm = (props) => {
 
     if (application.name) {
       setName(application.name);
+    }
+
+    if (application.description) {
+      setDescription(application.description);
     }
 
     if (application.secret) {
@@ -123,6 +128,7 @@ const ApplicationGeneralSettingsForm = (props) => {
       scopes,
       secret,
       active,
+      description,
       tfa_status: tfaStatus,
       redirect_url: redirectUrl,
       token_lifespan: tokenLifespan,
@@ -165,6 +171,19 @@ const ApplicationGeneralSettingsForm = (props) => {
             <Option value="android" title="Android Client (Mobile)" />
             <Option value="ios" title="iOS Client (Mobile)" />
           </Select>
+        </Field>
+      )}
+
+      {!isExcluded('description') && (
+        <Field label="Description">
+          <Input
+            value={description}
+            autoComplete="off"
+            placeholder="Enter Description"
+            onChange={extractValue(v => handleInput('description', v, setDescription))}
+            onBlur={extractValue(v => handleBlur('description', v))}
+            disabled={loading}
+          />
         </Field>
       )}
 

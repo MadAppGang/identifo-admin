@@ -72,7 +72,9 @@ class CreateApplicationView extends Component {
           <ApplicationGeneralSettings
             error={error}
             loading={saving}
-            excludeFields={['secret', 'active', 'tfaStatus', 'redirectUrl', 'tokenLifespan', 'allowRegistration']}
+            excludeFields={[
+              'secret', 'active', 'tfaStatus', 'redirectUrl', 'tokenLifespan', 'allowRegistration', 'debugTfaCode',
+            ]}
             onCancel={this.handleCancel}
             onSubmit={this.props.postApplication}
           />
