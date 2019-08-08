@@ -19,9 +19,11 @@ const Toggle = ({ label, value, onChange }) => {
 
   return (
     <div className="iap-default-toggle">
-      <span>
-        {label}
-      </span>
+      {!!label && (
+        <span>
+          {label}
+        </span>
+      )}
       <button
         type="button"
         className={rootClassName}

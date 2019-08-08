@@ -1,6 +1,5 @@
 import React from 'react';
-import SectionHeader from '~/components/shared/SectionHeader';
-import LoginTypesForm from './LoginTypesForm';
+import LoginTypesTable from './LoginTypesTable';
 
 const LoginTypesSection = () => {
   return (
@@ -9,13 +8,12 @@ const LoginTypesSection = () => {
         Login Types
       </p>
 
-      <div className="iap-settings-section">
-        <SectionHeader
-          title="Allowed login types"
-          description="These settings allow to turn off undesirable login endpoints."
-        />
+      <p className="iap-management-section__description">
+        These settings allow to turn off undesirable login endpoints.
+      </p>
 
-        <LoginTypesForm />
+      <div className="iap-settings-section">
+        <LoginTypesTable />
       </div>
 
     </section>
