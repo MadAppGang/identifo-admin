@@ -58,7 +58,7 @@ const ApplicationAuthSettings = (props) => {
         <Field label="Roles Whitelist">
           <MultipleInput
             values={whitelist}
-            placeholder="Hit enter to add role"
+            placeholder="Hit Enter to add role"
             onChange={setWhitelist}
           />
         </Field>
@@ -68,7 +68,7 @@ const ApplicationAuthSettings = (props) => {
         <Field label="Roles Blacklist">
           <MultipleInput
             values={blacklist}
-            placeholder="Hit enter to add role"
+            placeholder="Hit Enter to add role"
             onChange={setBlacklist}
           />
         </Field>

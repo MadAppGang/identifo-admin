@@ -11,6 +11,7 @@ import { Select, Option } from '~/components/shared/Select';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import Toggle from '~/components/shared/Toggle';
 import SecretField from './SecretField';
+import MultipleInput from '~/components/shared/MultipleInput';
 
 const extractValue = fn => event => fn(event.target.value);
 
@@ -28,6 +29,7 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [active, setActive] = useState(application.active || false);
   const [tokenLifespan, setTokenLifespan] = useState(application.token_lifespan || '');
   const [debugTfaCode, setDebugTfaCode] = useState(application.debug_tfa_code || '');
+  const [scopes, setScopes] = useState(application.scopes || []);
 
   const validate = Validation.applyRules(validationRules);
 
@@ -38,24 +40,54 @@ const ApplicationGeneralSettingsForm = (props) => {
     tokenLifespan: '',
   });
 
+  /* update fields values after props update */
   useEffect(() => {
     if (!application) return;
 
-    setRedirectUrl(application.redirect_url || '');
-    setOffline(application.offline || false);
-    setType(application.type || 'web');
-    setName(application.name || '');
-    setSecret(application.secret || '');
+    if (application.redirect_url) {
+      setRedirectUrl(application.redirect_url);
+    }
+
+    if (application.offline) {
+      setOffline(application.offline);
+    }
+
+    if (application.type) {
+      setType(application.type);
+    }
+
+    if (application.name) {
+      setName(application.name);
+    }
+
+    if (application.secret) {
+      setSecret(application.secret);
+    }
+
+    if (application.tfa_status) {
+      setTfaStatus(application.tfa_status);
+    }
+
+    if (application.active) {
+      setActive(application.active);
+    }
+
+    if (application.token_lifespan) {
+      setTokenLifespan(application.token_lifespan);
+    }
+
+    if (application.debug_tfa_code) {
+      setDebugTfaCode(application.debug_tfa_code);
+    }
+
+    if (application.scopes) {
+      setScopes(application.scopes);
+    }
+
     setAllowRegistration(!application.registration_forbidden);
-    setTfaStatus(application.tfa_status || 'disabled');
-    setActive(application.active || false);
-    setTokenLifespan(application.token_lifespan || '');
-    setDebugTfaCode(application.debug_tfa_code || '');
   }, [props.application]);
 
-  const isExcluded = (field) => {
-    return excludeFields.includes(field);
-  };
+  const isExcluded = field => excludeFields.includes(field);
 
   const handleInput = (field, value, setValue) => {
     if (field in validation) {
@@ -88,6 +120,7 @@ const ApplicationGeneralSettingsForm = (props) => {
       offline,
       type,
       name,
+      scopes,
       secret,
       active,
       tfa_status: tfaStatus,
@@ -135,10 +168,19 @@ const ApplicationGeneralSettingsForm = (props) => {
         </Field>
       )}
 
+      {!isExcluded('scopes') && (
+        <Field label="Scopes">
+          <MultipleInput
+            values={scopes}
+            placeholder="Hit Enter to add scope"
+            onChange={setScopes}
+          />
+        </Field>
+      )}
+
       {!isExcluded('tfaStatus') && (
         <Field label="2FA Status">
           <Select
-            name="tfaStatus"
             value={tfaStatus}
             disabled={loading}
             onChange={setTfaStatus}

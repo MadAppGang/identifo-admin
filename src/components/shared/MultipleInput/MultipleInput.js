@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Input from '~/components/shared/Input';
 import ValueTag from './ValueTag';
 import AddIcon from '~/components/icons/AddIcon';
@@ -6,6 +6,7 @@ import AddIcon from '~/components/icons/AddIcon';
 const MultipleInput = (props) => {
   const { values, onChange } = props;
   const [value, setValue] = useState('');
+  const inputElRef = useRef(null);
 
   const deleteValue = (valueToDelete) => {
     onChange(values.filter(item => item !== valueToDelete));
@@ -47,11 +48,12 @@ const MultipleInput = (props) => {
         onBlur={handleBlur}
         placeholder={props.placeholder}
         autoComplete="off"
+        ref={inputElRef}
         renderButton={() => (
           <button
             type="button"
             className="multiple-input__add-btn"
-            onClick={() => addValue(value)}
+            onClick={() => inputElRef.current.focus()}
           >
             <AddIcon className="multiple-input__add-btn-icon" />
           </button>

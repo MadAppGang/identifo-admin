@@ -7,6 +7,7 @@ const data = {
       id: '5d08ee44e89bde6d23cdf031',
       active: false,
       name: 'Add',
+      description: '',
       offline: false,
       type: 'web',
       redirect_url: 'https://hlsaf.com',
@@ -18,6 +19,10 @@ const data = {
       roles_whitelist: ['Manager', 'Admin'],
       roles_blacklist: ['Plain user'],
       debug_tfa_code: undefined,
+      token_lifespan: undefined,
+      invide_token_lifespan: undefined,
+      refresh_token_lifespan: undefined,
+      scopes: [],
     },
   ],
 };

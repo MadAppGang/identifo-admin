@@ -25,7 +25,7 @@ class Sidebar extends Component {
           Icon: icons.AccountIcon,
         },
         {
-          title: 'Database',
+          title: 'Storages',
           path: '/management/database',
           Icon: icons.DatabaseIcon,
         },
@@ -40,7 +40,7 @@ class Sidebar extends Component {
           Icon: icons.PasswordlessLoginIcon,
         },
         {
-          title: 'Email Integration',
+          title: 'External Services',
           path: '/management/email_integration',
           Icon: icons.EmailIcon,
         },

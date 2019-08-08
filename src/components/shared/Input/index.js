@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Input.css';
 
-const Input = ({ Icon, errorMessage, renderButton, ...props }) => {
+const Input = React.forwardRef(({ Icon, errorMessage, renderButton, ...props }, ref) => {
   const className = classnames({
     'iap-login-form__input': true,
     'iap-login-form__input--iconized': !!Icon,
@@ -16,6 +16,7 @@ const Input = ({ Icon, errorMessage, renderButton, ...props }) => {
         <Icon className="iap-input-icon" />
       )}
       <input
+        ref={ref}
         {...props}
         spellCheck={false}
         autoComplete="off"
@@ -34,7 +35,7 @@ const Input = ({ Icon, errorMessage, renderButton, ...props }) => {
       )}
     </div>
   );
-};
+});
 
 Input.propTypes = {
   name: PropTypes.string,

@@ -6,7 +6,7 @@ import { fetchSettings, postSettings } from '~/modules/database/actions';
 import DatabasePlaceholder from './Placeholder';
 import { Tabs, Tab } from '~/components/shared/Tabs';
 
-const DatabaseSection = () => {
+const StoragesSection = () => {
   const dispatch = useDispatch();
   const [fetching, setFetching] = useState(false);
   const settings = useSelector(state => state.database.settings.config);
@@ -48,25 +48,25 @@ const DatabaseSection = () => {
     return [
       {
         title: 'Application Storage',
-        description: 'Setup a connection to the database all the applications are stored at.',
+        description: 'Setup a connection to the database all the applications are stored in.',
         settings: settings ? settings.app_storage : null,
         postSettings: handleSettingsSubmit('app_storage'),
       },
       {
         title: 'User Storage',
-        description: 'Setup a connection to the database all the users are stored at.',
+        description: 'Setup a connection to the database all the users are stored in.',
         settings: settings ? settings.user_storage : null,
         postSettings: handleSettingsSubmit('user_storage'),
       },
       {
         title: 'Token Storage',
-        description: 'Setup a connection to the database all the tokens are stored at.',
+        description: 'Setup a connection to the database all the tokens are stored in.',
         settings: settings ? settings.token_storage : null,
         postSettings: handleSettingsSubmit('token_storage'),
       },
       {
         title: 'Verification Code Storage',
-        description: 'Setup a connection to the database all the verification codes are stored at.',
+        description: 'Setup a connection to the database all the verification codes are stored in.',
         settings: settings ? settings.verification_code_storage : null,
         postSettings: handleSettingsSubmit('verification_code_storage'),
       },
@@ -81,7 +81,7 @@ const DatabaseSection = () => {
     <section className="iap-management-section">
       <header className="iap-management-section__header">
         <p className="iap-management-section__title">
-          Database
+          Storages
         </p>
       </header>
 
@@ -98,4 +98,4 @@ const DatabaseSection = () => {
   );
 };
 
-export default DatabaseSection;
+export default StoragesSection;
