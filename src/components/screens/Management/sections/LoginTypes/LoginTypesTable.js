@@ -23,17 +23,17 @@ const datagrid = {
 const LoginTypesTable = () => {
   const loginTypes = [
     {
-      id: 1,
-      type: 'username_and_password',
-      title: 'Username and Password',
-      Icon: UsernameLoginIcon,
+      id: 2,
+      type: 'phone',
+      title: 'Phone Number',
+      Icon: PhoneLoginIcon,
       enabled: false,
     },
     {
-      id: 2,
-      type: 'phone_number',
-      title: 'Phone Number',
-      Icon: PhoneLoginIcon,
+      id: 1,
+      type: 'username',
+      title: 'Username and Password',
+      Icon: UsernameLoginIcon,
       enabled: false,
     },
     {
@@ -51,7 +51,7 @@ const LoginTypesTable = () => {
       <div style={{ width: datagrid.icon.width }}>
         <div className="login-types-row__icon">
           {data.Icon && (
-            <data.Icon className="login-type-icon" />
+            <data.Icon className={`login-type-icon login-type-icon--${data.type}`} />
           )}
         </div>
       </div>
