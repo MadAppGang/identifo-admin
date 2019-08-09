@@ -20,7 +20,7 @@ const data = {
       roles_blacklist: ['Plain user'],
       debug_tfa_code: undefined,
       token_lifespan: undefined,
-      invide_token_lifespan: undefined,
+      invite_token_lifespan: undefined,
       refresh_token_lifespan: undefined,
       scopes: [],
     },
@@ -68,6 +68,7 @@ const createApplicationServiceMock = () => {
   const alterApplication = async (id, changes) => {
     await pause(550);
 
+    console.log(changes);
     if (changes.name === 'Trigger Error') {
       throw new Error('Application with this name already exists.');
     }

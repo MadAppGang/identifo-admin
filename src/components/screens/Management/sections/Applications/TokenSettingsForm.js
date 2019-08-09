@@ -34,9 +34,9 @@ const TokenSettingsForm = (props) => {
     event.preventDefault();
 
     onSubmit(update(app, {
-      token_lifespan: tokenLifespan || undefined,
-      refresh_token_lifespan: refreshTokenLifespan || undefined,
-      invite_token_lifespan: inviteTokenLifespan || undefined,
+      token_lifespan: Number(tokenLifespan) || undefined,
+      refresh_token_lifespan: Number(refreshTokenLifespan) || undefined,
+      invite_token_lifespan: Number(inviteTokenLifespan) || undefined,
     }));
   };
 
