@@ -14,7 +14,6 @@
   "author": "MadAppGang",
   "license": "MIT",
   "dependencies": {
-    "@dprovodnikov/use-toggle": "^1.0.0",
     "@dprovodnikov/validation": "^1.2.2",
     "@madappgang/action-creator": "^1.0.6",
     "@madappgang/update-by-path": "^1.1.19",

@@ -20,51 +20,8 @@ const datagrid = {
   },
 };
 
-const LoginTypesTable = () => {
-  const loginTypes = [
-    {
-      id: 1,
-      type: 'username',
-      title: 'Username and Password',
-      Icon: UsernameLoginIcon,
-      enabled: false,
-    },
-    {
-      id: 2,
-      type: 'phone',
-      title: 'Phone Number',
-      Icon: PhoneLoginIcon,
-      enabled: false,
-    },
-    {
-      id: 3,
-      type: 'federated',
-      title: 'Federated Identity',
-      Icon: FederatedLoginIcon,
-      enabled: false,
-    },
-  ];
-
-
-  const renderRow = data => (
-    <DatagridRow key={data.id} className="login-types-row">
-      <div style={{ width: datagrid.icon.width }}>
-        <div className="login-types-row__icon">
-          {data.Icon && (
-            <data.Icon className={`login-type-icon login-type-icon--${data.type}`} />
-          )}
-        </div>
-      </div>
-      <div style={{ width: datagrid.type.width }}>
-        <p className="login-types-row__type">{data.title}</p>
-      </div>
-      <div style={{ width: datagrid.enabled.width }}>
-        <div className="login-types-row__enabled">
-          <Toggle value={data.enabled} onChange={() => {}} />
-        </div>
-      </div>
-    </DatagridRow>
-  );
+const LoginTypesTable = (props) => {
+  const { types, onChange } = props;
 
   return (
     <div className="login-types-table">
@@ -76,7 +33,53 @@ const LoginTypesTable = () => {
         ))}
       </DatagridHeader>
 
-      {loginTypes.map(renderRow)}
+      <DatagridRow className="login-types-row">
+        <div style={{ width: datagrid.icon.width }}>
+          <div className="login-types-row__icon">
+            <UsernameLoginIcon className="login-type-icon" />
+          </div>
+        </div>
+        <div style={{ width: datagrid.type.width }}>
+          <p className="login-types-row__type">Username and Password</p>
+        </div>
+        <div style={{ width: datagrid.enabled.width }}>
+          <div className="login-types-row__enabled">
+            <Toggle value={types.username} onChange={v => onChange('username', v)} />
+          </div>
+        </div>
+      </DatagridRow>
+
+      <DatagridRow className="login-types-row">
+        <div style={{ width: datagrid.icon.width }}>
+          <div className="login-types-row__icon">
+            <PhoneLoginIcon className="login-type-icon" />
+          </div>
+        </div>
+        <div style={{ width: datagrid.type.width }}>
+          <p className="login-types-row__type">Phone Number</p>
+        </div>
+        <div style={{ width: datagrid.width }}>
+          <div className="login-types-row__enabled">
+            <Toggle value={types.phone} onChange={v => onChange('phone', v)} />
+          </div>
+        </div>
+      </DatagridRow>
+
+      <DatagridRow className="login-types-row">
+        <div style={{ width: datagrid.icon.width }}>
+          <div className="login-types-row__icon">
+            <FederatedLoginIcon className="login-type-icon" />
+          </div>
+        </div>
+        <div style={{ width: datagrid.type.width }}>
+          <p className="login-types-row__type">Federated Identity</p>
+        </div>
+        <div style={{ width: datagrid.enabled.width }}>
+          <div className="login-types-row__enabled">
+            <Toggle value={types.federated} onChange={v => onChange('federated', v)} />
+          </div>
+        </div>
+      </DatagridRow>
     </div>
   );
 };

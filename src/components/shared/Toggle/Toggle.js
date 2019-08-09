@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import useToggle from '@dprovodnikov/use-toggle';
 import classnames from 'classnames';
 
 const Toggle = ({ label, value, onChange }) => {
-  const [isOn, toggle] = useToggle(value, onChange);
+  const [isOn, setIsOn] = useState(value);
 
   useEffect(() => {
-    if (value && !isOn) {
-      toggle();
-    }
+    setIsOn(value);
   }, [value]);
 
   const rootClassName = classnames({
@@ -27,7 +24,7 @@ const Toggle = ({ label, value, onChange }) => {
       <button
         type="button"
         className={rootClassName}
-        onClick={toggle}
+        onClick={() => onChange(!isOn)}
       >
         <div className="iap-default-toggle__handle" />
       </button>

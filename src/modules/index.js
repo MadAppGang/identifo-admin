@@ -7,6 +7,7 @@ import selectedUserReducer from './users/selectedReducer';
 import applicationListReducer from './applications/listReducer';
 import selectedApplicationReducer from './applications/selectedReducer';
 import notificationsReducer from './notifications/reducer';
+import settingsReducer from './settings/reducer';
 
 import configureStore from './store';
 
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   applications: applicationListReducer,
   selectedApplication: selectedApplicationReducer,
   notifications: notificationsReducer,
+  settings: settingsReducer,
 });
 
 export default curry(configureStore, rootReducer);
