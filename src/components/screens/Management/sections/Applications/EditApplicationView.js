@@ -13,6 +13,7 @@ import { createNotification } from '~/modules/notifications/actions';
 import { Tabs, Tab } from '~/components/shared/Tabs';
 import ApplicationGeneralSettings from './GeneralSettingsForm';
 import ApplicationAuthSettings from './AuthSettingsForm';
+import ApplicationTokenSettings from './TokenSettingsForm';
 
 const goBackPath = '/management/applications';
 
@@ -107,6 +108,17 @@ class EditApplicationView extends Component {
       );
     }
 
+    if (this.state.tabIndex === 2) {
+      return (
+        <ApplicationTokenSettings
+          loading={saving || fetching}
+          application={application}
+          onCancel={this.handleCancel}
+          onSubmit={this.handleSubmit}
+        />
+      );
+    }
+
     return null;
   }
 
@@ -144,6 +156,7 @@ class EditApplicationView extends Component {
             >
               <Tab title="General Settings" />
               <Tab title="Authorization Settings" />
+              <Tab title="Token Settings" />
 
               {this.renderTabsContent()}
             </Tabs>

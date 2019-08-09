@@ -28,7 +28,6 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [allowRegistration, setAllowRegistration] = useState(!application.registration_forbidden);
   const [tfaStatus, setTfaStatus] = useState(application.tfa_status || 'disabled');
   const [active, setActive] = useState(application.active || false);
-  const [tokenLifespan, setTokenLifespan] = useState(application.token_lifespan || '');
   const [debugTfaCode, setDebugTfaCode] = useState(application.debug_tfa_code || '');
   const [scopes, setScopes] = useState(application.scopes || []);
 
@@ -38,7 +37,6 @@ const ApplicationGeneralSettingsForm = (props) => {
     type: '',
     name: '',
     redirectUrl: '',
-    tokenLifespan: '',
   });
 
   /* update field values after props update */
@@ -77,10 +75,6 @@ const ApplicationGeneralSettingsForm = (props) => {
       setActive(application.active);
     }
 
-    if (application.token_lifespan) {
-      setTokenLifespan(application.token_lifespan);
-    }
-
     if (application.debug_tfa_code) {
       setDebugTfaCode(application.debug_tfa_code);
     }
@@ -112,9 +106,7 @@ const ApplicationGeneralSettingsForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const report = validate('all', {
-      name, type, redirectUrl, tokenLifespan,
-    });
+    const report = validate('all', { name, type, redirectUrl });
 
     if (Validation.hasError(report)) {
       setValidation(report);
@@ -131,7 +123,6 @@ const ApplicationGeneralSettingsForm = (props) => {
       description,
       tfa_status: tfaStatus,
       redirect_url: redirectUrl,
-      token_lifespan: tokenLifespan,
       registration_forbidden: !allowRegistration,
       debug_tfa_code: debugTfaCode || undefined,
     });
@@ -225,20 +216,6 @@ const ApplicationGeneralSettingsForm = (props) => {
             onChange={extractValue(v => handleInput('redirectUrl', v, setRedirectUrl))}
             onBlur={extractValue(v => handleBlur('redirectUrl', v))}
             errorMessage={validation.redirectUrl}
-            disabled={loading}
-          />
-        </Field>
-      )}
-
-      {!isExcluded('tokenLifespan') && (
-        <Field label="Token Lifespan">
-          <Input
-            value={tokenLifespan.toString()}
-            autoComplete="off"
-            placeholder="Specify token lifespan"
-            onChange={extractValue(v => handleInput('tokenLifespan', v, setTokenLifespan))}
-            onBlur={extractValue(v => handleBlur('tokenLifespan', v))}
-            errorMessage={validation.tokenLifespan}
             disabled={loading}
           />
         </Field>
