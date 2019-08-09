@@ -14,6 +14,7 @@ import { Tabs, Tab } from '~/components/shared/Tabs';
 import ApplicationGeneralSettings from './GeneralSettingsForm';
 import ApplicationAuthSettings from './AuthSettingsForm';
 import ApplicationTokenSettings from './TokenSettingsForm';
+import ApplicationFederatedLoginSettings from './FederatedLoginSettingsForm';
 
 const goBackPath = '/management/applications';
 
@@ -119,6 +120,17 @@ class EditApplicationView extends Component {
       );
     }
 
+    if (this.state.tabIndex === 3) {
+      return (
+        <ApplicationFederatedLoginSettings
+          loading={saving || fetching}
+          application={application}
+          onCancel={this.handleCancel}
+          onSubmit={this.handleSubmit}
+        />
+      );
+    }
+
     return null;
   }
 
@@ -154,9 +166,10 @@ class EditApplicationView extends Component {
               activeTabIndex={this.state.tabIndex}
               onChange={index => this.setState({ tabIndex: index })}
             >
-              <Tab title="General Settings" />
-              <Tab title="Authorization Settings" />
-              <Tab title="Token Settings" />
+              <Tab title="General" />
+              <Tab title="Authorization" />
+              <Tab title="Tokens" />
+              <Tab title="Federated Login" />
 
               {this.renderTabsContent()}
             </Tabs>

@@ -4,8 +4,8 @@ import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import { Select, Option } from '~/components/shared/Select';
 import SaveIcon from '~/components/icons/SaveIcon';
+import { Select, Option } from '~/components/shared/Select';
 import MultipleInput from '~/components/shared/MultipleInput';
 
 const extractValue = fn => event => fn(event.target.value);
