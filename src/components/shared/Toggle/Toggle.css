@@ -60,6 +60,9 @@
   position: absolute;
   border-radius: 50%;
   transition: all 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .iap-default-toggle__body.iap-default-toggle__body--on .iap-default-toggle__handle {
@@ -67,4 +70,17 @@
   border: 1px solid #D8EEFF;
   left: 100%;
   transform: translateX(-100%);
+}
+
+.iap-default-toggle__handle-icon {
+  height: 13px;
+  width: 13px;
+}
+
+.iap-default-toggle__handle-icon rect {
+  fill: #aaa;
+}
+
+.iap-default-toggle__body.iap-default-toggle__body--on .iap-default-toggle__handle-icon rect {
+  fill: white;
 }
