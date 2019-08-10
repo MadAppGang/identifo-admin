@@ -1,6 +1,8 @@
-import React, { Children } from 'react';
+import React, { useState, useEffect, Children } from 'react';
 import PropTypes from 'prop-types';
 import useDropdown from 'use-dropdown';
+import DropdownIcon from '~/components/icons/DropdownIcon';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 import Input from '~/components/shared/Input';
 
 const getDisplayValue = (value, children) => {
@@ -14,6 +16,13 @@ const getDisplayValue = (value, children) => {
 const Select = (props) => {
   const { children, value, disabled, placeholder, errorMessage } = props;
   const [containerRef, isOpen, open, close] = useDropdown();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      setLoading(false);
+    }
+  }, [value]);
 
   return (
     <div className="iap-db-dropdown" ref={containerRef}>
@@ -24,7 +33,22 @@ const Select = (props) => {
         disabled={disabled}
         onFocus={open}
         errorMessage={errorMessage}
+        renderButton={() => {
+          if (loading) {
+            return (
+              <LoadingIcon className="iap-dropdown-icon" />
+            );
+          }
+
+          return (
+            <DropdownIcon
+              className="iap-dropdown-icon"
+              onClick={isOpen ? close : open}
+            />
+          );
+        }}
       />
+
       {isOpen && (
         <div className="iap-db-dropdown__options">
           {Children.map(children, (child) => {
@@ -32,6 +56,7 @@ const Select = (props) => {
               onClick: () => {
                 close();
                 props.onChange(child.props.value);
+                setLoading(true);
               },
               active: value === child.props.value,
             };

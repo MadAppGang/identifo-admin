@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from '~/components/shared/Input';
-import SearchIcon from '~/components/icons/SearchIcon';
+import SearchIcon from '~/components/icons/SearchIcon.svg';
 import { throttle } from '~/utils/fn';
 
 import './SearchInput.css';

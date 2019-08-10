@@ -3,6 +3,8 @@ import update from '@madappgang/update-by-path';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLoginSettings, updateLoginSettings } from '~/modules/settings/actions';
 import LoginTypesTable from './LoginTypesTable';
+import Field from '~/components/shared/Field';
+import { Select, Option } from '~/components/shared/Select';
 
 const LoginTypesSection = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,12 @@ const LoginTypesSection = () => {
     dispatch(updateLoginSettings(nextSettings));
   };
 
+  const handleTfaTypeChange = (value) => {
+    const nextSettings = update(settings, { tfaType: value });
+    dispatch(updateLoginSettings(nextSettings));
+  };
+
+
   return (
     <section className="iap-management-section">
       <p className="iap-management-section__title">
@@ -28,6 +36,19 @@ const LoginTypesSection = () => {
       </p>
 
       <div className="iap-settings-section">
+        <div className="section-field">
+          <Field label="2FA Type">
+            <Select
+              value={settings.tfaType}
+              onChange={handleTfaTypeChange}
+              placeholder="Select 2FA Type"
+            >
+              <Option value="app" title="App" />
+              <Option value="sms" title="SMS" />
+              <Option value="email" title="Email" />
+            </Select>
+          </Field>
+        </div>
         <LoginTypesTable types={settings.loginWith} onChange={handleChange} />
       </div>
 

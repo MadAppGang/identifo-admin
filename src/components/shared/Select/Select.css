@@ -45,6 +45,23 @@
   color: #3CA6F5;
 }
 
+.iap-dropdown-icon {
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+  fill: var(--main-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.iap-dropdown-icon rect {
+  fill: var(--main-color);
+}
+
+.iap-dropdown-icon:hover {
+  background-color: #eee;
+}
+
 @keyframes db-dropdown-fadein {
   from {
     transform: translateY(calc(100% - 10px));

@@ -4,25 +4,22 @@ import classnames from 'classnames';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 
 const Toggle = ({ label, value, onChange }) => {
-  const [isOn, setIsOn] = useState(value);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setIsOn(value);
-
     if (loading) {
       setLoading(false);
     }
   }, [value]);
 
   const handleToggle = () => {
-    onChange(!isOn);
+    onChange(!value);
     setLoading(true);
   };
 
   const rootClassName = classnames({
     'iap-default-toggle__body': true,
-    'iap-default-toggle__body--on': isOn,
+    'iap-default-toggle__body--on': value,
   });
 
   return (
@@ -50,14 +47,12 @@ const Toggle = ({ label, value, onChange }) => {
 Toggle.propTypes = {
   label: PropTypes.string,
   value: PropTypes.bool,
-  loading: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
 Toggle.defaultProps = {
   label: '',
   value: false,
-  loading: false,
   onChange: () => {},
 };
 

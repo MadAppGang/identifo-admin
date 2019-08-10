@@ -3,7 +3,7 @@
 }
 
 .login-types-table {
-  margin: 80px 0;
+  margin: 35px 0;
 }
 
 .login-types-row {
@@ -26,4 +26,9 @@
 .login-type-icon {
   height: 40px;
   width: 40px;
+}
+
+.section-field {
+  margin-top: 45px;
+  width: 250px;
 }
