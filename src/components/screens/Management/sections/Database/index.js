@@ -70,6 +70,12 @@ const StoragesSection = () => {
         settings: settings ? settings.verification_code_storage : null,
         postSettings: handleSettingsSubmit('verification_code_storage'),
       },
+      {
+        title: 'Token Blacklist Storage',
+        description: 'Setup a connection to the database all the blacklisted tokens are stored in.',
+        settings: settings ? settings.token_blacklist : null,
+        postSettings: handleSettingsSubmit('token_blacklist'),
+      },
     ][index];
   };
 
@@ -90,6 +96,7 @@ const StoragesSection = () => {
         <Tab title="Users" />
         <Tab title="Tokens" />
         <Tab title="Verification Codes" />
+        <Tab title="Blacklist" />
 
         <StorageSettings fetching={fetching} {...storageSettingsProps} />
       </Tabs>
