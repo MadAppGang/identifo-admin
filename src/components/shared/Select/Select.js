@@ -13,6 +13,8 @@ const getDisplayValue = (value, children) => {
   return child ? child.props.title : '';
 };
 
+let loadingTimeout;
+
 const Select = (props) => {
   const { children, value, disabled, placeholder, errorMessage } = props;
   const [containerRef, isOpen, open, close] = useDropdown();
@@ -22,6 +24,8 @@ const Select = (props) => {
     if (loading) {
       setLoading(false);
     }
+
+    clearTimeout(loadingTimeout);
   }, [value]);
 
   return (
@@ -56,7 +60,7 @@ const Select = (props) => {
               onClick: () => {
                 close();
                 props.onChange(child.props.value);
-                setLoading(true);
+                loadingTimeout = setTimeout(setLoading, 50, true);
               },
               active: value === child.props.value,
             };
