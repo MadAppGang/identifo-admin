@@ -25,6 +25,7 @@ const settingsService = createSettingsService({ httpClient });
 const useMock = process.env.MOCK_API === 'true';
 
 const services = {
+  http: httpClient,
   auth: useMock ? createAuthServiceMock() : authService,
   database: useMock ? createDatabaseServiceMock() : databaseService,
   account: useMock ? createAccountServiceMock() : accountService,

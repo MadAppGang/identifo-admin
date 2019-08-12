@@ -40,6 +40,10 @@ const createHttpClient = () => {
     middlewares.push(middleware);
   };
 
+  const addResponseInterceptor = (onSuccess, onError) => {
+    axios.interceptors.response.use(onSuccess, onError);
+  };
+
   return Object.freeze({
     get: httpGet,
     post: httpPost,
@@ -47,6 +51,7 @@ const createHttpClient = () => {
     delete: httpDelete,
     patch: httpPatch,
     addMiddleware,
+    addResponseInterceptor,
   });
 };
 

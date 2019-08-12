@@ -1,7 +1,6 @@
 import actionCreator from '@madappgang/action-creator';
-import { getError, getStatus } from '~/utils';
+import { getError } from '~/utils';
 import types from './types';
-import { logout } from '../auth/actions';
 
 const fetchSettingsAttempt = actionCreator(types.FETCH_ACCOUNT_SETTINGS_ATTEMPT);
 const fetchSettingsSuccess = actionCreator(types.FETCH_ACCOUNT_SETTINGS_SUCCESS);
@@ -11,8 +10,6 @@ const postSettingsAttempt = actionCreator(types.POST_ACCOUNT_SETTINGS_ATTEMPT);
 const postSettingsSuccess = actionCreator(types.POST_ACCOUNT_SETTINGS_SUCCESS);
 const postSettingsFailure = actionCreator(types.POST_ACCOUNT_SETTINGS_FAILURE);
 
-const UNAUTHORIZED = 401;
-
 const fetchAccountSettings = () => async (dispatch, _, services) => {
   dispatch(fetchSettingsAttempt());
 
@@ -20,12 +17,6 @@ const fetchAccountSettings = () => async (dispatch, _, services) => {
     const settings = await services.account.fetchSettings();
     dispatch(fetchSettingsSuccess(settings));
   } catch (err) {
-    const status = getStatus(err);
-
-    if (status === UNAUTHORIZED) {
-      logout()(dispatch, _, services);
-    }
-
     dispatch(fetchSettingsFailure(getError(err)));
   }
 };
@@ -37,12 +28,6 @@ const postAccountSettings = settings => async (dispatch, _, services) => {
     await services.account.postSettings(settings);
     dispatch(postSettingsSuccess(settings));
   } catch (err) {
-    const status = getStatus(err);
-
-    if (status === UNAUTHORIZED) {
-      logout()(dispatch, _, services);
-    }
-
     dispatch(postSettingsFailure(getError(err)));
   }
 };

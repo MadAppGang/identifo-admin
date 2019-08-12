@@ -23,10 +23,18 @@ const logout = () => async (dispatch, _, { auth }) => {
   dispatch(authStateChange(false));
 };
 
-const checkAuthState = () => async (dispatch, _, { auth }) => {
+const checkAuthState = () => async (dispatch, _, { auth, http }) => {
   dispatch(loginAttempt());
   const authState = await auth.checkAuthState();
   dispatch(authStateChange(authState));
+
+  http.addResponseInterceptor(response => response, (err) => {
+    if (err.response.status === 401) {
+      dispatch(logout());
+    }
+
+    return Promise.reject(err);
+  });
 };
 
 const resetError = () => ({

@@ -1,7 +1,6 @@
 import actionCreator from '@madappgang/action-creator';
-import { getError, getStatus } from '~/utils';
+import { getError } from '~/utils';
 import types from './types';
-import { logout } from '../auth/actions';
 
 const fetchAttempt = actionCreator(types.FETCH_USERS_ATTEMPT);
 const fetchSuccess = actionCreator(types.FETCH_USERS_SUCCESS);
@@ -23,8 +22,6 @@ const deleteAttempt = actionCreator(types.DELETE_USER_BY_ID_ATTEMPT);
 const deleteSuccess = actionCreator(types.DELETE_USER_BY_ID_SUCCESS);
 const deleteFailure = actionCreator(types.DELETE_USER_BY_ID_FAILURE);
 
-const UNAUTHORIZED = 401;
-
 const fetchUsers = filters => async (dispatch, _, services) => {
   dispatch(fetchAttempt());
 
@@ -32,12 +29,6 @@ const fetchUsers = filters => async (dispatch, _, services) => {
     const { users = [], total = 0 } = await services.users.fetchUsers(filters);
     dispatch(fetchSuccess({ users, total }));
   } catch (err) {
-    const status = getStatus(err);
-
-    if (status === UNAUTHORIZED) {
-      logout()(dispatch, _, services);
-    }
-
     dispatch(fetchFailure(getError(err)));
   }
 };
@@ -49,12 +40,6 @@ const postUser = user => async (dispatch, _, services) => {
     const result = await services.users.postUser(user);
     dispatch(postSuccess(result));
   } catch (err) {
-    const status = getStatus(err);
-
-    if (status === UNAUTHORIZED) {
-      logout()(dispatch, _, services);
-    }
-
     dispatch(postFailure(getError(err)));
   }
 };
@@ -66,12 +51,6 @@ const alterUser = (id, changes) => async (dispatch, _, services) => {
     const user = await services.users.alterUser(id, changes);
     dispatch(alterSuccess(user));
   } catch (err) {
-    const status = getStatus(err);
-
-    if (status === UNAUTHORIZED) {
-      logout()(dispatch, _, services);
-    }
-
     dispatch(alterFailure(getError(err)));
   }
 };
@@ -83,12 +62,6 @@ const fetchUserById = id => async (dispatch, _, services) => {
     const user = await services.users.fetchUserById(id);
     dispatch(fetchByIdSuccess(user));
   } catch (err) {
-    const status = getStatus(err);
-
-    if (status === UNAUTHORIZED) {
-      logout()(dispatch, _, services);
-    }
-
     dispatch(fetchByIdFailure(getError(err)));
   }
 };
@@ -100,12 +73,6 @@ const deleteUserById = id => async (dispatch, _, services) => {
     await services.users.deleteUserById(id);
     dispatch(deleteSuccess(id));
   } catch (err) {
-    const status = getStatus(err);
-
-    if (status === UNAUTHORIZED) {
-      logout()(dispatch, _, services);
-    }
-
     dispatch(deleteFailure(getError(err)));
   }
 };
