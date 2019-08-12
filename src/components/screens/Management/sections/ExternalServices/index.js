@@ -1,9 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import update from '@madappgang/update-by-path';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, Tab } from '~/components/shared/Tabs';
 import MailServiceSettings from './MailServiceSettings';
+import {
+  fetchExternalServicesSettings, updateExternalServicesSettings,
+} from '~/modules/settings/actions';
 
 const EmailIntegrationSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const dispatch = useDispatch();
+  const settings = useSelector(state => state.settings.externalServices);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!settings) {
+      setLoading(true);
+      dispatch(fetchExternalServicesSettings());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (settings && loading) {
+      setLoading(false);
+    }
+  }, [settings]);
+
+  const handleSubmit = (service, value) => {
+    setLoading(true);
+    const nextSettings = update(settings, {
+      [service]: value,
+    });
+    dispatch(updateExternalServicesSettings(nextSettings));
+  };
 
   return (
     <section className="iap-management-section">
@@ -24,7 +53,11 @@ const EmailIntegrationSection = () => {
             <Tab title="SMS Service" />
 
             {tabIndex === 0 && (
-              <MailServiceSettings serviceName="mailgun" onSubmit={() => {}} />
+              <MailServiceSettings
+                loading={loading}
+                serviceName={settings ? settings.mailService : ''}
+                onSubmit={value => handleSubmit('mailService', value)}
+              />
             )}
           </Tabs>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import LoadingIcon from '~/components/icons/LoadingIcon';
@@ -8,6 +8,10 @@ import { Select, Option } from '~/components/shared/Select';
 const MailServiceSettings = (props) => {
   const { loading, onCancel, onSubmit } = props;
   const [serviceName, setServiceName] = useState(props.serviceName || '');
+
+  useEffect(() => {
+    setServiceName(props.serviceName || '');
+  }, [props.serviceName]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,7 +28,7 @@ const MailServiceSettings = (props) => {
           placeholder="Select Supported Service"
         >
           <Option value="mailgun" title="Mailgun" />
-          <Option value="aws ses" title="Amazon SES" />
+          <Option value="aws_ses" title="Amazon SES" />
           <Option value="mock" title="Mock" />
         </Select>
       </Field>

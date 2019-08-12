@@ -1,5 +1,5 @@
 import update from '@madappgang/update-by-path';
-import { RECEIVE_LOGIN_SETTINGS } from './types';
+import { RECEIVE_LOGIN_SETTINGS, RECEIVE_EXTERNAL_SETTINGS } from './types';
 
 const INITIAL_STATE = {
   login: {
@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     },
     tfaType: 'app',
   },
+  externalServices: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -18,6 +19,8 @@ const reducer = (state = INITIAL_STATE, action) => {
   switch (type) {
     case RECEIVE_LOGIN_SETTINGS:
       return update(state, 'login', payload);
+    case RECEIVE_EXTERNAL_SETTINGS:
+      return update(state, 'externalServices', payload);
     default:
       return state;
   }
