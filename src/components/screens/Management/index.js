@@ -9,7 +9,7 @@ import DatabaseSection from './sections/Database';
 import ApplicationsSection from './sections/Applications';
 import AccountSection from './sections/Account';
 import GettingStartedSection from './sections/GettingStarted';
-import EmailIntegrationSection from './sections/EmailIntegration';
+import ExternalServicesSection from './sections/ExternalServices';
 import OpenIDSection from './sections/OpenID';
 import LoginTypesSection from './sections/LoginTypes';
 import MultiFactorAuthSection from './sections/MultiFactorAuth';
@@ -31,7 +31,7 @@ const ManagementScreen = () => {
             <Route path="/management/users" component={UsersSection} />
             <Route path="/management/database" component={DatabaseSection} />
             <Route path="/management/applications" component={ApplicationsSection} />
-            <Route path="/management/email_integration" component={EmailIntegrationSection} />
+            <Route path="/management/email_integration" component={ExternalServicesSection} />
             <Route path="/management/account" component={AccountSection} />
             <Route path="/management/openid" component={OpenIDSection} />
             <Route path="/management/settings" component={LoginTypesSection} />
