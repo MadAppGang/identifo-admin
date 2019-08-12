@@ -9,6 +9,15 @@ const data = {
     },
     tfaType: 'app',
   },
+  externalServices: {
+    mailService: 'mock',
+    smsService: {
+      type: 'mock',
+      accountSid: '',
+      authToken: '',
+      serviceSid: '',
+    },
+  },
 };
 
 const createSettingsServiceMock = () => {
@@ -22,9 +31,21 @@ const createSettingsServiceMock = () => {
     data.login = settings;
   };
 
+  const fetchExternalServicesSettings = async () => {
+    await pause(400);
+    return data.externalServices;
+  };
+
+  const updateExternalServicesSettings = async (settings) => {
+    await pause(400);
+    data.externalServices = settings;
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
+    fetchExternalServicesSettings,
+    updateExternalServicesSettings,
   };
 };
 

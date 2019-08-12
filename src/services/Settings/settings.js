@@ -1,16 +1,10 @@
-const serializeLoginSettings = settings => ({
-  login_with: settings.loginWith,
-  tfa_type: settings.tfaType,
-});
+import {
+  serializeLoginSettings, deserializeLoginSettings,
+} from './mappings/loginSettingsMappings';
 
-const deserializeLoginSettings = settings => ({
-  loginWith: {
-    username: !!settings.login_with.username,
-    phone: !!settings.login_with.phone,
-    federated: !!settings.login_with.federated,
-  },
-  tfaType: settings.tfa_type || '',
-});
+import {
+  serializeExternalServicesSettings, deserializeExternalServicesSettings,
+} from './mappings/externalSettingsMapping';
 
 const createSettingsService = ({ httpClient }) => {
   const fetchLoginSettings = async () => {
@@ -25,9 +19,23 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.put(url, serializeLoginSettings(settings));
   };
 
+  const fetchExternalServicesSettings = async () => {
+    const url = `${process.env.API_URL}/settings/services`;
+    const { data } = await httpClient.get(url);
+
+    return deserializeExternalServicesSettings(data);
+  };
+
+  const updateExternalServicesSettings = async (settings) => {
+    const url = `${process.env.API_URL}/settings/services`;
+    return httpClient.put(url, serializeExternalServicesSettings(settings));
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
+    fetchExternalServicesSettings,
+    updateExternalServicesSettings,
   };
 };
 
