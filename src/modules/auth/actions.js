@@ -29,7 +29,7 @@ const checkAuthState = () => async (dispatch, _, { auth, http }) => {
   dispatch(authStateChange(authState));
 
   http.addResponseInterceptor(response => response, (err) => {
-    if (err.response.status === 401) {
+    if (err.response && err.response.status === 401) {
       dispatch(logout());
     }
 
