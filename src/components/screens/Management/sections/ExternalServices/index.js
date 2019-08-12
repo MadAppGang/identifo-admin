@@ -3,6 +3,8 @@ import update from '@madappgang/update-by-path';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, Tab } from '~/components/shared/Tabs';
 import MailServiceSettings from './MailServiceSettings';
+import SmsServiceSettings from './SmsServiceSettings';
+import { createNotification } from '~/modules/notifications/actions';
 import {
   fetchExternalServicesSettings, updateExternalServicesSettings,
 } from '~/modules/settings/actions';
@@ -26,12 +28,20 @@ const EmailIntegrationSection = () => {
     }
   }, [settings]);
 
-  const handleSubmit = (service, value) => {
+  const handleSubmit = async (service, value) => {
     setLoading(true);
     const nextSettings = update(settings, {
       [service]: value,
     });
-    dispatch(updateExternalServicesSettings(nextSettings));
+
+    await dispatch(updateExternalServicesSettings(nextSettings));
+
+
+    dispatch(createNotification({
+      type: 'success',
+      title: 'Updated',
+      text: 'Settings have been updated successfully',
+    }));
   };
 
   return (
@@ -52,13 +62,23 @@ const EmailIntegrationSection = () => {
             <Tab title="Mail Service" />
             <Tab title="SMS Service" />
 
-            {tabIndex === 0 && (
-              <MailServiceSettings
-                loading={loading}
-                serviceName={settings ? settings.mailService : ''}
-                onSubmit={value => handleSubmit('mailService', value)}
-              />
-            )}
+            <>
+              {tabIndex === 0 && (
+                <MailServiceSettings
+                  loading={loading}
+                  serviceName={settings ? settings.mailService : ''}
+                  onSubmit={value => handleSubmit('mailService', value)}
+                />
+              )}
+
+              {tabIndex === 1 && (
+                <SmsServiceSettings
+                  loading={loading}
+                  settings={settings ? settings.smsService : null}
+                  onSubmit={value => handleSubmit('smsService', value)}
+                />
+              )}
+            </>
           </Tabs>
         </div>
       </main>
