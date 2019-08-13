@@ -4,7 +4,7 @@ import SessionStorageSettings from './SessionStorageSettings';
 import { Tabs, Tab } from '~/components/shared/Tabs';
 
 const AccountSection = () => {
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <section className="iap-management-section">
