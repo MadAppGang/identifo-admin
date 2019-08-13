@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
@@ -6,13 +8,22 @@ import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import { Select, Option } from '~/components/shared/Select';
+import { sessionStorageFormRules } from './validationRules';
 
 const MEMORY_STORAGE = 'memory';
 const REDIS_STORAGE = 'redis';
-const DYNAMONDB_STORAGE = 'dynamodb';
+const DYNAMODB_STORAGE = 'dynamodb';
+
+const validate = Validation.applyRules(sessionStorageFormRules);
+
+const foreignFieldsByStorageType = {
+  [MEMORY_STORAGE]: ['address', 'password', 'db', 'region', 'endpoint'],
+  [REDIS_STORAGE]: ['region', 'endpoint'],
+  [DYNAMODB_STORAGE]: ['address', 'password', 'db'],
+};
 
 const SessionStorageForm = (props) => {
-  const { loading, error } = props;
+  const { loading, error, onSubmit } = props;
 
   const [storageType, setStorageType] = useState('');
   const [sessionDuration, setSessionDuration] = useState('');
@@ -22,13 +33,57 @@ const SessionStorageForm = (props) => {
   const [region, setRegion] = useState('');
   const [endpoint, setEndpoint] = useState('');
 
+  const [validation, setValidation] = useState({
+    sessionDuration: '',
+    address: '',
+    password: '',
+    db: '',
+    region: '',
+    endpoint: '',
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const report = validate('all', {
+      sessionDuration, address, password, db, region, endpoint,
+    }, {
+      omit: foreignFieldsByStorageType[storageType],
+    });
+
+    if (Validation.hasError(report)) {
+      setValidation(report);
+      return;
+    }
+
+    onSubmit({
+      type: storageType,
+      sessionDuration,
+      address,
+      db,
+      region,
+      endpoint,
+    });
+  };
+
+  const handleInput = ({ target }, setValue) => {
+    const { name: field, value } = target;
+
+    if (field in validation) {
+      setValidation(update(validation, { [field]: '' }));
+    }
+    setValue(value);
+  };
+
+  const handleBlur = ({ target }) => {
+    const { name: field, value } = target;
+    setValidation(update(validation, {
+      [field]: validate(field, { [field]: value }),
+    }));
   };
 
   return (
     <form className="iap-settings-form" onSubmit={handleSubmit}>
-
       {!!error && (
         <FormErrorMessage error={error} />
       )}
@@ -39,27 +94,34 @@ const SessionStorageForm = (props) => {
           disabled={loading}
           onChange={setStorageType}
           placeholder="Select Storage Type"
+          errorMessage={validation.storageType}
         >
           <Option value={MEMORY_STORAGE} title="Memory" />
           <Option value={REDIS_STORAGE} title="Redis" />
-          <Option value={DYNAMONDB_STORAGE} title="DynamoDB" />
+          <Option value={DYNAMODB_STORAGE} title="DynamoDB" />
         </Select>
       </Field>
 
       <Field label="Session Duration">
         <Input
+          name="sessionDuration"
           value={sessionDuration}
           placeholder="Specify session duration in seconds"
-          onChange={e => setSessionDuration(e.target.value)}
+          onChange={e => handleInput(e, setSessionDuration)}
+          onBlur={handleBlur}
+          errorMessage={validation.sessionDuration}
         />
       </Field>
 
       {storageType === REDIS_STORAGE && (
         <Field label="Address">
           <Input
+            name="address"
             value={address}
             placeholder="Specify address"
-            onChange={e => setAddress(e.target.value)}
+            onChange={e => handleInput(e, setAddress)}
+            onBlur={handleBlur}
+            errorMessage={validation.address}
           />
         </Field>
       )}
@@ -67,9 +129,12 @@ const SessionStorageForm = (props) => {
       {storageType === REDIS_STORAGE && (
         <Field label="Password">
           <Input
+            name="password"
             value={password}
             placeholder="Specify password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={e => handleInput(e, setPassword)}
+            onBlur={handleBlur}
+            errorMessage={validation.password}
           />
         </Field>
       )}
@@ -77,29 +142,38 @@ const SessionStorageForm = (props) => {
       {storageType === REDIS_STORAGE && (
         <Field label="DB">
           <Input
+            name="db"
             value={db}
             placeholder="Specify DB"
-            onChange={e => setDb(e.target.value)}
+            onChange={e => handleInput(e, setDb)}
+            onBlur={handleBlur}
+            errorMessage={validation.db}
           />
         </Field>
       )}
 
-      {storageType === DYNAMONDB_STORAGE && (
+      {storageType === DYNAMODB_STORAGE && (
         <Field label="Region">
           <Input
+            name="region"
             value={region}
             placeholder="Specify region"
-            onChange={e => setRegion(e.target.value)}
+            onChange={e => handleInput(e, setRegion)}
+            onBlur={handleBlur}
+            errorMessage={validation.region}
           />
         </Field>
       )}
 
-      {storageType === DYNAMONDB_STORAGE && (
+      {storageType === DYNAMODB_STORAGE && (
         <Field label="Endpoint">
           <Input
+            name="endpoint"
             value={endpoint}
             placeholder="Specify endpoint"
-            onChange={e => setEndpoint(e.target.value)}
+            onChange={e => handleInput(e, setEndpoint)}
+            onBlur={handleBlur}
+            errorMessage={validation.endpoint}
           />
         </Field>
       )}
@@ -108,7 +182,7 @@ const SessionStorageForm = (props) => {
         <Button
           type="submit"
           error={!loading && error}
-          disabled={loading}
+          disabled={loading || !storageType}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
           Save changes

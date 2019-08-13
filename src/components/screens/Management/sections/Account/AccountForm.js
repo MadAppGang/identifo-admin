@@ -8,14 +8,14 @@ import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import accountFormValidationRules from './validationRules';
+import { adminAccountFormRules } from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 
 class AdminAccountForm extends Component {
   constructor({ settings }) {
     super();
 
-    this.validate = Validation.applyRules(accountFormValidationRules);
+    this.validate = Validation.applyRules(adminAccountFormRules);
 
     this.state = {
       email: settings.email,

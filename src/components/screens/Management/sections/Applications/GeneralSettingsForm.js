@@ -14,6 +14,7 @@ import SecretField from './SecretField';
 import MultipleInput from '~/components/shared/MultipleInput';
 
 const extractValue = fn => event => fn(event.target.value);
+const validate = Validation.applyRules(validationRules);
 
 const ApplicationGeneralSettingsForm = (props) => {
   const { loading, error, excludeFields, onSubmit, onCancel } = props;
@@ -30,8 +31,6 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [active, setActive] = useState(application.active || false);
   const [debugTfaCode, setDebugTfaCode] = useState(application.debug_tfa_code || '');
   const [scopes, setScopes] = useState(application.scopes || []);
-
-  const validate = Validation.applyRules(validationRules);
 
   const [validation, setValidation] = useState({
     type: '',
