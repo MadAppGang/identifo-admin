@@ -72,7 +72,7 @@ const SessionStorageForm = (props) => {
       type: storageType,
       sessionDuration: Number(sessionDuration) || DEFAULT_SESSION_DURATION,
       address,
-      db,
+      db: Number(db) || undefined,
       region,
       endpoint,
     });

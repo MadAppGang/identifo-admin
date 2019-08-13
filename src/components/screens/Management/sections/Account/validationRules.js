@@ -38,7 +38,8 @@ export const sessionStorageFormRules = {
     notEmpty('You have to specify password'),
   ],
   db: [
-    notEmpty('You have to specify db'),
+    notEmpty('You have to specify db of type int'),
+    onlyDigits('Db should be of type int'),
   ],
   region: [
     notEmpty('You have to specify region'),
