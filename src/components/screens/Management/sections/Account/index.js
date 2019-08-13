@@ -1,3 +1,3 @@
-import './Settings.css';
+import './Account.css';
 
 export { default } from './Account';

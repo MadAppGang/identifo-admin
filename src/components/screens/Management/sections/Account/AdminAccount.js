@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Preview from './Preview';
-import Form from './Form';
+import AccountForm from './AccountForm';
 import Button from '~/components/shared/Button';
 import SectionHeader from '~/components/shared/SectionHeader';
 import {
@@ -78,42 +78,36 @@ class AdminAccountSettings extends Component {
     }
 
     return (
-      <>
-        <p className="iap-management-section__title">
-          Account Settings
-        </p>
+      <div className="iap-settings-section">
+        <SectionHeader
+          title="Admin Account"
+          description="These are credentials used to login into admin panel"
+        />
 
-        <div className="iap-settings-section">
-          <SectionHeader
-            title="Admin Account"
-            description="These are credentials used to login into admin panel"
-          />
-
-          <main>
-            {editing && (
-              <Form
-                error={error}
-                posting={posting}
-                settings={settings}
-                onCancel={this.handleEditCancel}
-                onSubmit={this.handleFormSubmit}
-              />
-            )}
-            {!editing && (
-              <>
-                <Preview fetching={fetching} settings={settings} />
-                <Button
-                  disabled={fetching}
-                  Icon={fetching ? LoadingIcon : EditIcon}
-                  onClick={this.handleEditClick}
-                >
-                  Edit admin account
-                </Button>
-              </>
-            )}
-          </main>
-        </div>
-      </>
+        <main>
+          {editing && (
+            <AccountForm
+              error={error}
+              posting={posting}
+              settings={settings}
+              onCancel={this.handleEditCancel}
+              onSubmit={this.handleFormSubmit}
+            />
+          )}
+          {!editing && (
+            <>
+              <Preview fetching={fetching} settings={settings} />
+              <Button
+                disabled={fetching}
+                Icon={fetching ? LoadingIcon : EditIcon}
+                onClick={this.handleEditClick}
+              >
+                Edit admin account
+              </Button>
+            </>
+          )}
+        </main>
+      </div>
     );
   }
 }
