@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import update from '@madappgang/update-by-path';
 import * as Validation from '@dprovodnikov/validation';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
@@ -13,6 +13,7 @@ import { sessionStorageFormRules } from './validationRules';
 const MEMORY_STORAGE = 'memory';
 const REDIS_STORAGE = 'redis';
 const DYNAMODB_STORAGE = 'dynamodb';
+const DEFAULT_SESSION_DURATION = 300;
 
 const validate = Validation.applyRules(sessionStorageFormRules);
 
@@ -23,7 +24,7 @@ const foreignFieldsByStorageType = {
 };
 
 const SessionStorageForm = (props) => {
-  const { loading, error, onSubmit } = props;
+  const { loading, settings, error, onSubmit } = props;
 
   const [storageType, setStorageType] = useState('');
   const [sessionDuration, setSessionDuration] = useState('');
@@ -42,6 +43,17 @@ const SessionStorageForm = (props) => {
     endpoint: '',
   });
 
+  useEffect(() => {
+    if (!settings) return;
+    if (settings.type) setStorageType(settings.type);
+    if (settings.sessionDuration) setSessionDuration(settings.sessionDuration.toString());
+    if (settings.address) setAddress(settings.address);
+    if (settings.password) setPassword(settings.password);
+    if (settings.db) setDb(settings.db);
+    if (settings.region) setRegion(settings.region);
+    if (settings.endpoint) setEndpoint(settings.endpoint);
+  }, [settings]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -58,7 +70,7 @@ const SessionStorageForm = (props) => {
 
     onSubmit({
       type: storageType,
-      sessionDuration,
+      sessionDuration: Number(sessionDuration) || DEFAULT_SESSION_DURATION,
       address,
       db,
       region,
@@ -109,6 +121,7 @@ const SessionStorageForm = (props) => {
           placeholder="Specify session duration in seconds"
           onChange={e => handleInput(e, setSessionDuration)}
           onBlur={handleBlur}
+          disabled={loading}
           errorMessage={validation.sessionDuration}
         />
       </Field>
@@ -121,6 +134,7 @@ const SessionStorageForm = (props) => {
             placeholder="Specify address"
             onChange={e => handleInput(e, setAddress)}
             onBlur={handleBlur}
+            disabled={loading}
             errorMessage={validation.address}
           />
         </Field>
@@ -131,6 +145,7 @@ const SessionStorageForm = (props) => {
           <Input
             name="password"
             value={password}
+            disabled={loading}
             placeholder="Specify password"
             onChange={e => handleInput(e, setPassword)}
             onBlur={handleBlur}
@@ -144,6 +159,7 @@ const SessionStorageForm = (props) => {
           <Input
             name="db"
             value={db}
+            disabled={loading}
             placeholder="Specify DB"
             onChange={e => handleInput(e, setDb)}
             onBlur={handleBlur}
@@ -158,6 +174,7 @@ const SessionStorageForm = (props) => {
             name="region"
             value={region}
             placeholder="Specify region"
+            disabled={loading}
             onChange={e => handleInput(e, setRegion)}
             onBlur={handleBlur}
             errorMessage={validation.region}
@@ -171,6 +188,7 @@ const SessionStorageForm = (props) => {
             name="endpoint"
             value={endpoint}
             placeholder="Specify endpoint"
+            disabled={loading}
             onChange={e => handleInput(e, setEndpoint)}
             onBlur={handleBlur}
             errorMessage={validation.endpoint}

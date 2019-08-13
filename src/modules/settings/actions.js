@@ -36,8 +36,8 @@ export const updateExternalServicesSettings = settings => async (dispatch, _, se
   });
 };
 
-export const fetchSessionStorageSettings = settings => async (dispatch, _, services) => {
-  await services.settings.updateSessionStorageSettings(settings);
+export const fetchSessionStorageSettings = () => async (dispatch, _, services) => {
+  const settings = await services.settings.fetchSessionStorageSettings();
   dispatch({
     type: RECEIVE_SESSION_STORAGE_SETTINGS,
     payload: settings,
