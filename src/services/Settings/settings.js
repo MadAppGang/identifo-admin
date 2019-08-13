@@ -6,6 +6,10 @@ import {
   serializeExternalServicesSettings, deserializeExternalServicesSettings,
 } from './mappings/externalSettingsMapping';
 
+import {
+  serializeSessionStorageSettings, deserializeSessionStorageSettings,
+} from './mappings/sessionSettingsMappings';
+
 const createSettingsService = ({ httpClient }) => {
   const fetchLoginSettings = async () => {
     const url = `${process.env.API_URL}/settings/login`;
@@ -31,11 +35,25 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.put(url, serializeExternalServicesSettings(settings));
   };
 
+  const fetchSessionStorageSettings = async () => {
+    const url = `${process.env.API_URL}/settings/storage/session`;
+    const { data } = await httpClient.get(url);
+
+    return deserializeSessionStorageSettings(data);
+  };
+
+  const updateSessionStorageSettings = async (settings) => {
+    const url = `${process.env.API_URL}/settings/storage/session`;
+    return httpClient.put(url, serializeSessionStorageSettings(settings));
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
     fetchExternalServicesSettings,
     updateExternalServicesSettings,
+    fetchSessionStorageSettings,
+    updateSessionStorageSettings,
   };
 };
 

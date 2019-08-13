@@ -18,6 +18,15 @@ const data = {
       serviceSid: '',
     },
   },
+  sessionStorage: {
+    type: 'memory',
+    sessionDuration: 300,
+    address: '',
+    password: '',
+    db: '',
+    region: '',
+    endpoint: '',
+  },
 };
 
 const createSettingsServiceMock = () => {
@@ -41,11 +50,23 @@ const createSettingsServiceMock = () => {
     data.externalServices = settings;
   };
 
+  const fetchSessionStorageSettings = async () => {
+    await pause(400);
+    return data.sessionStorage;
+  };
+
+  const updateSessionStorageSettings = async (settings) => {
+    await pause(400);
+    data.sessionStorage = settings;
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
     fetchExternalServicesSettings,
     updateExternalServicesSettings,
+    fetchSessionStorageSettings,
+    updateSessionStorageSettings,
   };
 };
 
