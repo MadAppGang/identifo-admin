@@ -6,7 +6,7 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import { Select, Option } from '~/components/shared/Select';
 
 const MailServiceSettings = (props) => {
-  const { loading, onCancel, onSubmit } = props;
+  const { loading, onSubmit } = props;
   const [serviceName, setServiceName] = useState(props.serviceName || '');
 
   useEffect(() => {
@@ -40,9 +40,6 @@ const MailServiceSettings = (props) => {
           Icon={loading ? LoadingIcon : SaveIcon}
         >
           Save changes
-        </Button>
-        <Button transparent disabled={loading} onClick={onCancel}>
-          Cancel
         </Button>
       </footer>
     </form>

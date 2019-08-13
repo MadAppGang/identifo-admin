@@ -7,7 +7,7 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import { Select, Option } from '~/components/shared/Select';
 
 const SmsServiceSettings = (props) => {
-  const { settings, loading, onCancel, onSubmit } = props;
+  const { settings, loading, onSubmit } = props;
 
   const [type, setType] = useState(settings ? settings.type : '');
   const [accountSid, setAccountSid] = useState(settings ? settings.accountSid : '');
@@ -85,9 +85,6 @@ const SmsServiceSettings = (props) => {
           Icon={loading ? LoadingIcon : SaveIcon}
         >
           Save changes
-        </Button>
-        <Button transparent disabled={loading} onClick={onCancel}>
-          Cancel
         </Button>
       </footer>
     </form>
