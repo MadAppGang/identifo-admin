@@ -10,8 +10,8 @@ const SessionStorageSettings = (props) => {
 
   const settings = {};
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (settings) => {
+    
   };
 
   return (

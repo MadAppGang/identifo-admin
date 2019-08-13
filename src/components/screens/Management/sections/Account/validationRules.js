@@ -1,5 +1,17 @@
 import { matches, notEmpty, emailFormat } from '@dprovodnikov/validation';
 
+const onlyDigits = message => (value) => {
+  if (!value) {
+    return '';
+  }
+
+  if (!Number(value)) {
+    return message;
+  }
+
+  return Number.isNaN(Number(value)) ? message : '';
+};
+
 export const adminAccountFormRules = {
   email: [
     notEmpty('Email should not be empty'),
@@ -16,7 +28,8 @@ export const adminAccountFormRules = {
 
 export const sessionStorageFormRules = {
   sessionDuration: [
-    notEmpty('You have to specify session duration (in seconds).'),
+    notEmpty('You have to specify session duration (in seconds)'),
+    onlyDigits('Duration should be specified in seconds'),
   ],
   address: [
     notEmpty('You have to specify address'),
@@ -29,8 +42,5 @@ export const sessionStorageFormRules = {
   ],
   region: [
     notEmpty('You have to specify region'),
-  ],
-  endpoint: [
-    notEmpty('You have to specify endpoint'),
   ],
 };
