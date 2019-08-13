@@ -45,7 +45,7 @@
   color: #3CA6F5;
 }
 
-.iap-dropdown-icon {
+.iap-select-icon {
   height: 25px;
   width: 25px;
   padding: 5px;
@@ -54,11 +54,11 @@
   cursor: pointer;
 }
 
-.iap-dropdown-icon rect {
+.iap-select-icon rect {
   fill: var(--main-color);
 }
 
-.iap-dropdown-icon:hover {
+.iap-select-icon:hover {
   background-color: #eee;
 }
 

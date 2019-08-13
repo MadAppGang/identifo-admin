@@ -40,13 +40,13 @@ const Select = (props) => {
         renderButton={() => {
           if (loading) {
             return (
-              <LoadingIcon className="iap-dropdown-icon" />
+              <LoadingIcon className="iap-select-icon" />
             );
           }
 
           return (
             <DropdownIcon
-              className="iap-dropdown-icon"
+              className="iap-select-icon"
               onClick={isOpen ? close : open}
             />
           );
