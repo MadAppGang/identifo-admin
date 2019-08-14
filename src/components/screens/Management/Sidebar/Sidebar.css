@@ -1,7 +1,7 @@
 .iap-management-sidebar {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 240px;
   min-height: calc(100vh - 80px); /* header height */
   padding: 50px 0;
   background-color: #fff;

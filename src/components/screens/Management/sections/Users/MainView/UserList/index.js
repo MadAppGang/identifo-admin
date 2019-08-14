@@ -15,7 +15,7 @@ const datagrid = {
   },
   name: {
     title: 'Username',
-    width: '25%',
+    width: '30%',
   },
   email: {
     title: 'Email',
@@ -27,7 +27,7 @@ const datagrid = {
   },
   num_of_logins: {
     title: '# of Logins',
-    width: '15%',
+    width: '10%',
   },
 };
 

@@ -7,7 +7,7 @@ const data = {
     {
       id: '507f1f77bcf86cd799439011',
       username: 'dprovodnikov',
-      email: 'dp@madappgang.com',
+      email: '@madappgang.com',
       latest_login_time: Date.now() / 1000,
       num_of_logins: 0,
       tfa_info: {
@@ -23,7 +23,8 @@ const data = {
         is_enabled: false,
       },
       active: true,
-      username: '+380993233430',
+      username: 'test3@madappgang.com',
+      email: 'test3@madappgang.com',
       phone: '+380993233430',
     },
     {
