@@ -1,5 +1,5 @@
 import React from 'react';
-import { getInitials } from '~/utils';
+import { isPhone, getInitials } from '~/utils';
 import PhoneIcon from '~/components/icons/PhoneIcon.svg';
 
 const UserIcon = (props) => {
@@ -13,6 +13,8 @@ const UserIcon = (props) => {
     } else {
       contents = '-';
     }
+  } else if (isPhone(username)) {
+    contents = <PhoneIcon className="user-phone-icon" />;
   } else {
     contents = getInitials(username, email);
   }

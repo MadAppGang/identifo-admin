@@ -2,6 +2,10 @@ import randomstring from 'randomstring';
 
 export const pause = timeout => new Promise(resolve => setTimeout(resolve, timeout));
 
+export const isPhone = (value) => {
+  return !!(/^[+][0-9]{9,15}$/.test(value));
+};
+
 export const getError = (axiosErr) => {
   if (axiosErr.response && axiosErr.response.data) {
     return new Error(axiosErr.response.data.error);

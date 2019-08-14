@@ -23,6 +23,16 @@ const data = {
         is_enabled: false,
       },
       active: true,
+      username: '+380993233430',
+      phone: '+380993233430',
+    },
+    {
+      id: '507f1f77bcf86cd799439013',
+      tfa_info: {
+        is_enabled: false,
+      },
+      active: true,
+      username: '',
       phone: '+380993233430',
     },
   ],
