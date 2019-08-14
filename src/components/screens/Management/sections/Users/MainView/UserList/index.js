@@ -15,15 +15,15 @@ const datagrid = {
   },
   name: {
     title: 'Username',
-    width: '30%',
+    width: '25%',
   },
   email: {
     title: 'Email',
-    width: '31%',
+    width: '30%',
   },
-  latest_login_time: {
-    title: 'Latest Login',
-    width: '18%',
+  phone: {
+    title: 'Phone',
+    width: '25%',
   },
   num_of_logins: {
     title: '# of Logins',

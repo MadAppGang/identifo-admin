@@ -44,3 +44,9 @@
 .iap-users-row__fake-logins {
   width: 30px;
 }
+
+.user-phone-icon {
+  height: 15px;
+  width: 15px;
+  fill: white;
+}

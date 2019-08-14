@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DatagridRow } from '~/components/shared/Datagrid';
-import { getInitials } from '~/utils';
-import { formatDateForTable } from '~/utils/datetime';
+import UserIcon from './UserIcon';
 
 const UserRow = ({ data, config }) => (
   <DatagridRow>
     <div style={{ width: config.icon.width }}>
       <div className="iap-datagrid-row__user-icon">
-        {getInitials(data.username, data.email)}
+        <UserIcon {...data} />
       </div>
     </div>
     <div style={{ width: config.name.width }}>
@@ -17,8 +16,8 @@ const UserRow = ({ data, config }) => (
     <div style={{ width: config.email.width }}>
       {data.email || '-'}
     </div>
-    <div style={{ width: config.latest_login_time.width }}>
-      {formatDateForTable(data.latest_login_time ? data.latest_login_time * 1000 : 0)}
+    <div style={{ width: config.phone.width }}>
+      {data.phone || '-'}
     </div>
     <div style={{ width: config.num_of_logins.width }}>
       {data.num_of_logins || 0}

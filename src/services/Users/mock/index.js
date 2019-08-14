@@ -6,7 +6,7 @@ const data = {
   users: [
     {
       id: '507f1f77bcf86cd799439011',
-      username: 'Denys Provodnikov',
+      username: 'dprovodnikov',
       email: 'dp@madappgang.com',
       latest_login_time: Date.now() / 1000,
       num_of_logins: 0,
@@ -15,6 +15,14 @@ const data = {
       },
       access_role: '',
       active: false,
+      phone: '+380993233430',
+    },
+    {
+      id: '507f1f77bcf86cd799439012',
+      tfa_info: {
+        is_enabled: false,
+      },
+      active: true,
       phone: '+380993233430',
     },
   ],
