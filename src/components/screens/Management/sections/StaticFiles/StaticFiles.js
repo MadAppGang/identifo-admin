@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs } from '~/components/shared/Tabs';
 import StaticFilesGeneralForm from './StaticFilesGeneralForm';
+import EmailTemplatesForm from './EmailTemplatesForm';
 import {
   fetchStaticFilesSettings, updateStaticFilesSettings,
 } from '~/modules/settings/actions';
@@ -53,6 +54,14 @@ const StaticFilesSection = () => {
           {tabIndex === 0 && (
             <StaticFilesGeneralForm
               settings={settings || {}}
+              loading={loading}
+              onSubmit={handleSubmit}
+            />
+          )}
+
+          {tabIndex === 1 && (
+            <EmailTemplatesForm
+              settings={settings}
               loading={loading}
               onSubmit={handleSubmit}
             />

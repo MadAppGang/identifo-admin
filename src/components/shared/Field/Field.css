@@ -1,9 +1,9 @@
-.iap-form__field {
+.form-field {
   margin: 10px 0;
   position: relative;
 }
 
-.iap-form__label {
+.form-field__label {
   color: #5d5d5d;
   font-weight: bold;
   font-size: 12px;
@@ -12,9 +12,14 @@
   align-items: center;
 }
 
-.iap-form__label-icon {
+.form-field__label-icon {
   height: 18px;
   width: 18px;
   margin-left: 5px;
   fill: #5d5d5d;
+}
+
+.form-field__subtext {
+  font-size: 14px;
+  color: #aaa;
 }
