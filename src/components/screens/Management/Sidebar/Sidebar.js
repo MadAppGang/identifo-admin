@@ -55,15 +55,15 @@ class Sidebar extends Component {
           Icon: ExternalServicesIcon,
         },
         {
+          title: 'Static Files',
+          path: '/management/static',
+          Icon: StaticFilesIcon,
+        },
+        {
           title: 'Multi-factor Auth',
           path: '/management/multi-factor_auth',
           Icon: MultiFactorAuthIcon,
           disabled: true,
-        },
-        {
-          title: 'Static Files',
-          path: '/management/static',
-          Icon: StaticFilesIcon,
         },
         {
           title: 'Hosted Pages',

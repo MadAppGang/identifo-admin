@@ -10,11 +10,11 @@ import ApplicationsSection from './sections/Applications';
 import AccountSection from './sections/Account';
 import GettingStartedSection from './sections/GettingStarted';
 import ExternalServicesSection from './sections/ExternalServices';
-import OpenIDSection from './sections/OpenID';
 import LoginTypesSection from './sections/LoginTypes';
 import MultiFactorAuthSection from './sections/MultiFactorAuth';
 import HostedPagesSection from './sections/HostedPages';
 import NotFoundSection from './sections/404';
+import StaticFilesSection from './sections/StaticFiles';
 import Container from '~/components/shared/Container';
 import { NotificationContainer } from '~/components/shared/Notifications';
 import './Management.css';
@@ -33,9 +33,9 @@ const ManagementScreen = () => {
             <Route path="/management/applications" component={ApplicationsSection} />
             <Route path="/management/email_integration" component={ExternalServicesSection} />
             <Route path="/management/account" component={AccountSection} />
-            <Route path="/management/openid" component={OpenIDSection} />
             <Route path="/management/settings" component={LoginTypesSection} />
             <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
+            <Route path="/management/static" component={StaticFilesSection} />
             <Route path="/management/hosted_pages" component={HostedPagesSection} />
             <Route component={NotFoundSection} />
           </Switch>
