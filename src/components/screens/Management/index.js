@@ -8,7 +8,7 @@ import UsersSection from './sections/Users';
 import DatabaseSection from './sections/Database';
 import ApplicationsSection from './sections/Applications';
 import AccountSection from './sections/Account';
-import GettingStartedSection from './sections/GettingStarted';
+import GeneralSection from './sections/General';
 import ExternalServicesSection from './sections/ExternalServices';
 import LoginTypesSection from './sections/LoginTypes';
 import MultiFactorAuthSection from './sections/MultiFactorAuth';
@@ -27,7 +27,7 @@ const ManagementScreen = () => {
         <Container>
           <Sidebar />
           <Switch>
-            <Route exact path="/management" component={GettingStartedSection} />
+            <Route exact path="/management" component={GeneralSection} />
             <Route path="/management/users" component={UsersSection} />
             <Route path="/management/database" component={DatabaseSection} />
             <Route path="/management/applications" component={ApplicationsSection} />

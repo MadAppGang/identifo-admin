@@ -1,13 +1,13 @@
 import React from 'react';
 
-const GettingStartedSection = () => {
+const GeneralSection = () => {
   return (
     <section className="iap-management-section">
       <p className="iap-management-section__title">
-        Getting Started
+        General Settings
       </p>
     </section>
   );
 };
 
-export default GettingStartedSection;
+export default GeneralSection;

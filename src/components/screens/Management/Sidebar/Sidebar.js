@@ -9,6 +9,7 @@ import ExternalServicesIcon from '~/components/icons/ExternalServicesIcon.svg';
 import LoginTypesIcon from '~/components/icons/LoginTypesIcon.svg';
 import MultiFactorAuthIcon from '~/components/icons/MultiFactorAuthIcon.svg';
 import HostedPagesIcon from '~/components/icons/HostedPagesIcon.svg';
+import GearIcon from '~/components/icons/GearIcon.svg';
 import Section from './Section';
 
 class Sidebar extends Component {
@@ -18,16 +19,10 @@ class Sidebar extends Component {
     this.state = {
       sections: [
         {
-          title: 'Getting started',
+          title: 'General',
           path: '/management',
           exact: true,
-          Icon: GettingStartedIcon,
-          disabled: true,
-        },
-        {
-          title: 'Users',
-          path: '/management/users',
-          Icon: UsersIcon,
+          Icon: GearIcon,
         },
         {
           title: 'Account',
@@ -35,14 +30,19 @@ class Sidebar extends Component {
           Icon: AdminIcon,
         },
         {
-          title: 'Storages',
-          path: '/management/database',
-          Icon: DatabaseIcon,
+          title: 'Users',
+          path: '/management/users',
+          Icon: UsersIcon,
         },
         {
           title: 'Applications',
           path: '/management/applications',
           Icon: ApplicationsIcon,
+        },
+        {
+          title: 'Storages',
+          path: '/management/database',
+          Icon: DatabaseIcon,
         },
         {
           title: 'Login Types',

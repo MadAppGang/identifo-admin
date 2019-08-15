@@ -9,7 +9,7 @@ const ManagementScreenHeader = () => {
     <header className="iap-management-header">
       <Container>
         <div className="iap-management-header__inner">
-          <Link to="/management/users" className="rrdl">
+          <Link to="/management" className="rrdl">
             <span className="iap-management-header__logo">
               identifo
             </span>
