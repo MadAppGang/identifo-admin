@@ -5,6 +5,7 @@ import StaticFilesGeneralForm from './StaticFilesGeneralForm';
 import {
   fetchStaticFilesSettings, updateStaticFilesSettings,
 } from '~/modules/settings/actions';
+import { createNotification } from '~/modules/notifications/actions';
 
 const StaticFilesSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -27,6 +28,12 @@ const StaticFilesSection = () => {
     setLoading(true);
     await dispatch(updateStaticFilesSettings(nextSettings));
     setLoading(false);
+
+    dispatch(createNotification({
+      type: 'success',
+      title: 'Updated',
+      text: 'Settings have been updated successfully',
+    }));
   };
 
   return (

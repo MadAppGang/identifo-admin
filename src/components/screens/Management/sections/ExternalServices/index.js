@@ -36,7 +36,6 @@ const EmailIntegrationSection = () => {
 
     await dispatch(updateExternalServicesSettings(nextSettings));
 
-
     dispatch(createNotification({
       type: 'success',
       title: 'Updated',
