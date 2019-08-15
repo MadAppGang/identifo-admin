@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useDropdown from 'use-dropdown';
 import DropdownIcon from '~/components/icons/DropdownIcon';
 import LogoutSection from './LogoutSection';
 import AccountSection from './AccountSection';
+import { fetchAccountSettings } from '~/modules/account/actions';
 import './Profile.css';
 
 const ProfileDropdown = () => {
   const [containerRef, isOpen, open, close] = useDropdown();
+  const dispatch = useDispatch();
+  const admin = useSelector(s => s.account.settings);
+
+  useEffect(() => {
+    dispatch(fetchAccountSettings());
+  }, []);
 
   return (
     <div className="iap-header-profile" ref={containerRef}>
@@ -15,7 +23,7 @@ const ProfileDropdown = () => {
         className="iap-header-profile__trigger"
         onClick={open}
       >
-        <span>Admin Panel</span>
+        <span>{admin ? admin.email : 'Admin Panel'}</span>
         <DropdownIcon className="iap-dropdown-icon" />
       </button>
       {isOpen && (
