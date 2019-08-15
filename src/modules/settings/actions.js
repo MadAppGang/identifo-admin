@@ -2,6 +2,7 @@ import {
   RECEIVE_LOGIN_SETTINGS,
   RECEIVE_EXTERNAL_SETTINGS,
   RECEIVE_SESSION_STORAGE_SETTINGS,
+  RECEIVE_STATIC_FILES_SETTINGS,
 } from './types';
 
 export const fetchLoginSettings = () => async (dispatch, _, services) => {
@@ -48,6 +49,22 @@ export const updateSessionStorageSettings = settings => async (dispatch, _, serv
   await services.settings.updateSessionStorageSettings(settings);
   dispatch({
     type: RECEIVE_SESSION_STORAGE_SETTINGS,
+    payload: settings,
+  });
+};
+
+export const fetchStaticFilesSettings = () => async (dispatch, _, services) => {
+  const settings = await services.settings.fetchStaticFilesSettings();
+  dispatch({
+    type: RECEIVE_STATIC_FILES_SETTINGS,
+    payload: settings,
+  });
+};
+
+export const updateStaticFilesSettings = settings => async (dispatch, _, services) => {
+  await services.settings.updateStaticFilesSettings(settings);
+  dispatch({
+    type: RECEIVE_STATIC_FILES_SETTINGS,
     payload: settings,
   });
 };

@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs } from '~/components/shared/Tabs';
 import StaticFilesGeneralForm from './StaticFilesGeneralForm';
+import {
+  fetchStaticFilesSettings, updateStaticFilesSettings,
+} from '~/modules/settings/actions';
 
 const StaticFilesSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const settings = null;
+  const settings = useSelector(s => s.settings.staticFiles);
 
-  const handleSubmit = (nextSettings) => {
+  useEffect(() => {
+    const fetchSettings = async () => {
+      setLoading(true);
+      await dispatch(fetchStaticFilesSettings());
+      setLoading(false);
+    };
+
+    fetchSettings();
+  }, []);
+
+  const handleSubmit = async (nextSettings) => {
     setLoading(true);
-
-    console.log(nextSettings);
-
+    await dispatch(updateStaticFilesSettings(nextSettings));
     setLoading(false);
   };
 

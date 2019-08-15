@@ -27,6 +27,19 @@ const data = {
     region: '',
     endpoint: '',
   },
+  staticFiles: {
+    serverConfigPath: 'server-config.yaml',
+    staticFolderPath: './web/static',
+    emailTemplatesPath: './email_templates',
+    emailTemplateNames: {
+      welcome: 'welcome.html',
+      resetPassword: 'reset_password.html',
+      invite: 'invite_email.html',
+      verify: 'verify_email.html',
+      tfa: 'tfa_email.html',
+    },
+    adminPanelBuildPath: './admin_panel/build',
+  },
 };
 
 const createSettingsServiceMock = () => {
@@ -60,6 +73,16 @@ const createSettingsServiceMock = () => {
     data.sessionStorage = settings;
   };
 
+  const fetchStaticFilesSettings = async () => {
+    await pause(400);
+    return data.staticFiles;
+  };
+
+  const updateStaticFilesSettings = async (settings) => {
+    await pause(400);
+    data.staticFiles = settings;
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -67,6 +90,8 @@ const createSettingsServiceMock = () => {
     updateExternalServicesSettings,
     fetchSessionStorageSettings,
     updateSessionStorageSettings,
+    fetchStaticFilesSettings,
+    updateStaticFilesSettings,
   };
 };
 
