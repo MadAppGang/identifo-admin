@@ -22,7 +22,7 @@ class Sidebar extends Component {
         {
           title: 'Account',
           path: '/management/account',
-          Icon: icons.AccountIcon,
+          Icon: icons.AdminIcon,
         },
         {
           title: 'Storages',
@@ -37,22 +37,22 @@ class Sidebar extends Component {
         {
           title: 'Login Types',
           path: '/management/settings',
-          Icon: icons.PasswordlessLoginIcon,
+          Icon: icons.LoginTypesIcon,
         },
         {
           title: 'External Services',
           path: '/management/email_integration',
-          Icon: icons.EmailIcon,
-        },
-        {
-          title: 'OpenID Settings',
-          path: '/management/openid',
-          Icon: icons.OpenIDIcon,
+          Icon: icons.ExternalServicesIcon,
         },
         {
           title: 'Multi-factor Auth',
           path: '/management/multi-factor_auth',
           Icon: icons.MultiFactorAuthIcon,
+        },
+        {
+          title: 'Static Files',
+          path: '/management/static',
+          Icon: icons.StaticFilesIcon,
         },
         {
           title: 'Hosted Pages',

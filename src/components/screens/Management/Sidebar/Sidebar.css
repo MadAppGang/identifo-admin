@@ -30,3 +30,15 @@
 .iap-management-sidebar__section.iap-management-sidebar__section--active:hover {
   opacity: 1;
 }
+
+.iap-sidebarnav-icon {
+  height: 23px;
+  width: 23px;
+  position: absolute;
+  left: -6px;
+  transform: translateY(-2px);
+}
+
+.iap-management-sidebar__section--active > .iap-sidebarnav-icon {
+  fill: #1B9CFC;
+}

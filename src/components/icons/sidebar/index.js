@@ -1,30 +1,10 @@
-import React from 'react';
-import classnames from 'classnames';
-import AccountIcon from './account.svg';
-
-import './SidebarIcon.css';
-
-const SidebarAccountIcon = ({ active }) => {
-  const className = classnames({
-    'iap-sidebarnav-icon': true,
-    'iap-sidebarnav-icon--active': active,
-  });
-
-  return (
-    <AccountIcon className={className} />
-  );
-};
-
-export { SidebarAccountIcon as AccountIcon };
-
-export { UsersIcon } from './UsersIcon';
-export { GettingStartedIcon } from './GettingStartedIcon';
-export { DatabaseIcon } from './DatabaseIcon';
-export { ApplicationsIcon } from './ApplicationsIcon';
-export { EmailIcon } from './EmailIcon';
-export { SettingsIcon } from './SettingsIcon';
-export { SocialIcon } from './SocialIcon';
-export { OpenIDIcon } from './OpenIDIcon';
-export { PasswordlessLoginIcon } from './PasswordlessLoginIcon';
-export { MultiFactorAuthIcon } from './MultiFactorAuthIcon';
-export { HostedPagesIcon } from './HostedPagesIcon';
+export { default as StaticFilesIcon } from './StaticFilesIcon.svg';
+export { default as UsersIcon } from './UsersIcon.svg';
+export { default as GettingStartedIcon } from './GettingStartedIcon.svg';
+export { default as AdminIcon } from './AdminIcon.svg';
+export { default as DatabaseIcon } from './DatabaseIcon.svg';
+export { default as ApplicationsIcon } from './ApplicationsIcon.svg';
+export { default as ExternalServicesIcon } from './ExternalServicesIcon.svg';
+export { default as LoginTypesIcon } from './LoginTypesIcon.svg';
+export { default as MultiFactorAuthIcon } from './MultiFactorAuthIcon.svg';
+export { default as HostedPagesIcon } from './HostedPagesIcon.svg';
