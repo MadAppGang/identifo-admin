@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import StaticFilesIcon from '~/components/icons/StaticFilesIcon.svg';
+import UsersIcon from '~/components/icons/UsersIcon.svg';
+import GettingStartedIcon from '~/components/icons/GettingStartedIcon.svg';
+import AdminIcon from '~/components/icons/AdminIcon.svg';
+import DatabaseIcon from '~/components/icons/DatabaseIcon.svg';
+import ApplicationsIcon from '~/components/icons/ApplicationsIcon.svg';
+import ExternalServicesIcon from '~/components/icons/ExternalServicesIcon.svg';
+import LoginTypesIcon from '~/components/icons/LoginTypesIcon.svg';
+import MultiFactorAuthIcon from '~/components/icons/MultiFactorAuthIcon.svg';
+import HostedPagesIcon from '~/components/icons/HostedPagesIcon.svg';
 import Section from './Section';
-import * as icons from '~/components/icons/sidebar';
 
 class Sidebar extends Component {
   constructor() {
@@ -12,52 +21,52 @@ class Sidebar extends Component {
           title: 'Getting started',
           path: '/management',
           exact: true,
-          Icon: icons.GettingStartedIcon,
+          Icon: GettingStartedIcon,
         },
         {
           title: 'Users',
           path: '/management/users',
-          Icon: icons.UsersIcon,
+          Icon: UsersIcon,
         },
         {
           title: 'Account',
           path: '/management/account',
-          Icon: icons.AdminIcon,
+          Icon: AdminIcon,
         },
         {
           title: 'Storages',
           path: '/management/database',
-          Icon: icons.DatabaseIcon,
+          Icon: DatabaseIcon,
         },
         {
           title: 'Applications',
           path: '/management/applications',
-          Icon: icons.ApplicationsIcon,
+          Icon: ApplicationsIcon,
         },
         {
           title: 'Login Types',
           path: '/management/settings',
-          Icon: icons.LoginTypesIcon,
+          Icon: LoginTypesIcon,
         },
         {
           title: 'External Services',
           path: '/management/email_integration',
-          Icon: icons.ExternalServicesIcon,
+          Icon: ExternalServicesIcon,
         },
         {
           title: 'Multi-factor Auth',
           path: '/management/multi-factor_auth',
-          Icon: icons.MultiFactorAuthIcon,
+          Icon: MultiFactorAuthIcon,
         },
         {
           title: 'Static Files',
           path: '/management/static',
-          Icon: icons.StaticFilesIcon,
+          Icon: StaticFilesIcon,
         },
         {
           title: 'Hosted Pages',
           path: '/management/hosted_pages',
-          Icon: icons.HostedPagesIcon,
+          Icon: HostedPagesIcon,
         },
       ],
     };
