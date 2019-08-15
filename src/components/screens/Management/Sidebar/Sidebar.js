@@ -22,6 +22,7 @@ class Sidebar extends Component {
           path: '/management',
           exact: true,
           Icon: GettingStartedIcon,
+          disabled: true,
         },
         {
           title: 'Users',
@@ -57,6 +58,7 @@ class Sidebar extends Component {
           title: 'Multi-factor Auth',
           path: '/management/multi-factor_auth',
           Icon: MultiFactorAuthIcon,
+          disabled: true,
         },
         {
           title: 'Static Files',
@@ -67,6 +69,7 @@ class Sidebar extends Component {
           title: 'Hosted Pages',
           path: '/management/hosted_pages',
           Icon: HostedPagesIcon,
+          disabled: true,
         },
       ],
     };

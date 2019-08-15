@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
 
 const SidebarSection = (props) => {
-  const { exact, path, title, Icon } = props;
+  const { exact, disabled, path, title, Icon } = props;
 
   return (
     <NavLink
@@ -11,6 +11,10 @@ const SidebarSection = (props) => {
       to={path}
       className="iap-management-sidebar__section"
       activeClassName="iap-management-sidebar__section--active"
+      style={{
+        opacity: disabled ? 0.4 : 1,
+        pointerEvents: disabled ? 'none' : 'unset',
+      }}
     >
       <Icon className="iap-sidebarnav-icon" />
       <span>{title}</span>
