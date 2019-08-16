@@ -49,9 +49,15 @@ class LoginForm extends Component {
 
     return (
       <form className="iap-login-form" onSubmit={this.handleSubmit}>
-        <p className="iap-login-form__title">
-          Identifo
-        </p>
+        <h1 className="login-form__logo">
+          <span>
+            identifo
+          </span>
+
+          <span>
+            Admin Panel
+          </span>
+        </h1>
 
         {error && (
           <div className="iap-login-form__err">

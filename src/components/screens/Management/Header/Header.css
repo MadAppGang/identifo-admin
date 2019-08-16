@@ -17,9 +17,27 @@
 }
 
 .iap-management-header__logo {
-  font: 400 19px 'Circe';
-  color: #1B9CFC;
-  width: 25%;
   display: flex;
-  padding-left: 30px;
+  padding: 0;
+}
+
+.iap-management-header__logo span {
+  font: 400 18px 'Circe';
+  display: inline-block;
+  display: flex;
+  align-items: center;
+}
+
+.iap-management-header__logo span:first-of-type {
+  padding-right: 9px;
+  border-right: 1px solid #8d8d8d;
+  color: #3d3d3d;
+  height: 18px;
+}
+
+.iap-management-header__logo span:last-of-type {
+  font: 400 14px 'Circe';
+  padding-left: 9px;
+  color: #aaa;
+  height: 20px;
 }

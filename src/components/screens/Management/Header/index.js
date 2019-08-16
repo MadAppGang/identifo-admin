@@ -10,9 +10,15 @@ const ManagementScreenHeader = () => {
       <Container>
         <div className="iap-management-header__inner">
           <Link to="/management" className="rrdl">
-            <span className="iap-management-header__logo">
-              identifo
-            </span>
+            <h1 className="iap-management-header__logo">
+              <span>
+                identifo
+              </span>
+
+              <span>
+                Admin Panel
+              </span>
+            </h1>
           </Link>
           <ProfileDropdown />
         </div>
