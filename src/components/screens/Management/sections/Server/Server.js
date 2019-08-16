@@ -1,9 +1,39 @@
-import React, { useState } from 'react';
-import { Tab, Tabs } from  '~/components/shared/Tabs';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Tab, Tabs } from '~/components/shared/Tabs';
 import GeneralForm from './ServerGeneralForm';
+import {
+  fetchGeneralSettings, updateGeneralSettings,
+} from '~/modules/settings/actions';
+import { createNotification } from '~/modules/notifications/actions';
 
 const GeneralSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const dispatch = useDispatch();
+  const settings = useSelector(s => s.settings.general);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      setLoading(true);
+      await dispatch(fetchGeneralSettings());
+      setLoading(false);
+    };
+
+    fetchSettings();
+  }, []);
+
+  const handleSubmit = async (nextSettings) => {
+    setLoading(true);
+    await dispatch(updateGeneralSettings(nextSettings));
+    setLoading(false);
+
+    dispatch(createNotification({
+      type: 'success',
+      title: 'Updated',
+      text: 'Server settings have been updated successfully',
+    }));
+  };
 
   return (
     <section className="iap-management-section">
@@ -17,7 +47,11 @@ const GeneralSection = () => {
 
         <>
           {tabIndex === 0 && (
-            <GeneralForm />
+            <GeneralForm
+              loading={loading}
+              settings={settings}
+              onSubmit={handleSubmit}
+            />
           )}
 
           {tabIndex === 1 && (

@@ -4,6 +4,7 @@ import {
   RECEIVE_EXTERNAL_SETTINGS,
   RECEIVE_SESSION_STORAGE_SETTINGS,
   RECEIVE_STATIC_FILES_SETTINGS,
+  RECEIVE_GENERAL_SETTINGS,
 } from './types';
 
 const INITIAL_STATE = {
@@ -18,6 +19,7 @@ const INITIAL_STATE = {
   externalServices: null,
   sessionStorage: null,
   staticFiles: null,
+  general: null,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +34,8 @@ const reducer = (state = INITIAL_STATE, action) => {
       return update(state, 'sessionStorage', payload);
     case RECEIVE_STATIC_FILES_SETTINGS:
       return update(state, 'staticFiles', payload);
+    case RECEIVE_GENERAL_SETTINGS:
+      return update(state, 'general', payload);
     default:
       return state;
   }
