@@ -8,23 +8,25 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import { Select, Option } from '~/components/shared/Select';
 
-const GeneralForm = (props) => {
-  const { error, settings, loading, onSubmit } = props;
 
-  const [host, setHost] = useState(settings ? settings.host : '');
-  const [issuer, setIssuer] = useState(settings ? settings.issuer : '');
+const ServerJWTForm = (props) => {
+  const { error, loading, settings, onSubmit } = props;
+
+  const [publicKeyPath, setPublicKeyPath] = useState(settings ? settings.publicKeyPath : '');
+  const [privateKeyPath, setPrivateKeyPath] = useState(settings ? settings.privateKeyPath : '');
+  const [algorithm, setAlgorithm] = useState(settings ? settings.algorithm : '');
 
   useEffect(() => {
     if (!settings) return;
 
-    setHost(settings.host);
-    setIssuer(settings.issuer);
+    setAlgorithm(settings.algorithm);
   }, [settings]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(update(settings, { host, issuer }));
+    onSubmit(update(settings, { publicKeyPath, privateKeyPath, algorithm }));
   };
+
 
   return (
     <form className="iap-apps-form" onSubmit={handleSubmit}>
@@ -32,24 +34,37 @@ const GeneralForm = (props) => {
         <FormErrorMessage error={error} />
       )}
 
-      <Field label="Host">
+      <Field label="Public Key Path">
         <Input
-          value={host}
+          value={publicKeyPath}
           autoComplete="off"
-          placeholder="Enter host url"
-          onChange={e => setHost(e.target.value)}
+          placeholder="Enter path to public key"
+          onChange={e => setPublicKeyPath(e.target.value)}
           disabled={loading}
         />
       </Field>
 
-      <Field label="Issuer">
+      <Field label="Private Key Path">
         <Input
-          value={issuer}
+          value={privateKeyPath}
           autoComplete="off"
-          placeholder="Enter issuer url"
-          onChange={e => setIssuer(e.target.value)}
+          placeholder="Enter path to private key"
+          onChange={e => setPrivateKeyPath(e.target.value)}
           disabled={loading}
         />
+      </Field>
+
+      <Field label="Algorithm">
+        <Select
+          value={algorithm}
+          disabled={loading}
+          onChange={setAlgorithm}
+          placeholder="Select Algorithm"
+        >
+          <Option value="auto" title="Auto" />
+          <Option value="rs256" title="rs256" />
+          <Option value="es256" title="es256" />
+        </Select>
       </Field>
 
       <footer className="iap-apps-form__footer">
@@ -66,4 +81,4 @@ const GeneralForm = (props) => {
   );
 };
 
-export default GeneralForm;
+export default ServerJWTForm;

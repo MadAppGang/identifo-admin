@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs } from '~/components/shared/Tabs';
 import GeneralForm from './ServerGeneralForm';
+import JWTForm from './ServerJWTForm';
 import {
   fetchGeneralSettings, updateGeneralSettings,
 } from '~/modules/settings/actions';
@@ -55,7 +56,11 @@ const GeneralSection = () => {
           )}
 
           {tabIndex === 1 && (
-            <GeneralForm />
+            <JWTForm
+              loading={loading}
+              settings={settings}
+              onSubmit={handleSubmit}
+            />
           )}
         </>
       </Tabs>
