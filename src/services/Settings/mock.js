@@ -1,6 +1,13 @@
 import { pause } from '~/utils';
 
 const data = {
+  general: {
+    host: 'http://localhost:8081',
+    privateKeyPath: 'jwt/private.pem',
+    publicKeyPath: 'jwt/public.pem',
+    issuer: 'http://localhost:8081',
+    algorithm: 'auto',
+  },
   login: {
     loginWith: {
       username: true,
@@ -83,6 +90,16 @@ const createSettingsServiceMock = () => {
     data.staticFiles = settings;
   };
 
+  const fetchGeneralSettings = async () => {
+    await pause(400);
+    return data.general;
+  };
+
+  const updateGeneralSettings = async (settings) => {
+    await pause(400);
+    data.general = settings;
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -92,6 +109,8 @@ const createSettingsServiceMock = () => {
     updateSessionStorageSettings,
     fetchStaticFilesSettings,
     updateStaticFilesSettings,
+    fetchGeneralSettings,
+    updateGeneralSettings,
   };
 };
 

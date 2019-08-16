@@ -14,6 +14,10 @@ import {
   serializeStaticFilesSettings, deserializeStaticFilesSettings,
 } from './mappings/staticFilesSettingsMappings';
 
+import {
+  serializeGeneralSettings, deserializeGeneralSettings,
+} from './mappings/generalSettingsMappings';
+
 const createSettingsService = ({ httpClient }) => {
   const fetchLoginSettings = async () => {
     const url = `${process.env.API_URL}/settings/login`;
@@ -63,6 +67,18 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.put(url, serializeStaticFilesSettings(settings));
   };
 
+  const fetchGeneralSettings = async () => {
+    const url = `${process.env.API_URL}/settings/general`;
+    const { data } = await httpClient.get(url);
+
+    return deserializeGeneralSettings(data);
+  };
+
+  const updateGeneralSettings = async (settings) => {
+    const url = `${process.env.API_URL}/settings/general`;
+    return httpClient.put(url, serializeGeneralSettings(settings));
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -72,6 +88,8 @@ const createSettingsService = ({ httpClient }) => {
     updateSessionStorageSettings,
     fetchStaticFilesSettings,
     updateStaticFilesSettings,
+    fetchGeneralSettings,
+    updateGeneralSettings,
   };
 };
 
