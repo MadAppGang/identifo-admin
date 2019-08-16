@@ -19,7 +19,7 @@ class Sidebar extends Component {
     this.state = {
       sections: [
         {
-          title: 'General',
+          title: 'Server',
           path: '/management',
           exact: true,
           Icon: GearIcon,
