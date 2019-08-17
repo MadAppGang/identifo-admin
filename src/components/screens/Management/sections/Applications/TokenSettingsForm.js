@@ -78,7 +78,7 @@ const TokenSettingsForm = (props) => {
           disabled={loading}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
-          Save changes
+          Save Changes
         </Button>
         <Button transparent disabled={loading} onClick={onCancel}>
           Cancel

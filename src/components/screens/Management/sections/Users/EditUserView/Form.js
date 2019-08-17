@@ -254,7 +254,7 @@ class EditUserForm extends Component {
             disabled={loading || Validation.hasError(validation)}
             error={!loading && !!error}
           >
-            Save changes
+            Save Changes
           </Button>
           <Button transparent onClick={this.props.onCancel} disabled={loading}>
             Cancel

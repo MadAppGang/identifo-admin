@@ -83,7 +83,7 @@ exports[`<DatabaseForm /> matches snapshot 1`] = `
         transparent={false}
         type="submit"
       >
-        Save changes
+        Save Changes
       </Button>
       <Button
         Icon={null}
@@ -188,7 +188,7 @@ exports[`<DatabaseForm /> matches snapshot when error 1`] = `
         transparent={false}
         type="submit"
       >
-        Save changes
+        Save Changes
       </Button>
       <Button
         Icon={null}
@@ -290,7 +290,7 @@ exports[`<DatabaseForm /> matches snapshot when posting 1`] = `
         transparent={false}
         type="submit"
       >
-        Save changes
+        Save Changes
       </Button>
       <Button
         Icon={null}
@@ -391,7 +391,7 @@ exports[`<DatabaseForm /> matches snapshot when type is dynamodb 1`] = `
         transparent={false}
         type="submit"
       >
-        Save changes
+        Save Changes
       </Button>
       <Button
         Icon={null}
@@ -493,7 +493,7 @@ exports[`<DatabaseForm /> matches snapshot when type is mongodb 1`] = `
         transparent={false}
         type="submit"
       >
-        Save changes
+        Save Changes
       </Button>
       <Button
         Icon={null}

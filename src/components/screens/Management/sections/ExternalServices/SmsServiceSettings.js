@@ -84,7 +84,7 @@ const SmsServiceSettings = (props) => {
           disabled={loading}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
-          Save changes
+          Save Changes
         </Button>
       </footer>
     </form>

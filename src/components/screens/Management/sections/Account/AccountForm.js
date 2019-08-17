@@ -153,7 +153,7 @@ class AdminAccountForm extends Component {
             disabled={posting || Validation.hasError(validation)}
             Icon={posting ? LoadingIcon : SaveIcon}
           >
-            Save changes
+            Save Changes
           </Button>
           <Button
             transparent

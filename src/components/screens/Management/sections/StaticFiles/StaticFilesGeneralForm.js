@@ -70,7 +70,7 @@ const StaticFilesGeneralForm = (props) => {
           disabled={loading}
           error={!loading && !!error}
         >
-          Save changes
+          Save Changes
         </Button>
       </footer>
     </form>

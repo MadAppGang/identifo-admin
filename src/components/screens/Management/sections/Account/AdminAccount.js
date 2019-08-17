@@ -102,7 +102,7 @@ class AdminAccountSettings extends Component {
                 Icon={fetching ? LoadingIcon : EditIcon}
                 onClick={this.handleEditClick}
               >
-                Edit admin account
+                Edit Account
               </Button>
             </>
           )}

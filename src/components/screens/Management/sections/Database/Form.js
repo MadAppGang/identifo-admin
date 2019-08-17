@@ -198,7 +198,7 @@ class ConnectionSettingsForm extends Component {
               Icon={posting ? LoadingIcon : SaveIcon}
               disabled={posting || Validation.hasError(validation)}
             >
-              Save changes
+              Save Changes
             </Button>
             <Button
               transparent

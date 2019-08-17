@@ -203,7 +203,7 @@ const SessionStorageForm = (props) => {
           disabled={loading || !storageType}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
-          Save changes
+          Save Changes
         </Button>
       </footer>
     </form>

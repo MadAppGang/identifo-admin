@@ -258,7 +258,7 @@ const ApplicationGeneralSettingsForm = (props) => {
           disabled={loading || Validation.hasError(validation)}
           error={!loading && !!error}
         >
-          Save changes
+          Save Changes
         </Button>
         <Button transparent disabled={loading} onClick={onCancel}>
           Cancel

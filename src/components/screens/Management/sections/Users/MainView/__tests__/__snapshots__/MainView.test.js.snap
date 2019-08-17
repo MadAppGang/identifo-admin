@@ -18,7 +18,7 @@ exports[`<UsersMainView /> renders as expected 1`] = `
       transparent={false}
       type="button"
     >
-      Create user
+      Create User
     </Button>
   </p>
   <p

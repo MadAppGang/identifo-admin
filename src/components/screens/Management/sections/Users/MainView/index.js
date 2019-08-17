@@ -50,7 +50,7 @@ class UsersMainView extends Component {
             Icon={AddIcon}
             onClick={() => history.push('/management/users/new')}
           >
-            Create user
+            Create User
           </Button>
         </p>
 
