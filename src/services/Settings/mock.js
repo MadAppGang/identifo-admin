@@ -47,6 +47,12 @@ const data = {
     },
     adminPanelBuildPath: './admin_panel/build',
   },
+  configurationStorage: {
+    type: 'file',
+    settingsKey: 'server-config.yaml',
+    endpoints: '',
+    region: '',
+  },
 };
 
 const createSettingsServiceMock = () => {
@@ -100,6 +106,16 @@ const createSettingsServiceMock = () => {
     data.general = settings;
   };
 
+  const fetchConfigurationStorageSettings = async () => {
+    await pause(400);
+    return data.configurationStorage;
+  };
+
+  const updateConfigurationStorageSettings = async (settings) => {
+    await pause(400);
+    data.configurationStorage = settings;
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -111,6 +127,8 @@ const createSettingsServiceMock = () => {
     updateStaticFilesSettings,
     fetchGeneralSettings,
     updateGeneralSettings,
+    fetchConfigurationStorageSettings,
+    updateConfigurationStorageSettings,
   };
 };
 

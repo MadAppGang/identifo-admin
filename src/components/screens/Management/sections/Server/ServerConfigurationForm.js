@@ -24,21 +24,25 @@ const settingsKeyDescription = {
 const ServerConfigurationForm = (props) => {
   const { loading, error, settings, onSubmit } = props;
 
-  const [storageType, setStorageType] = useState(settings.type || '');
-  const [settingsKey, setSettingsKey] = useState(settings.settingsKey || '');
-  const [endpoints, setEndpoints] = useState(settings.endpoints || []);
-  const [region, setRegion] = useState(settings.region || '');
+  const [storageType, setStorageType] = useState(settings ? settings.type : '');
+  const [settingsKey, setSettingsKey] = useState(settings ? settings.settingsKey : '');
+  const [endpoints, setEndpoints] = useState(settings ? settings.endpoints : []);
+  const [region, setRegion] = useState(settings ? settings.region : '');
 
   useEffect(() => {
-    setStorageType(settings.type);
-    setSettingsKey(settings.settingsKey);
-    setEndpoints(settings.endpoints);
-    setRegion(settings.region);
+    if (!settings) return;
+
+    setStorageType(settings.type || '');
+    setSettingsKey(settings.settingsKey || '');
+    setEndpoints(settings.endpoints || []);
+    setRegion(settings.region || '');
   }, [settings]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(update(settings, {}));
+    onSubmit(update(settings, {
+      type: storageType, settingsKey, endpoints, region,
+    }));
   };
 
   return (
