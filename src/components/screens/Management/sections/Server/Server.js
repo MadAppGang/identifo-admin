@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs } from '~/components/shared/Tabs';
 import GeneralForm from './ServerGeneralForm';
 import JWTForm from './ServerJWTForm';
-import ConfigurationForm from './ServerConfigurationForm';
+import ConfigurationTab from './ServerConfigurationTab';
 import {
   fetchGeneralSettings, updateGeneralSettings,
 } from '~/modules/settings/actions';
@@ -65,13 +65,7 @@ const GeneralSection = () => {
             />
           )}
 
-          {tabIndex === 2 && (
-            <ConfigurationForm
-              loading={loading}
-              settings={settings}
-              onSubmit={handleSubmit}
-            />
-          )}
+          {tabIndex === 2 && <ConfigurationTab />}
         </>
       </Tabs>
     </section>

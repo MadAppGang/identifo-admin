@@ -183,7 +183,7 @@ const SessionStorageForm = (props) => {
       )}
 
       {storageType === DYNAMODB_STORAGE && (
-        <Field label="Endpoint">
+        <Field label="Endpoint" subtext="Can be figured out automatically from the region">
           <Input
             name="endpoint"
             value={endpoint}

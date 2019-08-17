@@ -24,10 +24,17 @@ const settingsKeyDescription = {
 const ServerConfigurationForm = (props) => {
   const { loading, error, settings, onSubmit } = props;
 
-  const [storageType, setStorageType] = useState('');
-  const [settingsKey, setSettingsKey] = useState('');
-  const [endpoints, setEndpoints] = useState([]);
-  const [region, setRegion] = useState('');
+  const [storageType, setStorageType] = useState(settings.type || '');
+  const [settingsKey, setSettingsKey] = useState(settings.settingsKey || '');
+  const [endpoints, setEndpoints] = useState(settings.endpoints || []);
+  const [region, setRegion] = useState(settings.region || '');
+
+  useEffect(() => {
+    setStorageType(settings.type);
+    setSettingsKey(settings.settingsKey);
+    setEndpoints(settings.endpoints);
+    setRegion(settings.region);
+  }, [settings]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -97,6 +104,13 @@ const ServerConfigurationForm = (props) => {
       </footer>
     </form>
   );
+}
+
+ServerConfigurationForm.defaultProps = {
+  settings: {},
+  loading: false,
+  error: null,
+  onSubmit: () => null,
 };
 
 export default ServerConfigurationForm;
