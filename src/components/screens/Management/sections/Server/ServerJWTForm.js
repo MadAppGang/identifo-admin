@@ -8,7 +8,6 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import { Select, Option } from '~/components/shared/Select';
 
-
 const ServerJWTForm = (props) => {
   const { error, loading, settings, onSubmit } = props;
 
@@ -34,6 +33,19 @@ const ServerJWTForm = (props) => {
         <FormErrorMessage error={error} />
       )}
 
+      <Field label="Algorithm">
+        <Select
+          value={algorithm}
+          disabled={loading}
+          onChange={setAlgorithm}
+          placeholder="Select Algorithm"
+        >
+          <Option value="auto" title="Auto" />
+          <Option value="rs256" title="rs256" />
+          <Option value="es256" title="es256" />
+        </Select>
+      </Field>
+
       <Field label="Public Key Path">
         <Input
           value={publicKeyPath}
@@ -52,19 +64,6 @@ const ServerJWTForm = (props) => {
           onChange={e => setPrivateKeyPath(e.target.value)}
           disabled={loading}
         />
-      </Field>
-
-      <Field label="Algorithm">
-        <Select
-          value={algorithm}
-          disabled={loading}
-          onChange={setAlgorithm}
-          placeholder="Select Algorithm"
-        >
-          <Option value="auto" title="Auto" />
-          <Option value="rs256" title="rs256" />
-          <Option value="es256" title="es256" />
-        </Select>
       </Field>
 
       <footer className="iap-apps-form__footer">

@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs } from '~/components/shared/Tabs';
 import GeneralForm from './ServerGeneralForm';
 import JWTForm from './ServerJWTForm';
+import ConfigurationForm from './ServerConfigurationForm';
 import {
   fetchGeneralSettings, updateGeneralSettings,
 } from '~/modules/settings/actions';
 import { createNotification } from '~/modules/notifications/actions';
 
 const GeneralSection = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(2);
   const dispatch = useDispatch();
   const settings = useSelector(s => s.settings.general);
   const [loading, setLoading] = useState(false);
@@ -45,6 +46,7 @@ const GeneralSection = () => {
       <Tabs activeTabIndex={tabIndex} onChange={setTabIndex}>
         <Tab title="General Settings" />
         <Tab title="JWT Settings" />
+        <Tab title="Configuration Storage" />
 
         <>
           {tabIndex === 0 && (
@@ -57,6 +59,14 @@ const GeneralSection = () => {
 
           {tabIndex === 1 && (
             <JWTForm
+              loading={loading}
+              settings={settings}
+              onSubmit={handleSubmit}
+            />
+          )}
+
+          {tabIndex === 2 && (
+            <ConfigurationForm
               loading={loading}
               settings={settings}
               onSubmit={handleSubmit}

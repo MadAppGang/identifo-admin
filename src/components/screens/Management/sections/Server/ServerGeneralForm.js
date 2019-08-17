@@ -6,7 +6,6 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import { Select, Option } from '~/components/shared/Select';
 
 const GeneralForm = (props) => {
   const { error, settings, loading, onSubmit } = props;
