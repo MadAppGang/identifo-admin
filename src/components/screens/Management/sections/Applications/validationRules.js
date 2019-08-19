@@ -5,6 +5,16 @@ const redirectUrlRule = message => (value) => {
     return '';
   }
 
+  if (Array.isArray(value)) {
+    const hasError = value.some(v => !!urlFormat(message)(v));
+
+    if (hasError) {
+      return message;
+    }
+
+    return '';
+  }
+
   return urlFormat(message)(value);
 };
 
@@ -23,7 +33,7 @@ const onlyDigits = message => (value) => {
 const rules = {
   name: [notEmpty('Application name should not be empty')],
   type: [notEmpty('Application type should be selected')],
-  redirectUrl: [
+  redirectUrls: [
     redirectUrlRule('Url format is invalid. Make sure you include protocol.'),
   ],
   tokenLifespan: [

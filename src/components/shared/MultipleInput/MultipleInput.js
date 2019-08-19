@@ -49,6 +49,7 @@ const MultipleInput = (props) => {
         placeholder={props.placeholder}
         autoComplete="off"
         ref={inputElRef}
+        errorMessage={props.errorMessage}
         renderButton={() => (
           <button
             type="button"

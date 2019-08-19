@@ -20,7 +20,7 @@ const ApplicationGeneralSettingsForm = (props) => {
   const { loading, error, excludeFields, onSubmit, onCancel } = props;
   const application = props.application || {};
 
-  const [redirectUrl, setRedirectUrl] = useState(application.redirect_url || '');
+  const [redirectUrls, setRedirectUrls] = useState(application.redirect_url || []);
   const [offline, setOffline] = useState(application.offline || false);
   const [type, setType] = useState(application.type || 'web');
   const [name, setName] = useState(application.name || '');
@@ -35,52 +35,22 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [validation, setValidation] = useState({
     type: '',
     name: '',
-    redirectUrl: '',
+    redirectUrls: '',
   });
 
   /* update field values after props update */
   useEffect(() => {
     if (!application) return;
-
-    if (application.redirect_url) {
-      setRedirectUrl(application.redirect_url);
-    }
-
-    if (application.offline) {
-      setOffline(application.offline);
-    }
-
-    if (application.type) {
-      setType(application.type);
-    }
-
-    if (application.name) {
-      setName(application.name);
-    }
-
-    if (application.description) {
-      setDescription(application.description);
-    }
-
-    if (application.secret) {
-      setSecret(application.secret);
-    }
-
-    if (application.tfa_status) {
-      setTfaStatus(application.tfa_status);
-    }
-
-    if (application.active) {
-      setActive(application.active);
-    }
-
-    if (application.debug_tfa_code) {
-      setDebugTfaCode(application.debug_tfa_code);
-    }
-
-    if (application.scopes) {
-      setScopes(application.scopes);
-    }
+    if (application.redirect_urls) setRedirectUrls(application.redirect_urls || []);
+    if (application.offline) setOffline(application.offline);
+    if (application.type) setType(application.type);
+    if (application.name) setName(application.name);
+    if (application.description) setDescription(application.description);
+    if (application.secret) setSecret(application.secret);
+    if (application.tfa_status) setTfaStatus(application.tfa_status);
+    if (application.active) setActive(application.active);
+    if (application.debug_tfa_code) setDebugTfaCode(application.debug_tfa_code);
+    if (application.scopes) setScopes(application.scopes);
 
     setAllowRegistration(!application.registration_forbidden);
   }, [props.application]);
@@ -105,7 +75,7 @@ const ApplicationGeneralSettingsForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const report = validate('all', { name, type, redirectUrl });
+    const report = validate('all', { name, type, redirectUrls });
 
     if (Validation.hasError(report)) {
       setValidation(report);
@@ -121,7 +91,7 @@ const ApplicationGeneralSettingsForm = (props) => {
       active,
       description,
       tfa_status: tfaStatus,
-      redirect_url: redirectUrl,
+      redirect_urls: redirectUrls,
       registration_forbidden: !allowRegistration,
       debug_tfa_code: debugTfaCode || undefined,
     });
@@ -207,15 +177,12 @@ const ApplicationGeneralSettingsForm = (props) => {
       )}
 
       {!isExcluded('redirectUrl') && (
-        <Field label="Redirect URL">
-          <Input
-            value={redirectUrl}
-            autoComplete="off"
-            placeholder="Enter redirect url"
-            onChange={extractValue(v => handleInput('redirectUrl', v, setRedirectUrl))}
-            onBlur={extractValue(v => handleBlur('redirectUrl', v))}
-            errorMessage={validation.redirectUrl}
-            disabled={loading}
+        <Field label="Redirect URLs">
+          <MultipleInput
+            values={redirectUrls}
+            placeholder="Hit Enter to add url"
+            onChange={v => handleInput('redirectUrls', v, setRedirectUrls)}
+            errorMessage={validation.redirectUrls}
           />
         </Field>
       )}

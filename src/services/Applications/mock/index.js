@@ -1,13 +1,6 @@
 import { pause } from '~/utils';
 import randomstring from 'randomstring';
 
-/*
-type AppleInfo struct {
-  ClientID     string `json:"client_id,omitempty"`
-  ClientSecret string `json:"client_secret,omitempty"`
-}
-*/
-
 const data = {
   applications: [
     {
@@ -17,7 +10,7 @@ const data = {
       description: '',
       offline: false,
       type: 'web',
-      redirect_url: 'https://hlsaf.com',
+      redirect_urls: ['https://hlsaf.com'],
       registration_forbidden: false,
       tfa_status: 'disabled',
       authorization_way: 'whitelist',
