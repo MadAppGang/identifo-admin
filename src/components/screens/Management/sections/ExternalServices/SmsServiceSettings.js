@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import update from '@madappgang/update-by-path';
+import * as Validation from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import Input from '~/components/shared/Input';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
 import { Select, Option } from '~/components/shared/Select';
+import { smsServiceValidationRules } from './validationRules';
+
+const validate = Validation.applyRules(smsServiceValidationRules);
 
 const SmsServiceSettings = (props) => {
   const { settings, loading, onSubmit } = props;
@@ -13,6 +18,13 @@ const SmsServiceSettings = (props) => {
   const [accountSid, setAccountSid] = useState(settings ? settings.accountSid : '');
   const [authToken, setAuthToken] = useState(settings ? settings.authToken : '');
   const [serviceSid, setServiceSid] = useState(settings ? settings.serviceSid : '');
+
+  const [validation, setValidation] = useState({
+    type: '',
+    accountSid: '',
+    authToken: '',
+    serviceSid: '',
+  });
 
   useEffect(() => {
     if (!settings) {
@@ -25,8 +37,28 @@ const SmsServiceSettings = (props) => {
     setAuthToken(settings.authToken);
   }, [settings]);
 
+  const handleInput = (field, value, setValue) => {
+    if (field in validation) {
+      setValidation(update(validation, { [field]: '' }));
+    }
+
+    setValue(value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const report = validate('all', {
+      type, accountSid, authToken, serviceSid,
+    }, {
+      omit: type === 'mock' ? ['accountSid', 'authToken', 'serviceSid'] : [],
+    });
+
+    if (Validation.hasError(report)) {
+      setValidation(report);
+      return;
+    }
+
     onSubmit({ type, accountSid, authToken, serviceSid });
   };
 
@@ -36,8 +68,9 @@ const SmsServiceSettings = (props) => {
         <Select
           value={type}
           disabled={loading}
-          onChange={setType}
+          onChange={v => handleInput('type', v, setType)}
           placeholder="Select Service"
+          errorMessage={validation.type}
         >
           <Option value="twilio" title="Twilio" />
           <Option value="mock" title="Mock" />
@@ -51,8 +84,9 @@ const SmsServiceSettings = (props) => {
               value={authToken}
               autoComplete="off"
               placeholder="Specify Twilio Auth Token"
-              onChange={e => setAuthToken(e.target.value)}
+              onValue={v => handleInput('authToken', v, setAuthToken)}
               disabled={loading}
+              errorMessage={validation.authToken}
             />
           </Field>
 
@@ -61,8 +95,9 @@ const SmsServiceSettings = (props) => {
               value={accountSid}
               autoComplete="off"
               placeholder="Specify Twilio Account SID"
-              onChange={e => setAccountSid(e.target.value)}
+              onValue={v => handleInput('accountSid', v, setAccountSid)}
               disabled={loading}
+              errorMessage={validation.accountSid}
             />
           </Field>
 
@@ -71,8 +106,9 @@ const SmsServiceSettings = (props) => {
               value={serviceSid}
               autoComplete="off"
               placeholder="Specify Twilio Service SID"
-              onChange={e => setServiceSid(e.target.value)}
+              onValue={v => handleInput('serviceSid', v, setServiceSid)}
               disabled={loading}
+              errorMessage={validation.serviceSid}
             />
           </Field>
         </>

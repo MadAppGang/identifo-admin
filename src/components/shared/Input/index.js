@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Input.css';
 
-const Input = React.forwardRef(({ Icon, errorMessage, renderButton, ...props }, ref) => {
+const Input = React.forwardRef((props, ref) => {
+  const { Icon, errorMessage, renderButton, onChange, onValue, ...restProps } = props;
+
   const className = classnames({
     'iap-login-form__input': true,
     'iap-login-form__input--iconized': !!Icon,
     'iap-login-form__input--invalid': !!errorMessage,
   });
+
+  const handleChange = (e) => {
+    onChange(e);
+    onValue(e.target.value);
+  };
 
   return (
     <div className="iap-input-wrapper">
@@ -17,10 +24,11 @@ const Input = React.forwardRef(({ Icon, errorMessage, renderButton, ...props }, 
       )}
       <input
         ref={ref}
-        {...props}
+        {...restProps}
         spellCheck={false}
         autoComplete="off"
         className={className}
+        onChange={handleChange}
       />
 
       {!!renderButton && (
@@ -45,6 +53,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
   Icon: PropTypes.func,
+  onValue: PropTypes.func,
 };
 
 Input.defaultProps = {
@@ -55,6 +64,7 @@ Input.defaultProps = {
   errorMessage: '',
   Icon: null,
   onChange: () => {},
+  onValue: () => {},
 };
 
 export default Input;
