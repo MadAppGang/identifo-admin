@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import ServerConfigurationForm from './ServerConfigurationForm';
 import {
   fetchConfigurationStorageSettings, updateConfigurationStorageSettings,
-} from '~/modules/settings/actions'; 
+} from '~/modules/settings/actions';
+import { createNotification } from '~/modules/notifications/actions';
 
 const ServerConfigurationTab = () => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,12 @@ const ServerConfigurationTab = () => {
     setLoading(true);
     await dispatch(updateConfigurationStorageSettings(nextSettings));
     setLoading(false);
+
+    dispatch(createNotification({
+      type: 'success',
+      title: 'Updated',
+      text: 'Configuration settings have been updated successfully',
+    }));
   };
 
   return (
