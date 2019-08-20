@@ -43,7 +43,6 @@ module.exports = {
       },
       {
         test: /\.css/,
-        exclude: /node_modules/,
         use: ['style-loader', 'css-loader'],
       },
       {
@@ -69,7 +68,8 @@ module.exports = {
 
   devServer: {
     historyApiFallback: true,
-    contentBase: path.join(__dirname, '/'),
+    contentBase: path.join(__dirname, '../../build'),
     port: 3000,
+    hot: true,
   },
 };

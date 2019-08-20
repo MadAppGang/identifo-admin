@@ -59,3 +59,20 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+
+.casbin-code-editor {
+  width: 150%;
+  border: 1px solid #cbe7fb;
+  border-radius: 7px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.CodeMirror {
+  height: auto !important;
+  background-color: #f7fcff;
+}
+
+.CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like {
+  padding-left: 10px !important;
+}

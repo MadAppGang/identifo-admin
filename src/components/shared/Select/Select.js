@@ -60,7 +60,7 @@ const Select = (props) => {
               onClick: () => {
                 close();
                 props.onChange(child.props.value);
-                loadingTimeout = setTimeout(setLoading, 50, true);
+                loadingTimeout = setTimeout(setLoading, 70, true);
               },
               active: value === child.props.value,
             };

@@ -1,5 +1,6 @@
 .iap-actions-btn {
   position: relative;
+  z-index: 999;
 }
 
 .iap-actions-btn--stuck {
