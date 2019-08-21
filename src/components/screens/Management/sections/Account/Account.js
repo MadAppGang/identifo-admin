@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AccountSettings from './AdminAccount';
 import SessionStorageSettings from './SessionStorageSettings';
+import CredentialsEnvSettings from './CredentialsEnvSettings';
 import { Tabs, Tab } from '~/components/shared/Tabs';
 
 const AccountSection = () => {
@@ -18,15 +19,12 @@ const AccountSection = () => {
       >
         <Tab title="Admin Account" />
         <Tab title="Session Storage" />
+        <Tab title="Env" />
 
         <>
-          {tabIndex === 0 && (
-            <AccountSettings />
-          )}
-
-          {tabIndex === 1 && (
-            <SessionStorageSettings />
-          )}
+          {tabIndex === 0 && <AccountSettings />}
+          {tabIndex === 1 && <SessionStorageSettings />}
+          {tabIndex === 2 && <CredentialsEnvSettings />}
         </>
       </Tabs>
     </section>

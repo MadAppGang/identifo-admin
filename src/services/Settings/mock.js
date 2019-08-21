@@ -16,6 +16,10 @@ const data = {
     },
     tfaType: 'app',
   },
+  adminAccount: {
+    loginEnvName: 'IDENTIFO_ADMIN_LOGIN',
+    passwordEnvName: 'IDENTIFO_ADMIN_PASSWORD',
+  },
   externalServices: {
     mailService: 'mock',
     smsService: {
@@ -116,6 +120,16 @@ const createSettingsServiceMock = () => {
     data.configurationStorage = settings;
   };
 
+  const fetchAdminCredentialsSettings = async () => {
+    await pause(400);
+    return data.adminAccount;
+  };
+
+  const updateAdminCredentialsSettings = async (settings) => {
+    await pause(400);
+    data.adminAccount = settings;
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -129,6 +143,8 @@ const createSettingsServiceMock = () => {
     updateGeneralSettings,
     fetchConfigurationStorageSettings,
     updateConfigurationStorageSettings,
+    fetchAdminCredentialsSettings,
+    updateAdminCredentialsSettings,
   };
 };
 
