@@ -99,14 +99,14 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.put(url, serializeConfigurationStorageSettings(settings));
   };
 
-  const fetchCredentialsSettings = async () => {
+  const fetchAdminCredentialsSettings = async () => {
     const url = `${process.env.API_URL}/settings`;
     const { data } = await httpClient.get(url);
 
     return deserializeCredentialsSettings(data.adminAccount);
   };
 
-  const updateCredentialsSettings = async (settings) => {
+  const updateAdminCredentialsSettings = async (settings) => {
     const url = `${process.env.API_URL}/settings/configuration`;
     return httpClient.put(url, serializeCredentialsSettings(settings));
   };
@@ -124,8 +124,8 @@ const createSettingsService = ({ httpClient }) => {
     updateGeneralSettings,
     fetchConfigurationStorageSettings,
     updateConfigurationStorageSettings,
-    fetchCredentialsSettings,
-    updateCredentialsSettings,
+    fetchAdminCredentialsSettings,
+    updateAdminCredentialsSettings,
   };
 };
 

@@ -6,6 +6,8 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 
+const inUpperCase = fn => v => fn(v.toUpperCase());
+
 const CredenrialsEnvForm = (props) => {
   const { error, loading, onSubmit, settings } = props;
 
@@ -34,7 +36,7 @@ const CredenrialsEnvForm = (props) => {
         <Input
           value={loginEnvName}
           placeholder="Enter login env name"
-          onValue={setLoginEnvName}
+          onValue={inUpperCase(setLoginEnvName)}
           disabled={loading}
         />
       </Field>
@@ -43,7 +45,7 @@ const CredenrialsEnvForm = (props) => {
         <Input
           value={passwordEnvName}
           placeholder="Enter password env name"
-          onValue={setPasswordEnvName}
+          onValue={inUpperCase(setPasswordEnvName)}
           disabled={loading}
         />
       </Field>
@@ -51,8 +53,8 @@ const CredenrialsEnvForm = (props) => {
       <footer className="iap-settings-form__footer">
         <Button
           type="submit"
+          disabled
           error={!loading && error}
-          disabled={loading}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
           Save Changes

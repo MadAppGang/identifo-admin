@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { dispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SectionHeader from '~/components/shared/SectionHeader';
 import CredentialsEnvForm from './CredentialsEnvForm';
+import {
+  fetchCredentialsSettings, updateCredentialsSettings,
+} from '~/modules/settings/actions';
 
 const CredentialsEnvSettings = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const settings = useSelector(s => s.settings);
+  const settings = useSelector(s => s.settings.adminAccount);
 
   useEffect(() => {
     const fetchSettings = async () => {
       setLoading(true);
-      // await dispatch();
+      await dispatch(fetchCredentialsSettings());
       setLoading(false);
     };
 
@@ -19,7 +23,7 @@ const CredentialsEnvSettings = () => {
 
   const handleSubmit = async (data) => {
     setLoading(true);
-    // await dispatch();
+    await dispatch(updateCredentialsSettings(data));
     setLoading(false);
   };
 

@@ -105,7 +105,7 @@ export const updateConfigurationStorageSettings = settings => async (dispatch, _
 };
 
 export const fetchCredentialsSettings = () => async (dispatch, _, services) => {
-  const settings = await services.settings.fetchCredentialsSettings();
+  const settings = await services.settings.fetchAdminCredentialsSettings();
   dispatch({
     type: RECEIVE_CREDENTIALS_ENV_SETTINGS,
     payload: settings,
@@ -113,7 +113,7 @@ export const fetchCredentialsSettings = () => async (dispatch, _, services) => {
 };
 
 export const updateCredentialsSettings = settings => async (dispatch, _, services) => {
-  await services.settings.updateCredentialsSettings(settings);
+  await services.settings.updateAdminCredentialsSettings(settings);
   dispatch({
     type: RECEIVE_CREDENTIALS_ENV_SETTINGS,
     payload: settings,
