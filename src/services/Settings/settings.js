@@ -22,6 +22,10 @@ import {
   serializeConfigurationStorageSettings, deserializeConfigurationStorageSettings,
 } from './mappings/configurationStorageSettingsMappings';
 
+import {
+  serializeCredentialsSettings, deserializeCredentialsSettings,
+} from './mappings/adminCredentialsSettingsMappings';
+
 const createSettingsService = ({ httpClient }) => {
   const fetchLoginSettings = async () => {
     const url = `${process.env.API_URL}/settings/login`;
@@ -95,6 +99,18 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.put(url, serializeConfigurationStorageSettings(settings));
   };
 
+  const fetchCredentialsSettings = async () => {
+    const url = `${process.env.API_URL}/settings`;
+    const { data } = await httpClient.get(url);
+
+    return deserializeCredentialsSettings(data.adminAccount);
+  };
+
+  const updateCredentialsSettings = async (settings) => {
+    const url = `${process.env.API_URL}/settings/configuration`;
+    return httpClient.put(url, serializeCredentialsSettings(settings));
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -108,6 +124,8 @@ const createSettingsService = ({ httpClient }) => {
     updateGeneralSettings,
     fetchConfigurationStorageSettings,
     updateConfigurationStorageSettings,
+    fetchCredentialsSettings,
+    updateCredentialsSettings,
   };
 };
 
