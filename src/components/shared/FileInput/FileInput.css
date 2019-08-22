@@ -1,0 +1,5 @@
+.file-input-icon {
+  height: 20px;
+  fill: var(--main-color);
+  pointer-events: none;
+}
