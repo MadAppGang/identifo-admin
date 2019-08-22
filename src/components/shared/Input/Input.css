@@ -68,3 +68,7 @@
   display: flex;
   align-items: center;
 }
+
+.iap-login-form__input.iap-login-form__input--invalid + .iap-input-btn {
+  top: 16px;
+}
