@@ -3,8 +3,6 @@ import { pause } from '~/utils';
 const data = {
   general: {
     host: 'http://localhost:8081',
-    privateKeyPath: 'jwt/private.pem',
-    publicKeyPath: 'jwt/public.pem',
     issuer: 'http://localhost:8081',
     algorithm: 'auto',
   },
@@ -56,6 +54,12 @@ const data = {
     settingsKey: 'server-config.yaml',
     endpoints: '',
     region: '',
+    keyStorage: {
+      type: 'file',
+      privateKey: 'jwt/private.pem',
+      publicKey: 'jwt/public.pem',
+      region: '',
+    },
   },
 };
 
