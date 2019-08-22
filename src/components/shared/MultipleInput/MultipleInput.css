@@ -16,6 +16,7 @@
   align-items: center;
   margin-top: 4px;
   margin-right: 3px;
+  white-space: nowrap;
 }
 
 .value-tag__delete {
