@@ -67,7 +67,6 @@ const GeneralForm = (props) => {
         </Select>
       </Field>
 
-
       <footer className="iap-apps-form__footer">
         <Button
           type="submit"

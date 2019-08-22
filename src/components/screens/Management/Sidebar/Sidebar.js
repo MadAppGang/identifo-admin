@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import StaticFilesIcon from '~/components/icons/StaticFilesIcon.svg';
 import UsersIcon from '~/components/icons/UsersIcon.svg';
-import GettingStartedIcon from '~/components/icons/GettingStartedIcon.svg';
 import AdminIcon from '~/components/icons/AdminIcon.svg';
 import DatabaseIcon from '~/components/icons/DatabaseIcon.svg';
 import ApplicationsIcon from '~/components/icons/ApplicationsIcon.svg';
@@ -10,6 +9,7 @@ import LoginTypesIcon from '~/components/icons/LoginTypesIcon.svg';
 import MultiFactorAuthIcon from '~/components/icons/MultiFactorAuthIcon.svg';
 import HostedPagesIcon from '~/components/icons/HostedPagesIcon.svg';
 import GearIcon from '~/components/icons/GearIcon.svg';
+import AppleIcon from '~/components/icons/AppleIcon.svg';
 import Section from './Section';
 
 class Sidebar extends Component {
@@ -58,6 +58,12 @@ class Sidebar extends Component {
           title: 'Static Files',
           path: '/management/static',
           Icon: StaticFilesIcon,
+        },
+        {
+          title: 'Apple Integration',
+          path: '/management/apple',
+          Icon: AppleIcon,
+          disabled: true,
         },
         {
           title: 'Multi-factor Auth',
