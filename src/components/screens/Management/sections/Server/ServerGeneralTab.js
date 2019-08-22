@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ServerConfigurationForm from './ServerConfigurationForm';
 import {
-  fetchConfigurationStorageSettings, updateConfigurationStorageSettings,
+  fetchGeneralSettings, updateGeneralSettings,
 } from '~/modules/settings/actions';
 import { createNotification } from '~/modules/notifications/actions';
+import ServerGeneralForm from './ServerGeneralForm';
 
-const ServerConfigurationTab = () => {
-  const [loading, setLoading] = useState(false);
-  const settings = useSelector(s => s.settings.configurationStorage);
+const ServerGeneralTab = () => {
   const dispatch = useDispatch();
+  const settings = useSelector(s => s.settings.general);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
       setLoading(true);
-      await dispatch(fetchConfigurationStorageSettings());
+      await dispatch(fetchGeneralSettings());
       setLoading(false);
     };
 
@@ -23,18 +23,18 @@ const ServerConfigurationTab = () => {
 
   const handleSubmit = async (nextSettings) => {
     setLoading(true);
-    await dispatch(updateConfigurationStorageSettings(nextSettings));
+    await dispatch(updateGeneralSettings(nextSettings));
     setLoading(false);
 
     dispatch(createNotification({
       type: 'success',
       title: 'Updated',
-      text: 'Configuration settings have been updated successfully',
+      text: 'Server settings have been updated successfully',
     }));
   };
 
   return (
-    <ServerConfigurationForm
+    <ServerGeneralForm
       loading={loading}
       settings={settings}
       onSubmit={handleSubmit}
@@ -42,4 +42,4 @@ const ServerConfigurationTab = () => {
   );
 };
 
-export default ServerConfigurationTab;
+export default ServerGeneralTab;

@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs } from '~/components/shared/Tabs';
-import GeneralForm from './ServerGeneralForm';
+import GeneralTab from './ServerGeneralTab';
 import JWTForm from './ServerJWTForm';
-import ConfigurationTab from './ServerConfigurationTab';
+import ConfigurationForm from './ServerConfigurationForm';
 import {
-  fetchGeneralSettings, updateGeneralSettings,
+  fetchConfigurationStorageSettings, updateConfigurationStorageSettings,
 } from '~/modules/settings/actions';
 import { createNotification } from '~/modules/notifications/actions';
 
 const GeneralSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const dispatch = useDispatch();
-  const settings = useSelector(s => s.settings.general);
+  const settings = useSelector(s => s.settings.configurationStorage);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
       setLoading(true);
-      await dispatch(fetchGeneralSettings());
+      await dispatch(fetchConfigurationStorageSettings());
       setLoading(false);
     };
 
@@ -27,7 +27,7 @@ const GeneralSection = () => {
 
   const handleSubmit = async (nextSettings) => {
     setLoading(true);
-    await dispatch(updateGeneralSettings(nextSettings));
+    await dispatch(updateConfigurationStorageSettings(nextSettings));
     setLoading(false);
 
     dispatch(createNotification({
@@ -49,13 +49,7 @@ const GeneralSection = () => {
         <Tab title="Configuration Storage" />
 
         <>
-          {tabIndex === 0 && (
-            <GeneralForm
-              loading={loading}
-              settings={settings}
-              onSubmit={handleSubmit}
-            />
-          )}
+          {tabIndex === 0 && <GeneralTab />}
 
           {tabIndex === 1 && (
             <JWTForm
@@ -65,7 +59,13 @@ const GeneralSection = () => {
             />
           )}
 
-          {tabIndex === 2 && <ConfigurationTab />}
+          {tabIndex === 2 && (
+            <ConfigurationForm
+              loading={loading}
+              settings={settings}
+              onSubmit={handleSubmit}
+            />
+          )}
         </>
       </Tabs>
     </section>

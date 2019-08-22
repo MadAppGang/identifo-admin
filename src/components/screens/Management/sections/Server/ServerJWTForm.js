@@ -19,7 +19,9 @@ const keyDescription = {
 };
 
 const ServerJWTForm = (props) => {
-  const { error, loading, settings, onSubmit } = props;
+  const { error, loading, onSubmit } = props;
+
+  const settings = props.settings ? props.settings.keyStorage : null;
 
   const [storageType, setStorageType] = useState(settings ? settings.type : '');
   const [publicKey, setPublicKey] = useState(settings ? settings.publicKey : '');
@@ -31,18 +33,20 @@ const ServerJWTForm = (props) => {
 
     setStorageType(settings.type);
     setPublicKey(settings.publicKey);
-    setPublicKey(settings.privateKey);
+    setPrivateKey(settings.privateKey);
     setRegion(settings.region);
   }, [settings]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    onSubmit(update(settings, {
-      type: storageType,
-      publicKey,
-      privateKey,
-      region,
+    onSubmit(update(props.settings, {
+      keyStorage: {
+        type: storageType,
+        publicKey,
+        privateKey,
+        region,
+      },
     }));
   };
 
@@ -81,7 +85,7 @@ const ServerJWTForm = (props) => {
           value={publicKey}
           autoComplete="off"
           placeholder="Specify public key"
-          onChange={setPublicKey}
+          onValue={setPublicKey}
           disabled={loading}
         />
       </Field>
