@@ -6,45 +6,30 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import { Select, Option } from '~/components/shared/Select';
 
 const ServerJWTForm = (props) => {
   const { error, loading, settings, onSubmit } = props;
 
   const [publicKeyPath, setPublicKeyPath] = useState(settings ? settings.publicKeyPath : '');
   const [privateKeyPath, setPrivateKeyPath] = useState(settings ? settings.privateKeyPath : '');
-  const [algorithm, setAlgorithm] = useState(settings ? settings.algorithm : '');
 
   useEffect(() => {
     if (!settings) return;
 
-    setAlgorithm(settings.algorithm);
+    setPublicKeyPath(settings.publicKeyPath);
+    setPublicKeyPath(settings.privateKeyPath);
   }, [settings]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(update(settings, { publicKeyPath, privateKeyPath, algorithm }));
+    onSubmit(update(settings, { publicKeyPath, privateKeyPath }));
   };
-
 
   return (
     <form className="iap-apps-form" onSubmit={handleSubmit}>
       {!!error && (
         <FormErrorMessage error={error} />
       )}
-
-      <Field label="Algorithm">
-        <Select
-          value={algorithm}
-          disabled={loading}
-          onChange={setAlgorithm}
-          placeholder="Select Algorithm"
-        >
-          <Option value="auto" title="Auto" />
-          <Option value="rs256" title="rs256" />
-          <Option value="es256" title="es256" />
-        </Select>
-      </Field>
 
       <Field label="Public Key Path">
         <Input
