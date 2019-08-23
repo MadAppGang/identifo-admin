@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import update from '@madappgang/update-by-path';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import Input from '~/components/shared/Input';
+import FileInput from '~/components/shared/FileInput';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
@@ -27,6 +28,9 @@ const ServerJWTForm = (props) => {
   const [publicKey, setPublicKey] = useState(settings ? settings.publicKey : '');
   const [privateKey, setPrivateKey] = useState(settings ? settings.privateKey : '');
   const [region, setRegion] = useState(settings ? settings.region : '');
+
+  const [publicKeyFile, setPublicKeyFile] = useState(null);
+  const [privateKeyFile, setPrivateKeyFile] = useState(null);
 
   useEffect(() => {
     if (!settings) return;
@@ -97,6 +101,22 @@ const ServerJWTForm = (props) => {
           placeholder="Specify private key"
           onValue={setPrivateKey}
           disabled={loading}
+        />
+      </Field>
+
+      <Field label="Public Key File">
+        <FileInput
+          value={publicKeyFile}
+          placeholder="Upload file"
+          onChange={setPublicKeyFile}
+        />
+      </Field>
+
+      <Field label="Private Key File">
+        <FileInput
+          value={privateKeyFile}
+          placeholder="Upload file"
+          onChange={setPrivateKeyFile}
         />
       </Field>
 

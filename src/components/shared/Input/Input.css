@@ -42,11 +42,12 @@
 }
 
 .iap-input-icon {
-  height: 15px;
-  width: 15px;
+  height: 17px;
+  width: 17px;
   position: absolute;
   left: 17px;
   pointer-events: none;
+  transform: translateY(-1px);
 }
 
 .iap-input-icon path,

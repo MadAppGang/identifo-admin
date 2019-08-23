@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Input from '~/components/shared/Input';
-import FileIcon from '~/components/icons/FileIcon.svg';
+import UploadIcon from '~/components/icons/UploadIcon.svg';
 
 const FileInput = ({ onChange, placeholder, ...props }) => {
   const fileInputRef = useRef(null);
@@ -10,7 +10,7 @@ const FileInput = ({ onChange, placeholder, ...props }) => {
     setFile(event.target.files[0]);
 
     if (onChange) {
-      onChange(file);
+      onChange(event.target.files[0]);
     }
   };
 
@@ -22,7 +22,7 @@ const FileInput = ({ onChange, placeholder, ...props }) => {
         onChange={() => {}}
         onClick={() => fileInputRef.current.click()}
         style={{ caretColor: 'transparent' }}
-        renderButton={() => <FileIcon className="file-input-icon" />}
+        renderButton={() => <UploadIcon className="file-input-icon" />}
       />
 
       <input

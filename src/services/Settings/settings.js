@@ -103,7 +103,7 @@ const createSettingsService = ({ httpClient }) => {
     const url = `${process.env.API_URL}/settings`;
     const { data } = await httpClient.get(url);
 
-    return deserializeCredentialsSettings(data.adminAccount);
+    return deserializeCredentialsSettings(data.admin_account);
   };
 
   const updateAdminCredentialsSettings = async (settings) => {
