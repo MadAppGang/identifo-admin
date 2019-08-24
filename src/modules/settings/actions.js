@@ -119,3 +119,7 @@ export const updateCredentialsSettings = settings => async (dispatch, _, service
     payload: settings,
   });
 };
+
+export const uploadJWTKeys = (pubKey, privKey) => async (dispatch, _, services) => {
+  await services.settings.uploadJWTKeys(pubKey, privKey);
+};

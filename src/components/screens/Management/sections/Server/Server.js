@@ -5,7 +5,9 @@ import GeneralTab from './ServerGeneralTab';
 import JWTForm from './ServerJWTForm';
 import ConfigurationForm from './ServerConfigurationForm';
 import {
-  fetchConfigurationStorageSettings, updateConfigurationStorageSettings,
+  uploadJWTKeys,
+  fetchConfigurationStorageSettings,
+  updateConfigurationStorageSettings,
 } from '~/modules/settings/actions';
 import { createNotification } from '~/modules/notifications/actions';
 
@@ -28,6 +30,12 @@ const GeneralSection = () => {
   const handleSubmit = async (nextSettings) => {
     setLoading(true);
     await dispatch(updateConfigurationStorageSettings(nextSettings));
+
+    const { privateKey, publicKey } = nextSettings;
+    if (privateKey && publicKey) {
+      await dispatch(uploadJWTKeys(publicKey, privateKey));
+    }
+
     setLoading(false);
 
     dispatch(createNotification({

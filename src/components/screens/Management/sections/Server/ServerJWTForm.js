@@ -51,6 +51,8 @@ const ServerJWTForm = (props) => {
         privateKey,
         region,
       },
+      publicKey: publicKeyFile,
+      privateKey: privateKeyFile,
     }));
   };
 
