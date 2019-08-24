@@ -111,6 +111,16 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.put(url, serializeCredentialsSettings(settings));
   };
 
+  const uploadJWTKeys = async (pubKey, privKey) => {
+    const url = `${process.env.API_URL}/settings/keys`;
+
+    const formData = new FormData();
+    formData.append('keys', pubKey, 'public.pem');
+    formData.append('keys', privKey, 'private.pem');
+
+    return httpClient.post(url, formData);
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -126,6 +136,7 @@ const createSettingsService = ({ httpClient }) => {
     updateConfigurationStorageSettings,
     fetchAdminCredentialsSettings,
     updateAdminCredentialsSettings,
+    uploadJWTKeys,
   };
 };
 

@@ -134,6 +134,10 @@ const createSettingsServiceMock = () => {
     data.adminAccount = settings;
   };
 
+  const uploadJWTKeys = async () => {
+    await pause(400);
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -149,6 +153,7 @@ const createSettingsServiceMock = () => {
     updateConfigurationStorageSettings,
     fetchAdminCredentialsSettings,
     updateAdminCredentialsSettings,
+    uploadJWTKeys,
   };
 };
 
