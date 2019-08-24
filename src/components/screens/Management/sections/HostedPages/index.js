@@ -1,13 +1,3 @@
-import React from 'react';
+import './HostedPages.css';
 
-const HostedPagesSection = () => {
-  return (
-    <section className="iap-management-section">
-      <p className="iap-management-section__title">
-        Hosted Pages
-      </p>
-    </section>
-  );
-};
-
-export default HostedPagesSection;
+export { default } from './HostedPages';

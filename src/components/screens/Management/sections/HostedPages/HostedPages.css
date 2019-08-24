@@ -1,0 +1,27 @@
+.template-editor {
+  border-radius: 7px;
+  border: 1px solid #cbe7fb;
+  overflow: hidden;
+  min-height: 200px;
+  background-color: #fff;
+  position: relative;
+}
+
+.template-editor .CodeMirror {
+  height: auto !important;
+}
+
+.template-editor .CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like {
+  padding-left: 10px !important;
+}
+
+.template-editor__numpad-area {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 30px;
+  background-color: #f7f7f7;
+  border-right: 1px solid #ddd;
+}

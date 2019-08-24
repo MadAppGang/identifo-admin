@@ -68,11 +68,11 @@
   margin-top: 5px;
 }
 
-.CodeMirror {
+.casbin-code-editor .CodeMirror {
   height: auto !important;
   background-color: #f7fcff;
 }
 
-.CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like {
+.casbin-code-editor .CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like {
   padding-left: 10px !important;
 }

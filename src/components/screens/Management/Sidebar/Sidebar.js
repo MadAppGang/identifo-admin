@@ -75,7 +75,6 @@ class Sidebar extends Component {
           title: 'Hosted Pages',
           path: '/management/hosted_pages',
           Icon: HostedPagesIcon,
-          disabled: true,
         },
       ],
     };
