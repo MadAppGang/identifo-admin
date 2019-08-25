@@ -1,3 +1,7 @@
+.hosted-pages-main {
+  margin-top: 50px;
+}
+
 .template-editor {
   border-radius: 7px;
   border: 1px solid #cbe7fb;
@@ -31,10 +35,6 @@
   width: 100%;
   text-align: right;
   color: #aaa;
-}
-
-.hosted-pages-main {
-  margin-top: 50px;
 }
 
 .template-editor-header {

@@ -1,8 +1,6 @@
 import React from 'react';
 import TemplateEditor from './TemplateEditor';
 import { Select, Option } from '~/components/shared/Select';
-import FileIcon from '~/components/icons/FileIcon.svg';
-import UploadIcon from '~/components/icons/UploadIcon.svg';
 
 const HostedPagesSection = () => {
   return (
@@ -20,18 +18,7 @@ const HostedPagesSection = () => {
       </p>
 
       <main className="hosted-pages-main">
-        <div className="template-editor-header">
-          <p className="template-editor__filename">
-            <FileIcon className="template-editor__file-icon" />
-            invitation.html
-          </p>
-
-          <button type="button" className="template-editor__upload-code">
-            <UploadIcon className="template-editor__upload-icon" />
-            Upload source code
-          </button>
-        </div>
-        <TemplateEditor />
+        <TemplateEditor filename="invite-template.html" />
       </main>
     </section>
   );
