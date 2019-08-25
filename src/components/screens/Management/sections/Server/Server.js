@@ -52,8 +52,8 @@ const GeneralSection = () => {
       </p>
 
       <Tabs activeTabIndex={tabIndex} onChange={setTabIndex}>
-        <Tab title="General Settings" />
-        <Tab title="JWT Settings" />
+        <Tab title="General" />
+        <Tab title="Token Settings" />
         <Tab title="Configuration Storage" />
 
         <>

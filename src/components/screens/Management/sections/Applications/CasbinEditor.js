@@ -1,5 +1,5 @@
 import React from 'react';
-import CodeMirror from 'react-codemirror';
+import { UnControlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
 
 const editorOptions = {
@@ -13,7 +13,7 @@ const CasbinEditor = (props) => {
     <CodeMirror
       className="casbin-code-editor"
       value={props.value}
-      onChange={v => props.onChange(v)}
+      onBeforeChange={(editor, _, value) => props.onChange(value)}
       options={editorOptions}
     />
   );

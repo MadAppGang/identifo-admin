@@ -9,6 +9,7 @@
   min-height: 200px;
   background-color: #fff;
   position: relative;
+  max-width: 705px;
 }
 
 .template-editor .CodeMirror {

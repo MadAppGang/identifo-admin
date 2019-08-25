@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import CodeMirror from 'react-codemirror';
+import React, { useState, useRef } from 'react';
+import { UnControlled as CodeMirror } from 'react-codemirror2';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
 import 'codemirror/lib/codemirror.css';
@@ -23,13 +23,32 @@ const editorOptions = {
   mode: 'htmlmixed',
 };
 
+let editor = null;
+
 const TemplateEditor = (props) => {
   const { filename } = props;
   const [code, setCode] = useState(defaultEditorValue);
-  const editorRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleEditorClick = () => {
-    editorRef.current.focus();
+    if (editor) {
+      editor.display.input.focus();
+    }
+  };
+
+  const handleUpload = ({ target }) => {
+    setUploading(true);
+
+    const file = target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setCode(reader.result);
+      setUploading(false);
+    };
+
+    reader.readAsText(file);
   };
 
   return (
@@ -40,18 +59,27 @@ const TemplateEditor = (props) => {
           {filename}
         </p>
 
-        <button type="button" className="template-editor__upload-code">
+        <button
+          className="template-editor__upload-code"
+          onClick={() => fileInputRef.current.click()}
+        >
           <UploadIcon className="template-editor__upload-icon" />
           Upload source code
         </button>
+
+        <input
+          type="file"
+          onChange={handleUpload}
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+        />
       </div>
 
       {/* eslint-disable-next-line */}
       <div className="template-editor" onClick={handleEditorClick}>
         <CodeMirror
-          ref={editorRef}
+          editorDidMount={v => editor = v}
           value={code}
-          onChange={v => setCode(v)}
           options={editorOptions}
         />
         <div className="template-editor__numpad-area" />
