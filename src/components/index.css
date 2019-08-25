@@ -21,6 +21,7 @@
 
 :root {
   --main-color: #3CA6F5; 
+  --main-color-hover: #1B9CFC;
 }
 
 /* react router dom link */

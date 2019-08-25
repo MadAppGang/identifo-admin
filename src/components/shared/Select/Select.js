@@ -32,7 +32,7 @@ const Select = (props) => {
     <div className="iap-db-dropdown" ref={containerRef}>
       <Input
         placeholder={placeholder}
-        style={{ caretColor: 'transparent' }}
+        style={{ caretColor: 'transparent', cursor: 'pointer' }}
         value={getDisplayValue(value, props.children)}
         disabled={disabled}
         onFocus={open}
@@ -59,6 +59,11 @@ const Select = (props) => {
             const extraProps = {
               onClick: () => {
                 close();
+
+                if (child.props.value === value) {
+                  return;
+                }
+
                 props.onChange(child.props.value);
                 loadingTimeout = setTimeout(setLoading, 70, true);
               },
