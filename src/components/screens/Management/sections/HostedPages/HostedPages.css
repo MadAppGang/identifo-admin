@@ -119,6 +119,7 @@
   cursor: pointer;
   position: relative;
   z-index: 1;
+  text-transform: uppercase;
 }
 
 .template-lang-selector__btn:hover {

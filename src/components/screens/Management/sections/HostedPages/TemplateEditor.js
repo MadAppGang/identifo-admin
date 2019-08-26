@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
+import update from '@madappgang/update-by-path';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
+import LanguageSelector from './LanguageSelector';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/eclipse.css';
 import 'codemirror/mode/htmlmixed/htmlmixed';
-import LanguageSelector from './LanguageSelector';
+import 'codemirror/mode/css/css';
+import 'codemirror/mode/javascript/javascript';
 
 const defaultEditorValue = `<!DOCTYPE html>
 <html lang="en">
@@ -20,23 +23,24 @@ const defaultEditorValue = `<!DOCTYPE html>
 </body>
 </html>`;
 
-const editorOptions = {
-  lineNumbers: true,
-  theme: 'eclipse',
-  mode: 'htmlmixed',
+const [HTML, CSS, JS] = ['html', 'css', 'js'];
+const mode = {
+  [HTML]: 'htmlmixed',
+  [CSS]: 'css',
+  [JS]: 'javascript',
 };
 
 let editor = null;
 
 const TemplateEditor = (props) => {
-  const { filename, onChange } = props;
-  const [code, setCode] = useState(props.code || defaultEditorValue);
+  const { template, onChange } = props;
+  const [code, setCode] = useState(defaultEditorValue);
   const fileInputRef = useRef(null);
-  const [language, setLanguage] = useState('HTML');
+  const [language, setLanguage] = useState(HTML);
 
   useEffect(() => {
-    setCode(props.code);
-  }, [props.code]);
+    setCode(template[language].code);
+  }, [template, language]);
 
   const handleEditorClick = () => {
     if (editor) {
@@ -54,7 +58,12 @@ const TemplateEditor = (props) => {
 
   const handleSubmit = () => {
     if (onChange) {
-      onChange(code);
+      onChange(update(template, {
+        [language]: {
+          filename: template[language].filename,
+          code,
+        },
+      }));
     }
   };
 
@@ -63,7 +72,7 @@ const TemplateEditor = (props) => {
       <header className="template-editor-header">
         <p className="template-editor__filename">
           <FileIcon className="template-editor__file-icon" />
-          {filename}
+          {template[language].filename}
         </p>
 
         <button
@@ -87,12 +96,16 @@ const TemplateEditor = (props) => {
         <CodeMirror
           editorDidMount={v => editor = v}
           value={code}
-          options={editorOptions}
+          options={{
+            lineNumbers: true,
+            theme: 'eclipse',
+            mode: mode[language],
+          }}
           className="template-editor-inner"
         />
         <div className="template-editor__numpad-area" />
         <LanguageSelector
-          languages={['HTML', 'CSS', 'JS']}
+          languages={[HTML, CSS, JS]}
           selected={language}
           onChange={setLanguage}
         />

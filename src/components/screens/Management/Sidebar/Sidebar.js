@@ -45,7 +45,7 @@ class Sidebar extends Component {
           Icon: DatabaseIcon,
         },
         {
-          title: 'Login Types',
+          title: 'Login Settings',
           path: '/management/settings',
           Icon: LoginTypesIcon,
         },

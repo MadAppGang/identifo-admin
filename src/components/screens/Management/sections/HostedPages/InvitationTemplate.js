@@ -14,8 +14,7 @@ const InvitationTemplate = (props) => {
 
   return (
     <TemplateEditor
-      filename={template.filename}
-      code={template.code}
+      template={template}
       onChange={handleSubmit}
     />
   );
