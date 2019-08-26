@@ -86,8 +86,20 @@ const TemplateEditor = (props) => {
           editorDidMount={v => editor = v}
           value={code}
           options={editorOptions}
+          className="template-editor-inner"
         />
         <div className="template-editor__numpad-area" />
+        <div className="template-lang-selector">
+          <button type="button" className="template-lang-selector__btn">
+            HTML
+          </button>
+          <button type="button" className="template-lang-selector__btn template-lang-selector__btn--active">
+            CSS
+          </button>
+          <button type="button" className="template-lang-selector__btn">
+            JS
+          </button>
+        </div>
       </div>
 
       <footer className="template-editor-footer">
