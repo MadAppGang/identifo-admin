@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
@@ -31,6 +31,10 @@ const TemplateEditor = (props) => {
   const { filename, onChange } = props;
   const [code, setCode] = useState(props.code || defaultEditorValue);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    setCode(props.code);
+  }, [props.code]);
 
   const handleEditorClick = () => {
     if (editor) {

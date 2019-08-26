@@ -8,6 +8,10 @@ const InvitationTemplate = (props) => {
     // TODO
   };
 
+  if (!template) {
+    return null;
+  }
+
   return (
     <TemplateEditor
       filename={template.filename}
