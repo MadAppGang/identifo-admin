@@ -85,3 +85,7 @@
   fill: var(--main-color);
   margin-right: 5px;
 }
+
+.template-editor-footer {
+  margin-top: 25px;
+}

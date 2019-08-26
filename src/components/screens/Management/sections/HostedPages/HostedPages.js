@@ -1,6 +1,6 @@
 import React from 'react';
-import TemplateEditor from './TemplateEditor';
 import { Select, Option } from '~/components/shared/Select';
+import InvitationTemplate from './InvitationTemplate';
 
 const HostedPagesSection = () => {
   return (
@@ -18,7 +18,12 @@ const HostedPagesSection = () => {
       </p>
 
       <main className="hosted-pages-main">
-        <TemplateEditor filename="invite-template.html" />
+        <InvitationTemplate
+          template={{
+            filename: 'invite-template.html',
+            code: '<div>Hello, world!</div>',
+          }}
+        />
       </main>
     </section>
   );

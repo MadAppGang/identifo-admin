@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
+import Button from '~/components/shared/Button';
+import SaveIcon from '~/components/icons/SaveIcon';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/eclipse.css';
 import 'codemirror/mode/htmlmixed/htmlmixed';
@@ -26,9 +28,8 @@ const editorOptions = {
 let editor = null;
 
 const TemplateEditor = (props) => {
-  const { filename } = props;
-  const [code, setCode] = useState(defaultEditorValue);
-  const [uploading, setUploading] = useState(false);
+  const { filename, onChange } = props;
+  const [code, setCode] = useState(props.code || defaultEditorValue);
   const fileInputRef = useRef(null);
 
   const handleEditorClick = () => {
@@ -38,22 +39,22 @@ const TemplateEditor = (props) => {
   };
 
   const handleUpload = ({ target }) => {
-    setUploading(true);
-
     const file = target.files[0];
     const reader = new FileReader();
 
-    reader.onload = () => {
-      setCode(reader.result);
-      setUploading(false);
-    };
-
+    reader.onload = () => setCode(reader.result);
     reader.readAsText(file);
+  };
+
+  const handleSubmit = () => {
+    if (onChange) {
+      onChange(code);
+    }
   };
 
   return (
     <>
-      <div className="template-editor-header">
+      <header className="template-editor-header">
         <p className="template-editor__filename">
           <FileIcon className="template-editor__file-icon" />
           {filename}
@@ -73,7 +74,7 @@ const TemplateEditor = (props) => {
           ref={fileInputRef}
           style={{ display: 'none' }}
         />
-      </div>
+      </header>
 
       {/* eslint-disable-next-line */}
       <div className="template-editor" onClick={handleEditorClick}>
@@ -84,6 +85,12 @@ const TemplateEditor = (props) => {
         />
         <div className="template-editor__numpad-area" />
       </div>
+
+      <footer className="template-editor-footer">
+        <Button Icon={SaveIcon} onClick={handleSubmit}>
+          Submit Template
+        </Button>
+      </footer>
     </>
   );
 };
