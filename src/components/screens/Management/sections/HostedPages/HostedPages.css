@@ -117,14 +117,25 @@
   border-radius: 7px;
   margin-bottom: 5px;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .template-lang-selector__btn:hover {
-  color: #3d3d3d;
+  color: var(--main-color);
 }
 
 .template-lang-selector__btn.template-lang-selector__btn--active {
-  /* background-color: #cbe7fb; */
-  background-color: var(--main-color);
   color: white;
+  transition: color 150ms;
+}
+
+.template-lang-selector__indicator {
+  background-color: var(--main-color);
+  height: 40px;
+  width: 55px;
+  border-radius: 7px;
+  position: absolute;
+  top: 0;
+  transition: all 150ms ease-in-out;
 }

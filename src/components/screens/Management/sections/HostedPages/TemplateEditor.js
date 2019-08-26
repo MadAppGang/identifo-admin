@@ -7,6 +7,7 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/eclipse.css';
 import 'codemirror/mode/htmlmixed/htmlmixed';
+import LanguageSelector from './LanguageSelector';
 
 const defaultEditorValue = `<!DOCTYPE html>
 <html lang="en">
@@ -31,6 +32,7 @@ const TemplateEditor = (props) => {
   const { filename, onChange } = props;
   const [code, setCode] = useState(props.code || defaultEditorValue);
   const fileInputRef = useRef(null);
+  const [language, setLanguage] = useState('HTML');
 
   useEffect(() => {
     setCode(props.code);
@@ -89,17 +91,11 @@ const TemplateEditor = (props) => {
           className="template-editor-inner"
         />
         <div className="template-editor__numpad-area" />
-        <div className="template-lang-selector">
-          <button type="button" className="template-lang-selector__btn">
-            HTML
-          </button>
-          <button type="button" className="template-lang-selector__btn template-lang-selector__btn--active">
-            CSS
-          </button>
-          <button type="button" className="template-lang-selector__btn">
-            JS
-          </button>
-        </div>
+        <LanguageSelector
+          languages={['HTML', 'CSS', 'JS']}
+          selected={language}
+          onChange={setLanguage}
+        />
       </div>
 
       <footer className="template-editor-footer">
