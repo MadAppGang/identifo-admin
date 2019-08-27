@@ -54,6 +54,7 @@ const data = {
     settingsKey: 'server-config.yaml',
     endpoints: '',
     region: '',
+    bucket: 'bucket',
     keyStorage: {
       type: 'file',
       privateKey: 'jwt/private.pem',

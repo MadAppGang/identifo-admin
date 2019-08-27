@@ -28,6 +28,7 @@ const ServerConfigurationForm = (props) => {
   const [settingsKey, setSettingsKey] = useState(settings ? settings.settingsKey : '');
   const [endpoints, setEndpoints] = useState(settings ? settings.endpoints : []);
   const [region, setRegion] = useState(settings ? settings.region : '');
+  const [bucket, setBucket] = useState(settings ? settings.bucket : '');
 
   useEffect(() => {
     if (!settings) return;
@@ -36,12 +37,13 @@ const ServerConfigurationForm = (props) => {
     setSettingsKey(settings.settingsKey || '');
     setEndpoints(settings.endpoints || []);
     setRegion(settings.region || '');
+    setBucket(settings.bucket || '');
   }, [settings]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit(update(settings, {
-      type: storageType, settingsKey, endpoints, region,
+      type: storageType, settingsKey, endpoints, region, bucket,
     }));
   };
 
@@ -90,7 +92,22 @@ const ServerConfigurationForm = (props) => {
             value={region}
             autoComplete="off"
             placeholder="Enter s3 region"
-            onChange={e => setRegion(e.target.value)}
+            onValue={setRegion}
+            disabled={loading}
+          />
+        </Field>
+      )}
+
+      {storageType === storageTypes.S3 && (
+        <Field
+          label="Bucket"
+          subtext="Can be overriden by IDENTIFO_JWT_KEYS_BUCKET env variable"
+        >
+          <Input
+            value={bucket}
+            autoComplete="off"
+            placeholder="Enter s3 bucket"
+            onValue={setBucket}
             disabled={loading}
           />
         </Field>
