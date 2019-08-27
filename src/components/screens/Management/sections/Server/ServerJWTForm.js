@@ -28,6 +28,7 @@ const ServerJWTForm = (props) => {
   const [publicKey, setPublicKey] = useState(settings ? settings.publicKey : '');
   const [privateKey, setPrivateKey] = useState(settings ? settings.privateKey : '');
   const [region, setRegion] = useState(settings ? settings.region : '');
+  const [bucket, setBucket] = useState(settings ? settings.bucket : '');
 
   const [publicKeyFile, setPublicKeyFile] = useState(null);
   const [privateKeyFile, setPrivateKeyFile] = useState(null);
@@ -39,6 +40,7 @@ const ServerJWTForm = (props) => {
     setPublicKey(settings.publicKey);
     setPrivateKey(settings.privateKey);
     setRegion(settings.region);
+    setBucket(settings.bucket || '');
   }, [settings]);
 
   const handleSubmit = (event) => {
@@ -50,6 +52,7 @@ const ServerJWTForm = (props) => {
         publicKey,
         privateKey,
         region,
+        bucket,
       },
       publicKey: publicKeyFile,
       privateKey: privateKeyFile,
@@ -81,6 +84,18 @@ const ServerJWTForm = (props) => {
             autoComplete="off"
             placeholder="Enter s3 region"
             onValue={setRegion}
+            disabled={loading}
+          />
+        </Field>
+      )}
+
+      {storageType === storageTypes.S3 && (
+        <Field label="Bucket" subtext="Can be overriden by IDENTIFO_JWT_KEYS_BUCKET env variable">
+          <Input
+            value={bucket}
+            autoComplete="off"
+            placeholder="Enter s3 bucket"
+            onValue={setBucket}
             disabled={loading}
           />
         </Field>

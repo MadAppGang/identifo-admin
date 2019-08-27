@@ -60,6 +60,7 @@ const data = {
       privateKey: 'jwt/private.pem',
       publicKey: 'jwt/public.pem',
       region: '',
+      bucket: 'jwt bucket',
     },
   },
 };
