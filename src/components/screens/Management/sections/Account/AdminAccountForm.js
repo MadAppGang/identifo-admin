@@ -50,7 +50,9 @@ const AdminAccountForm = (props) => {
       return;
     }
 
-    onSubmit({ email, password: editPassword ? password : undefined });
+    onSubmit(update(settings, {
+      email, password: editPassword ? password : undefined,
+    }));
   };
 
   const handleBlur = (name, value) => {
