@@ -20,10 +20,10 @@ const data = {
   },
   externalServices: {
     emailService: {
-      type: 'mock', // mock || mailgun || aws_ses
-      domain: '', // mailgun-related
-      privateKey: '', // mailgun-related
-      publicKey: '', // mailgun-related
+      type: 'mailgun', // mock || mailgun || aws_ses
+      domain: 'example.com', // mailgun-related
+      privateKey: 'private', // mailgun-related
+      publicKey: 'public', // mailgun-related
       sender: '',
       region: '', // ses-related,
     },

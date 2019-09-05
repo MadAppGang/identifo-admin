@@ -13,22 +13,25 @@ const types = {
 };
 
 const MailServiceSettings = (props) => {
-  const { loading, onSubmit } = props;
-  const [type, setType] = useState(props.type || '');
-  const [domain, setDomain] = useState(props.domain || '');
-  const [privateKey, setPrivateKey] = useState(props.privateKey || '');
-  const [publicKey, setPublicKey] = useState(props.publicKey || '');
-  const [sender, setSender] = useState(props.sender || '');
-  const [region, setRegion] = useState(props.region || '');
+  const { loading, settings, onSubmit } = props;
+
+  const [type, setType] = useState(settings ? settings.type : '');
+  const [domain, setDomain] = useState(settings ? settings.domain : '');
+  const [privateKey, setPrivateKey] = useState(settings ? settings.privateKey : '');
+  const [publicKey, setPublicKey] = useState(settings ? settings.publicKey : '');
+  const [sender, setSender] = useState(settings ? settings.sender : '');
+  const [region, setRegion] = useState(settings ? settings.region : '');
 
   useEffect(() => {
-    setType(props.type || '');
-    setDomain(props.domain || '');
-    setPrivateKey(props.privateKey || '');
-    setPublicKey(props.publicKey || '');
-    setSender(props.sender || '');
-    setRegion(props.region || '');
-  }, [props]);
+    if (!settings) return;
+
+    setType(settings.type || '');
+    setDomain(settings.domain || '');
+    setPrivateKey(settings.privateKey || '');
+    setPublicKey(settings.publicKey || '');
+    setSender(settings.sender || '');
+    setRegion(settings.region || '');
+  }, [settings]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

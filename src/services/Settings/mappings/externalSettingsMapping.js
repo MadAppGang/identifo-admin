@@ -1,5 +1,12 @@
 export const serializeExternalServicesSettings = settings => ({
-  mail_service: settings.mailService,
+  email_service: {
+    type: settings.emailService.type,
+    domain: settings.emailService.domain, 
+    private_key: settings.emailService.privateKey,
+    public_key: settings.emailService.publicKey,
+    sender: settings.emailService.sender,
+    region: settings.emailService.region,
+  },
   sms_service: {
     type: settings.smsService.type,
     account_sid: settings.smsService.accountSid,
@@ -9,7 +16,14 @@ export const serializeExternalServicesSettings = settings => ({
 });
 
 export const deserializeExternalServicesSettings = settings => ({
-  mailService: settings.mail_service,
+  emailService: {
+    type: settings.email_service.type,
+    domain: settings.email_service.domain,
+    privateKey: settings.email_service.private_key,
+    publicKey: settings.email_service.public_key,
+    sender: settings.email_service.sender,
+    region: settings.email_service.region,
+  },
   smsService: {
     type: settings.sms_service.type,
     accountSid: settings.sms_service.account_sid,

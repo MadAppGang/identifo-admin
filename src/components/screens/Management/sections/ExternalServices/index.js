@@ -51,22 +51,22 @@ const EmailIntegrationSection = () => {
         </p>
 
         <p className="iap-management-section__description">
-          Configure external Mail ans SMS service integrations
+          Configure external Email ans SMS service integrations
         </p>
       </header>
 
       <main className="iap-settings-section">
         <div className="iap-management-section__tabs">
           <Tabs activeTabIndex={tabIndex} onChange={setTabIndex}>
-            <Tab title="Mail Service" />
+            <Tab title="Email Service" />
             <Tab title="SMS Service" />
 
             <>
               {tabIndex === 0 && (
                 <MailServiceSettings
                   loading={loading}
-                  serviceName={settings ? settings.mailService : ''}
-                  onSubmit={value => handleSubmit('mailService', value)}
+                  settings={settings ? settings.emailService : null}
+                  onSubmit={value => handleSubmit('emailService', value)}
                 />
               )}
 
