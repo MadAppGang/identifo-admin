@@ -9,16 +9,38 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import { adminAccountFormRules } from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
+import useForm from '~/hooks/useForm';
 
-const validate = Validation.applyRules(adminAccountFormRules);
+const validateValues = (values) => {
+  const validate = Validation.applyRules(adminAccountFormRules);
+  const omitPasswords = !values.password && !values.confirmPassword;
+  const errors = validate('all', values, {
+    omit: omitPasswords ? ['password', 'confirmPassword'] : [],
+  });
+
+  return Validation.hasError(errors) ? errors : {};
+};
 
 const AdminAccountForm = (props) => {
   const { onSubmit, error, loading, settings } = props;
 
-  const [email, setEmail] = useState(settings ? settings.email : '');
   const [editPassword, setEditPassword] = useState(false);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const initialValues = {
+    email: settings ? settings.email : '',
+    password: '',
+    confirmPassword: '',
+  };
+
+  const form = useForm(initialValues, validateValues, () => {
+    onSubmit(update(settings, {
+      email: form.values.email,
+      password: editPassword ? form.values.password : undefined,
+    }));
+  });
+
+  const { values, errors, setValues, handleSubmit, handleChange, handleBlur } = form;
+
   const [validation, setValidation] = useState({
     password: '',
     confirmPassword: '',
@@ -28,45 +50,12 @@ const AdminAccountForm = (props) => {
   useEffect(() => {
     if (!settings) return;
 
-    setEmail(settings.email);
+    setValues({
+      email: settings.email || '',
+      password: '',
+      confirmPassword: '',
+    });
   }, [settings]);
-
-  const handleInput = (name, value, setValue) => {
-    if (name in validation) {
-      setValidation(update(validation, { [name]: '' }));
-    }
-
-    setValue(value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const validationReport = validate('all', { email, password, confirmPassword }, {
-      omit: editPassword ? [] : ['password', 'confirmPassword'],
-    });
-
-    if (Validation.hasError(validationReport)) {
-      setValidation(validationReport);
-      return;
-    }
-
-    onSubmit(update(settings, {
-      email, password: editPassword ? password : undefined,
-    }));
-  };
-
-  const handleBlur = (name, value) => {
-    const validationMessage = validate(name, {
-      email,
-      password,
-      confirmPassword,
-      [name]: value,
-    });
-
-    setValidation(update(validation, {
-      [name]: validationMessage,
-    }));
-  };
 
   return (
     <form className="iap-settings-form" onSubmit={handleSubmit}>
@@ -75,16 +64,14 @@ const AdminAccountForm = (props) => {
         <FormErrorMessage error={error} />
       )}
 
-      <Field
-        label="Email"
-        subtext={settings ? `Value is stored in ${settings.loginEnvName} env var.` : ''}
-      >
+      <Field label="Email">
         <Input
-          value={email}
+          name="email"
+          value={values.email}
           placeholder="Enter your email"
-          onValue={v => handleInput('email', v, setEmail)}
-          onBlur={e => handleBlur('email', e.target.value)}
-          errorMessage={validation.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          errorMessage={errors.email}
           disabled={loading}
         />
       </Field>
@@ -106,22 +93,24 @@ const AdminAccountForm = (props) => {
           <Field label="Password">
             <Input
               type="password"
-              value={password}
+              name="password"
+              value={values.password}
               placeholder="Enter your password"
-              onValue={v => handleInput('password', v, setPassword)}
-              onBlur={e => handleBlur('password', e.target.value)}
-              errorMessage={validation.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorMessage={errors.password}
             />
           </Field>
 
           <Field label="Confirm Password">
             <Input
               type="password"
-              value={confirmPassword}
+              name="confirmPassword"
+              value={values.confirmPassword}
               placeholder="Confirm your password"
-              onValue={v => handleInput('confirmPassword', v, setConfirmPassword)}
-              onBlur={e => handleBlur('confirmPassword', e.target.value)}
-              errorMessage={validation.confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorMessage={errors.confirmPassword}
             />
           </Field>
         </div>
@@ -131,7 +120,7 @@ const AdminAccountForm = (props) => {
         <Button
           type="submit"
           error={!loading && !!error}
-          disabled={loading || Validation.hasError(validation)}
+          disabled={loading || Validation.hasError(errors)}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
           Save Changes
