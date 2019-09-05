@@ -38,21 +38,12 @@ const SessionStorageSettings = (props) => {
   };
 
   return (
-    <div className="iap-settings-section">
-      <SectionHeader
-        title="Session Storage"
-        description="These settings determine the way admin session is stored on the server"
-      />
-
-      <main>
-        <SessionStorageForm
-          error={error}
-          loading={fetching || posting}
-          settings={settings}
-          onSubmit={handleSubmit}
-        />
-      </main>
-    </div>
+    <SessionStorageForm
+      error={error}
+      loading={fetching || posting}
+      settings={settings}
+      onSubmit={handleSubmit}
+    />
   );
 };
 

@@ -1,28 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Preview from './Preview';
-import AccountForm from './AccountForm';
-import Button from '~/components/shared/Button';
-import SectionHeader from '~/components/shared/SectionHeader';
-import {
-  fetchAccountSettings, postAccountSettings, resetAccountError,
-} from '~/modules/account/actions';
+import AccountForm from './AdminAccountForm';
+import { fetchAccountSettings, postAccountSettings } from '~/modules/account/actions';
 import { createNotification } from '~/modules/notifications/actions';
-import EditIcon from '~/components/icons/EditIcon';
-import LoadingIcon from '~/components/icons/LoadingIcon';
 import SettingsPlaceholder from './Placeholder';
 
 class AdminAccountSettings extends Component {
   constructor() {
     super();
 
-    this.state = {
-      editing: false,
-    };
-
-    this.handleEditClick = this.handleEditClick.bind(this);
-    this.handleEditCancel = this.handleEditCancel.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
@@ -34,7 +21,6 @@ class AdminAccountSettings extends Component {
     const donePosting = prevProps.posting && !this.props.posting;
 
     if (donePosting && !this.props.error) {
-      this.handleEditCancel();
       this.props.createNotification({
         type: 'success',
         title: 'Saved',
@@ -51,24 +37,14 @@ class AdminAccountSettings extends Component {
     }
   }
 
-  handleEditClick() {
-    this.setState({ editing: true });
-  }
-
-  handleEditCancel() {
-    this.props.resetError();
-    this.setState({ editing: false });
-  }
-
   handleFormSubmit(settings) {
     this.props.postSettings(settings);
   }
 
   render() {
-    const { editing } = this.state;
     const { posting, fetching, settings, error } = this.props;
 
-    if (error && !editing) {
+    if (error) {
       return (
         <SettingsPlaceholder
           fetching={fetching}
@@ -78,36 +54,12 @@ class AdminAccountSettings extends Component {
     }
 
     return (
-      <div className="iap-settings-section">
-        <SectionHeader
-          title="Admin Account"
-          description="These are credentials used to login into admin panel"
-        />
-
-        <main>
-          {editing && (
-            <AccountForm
-              error={error}
-              posting={posting}
-              settings={settings}
-              onCancel={this.handleEditCancel}
-              onSubmit={this.handleFormSubmit}
-            />
-          )}
-          {!editing && (
-            <>
-              <Preview fetching={fetching} settings={settings} />
-              <Button
-                disabled={fetching}
-                Icon={fetching ? LoadingIcon : EditIcon}
-                onClick={this.handleEditClick}
-              >
-                Edit Account
-              </Button>
-            </>
-          )}
-        </main>
-      </div>
+      <AccountForm
+        error={error}
+        posting={posting}
+        settings={settings}
+        onSubmit={this.handleFormSubmit}
+      />
     );
   }
 }
@@ -115,7 +67,6 @@ class AdminAccountSettings extends Component {
 AdminAccountSettings.propTypes = {
   fetchSettings: PropTypes.func.isRequired,
   postSettings: PropTypes.func.isRequired,
-  resetError: PropTypes.func.isRequired,
   fetching: PropTypes.bool.isRequired,
   posting: PropTypes.bool.isRequired,
   settings: PropTypes.shape({
@@ -140,7 +91,6 @@ const mapStateToProps = state => ({
 const actions = {
   fetchSettings: fetchAccountSettings,
   postSettings: postAccountSettings,
-  resetError: resetAccountError,
   createNotification,
 };
 

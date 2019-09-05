@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 
+let loadingTimeout;
+
 const Toggle = ({ label, value, onChange }) => {
   const [loading, setLoading] = useState(false);
 
@@ -10,11 +12,13 @@ const Toggle = ({ label, value, onChange }) => {
     if (loading) {
       setLoading(false);
     }
+
+    clearTimeout(loadingTimeout);
   }, [value]);
 
   const handleToggle = () => {
     onChange(!value);
-    setLoading(true);
+    loadingTimeout = setTimeout(setLoading, 70, true);
   };
 
   const rootClassName = classnames({

@@ -14,10 +14,6 @@ const data = {
     },
     tfaType: 'app',
   },
-  adminAccount: {
-    loginEnvName: 'IDENTIFO_ADMIN_LOGIN',
-    passwordEnvName: 'IDENTIFO_ADMIN_PASSWORD',
-  },
   externalServices: {
     emailService: {
       type: 'mailgun',
@@ -126,16 +122,6 @@ const createSettingsServiceMock = () => {
     data.configurationStorage = settings;
   };
 
-  const fetchAdminCredentialsSettings = async () => {
-    await pause(400);
-    return data.adminAccount;
-  };
-
-  const updateAdminCredentialsSettings = async (settings) => {
-    await pause(400);
-    data.adminAccount = settings;
-  };
-
   const uploadJWTKeys = async () => {
     await pause(400);
   };
@@ -153,8 +139,6 @@ const createSettingsServiceMock = () => {
     updateGeneralSettings,
     fetchConfigurationStorageSettings,
     updateConfigurationStorageSettings,
-    fetchAdminCredentialsSettings,
-    updateAdminCredentialsSettings,
     uploadJWTKeys,
   };
 };

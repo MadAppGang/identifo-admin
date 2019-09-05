@@ -73,17 +73,6 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
-  const fetchAdminCredentialsSettings = async () => {
-    const url = `${process.env.API_URL}/settings`;
-    const { data } = await httpClient.get(url);
-    return toDeepCase(data.admin_account, CAMEL_CASE);
-  };
-
-  const updateAdminCredentialsSettings = async (settings) => {
-    const url = `${process.env.API_URL}/settings/configuration`;
-    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
-  };
-
   const uploadJWTKeys = async (pubKey, privKey) => {
     const url = `${process.env.API_URL}/settings/uploads/keys`;
 
@@ -107,8 +96,6 @@ const createSettingsService = ({ httpClient }) => {
     updateGeneralSettings,
     fetchConfigurationStorageSettings,
     updateConfigurationStorageSettings,
-    fetchAdminCredentialsSettings,
-    updateAdminCredentialsSettings,
     uploadJWTKeys,
   };
 };

@@ -18,7 +18,7 @@ class AdminAccountForm extends Component {
     this.validate = Validation.applyRules(adminAccountFormRules);
 
     this.state = {
-      email: settings.email,
+      email: settings ? settings.email : '',
       password: '',
       confirmPassword: '',
       editPassword: false,
@@ -116,7 +116,7 @@ class AdminAccountForm extends Component {
           />
         </Field>
 
-        <Toggle label="Edit password" onChange={this.toggleEditPassword} />
+        <Toggle label="Edit password" value={this.state.editPassword} onChange={this.toggleEditPassword} />
 
         {editPassword && (
           <div className="iap-settings-form__password-fields">
@@ -155,13 +155,6 @@ class AdminAccountForm extends Component {
           >
             Save Changes
           </Button>
-          <Button
-            transparent
-            disabled={posting}
-            onClick={this.props.onCancel}
-          >
-            Cancel
-          </Button>
         </footer>
       </form>
     );
@@ -169,7 +162,6 @@ class AdminAccountForm extends Component {
 }
 
 AdminAccountForm.propTypes = {
-  onCancel: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
   settings: PropTypes.shape({
     email: PropTypes.string,
@@ -179,7 +171,6 @@ AdminAccountForm.propTypes = {
 };
 
 AdminAccountForm.defaultProps = {
-  onCancel: null,
   settings: {
     email: '',
   },
