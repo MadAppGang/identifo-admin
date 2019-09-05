@@ -5,20 +5,28 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import { Select, Option } from '~/components/shared/Select';
+
+const types = {
+  LOCAL: 'local',
+  S3: 's3',
+};
 
 const StaticFilesGeneralForm = (props) => {
   const { loading, error, settings, onSubmit } = props;
 
+  const [type, setType] = useState(settings.type || '');
   const [serverConfigPath, setServerConfigPath] = useState(settings.serverConfigPath || '');
   const [staticFilesLocation, setStaticFilesLocation] = useState(settings.staticFilesLocation || '');
-  const [adminPanelBuildPath, setAdminPanelBuildPath] = useState(settings.adminPanelBuildPath || '');
+  const [region, setRegion] = useState(settings.region || '');
 
   useEffect(() => {
     if (!settings) return;
 
     setServerConfigPath(settings.serverConfigPath);
     setStaticFilesLocation(settings.staticFilesLocation);
-    setAdminPanelBuildPath(settings.adminPanelBuildPath);
+    setType(settings.type);
+    setRegion(settings.region);
   }, [settings]);
 
   const handleSubmit = (event) => {
@@ -27,18 +35,30 @@ const StaticFilesGeneralForm = (props) => {
     onSubmit(update(settings, {
       serverConfigPath,
       staticFilesLocation,
-      adminPanelBuildPath,
+      type,
+      region,
     }));
   };
 
   return (
     <form className="iap-apps-form" onSubmit={handleSubmit}>
+      <Field label="Storage Type">
+        <Select
+          value={type}
+          onChange={setType}
+          placeholder="Select storage type"
+        >
+          <Option value={types.LOCAL} title="Local" />
+          <Option value={types.S3} title="S3" />
+        </Select>
+      </Field>
+
       <Field label="Server Config Path">
         <Input
           value={serverConfigPath}
           autoComplete="off"
           placeholder="Specify path to server config"
-          onChange={e => setServerConfigPath(e.target.value)}
+          onValue={setServerConfigPath}
           disabled={loading}
         />
       </Field>
@@ -48,20 +68,22 @@ const StaticFilesGeneralForm = (props) => {
           value={staticFilesLocation}
           autoComplete="off"
           placeholder="Specify path to static folder"
-          onChange={e => setStaticFilesLocation(e.target.value)}
+          onValue={setStaticFilesLocation}
           disabled={loading}
         />
       </Field>
 
-      <Field label="Admin Panel Build Path">
-        <Input
-          value={adminPanelBuildPath}
-          autoComplete="off"
-          placeholder="Specify path to admin panel build folder"
-          onChange={e => setAdminPanelBuildPath(e.target.value)}
-          disabled={loading}
-        />
-      </Field>
+      {type === types.S3 && (
+        <Field label="Region">
+          <Input
+            value={region}
+            autoComplete="off"
+            placeholder="Specify s3 region"
+            onValue={setRegion}
+            disabled={loading}
+          />
+        </Field>
+      )}
 
       <footer className="iap-apps-form__footer">
         <Button

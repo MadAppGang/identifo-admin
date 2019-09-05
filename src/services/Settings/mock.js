@@ -44,9 +44,10 @@ const data = {
     endpoint: '',
   },
   staticFiles: {
+    type: 'local',
     serverConfigPath: 'server-config.yaml',
     staticFilesLocation: './web/static',
-    adminPanelBuildPath: './admin_panel/build',
+    region: '',
   },
   configurationStorage: {
     type: 'file',
