@@ -24,7 +24,6 @@ const LoginTypesSection = () => {
     dispatch(updateLoginSettings(nextSettings));
   };
 
-
   return (
     <section className="iap-management-section">
       <p className="iap-management-section__title">

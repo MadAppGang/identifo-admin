@@ -1,114 +1,87 @@
-import {
-  serializeLoginSettings, deserializeLoginSettings,
-} from './mappings/loginSettingsMappings';
+import { toDeepCase } from '~/utils/apiMapper';
 
-import {
-  serializeExternalServicesSettings, deserializeExternalServicesSettings,
-} from './mappings/externalSettingsMapping';
-
-import {
-  serializeSessionStorageSettings, deserializeSessionStorageSettings,
-} from './mappings/sessionSettingsMappings';
-
-import {
-  serializeStaticFilesSettings, deserializeStaticFilesSettings,
-} from './mappings/staticFilesSettingsMappings';
-
-import {
-  serializeGeneralSettings, deserializeGeneralSettings,
-} from './mappings/generalSettingsMappings';
-
-import {
-  serializeConfigurationStorageSettings, deserializeConfigurationStorageSettings,
-} from './mappings/configurationStorageSettingsMappings';
-
-import {
-  serializeCredentialsSettings, deserializeCredentialsSettings,
-} from './mappings/adminCredentialsSettingsMappings';
+const CAMEL_CASE = 'camel';
+const SNAKE_CASE = 'snake';
 
 const createSettingsService = ({ httpClient }) => {
   const fetchLoginSettings = async () => {
     const url = `${process.env.API_URL}/settings/login`;
     const { data } = await httpClient.get(url);
 
-    return deserializeLoginSettings(data);
+    return toDeepCase(data, CAMEL_CASE);
   };
 
   const updateLoginSettings = (settings) => {
     const url = `${process.env.API_URL}/settings/login`;
-    return httpClient.put(url, serializeLoginSettings(settings));
+    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
   const fetchExternalServicesSettings = async () => {
     const url = `${process.env.API_URL}/settings/services`;
     const { data } = await httpClient.get(url);
-
-    return deserializeExternalServicesSettings(data);
+    return toDeepCase(data, CAMEL_CASE);
   };
 
   const updateExternalServicesSettings = async (settings) => {
     const url = `${process.env.API_URL}/settings/services`;
-    return httpClient.put(url, serializeExternalServicesSettings(settings));
+    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
   const fetchSessionStorageSettings = async () => {
     const url = `${process.env.API_URL}/settings/storage/session`;
     const { data } = await httpClient.get(url);
-
-    return deserializeSessionStorageSettings(data);
+    return toDeepCase(data, CAMEL_CASE);
   };
 
   const updateSessionStorageSettings = async (settings) => {
     const url = `${process.env.API_URL}/settings/storage/session`;
-    return httpClient.put(url, serializeSessionStorageSettings(settings));
+    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
   const fetchStaticFilesSettings = async () => {
     const url = `${process.env.API_URL}/settings/static`;
     const { data } = await httpClient.get(url);
 
-    return deserializeStaticFilesSettings(data);
+    return toDeepCase(data, CAMEL_CASE);
   };
 
   const updateStaticFilesSettings = async (settings) => {
     const url = `${process.env.API_URL}/settings/static`;
-    return httpClient.put(url, serializeStaticFilesSettings(settings));
+    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
   const fetchGeneralSettings = async () => {
     const url = `${process.env.API_URL}/settings/general`;
     const { data } = await httpClient.get(url);
-
-    return deserializeGeneralSettings(data);
+    return toDeepCase(data, CAMEL_CASE);
   };
 
   const updateGeneralSettings = async (settings) => {
     const url = `${process.env.API_URL}/settings/general`;
-    return httpClient.put(url, serializeGeneralSettings(settings));
+    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
   const fetchConfigurationStorageSettings = async () => {
     const url = `${process.env.API_URL}/settings/configuration`;
     const { data } = await httpClient.get(url);
 
-    return deserializeConfigurationStorageSettings(data);
+    return toDeepCase(data, CAMEL_CASE);
   };
 
   const updateConfigurationStorageSettings = async (settings) => {
     const url = `${process.env.API_URL}/settings/configuration`;
-    return httpClient.put(url, serializeConfigurationStorageSettings(settings));
+    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
   const fetchAdminCredentialsSettings = async () => {
     const url = `${process.env.API_URL}/settings`;
     const { data } = await httpClient.get(url);
-
-    return deserializeCredentialsSettings(data.admin_account);
+    return toDeepCase(data.admin_account, CAMEL_CASE);
   };
 
   const updateAdminCredentialsSettings = async (settings) => {
     const url = `${process.env.API_URL}/settings/configuration`;
-    return httpClient.put(url, serializeCredentialsSettings(settings));
+    return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 
   const uploadJWTKeys = async (pubKey, privKey) => {
