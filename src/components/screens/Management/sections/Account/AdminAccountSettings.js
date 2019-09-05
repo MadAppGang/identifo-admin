@@ -56,7 +56,7 @@ class AdminAccountSettings extends Component {
     return (
       <AccountForm
         error={error}
-        posting={posting}
+        loading={fetching || posting}
         settings={settings}
         onSubmit={this.handleFormSubmit}
       />

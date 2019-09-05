@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import update from '@madappgang/update-by-path';
 import * as Validation from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
@@ -11,171 +10,130 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import { adminAccountFormRules } from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 
-class AdminAccountForm extends Component {
-  constructor({ settings }) {
-    super();
+const validate = Validation.applyRules(adminAccountFormRules);
 
-    this.validate = Validation.applyRules(adminAccountFormRules);
+const AdminAccountForm = (props) => {
+  const { onSubmit, error, loading, settings } = props;
 
-    this.state = {
-      email: settings ? settings.email : '',
-      password: '',
-      confirmPassword: '',
-      editPassword: false,
-      validation: {
-        password: '',
-        confirmPassword: '',
-        email: '',
-      },
-    };
+  const [email, setEmail] = useState(settings ? settings.email : '');
+  const [editPassword, setEditPassword] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [validation, setValidation] = useState({
+    password: '',
+    confirmPassword: '',
+    email: '',
+  });
 
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.toggleEditPassword = this.toggleEditPassword.bind(this);
-  }
+  useEffect(() => {
+    if (!settings) return;
 
-  handleInput({ target }) {
-    const { name, value } = target;
-    let { validation } = this.state;
+    setEmail(settings.email);
+  }, [settings]);
 
-    if (validation[name]) {
-      validation = update(validation, { [name]: '' });
+  const handleInput = (name, value, setValue) => {
+    if (name in validation) {
+      setValidation(update(validation, { [name]: '' }));
     }
 
-    this.setState({
-      [name]: value,
-      validation,
-    });
-  }
+    setValue(value);
+  };
 
-  handleBlur({ target }) {
-    const { name, value } = target;
-    const validationMessage = this.validate(name, {
-      ...this.state,
-      [name]: value,
-    });
-
-    this.setState(state => ({
-      validation: update(state.validation, {
-        [name]: validationMessage,
-      }),
-    }));
-  }
-
-  toggleEditPassword() {
-    this.setState(state => ({
-      editPassword: !state.editPassword,
-      validation: update(state.validation, {
-        password: '',
-        confirmPassword: '',
-      }),
-    }));
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password, editPassword } = this.state;
-
-    const validation = this.validate('all', this.state, {
+    const validationReport = validate('all', { email, password, confirmPassword }, {
       omit: editPassword ? [] : ['password', 'confirmPassword'],
     });
 
-    if (Validation.hasError(validation)) {
-      this.setState({ validation });
+    if (Validation.hasError(validationReport)) {
+      setValidation(validationReport);
       return;
     }
 
-    this.props.onSubmit({
+    onSubmit({ email, password: editPassword ? password : undefined });
+  };
+
+  const handleBlur = (name, value) => {
+    const validationMessage = validate(name, {
       email,
-      password: editPassword ? password : undefined,
+      password,
+      confirmPassword,
+      [name]: value,
     });
-  }
 
-  render() {
-    const {
-      email, password, editPassword, confirmPassword, validation,
-    } = this.state;
-    const { posting, error } = this.props;
+    setValidation(update(validation, {
+      [name]: validationMessage,
+    }));
+  };
 
-    return (
-      <form className="iap-settings-form" onSubmit={this.handleSubmit}>
+  return (
+    <form className="iap-settings-form" onSubmit={handleSubmit}>
 
-        {!!error && (
-          <FormErrorMessage error={error} />
-        )}
+      {!!error && (
+        <FormErrorMessage error={error} />
+      )}
 
-        <Field label="Email">
-          <Input
-            name="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={this.handleInput}
-            onBlur={this.handleBlur}
-            errorMessage={validation.email}
-          />
-        </Field>
+      <Field label="Email">
+        <Input
+          value={email}
+          placeholder="Enter your email"
+          onValue={v => handleInput('email', v, setEmail)}
+          onBlur={e => handleBlur('email', e.target.value)}
+          errorMessage={validation.email}
+          disabled={loading}
+        />
+      </Field>
 
-        <Toggle label="Edit password" value={this.state.editPassword} onChange={this.toggleEditPassword} />
+      <Toggle
+        label="Edit password"
+        value={editPassword}
+        onChange={() => {
+          setEditPassword(!editPassword);
+          setValidation(update(validation, {
+            password: '',
+            confirmPassword: '',
+          }));
+        }}
+      />
 
-        {editPassword && (
-          <div className="iap-settings-form__password-fields">
-            <Field label="Password">
-              <Input
-                name="password"
-                type="password"
-                value={password}
-                placeholder="Enter your password"
-                onChange={this.handleInput}
-                onBlur={this.handleBlur}
-                errorMessage={validation.password}
-              />
-            </Field>
+      {editPassword && (
+        <div className="iap-settings-form__password-fields">
+          <Field label="Password">
+            <Input
+              type="password"
+              value={password}
+              placeholder="Enter your password"
+              onValue={v => handleInput('password', v, setPassword)}
+              onBlur={e => handleBlur('password', e.target.value)}
+              errorMessage={validation.password}
+            />
+          </Field>
 
-            <Field label="Confirm Password">
-              <Input
-                name="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                placeholder="Confirm your password"
-                onChange={this.handleInput}
-                onBlur={this.handleBlur}
-                errorMessage={validation.confirmPassword}
-              />
-            </Field>
-          </div>
-        )}
+          <Field label="Confirm Password">
+            <Input
+              type="password"
+              value={confirmPassword}
+              placeholder="Confirm your password"
+              onValue={v => handleInput('confirmPassword', v, setConfirmPassword)}
+              onBlur={e => handleBlur('confirmPassword', e.target.value)}
+              errorMessage={validation.confirmPassword}
+            />
+          </Field>
+        </div>
+      )}
 
-        <footer className="iap-settings-form__footer">
-          <Button
-            type="submit"
-            error={!posting && !!error}
-            disabled={posting || Validation.hasError(validation)}
-            Icon={posting ? LoadingIcon : SaveIcon}
-          >
-            Save Changes
-          </Button>
-        </footer>
-      </form>
-    );
-  }
-}
-
-AdminAccountForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  settings: PropTypes.shape({
-    email: PropTypes.string,
-  }),
-  posting: PropTypes.bool,
-  error: PropTypes.instanceOf(Error),
-};
-
-AdminAccountForm.defaultProps = {
-  settings: {
-    email: '',
-  },
-  posting: false,
-  error: null,
+      <footer className="iap-settings-form__footer">
+        <Button
+          type="submit"
+          error={!loading && !!error}
+          disabled={loading || Validation.hasError(validation)}
+          Icon={loading ? LoadingIcon : SaveIcon}
+        >
+          Save Changes
+        </Button>
+      </footer>
+    </form>
+  );
 };
 
 export default AdminAccountForm;
