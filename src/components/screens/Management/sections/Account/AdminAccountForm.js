@@ -21,9 +21,7 @@ const validateValues = (values) => {
   return Validation.hasError(errors) ? errors : {};
 };
 
-const AdminAccountForm = (props) => {
-  const { onSubmit, error, loading, settings } = props;
-
+const AdminAccountForm = ({ onSubmit, error, loading, settings }) => {
   const [editPassword, setEditPassword] = useState(false);
 
   const initialValues = {
@@ -39,8 +37,6 @@ const AdminAccountForm = (props) => {
     }));
   });
 
-  const { values, errors, setValues, handleSubmit, handleChange, handleBlur } = form;
-
   const [validation, setValidation] = useState({
     password: '',
     confirmPassword: '',
@@ -50,7 +46,7 @@ const AdminAccountForm = (props) => {
   useEffect(() => {
     if (!settings) return;
 
-    setValues({
+    form.setValues({
       email: settings.email || '',
       password: '',
       confirmPassword: '',
@@ -58,8 +54,7 @@ const AdminAccountForm = (props) => {
   }, [settings]);
 
   return (
-    <form className="iap-settings-form" onSubmit={handleSubmit}>
-
+    <form className="iap-settings-form" onSubmit={form.handleSubmit}>
       {!!error && (
         <FormErrorMessage error={error} />
       )}
@@ -67,11 +62,11 @@ const AdminAccountForm = (props) => {
       <Field label="Email">
         <Input
           name="email"
-          value={values.email}
+          value={form.values.email}
           placeholder="Enter your email"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          errorMessage={errors.email}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
+          errorMessage={form.errors.email}
           disabled={loading}
         />
       </Field>
@@ -94,11 +89,11 @@ const AdminAccountForm = (props) => {
             <Input
               type="password"
               name="password"
-              value={values.password}
+              value={form.values.password}
               placeholder="Enter your password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={errors.password}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              errorMessage={form.errors.password}
             />
           </Field>
 
@@ -106,11 +101,11 @@ const AdminAccountForm = (props) => {
             <Input
               type="password"
               name="confirmPassword"
-              value={values.confirmPassword}
+              value={form.values.confirmPassword}
               placeholder="Confirm your password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={errors.confirmPassword}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              errorMessage={form.errors.confirmPassword}
             />
           </Field>
         </div>
@@ -120,7 +115,7 @@ const AdminAccountForm = (props) => {
         <Button
           type="submit"
           error={!loading && !!error}
-          disabled={loading || Validation.hasError(errors)}
+          disabled={loading || Validation.hasError(form.errors)}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
           Save Changes
