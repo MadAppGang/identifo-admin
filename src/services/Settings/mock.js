@@ -19,7 +19,14 @@ const data = {
     passwordEnvName: 'IDENTIFO_ADMIN_PASSWORD',
   },
   externalServices: {
-    mailService: 'mock',
+    emailService: {
+      type: 'mock', // mock || mailgun || aws_ses
+      domain: '', // mailgun-related
+      privateKey: '', // mailgun-related
+      publicKey: '', // mailgun-related
+      sender: '',
+      region: '', // ses-related,
+    },
     smsService: {
       type: 'mock',
       accountSid: '',
