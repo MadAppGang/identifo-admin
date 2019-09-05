@@ -3,6 +3,8 @@ import { pause } from '~/utils';
 const data = {
   settings: {
     email: 'john@doe.com',
+    loginEnvName: 'IDENTIFO_ADMIN_LOGIN',
+    passwordEnvName: 'IDENTIFO_ADMIN_PASSWORD',
   },
 };
 

@@ -73,7 +73,10 @@ const AdminAccountForm = (props) => {
         <FormErrorMessage error={error} />
       )}
 
-      <Field label="Email">
+      <Field
+        label="Email"
+        subtext={settings ? `Value is stored in ${settings.loginEnvName} env var.` : ''}
+      >
         <Input
           value={email}
           placeholder="Enter your email"
