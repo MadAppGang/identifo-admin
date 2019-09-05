@@ -20,12 +20,12 @@ const data = {
   },
   externalServices: {
     emailService: {
-      type: 'mailgun', // mock || mailgun || aws_ses
-      domain: 'example.com', // mailgun-related
-      privateKey: 'private', // mailgun-related
-      publicKey: 'public', // mailgun-related
+      type: 'mailgun',
+      domain: 'example.com',
+      privateKey: 'PRIVATE',
+      publicKey: 'PUBLIC',
       sender: '',
-      region: '', // ses-related,
+      region: '',
     },
     smsService: {
       type: 'mock',
@@ -44,17 +44,11 @@ const data = {
     endpoint: '',
   },
   staticFiles: {
+    type: 'local',
     serverConfigPath: 'server-config.yaml',
-    staticFolderPath: './web/static',
-    emailTemplatesPath: './email_templates',
-    emailTemplateNames: {
-      welcome: 'welcome.html',
-      resetPassword: 'reset_password.html',
-      invite: 'invite_email.html',
-      verify: 'verify_email.html',
-      tfa: 'tfa_email.html',
-    },
+    staticFilesLocation: './web/static',
     adminPanelBuildPath: './admin_panel/build',
+    region: '',
   },
   configurationStorage: {
     type: 'file',

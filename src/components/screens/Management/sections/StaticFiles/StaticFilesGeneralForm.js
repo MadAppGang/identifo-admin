@@ -10,14 +10,14 @@ const StaticFilesGeneralForm = (props) => {
   const { loading, error, settings, onSubmit } = props;
 
   const [serverConfigPath, setServerConfigPath] = useState(settings.serverConfigPath || '');
-  const [staticFolderPath, setStaticFolderPath] = useState(settings.staticFolderPath || '');
+  const [staticFilesLocation, setStaticFilesLocation] = useState(settings.staticFilesLocation || '');
   const [adminPanelBuildPath, setAdminPanelBuildPath] = useState(settings.adminPanelBuildPath || '');
 
   useEffect(() => {
     if (!settings) return;
 
     setServerConfigPath(settings.serverConfigPath);
-    setStaticFolderPath(settings.staticFolderPath);
+    setStaticFilesLocation(settings.staticFilesLocation);
     setAdminPanelBuildPath(settings.adminPanelBuildPath);
   }, [settings]);
 
@@ -26,7 +26,7 @@ const StaticFilesGeneralForm = (props) => {
 
     onSubmit(update(settings, {
       serverConfigPath,
-      staticFolderPath,
+      staticFilesLocation,
       adminPanelBuildPath,
     }));
   };
@@ -43,12 +43,12 @@ const StaticFilesGeneralForm = (props) => {
         />
       </Field>
 
-      <Field label="Static Folder Path">
+      <Field label="Static Files Location">
         <Input
-          value={staticFolderPath}
+          value={staticFilesLocation}
           autoComplete="off"
           placeholder="Specify path to static folder"
-          onChange={e => setStaticFolderPath(e.target.value)}
+          onChange={e => setStaticFilesLocation(e.target.value)}
           disabled={loading}
         />
       </Field>

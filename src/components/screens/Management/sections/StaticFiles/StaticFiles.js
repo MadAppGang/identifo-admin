@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tab, Tabs } from '~/components/shared/Tabs';
 import StaticFilesGeneralForm from './StaticFilesGeneralForm';
-import EmailTemplatesForm from './EmailTemplatesForm';
 import {
   fetchStaticFilesSettings, updateStaticFilesSettings,
 } from '~/modules/settings/actions';
 import { createNotification } from '~/modules/notifications/actions';
 
 const StaticFilesSection = () => {
-  const [tabIndex, setTabIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -43,31 +40,15 @@ const StaticFilesSection = () => {
         Static Files
       </p>
 
-      <Tabs
-        activeTabIndex={tabIndex}
-        onChange={setTabIndex}
-      >
-        <Tab title="General Settings" />
-        <Tab title="Email Templates" />
+      <p className="iap-management-section__description">
+        These settings allow to specify paths to various static files directories.
+      </p>
 
-        <>
-          {tabIndex === 0 && (
-            <StaticFilesGeneralForm
-              settings={settings || {}}
-              loading={loading}
-              onSubmit={handleSubmit}
-            />
-          )}
-
-          {tabIndex === 1 && (
-            <EmailTemplatesForm
-              settings={settings}
-              loading={loading}
-              onSubmit={handleSubmit}
-            />
-          )}
-        </>
-      </Tabs>
+      <StaticFilesGeneralForm
+        settings={settings || {}}
+        loading={loading}
+        onSubmit={handleSubmit}
+      />
     </section>
   );
 };
