@@ -85,7 +85,7 @@ const createSettingsService = ({ httpClient }) => {
   };
 
   const uploadJWTKeys = async (pubKey, privKey) => {
-    const url = `${process.env.API_URL}/settings/keys`;
+    const url = `${process.env.API_URL}/settings/uploads/keys`;
 
     const formData = new FormData();
     formData.append('keys', pubKey, 'public.pem');
