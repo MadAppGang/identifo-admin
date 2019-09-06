@@ -8,11 +8,13 @@ const useForm = (initialState, validate, submit) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const validationResult = validate(values);
+    if (validate) {
+      const validationResult = validate(values);
 
-    if (Object.keys(validationResult).length > 0) {
-      setErrors(validationResult);
-      return;
+      if (Object.keys(validationResult).length > 0) {
+        setErrors(validationResult);
+        return;
+      }
     }
 
     submit(values);
@@ -31,7 +33,9 @@ const useForm = (initialState, validate, submit) => {
   const handleBlur = ({ target }) => {
     const { name, value } = target;
 
-    setErrors(validate(update(values, name, value)));
+    if (validate) {
+      setErrors(validate(update(values, name, value)));
+    }
   };
 
   return {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import update from '@madappgang/update-by-path';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import Input from '~/components/shared/Input';
@@ -7,58 +7,68 @@ import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import { Select, Option } from '~/components/shared/Select';
+import useForm from '~/hooks/useForm';
+
+const domChangeEvent = (name, value) => ({ target: { name, value } });
 
 const GeneralForm = (props) => {
   const { error, settings, loading, onSubmit } = props;
 
-  const [host, setHost] = useState(settings ? settings.host : '');
-  const [issuer, setIssuer] = useState(settings ? settings.issuer : '');
-  const [algorithm, setAlgorithm] = useState(settings ? settings.algorithm : '');
-
-  useEffect(() => {
-    if (!settings) return;
-
-    setHost(settings.host);
-    setIssuer(settings.issuer);
-    setAlgorithm(settings.algorithm);
-  }, [settings]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSubmit(update(settings, { host, issuer, algorithm }));
+  const initialState = {
+    host: settings ? settings.host : '',
+    issuer: settings ? settings.issuer : '',
+    algorithm: settings ? settings.algorithm : '',
   };
 
+  const handleSubmit = (values) => {
+    onSubmit(update(settings, values));
+  };
+
+  const form = useForm(initialState, null, handleSubmit);
+
+  React.useEffect(() => {
+    if (!settings) return;
+
+    form.setValues({
+      host: settings.host,
+      issuer: settings.issuer,
+      algorithm: settings.algorithm,
+    });
+  }, [settings]);
+
   return (
-    <form className="iap-apps-form" onSubmit={handleSubmit}>
+    <form className="iap-apps-form" onSubmit={form.handleSubmit}>
       {!!error && (
         <FormErrorMessage error={error} />
       )}
 
       <Field label="Host">
         <Input
-          value={host}
+          name="host"
+          value={form.values.host}
           autoComplete="off"
           placeholder="Enter host url"
-          onChange={e => setHost(e.target.value)}
+          onChange={form.handleChange}
           disabled={loading}
         />
       </Field>
 
       <Field label="Issuer">
         <Input
-          value={issuer}
+          name="issuer"
+          value={form.values.issuer}
           autoComplete="off"
           placeholder="Enter issuer url"
-          onChange={e => setIssuer(e.target.value)}
+          onChange={form.handleChange}
           disabled={loading}
         />
       </Field>
 
       <Field label="Algorithm">
         <Select
-          value={algorithm}
+          value={form.values.algorithm}
           disabled={loading}
-          onChange={setAlgorithm}
+          onChange={v => form.handleChange(domChangeEvent('algorithm', v))}
           placeholder="Select Algorithm"
         >
           <Option value="auto" title="Auto" />

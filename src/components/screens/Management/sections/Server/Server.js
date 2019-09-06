@@ -12,7 +12,7 @@ import {
 import { createNotification } from '~/modules/notifications/actions';
 
 const GeneralSection = () => {
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(0);
   const dispatch = useDispatch();
   const settings = useSelector(s => s.settings.configurationStorage);
   const [loading, setLoading] = useState(false);
