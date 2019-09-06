@@ -15,7 +15,7 @@ const useForm = (initialState, validate, submit) => {
       return;
     }
 
-    submit();
+    submit(values);
   };
 
   const handleChange = ({ target }) => {

@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import update from '@madappgang/update-by-path';
-import * as Validation from '@dprovodnikov/validation';
+import { hasError } from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
 import Toggle from '~/components/shared/Toggle';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import { adminAccountFormRules } from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import useForm from '~/hooks/useForm';
-
-const validateValues = (values) => {
-  const validate = Validation.applyRules(adminAccountFormRules);
-  const omitPasswords = !values.password && !values.confirmPassword;
-  const errors = validate('all', values, {
-    omit: omitPasswords ? ['password', 'confirmPassword'] : [],
-  });
-
-  return Validation.hasError(errors) ? errors : {};
-};
+import { validateAccountForm } from './validationRules';
 
 const AdminAccountForm = ({ onSubmit, error, loading, settings }) => {
   const [editPassword, setEditPassword] = useState(false);
@@ -30,12 +20,13 @@ const AdminAccountForm = ({ onSubmit, error, loading, settings }) => {
     confirmPassword: '',
   };
 
-  const form = useForm(initialValues, validateValues, () => {
+  const handleSubmit = ({ email, password }) => {
     onSubmit(update(settings, {
-      email: form.values.email,
-      password: editPassword ? form.values.password : undefined,
+      email, password: editPassword ? password : undefined,
     }));
-  });
+  };
+
+  const form = useForm(initialValues, validateAccountForm, handleSubmit);
 
   const [validation, setValidation] = useState({
     password: '',
@@ -115,7 +106,7 @@ const AdminAccountForm = ({ onSubmit, error, loading, settings }) => {
         <Button
           type="submit"
           error={!loading && !!error}
-          disabled={loading || Validation.hasError(form.errors)}
+          disabled={loading || hasError(form.errors)}
           Icon={loading ? LoadingIcon : SaveIcon}
         >
           Save Changes

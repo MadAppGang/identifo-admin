@@ -1,4 +1,6 @@
-import { matches, notEmpty, emailFormat } from '@dprovodnikov/validation';
+import {
+  applyRules, hasError, matches, notEmpty, emailFormat,
+} from '@dprovodnikov/validation';
 
 const onlyDigits = message => (value) => {
   if (!value) {
@@ -44,4 +46,15 @@ export const sessionStorageFormRules = {
   region: [
     notEmpty('You have to specify region'),
   ],
+};
+
+const validate = applyRules(adminAccountFormRules);
+
+export const validateAccountForm = (values) => {
+  const omitPasswords = !values.password && !values.confirmPassword;
+  const errors = validate('all', values, {
+    omit: omitPasswords ? ['password', 'confirmPassword'] : [],
+  });
+
+  return hasError(errors) ? errors : {};
 };

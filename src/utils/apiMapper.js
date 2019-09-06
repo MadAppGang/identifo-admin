@@ -1,5 +1,5 @@
 const toSnakeCase = (value) => {
-  return value.repalce(/[A-Z]/, match => `_${match.toLowerCase()}`);
+  return value.replace(/[A-Z]/, match => `_${match.toLowerCase()}`);
 };
 
 const toCamelCase = (value) => {

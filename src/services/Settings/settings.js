@@ -62,14 +62,14 @@ const createSettingsService = ({ httpClient }) => {
   };
 
   const fetchConfigurationStorageSettings = async () => {
-    const url = `${process.env.API_URL}/settings/configuration`;
+    const url = `${process.env.API_URL}/settings/storage/configuration`;
     const { data } = await httpClient.get(url);
 
     return toDeepCase(data, CAMEL_CASE);
   };
 
   const updateConfigurationStorageSettings = async (settings) => {
-    const url = `${process.env.API_URL}/settings/configuration`;
+    const url = `${process.env.API_URL}/settings/storage/configuration`;
     return httpClient.put(url, toDeepCase(settings, SNAKE_CASE));
   };
 

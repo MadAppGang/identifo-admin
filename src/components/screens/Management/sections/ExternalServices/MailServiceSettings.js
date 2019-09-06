@@ -8,7 +8,7 @@ import { Select, Option } from '~/components/shared/Select';
 
 const types = {
   MOCK: 'mock',
-  AWS_SES: 'aws_ses',
+  AWS_SES: 'aws ses',
   MAILGUN: 'mailgun',
 };
 
