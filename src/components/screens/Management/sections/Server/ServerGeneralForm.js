@@ -8,8 +8,7 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import { Select, Option } from '~/components/shared/Select';
 import useForm from '~/hooks/useForm';
-
-const domChangeEvent = (name, value) => ({ target: { name, value } });
+import { domChangeEvent } from '~/utils';
 
 const GeneralForm = (props) => {
   const { error, settings, loading, onSubmit } = props;

@@ -8,6 +8,8 @@ import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import { Select, Option } from '~/components/shared/Select';
+import useForm from '~/hooks/useForm';
+import { domChangeEvent } from '~/utils';
 
 const storageTypes = {
   FILE: 'file',
@@ -19,52 +21,56 @@ const ServerJWTForm = (props) => {
 
   const settings = props.settings ? props.settings.keyStorage : null;
 
-  const [storageType, setStorageType] = useState(settings ? settings.type : '');
-  const [publicKeyPath, setPublicKeyPath] = useState(settings ? settings.publicKey : '');
-  const [privateKeyPath, setPrivateKeyPath] = useState(settings ? settings.privateKey : '');
-  const [region, setRegion] = useState(settings ? settings.region : '');
-  const [bucket, setBucket] = useState(settings ? settings.bucket : '');
-
   const [publicKeyFile, setPublicKeyFile] = useState(null);
   const [privateKeyFile, setPrivateKeyFile] = useState(null);
 
-  useEffect(() => {
-    if (!settings) return;
+  const initialValues = {
+    storageType: settings ? settings.type : '',
+    publicKeyPath: settings ? settings.publicKey : '',
+    privateKeyPath: settings ? settings.privateKey : '',
+    region: settings ? settings.region : '',
+    bucket: settings ? settings.bucket : '',
+  };
 
-    setStorageType(settings.type);
-    setPublicKeyPath(settings.publicKey);
-    setPrivateKeyPath(settings.privateKey);
-    setRegion(settings.region);
-    setBucket(settings.bucket || '');
-  }, [settings]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const handleSubmit = (values) => {
     onSubmit(update(props.settings, {
       keyStorage: {
-        type: storageType,
-        publicKey: publicKeyPath,
-        privateKey: privateKeyPath,
-        region,
-        bucket,
+        type: values.storageType,
+        publicKey: values.publicKeyPath,
+        privateKey: values.privateKeyPath,
+        region: values.region,
+        bucket: values.bucket,
       },
       publicKey: publicKeyFile,
       privateKey: privateKeyFile,
     }));
   };
 
+  const form = useForm(initialValues, null, handleSubmit);
+
+  useEffect(() => {
+    if (!settings) return;
+
+    form.setValues({
+      storageType: settings.type,
+      publicKeyPath: settings.publicKey,
+      privateKeyPath: settings.privateKey,
+      region: settings.region,
+      bucket: settings.bucket,
+    });
+  }, [settings]);
+
   return (
-    <form className="iap-apps-form" onSubmit={handleSubmit}>
+    <form className="iap-apps-form" onSubmit={form.handleSubmit}>
       {!!error && (
         <FormErrorMessage error={error} />
       )}
 
       <Field label="Storage Type">
         <Select
-          value={storageType}
+          value={form.values.storageType}
           disabled={loading}
-          onChange={setStorageType}
+          onChange={v => form.handleChange(domChangeEvent('storageType', v))}
           placeholder="Select storage type"
         >
           <Option value={storageTypes.FILE} title="File" />
@@ -72,25 +78,27 @@ const ServerJWTForm = (props) => {
         </Select>
       </Field>
 
-      {storageType === storageTypes.S3 && (
+      {form.values.storageType === storageTypes.S3 && (
         <Field label="Region">
           <Input
-            value={region}
+            name="region"
+            value={form.values.region}
             autoComplete="off"
             placeholder="Enter s3 region"
-            onValue={setRegion}
+            onChange={form.handleChange}
             disabled={loading}
           />
         </Field>
       )}
 
-      {storageType === storageTypes.S3 && (
+      {form.values.storageType === storageTypes.S3 && (
         <Field label="Bucket" subtext="Can be overriden by IDENTIFO_JWT_KEYS_BUCKET env variable">
           <Input
-            value={bucket}
+            name="bucket"
+            value={form.values.bucket}
             autoComplete="off"
             placeholder="Enter s3 bucket"
-            onValue={setBucket}
+            onChange={form.handleChange}
             disabled={loading}
           />
         </Field>
@@ -101,10 +109,10 @@ const ServerJWTForm = (props) => {
         subtext={publicKeyFile ? publicKeyFile.name : 'No file selected'}
       >
         <FileInput
-          path={publicKeyPath}
+          path={form.values.publicKeyPath}
           placeholder="Specify path to folder"
           onFile={setPublicKeyFile}
-          onPath={setPublicKeyPath}
+          onPath={v => form.handleChange(domChangeEvent('publicKeyPath', v))}
           disabled={loading}
         />
       </Field>
@@ -114,10 +122,10 @@ const ServerJWTForm = (props) => {
         subtext={privateKeyFile ? privateKeyFile.name : 'No file selected'}
       >
         <FileInput
-          path={privateKeyPath}
+          path={form.values.privateKeyPath}
           placeholder="Specify path to folder"
           onFile={setPrivateKeyFile}
-          onPath={setPrivateKeyPath}
+          onPath={v => form.handleChange(domChangeEvent('privateKeyPath', v))}
           disabled={loading}
         />
       </Field>

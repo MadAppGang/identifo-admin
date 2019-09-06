@@ -2,6 +2,8 @@ import randomstring from 'randomstring';
 
 export const pause = timeout => new Promise(resolve => setTimeout(resolve, timeout));
 
+export const domChangeEvent = (name, value) => ({ target: { name, value } });
+
 export const isPhone = (value) => {
   return !!(/^[+][0-9]{9,15}$/.test(value));
 };
