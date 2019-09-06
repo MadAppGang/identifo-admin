@@ -14,11 +14,6 @@ const storageTypes = {
   S3: 's3',
 };
 
-const keyDescription = {
-  [storageTypes.FILE]: 'Must be a path to file (e.g, ./jwt/public.pem)',
-  [storageTypes.S3]: 'Must be a name of an object in the bucket (e.g, public.pem)',
-};
-
 const ServerJWTForm = (props) => {
   const { error, loading, onSubmit } = props;
 
@@ -101,39 +96,21 @@ const ServerJWTForm = (props) => {
         </Field>
       )}
 
-      <Field label="Public Key" subtext={keyDescription[storageType]}>
-        <Input
-          value={publicKey}
-          autoComplete="off"
-          placeholder="Specify public key"
-          onValue={setPublicKey}
-          disabled={loading}
-        />
-      </Field>
-
-      <Field label="Private Key" subtext={keyDescription[storageType]}>
-        <Input
-          value={privateKey}
-          autoComplete="off"
-          placeholder="Specify private key"
-          onValue={setPrivateKey}
-          disabled={loading}
-        />
-      </Field>
-
-      <Field label="Public Key File">
+      <Field label="Public Key">
         <FileInput
-          value={publicKeyFile}
-          placeholder="Upload file"
-          onChange={setPublicKeyFile}
+          path={publicKey}
+          placeholder="Specify path to folder"
+          onFile={setPublicKeyFile}
+          onPath={setPublicKey}
         />
       </Field>
 
-      <Field label="Private Key File">
+      <Field label="Private Key">
         <FileInput
-          value={privateKeyFile}
-          placeholder="Upload file"
-          onChange={setPrivateKeyFile}
+          path={privateKey}
+          placeholder="Specify path to folder"
+          onFile={setPrivateKeyFile}
+          onPath={setPrivateKey}
         />
       </Field>
 

@@ -1,37 +1,43 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Input from '~/components/shared/Input';
-import UploadIcon from '~/components/icons/UploadIcon.svg';
+import FileUploadButton from './FileUploadButton';
 
-const FileInput = ({ onChange, placeholder, ...props }) => {
+const FileInput = (props) => {
   const fileInputRef = useRef(null);
   const [file, setFile] = useState(props.file || null);
 
-  const handleFile = (event) => {
-    setFile(event.target.files[0]);
+  useEffect(() => {
+    props.onFile(file);
+  }, [file]);
 
-    if (onChange) {
-      onChange(event.target.files[0]);
-    }
+  const handleReset = () => {
+    setFile(null);
+    fileInputRef.current.value = '';
   };
 
   return (
-    <>
+    <div className="file-input">
       <Input
-        placeholder={placeholder}
-        value={file ? file.name : ''}
-        onChange={() => {}}
-        onClick={() => fileInputRef.current.click()}
-        style={{ caretColor: 'transparent' }}
-        renderButton={() => <UploadIcon className="file-input-icon" />}
+        placeholder={props.placeholder}
+        value={props.path}
+        onValue={props.onPath}
       />
 
+      <FileUploadButton
+        isUploaded={!!file}
+        filename={file ? file.name : ''}
+        onClick={() => fileInputRef.current.click()}
+        onReset={handleReset}
+      />
+
+      {/* not visible */}
       <input
         type="file"
         ref={fileInputRef}
         style={{ display: 'none' }}
-        onChange={handleFile}
+        onChange={e => setFile(e.target.files[0])}
       />
-    </>
+    </div>
   );
 };
 
