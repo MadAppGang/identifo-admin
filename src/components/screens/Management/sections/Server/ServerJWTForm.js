@@ -20,8 +20,8 @@ const ServerJWTForm = (props) => {
   const settings = props.settings ? props.settings.keyStorage : null;
 
   const [storageType, setStorageType] = useState(settings ? settings.type : '');
-  const [publicKey, setPublicKey] = useState(settings ? settings.publicKey : '');
-  const [privateKey, setPrivateKey] = useState(settings ? settings.privateKey : '');
+  const [publicKeyPath, setPublicKeyPath] = useState(settings ? settings.publicKey : '');
+  const [privateKeyPath, setPrivateKeyPath] = useState(settings ? settings.privateKey : '');
   const [region, setRegion] = useState(settings ? settings.region : '');
   const [bucket, setBucket] = useState(settings ? settings.bucket : '');
 
@@ -32,8 +32,8 @@ const ServerJWTForm = (props) => {
     if (!settings) return;
 
     setStorageType(settings.type);
-    setPublicKey(settings.publicKey);
-    setPrivateKey(settings.privateKey);
+    setPublicKeyPath(settings.publicKey);
+    setPrivateKeyPath(settings.privateKey);
     setRegion(settings.region);
     setBucket(settings.bucket || '');
   }, [settings]);
@@ -44,8 +44,8 @@ const ServerJWTForm = (props) => {
     onSubmit(update(props.settings, {
       keyStorage: {
         type: storageType,
-        publicKey,
-        privateKey,
+        publicKey: publicKeyPath,
+        privateKey: privateKeyPath,
         region,
         bucket,
       },
@@ -96,21 +96,29 @@ const ServerJWTForm = (props) => {
         </Field>
       )}
 
-      <Field label="Public Key">
+      <Field
+        label="Public Key"
+        subtext={publicKeyFile ? publicKeyFile.name : 'No file selected'}
+      >
         <FileInput
-          path={publicKey}
+          path={publicKeyPath}
           placeholder="Specify path to folder"
           onFile={setPublicKeyFile}
-          onPath={setPublicKey}
+          onPath={setPublicKeyPath}
+          disabled={loading}
         />
       </Field>
 
-      <Field label="Private Key">
+      <Field
+        label="Private Key"
+        subtext={privateKeyFile ? privateKeyFile.name : 'No file selected'}
+      >
         <FileInput
-          path={privateKey}
+          path={privateKeyPath}
           placeholder="Specify path to folder"
           onFile={setPrivateKeyFile}
-          onPath={setPrivateKey}
+          onPath={setPrivateKeyPath}
+          disabled={loading}
         />
       </Field>
 

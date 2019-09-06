@@ -81,6 +81,7 @@
 .upload-prompt__filename {
   font-size: 13px;
   color: #aaa;
+  white-space: nowrap;
 }
 
 .upload-prompt__another {
