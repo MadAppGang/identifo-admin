@@ -11,9 +11,7 @@ import useForm from '~/hooks/useForm';
 
 const [TWILIO, MOCK] = ['twilio', 'mock'];
 
-const SmsServiceSettings = (props) => {
-  const { settings, loading, onSubmit } = props;
-
+const SmsServiceSettings = ({ settings, loading, onSubmit }) => {
   const initialValues = {
     type: settings ? settings.type : '',
     accountSid: settings ? settings.accoundSid : '',

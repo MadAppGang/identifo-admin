@@ -18,6 +18,10 @@ const useForm = (initialState, validate, submit) => {
     }
 
     submit(values);
+
+    if (Object.keys(errors).length > 0) {
+      setErrors({});
+    }
   };
 
   const setValue = (name, value) => {
@@ -32,13 +36,7 @@ const useForm = (initialState, validate, submit) => {
     setValue(target.name, target.value);
   };
 
-  const handleBlur = ({ target }) => {
-    const { name, value } = target;
-
-    if (validate) {
-      setErrors(validate(update(values, name, value)));
-    }
-  };
+  const handleBlur = () => {};
 
   return {
     values, errors, setValue, setValues, handleSubmit, handleChange, handleBlur,

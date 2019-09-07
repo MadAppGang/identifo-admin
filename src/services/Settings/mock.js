@@ -24,10 +24,10 @@ const data = {
       region: '',
     },
     smsService: {
-      type: 'mock',
-      accountSid: '',
-      authToken: '',
-      serviceSid: '',
+      type: 'twilio',
+      accountSid: 'asid',
+      authToken: 'token',
+      serviceSid: 'ssid',
     },
   },
   sessionStorage: {
