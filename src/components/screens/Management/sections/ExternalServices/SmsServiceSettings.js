@@ -1,114 +1,91 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import update from '@madappgang/update-by-path';
-import * as Validation from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import Input from '~/components/shared/Input';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
 import { Select, Option } from '~/components/shared/Select';
-import { smsServiceValidationRules } from './validationRules';
+import { validateSmsServiceForm } from './validation';
+import useForm from '~/hooks/useForm';
 
-const validate = Validation.applyRules(smsServiceValidationRules);
+const [TWILIO, MOCK] = ['twilio', 'mock'];
 
 const SmsServiceSettings = (props) => {
   const { settings, loading, onSubmit } = props;
 
-  const [type, setType] = useState(settings ? settings.type : '');
-  const [accountSid, setAccountSid] = useState(settings ? settings.accountSid : '');
-  const [authToken, setAuthToken] = useState(settings ? settings.authToken : '');
-  const [serviceSid, setServiceSid] = useState(settings ? settings.serviceSid : '');
+  const initialValues = {
+    type: settings ? settings.type : '',
+    accountSid: settings ? settings.accoundSid : '',
+    authToken: settings ? settings.authToken : '',
+    serviceSid: settings ? settings.serviceSid : '',
+  };
 
-  const [validation, setValidation] = useState({
-    type: '',
-    accountSid: '',
-    authToken: '',
-    serviceSid: '',
-  });
+  const handleSubmit = (values) => {
+    onSubmit(update(settings, values));
+  };
 
-  useEffect(() => {
-    if (!settings) {
-      return;
-    }
+  const form = useForm(initialValues, validateSmsServiceForm, handleSubmit);
 
-    setType(settings.type);
-    setAccountSid(settings.accountSid);
-    setServiceSid(settings.serviceSid);
-    setAuthToken(settings.authToken);
+  React.useEffect(() => {
+    if (!settings) return;
+
+    form.setValues(settings);
   }, [settings]);
 
-  const handleInput = (field, value, setValue) => {
-    if (field in validation) {
-      setValidation(update(validation, { [field]: '' }));
-    }
-
-    setValue(value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const report = validate('all', {
-      type, accountSid, authToken, serviceSid,
-    }, {
-      omit: type === 'mock' ? ['accountSid', 'authToken', 'serviceSid'] : [],
-    });
-
-    if (Validation.hasError(report)) {
-      setValidation(report);
-      return;
-    }
-
-    onSubmit({ type, accountSid, authToken, serviceSid });
-  };
-
   return (
-    <form className="iap-apps-form" onSubmit={handleSubmit}>
+    <form className="iap-apps-form" onSubmit={form.handleSubmit}>
       <Field label="SMS Service">
         <Select
-          value={type}
+          value={form.values.type}
           disabled={loading}
-          onChange={v => handleInput('type', v, setType)}
+          onChange={value => form.setValue('type', value)}
           placeholder="Select Service"
-          errorMessage={validation.type}
+          errorMessage={form.errors.type}
         >
-          <Option value="twilio" title="Twilio" />
-          <Option value="mock" title="Mock" />
+          <Option value={TWILIO} title="Twilio" />
+          <Option value={MOCK} title="Mock" />
         </Select>
       </Field>
 
-      {type === 'twilio' && (
+      {form.values.type === TWILIO && (
         <>
           <Field label="Auth Token">
             <Input
-              value={authToken}
+              name="authToken"
+              value={form.values.authToken}
               autoComplete="off"
               placeholder="Specify Twilio Auth Token"
-              onValue={v => handleInput('authToken', v, setAuthToken)}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
               disabled={loading}
-              errorMessage={validation.authToken}
+              errorMessage={form.errors.authToken}
             />
           </Field>
 
           <Field label="Account SID">
             <Input
-              value={accountSid}
+              name="accountSid"
+              value={form.values.accountSid}
               autoComplete="off"
               placeholder="Specify Twilio Account SID"
-              onValue={v => handleInput('accountSid', v, setAccountSid)}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
               disabled={loading}
-              errorMessage={validation.accountSid}
+              errorMessage={form.errors.accountSid}
             />
           </Field>
 
           <Field label="Service SID">
             <Input
-              value={serviceSid}
+              name="serviceSid"
+              value={form.values.serviceSid}
               autoComplete="off"
               placeholder="Specify Twilio Service SID"
-              onValue={v => handleInput('serviceSid', v, setServiceSid)}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
               disabled={loading}
-              errorMessage={validation.serviceSid}
+              errorMessage={form.errors.serviceSid}
             />
           </Field>
         </>
