@@ -1,111 +1,115 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import update from '@madappgang/update-by-path';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import Input from '~/components/shared/Input';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
 import { Select, Option } from '~/components/shared/Select';
+import useForm from '~/hooks/useForm';
 
-const types = {
-  MOCK: 'mock',
-  AWS_SES: 'aws ses',
-  MAILGUN: 'mailgun',
-};
+const [MOCK, AWS_SES, MAILGUN] = ['mock', 'aws ses', 'mailgun'];
 
 const MailServiceSettings = (props) => {
   const { loading, settings, onSubmit } = props;
 
-  const [type, setType] = useState(settings ? settings.type : '');
-  const [domain, setDomain] = useState(settings ? settings.domain : '');
-  const [privateKey, setPrivateKey] = useState(settings ? settings.privateKey : '');
-  const [publicKey, setPublicKey] = useState(settings ? settings.publicKey : '');
-  const [sender, setSender] = useState(settings ? settings.sender : '');
-  const [region, setRegion] = useState(settings ? settings.region : '');
-
-  useEffect(() => {
-    if (!settings) return;
-
-    setType(settings.type || '');
-    setDomain(settings.domain || '');
-    setPrivateKey(settings.privateKey || '');
-    setPublicKey(settings.publicKey || '');
-    setSender(settings.sender || '');
-    setRegion(settings.region || '');
-  }, [settings]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSubmit({ type, domain, privateKey, publicKey, sender, region });
+  const initialValues = {
+    type: settings ? settings.type : '',
+    domain: settings ? settings.domain : '',
+    privateKey: settings ? settings.privateKey : '',
+    publicKey: settings ? settings.publicKey : '',
+    sender: settings ? settings.sender : '',
+    region: settings ? settings.region : '',
   };
 
+  const handleSubmit = (values) => {
+    onSubmit(update(settings, values));
+  };
+
+  const form = useForm(initialValues, null, handleSubmit);
+
+  React.useEffect(() => {
+    if (!settings) return;
+
+    form.setValues(settings);
+  }, [settings]);
+
   return (
-    <form className="iap-apps-form" onSubmit={handleSubmit}>
+    <form className="iap-apps-form" onSubmit={form.handleSubmit}>
       <Field label="Mail Service">
         <Select
-          value={type}
+          value={form.values.type}
           disabled={loading}
-          onChange={setType}
+          onChange={value => form.setValue('type', value)}
           placeholder="Select Supported Service"
         >
-          <Option value={types.MAILGUN} title="Mailgun" />
-          <Option value={types.AWS_SES} title="Amazon SES" />
-          <Option value={types.MOCK} title="Mock" />
+          <Option value={MAILGUN} title="Mailgun" />
+          <Option value={AWS_SES} title="Amazon SES" />
+          <Option value={MOCK} title="Mock" />
         </Select>
       </Field>
 
-      <Field label="Sender" subtext={'If can be overriden by "MAILGUN_SENDER" or "AWS_SES_SENDER" env vars.'}>
+      <Field
+        label="Sender"
+        subtext={'If can be overriden by "MAILGUN_SENDER" or "AWS_SES_SENDER" env vars.'}
+      >
         <Input
-          value={sender}
+          name="sender"
+          value={form.values.sender}
           autoComplete="off"
           placeholder="Specify Sender"
-          onValue={setSender}
+          onChange={form.handleChange}
           disabled={loading}
         />
       </Field>
 
-      {type === types.MAILGUN && (
+      {form.values.type === MAILGUN && (
         <Field label="Domain" subtext="Can be overriden by MAILGUN_DOMAIN env var">
           <Input
-            value={domain}
+            name="domain"
+            value={form.values.domain}
             autoComplete="off"
             placeholder="Specify Mailgun domain"
-            onValue={setDomain}
+            onChange={form.handleChange}
             disabled={loading}
           />
         </Field>
       )}
 
-      {type === types.MAILGUN && (
+      {form.values.type === MAILGUN && (
         <Field label="Public Key" subtext="Can be overriden by MAILGUN_PUBLIC_KEY env var">
           <Input
-            value={publicKey}
+            name="publicKey"
+            value={form.values.publicKey}
             autoComplete="off"
             placeholder="Specify Mailgun public key"
-            onValue={setPublicKey}
+            onChange={form.handleChange}
             disabled={loading}
           />
         </Field>
       )}
 
-      {type === types.MAILGUN && (
+      {form.values.type === MAILGUN && (
         <Field label="Private Key" subtext="Can be overriden by MAILGUN_PRIVATE_KEY env var">
           <Input
-            value={privateKey}
+            name="privateKey"
+            value={form.values.privateKey}
             autoComplete="off"
             placeholder="Specify Mailgun private key"
-            onValue={setPrivateKey}
+            onChange={form.handleChange}
             disabled={loading}
           />
         </Field>
       )}
 
-      {type === types.AWS_SES && (
+      {form.values.type === AWS_SES && (
         <Field label="Region" subtext="Can be overriden by AWS_SES_REGION env var">
           <Input
-            value={region}
+            name="region"
+            value={form.values.region}
             autoComplete="off"
             placeholder="Specify Region"
-            onValue={setRegion}
+            onChange={form.handleChange}
             disabled={loading}
           />
         </Field>
