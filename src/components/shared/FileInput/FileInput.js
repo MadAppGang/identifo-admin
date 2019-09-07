@@ -22,6 +22,7 @@ const FileInput = (props) => {
         value={props.path}
         onValue={props.onPath}
         disabled={props.disabled}
+        errorMessage={props.errorMessage}
       />
 
       <FileUploadButton

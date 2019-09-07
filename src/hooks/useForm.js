@@ -21,17 +21,15 @@ const useForm = (initialState, validate, submit) => {
   };
 
   const setValue = (name, value) => {
-    setValues(update(values, name, value));
-  };
-
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-
     if (name in errors) {
       setErrors(update(errors, name, ''));
     }
 
-    setValue(name, value);
+    setValues(update(values, name, value));
+  };
+
+  const handleChange = ({ target }) => {
+    setValue(target.name, target.value);
   };
 
   const handleBlur = ({ target }) => {

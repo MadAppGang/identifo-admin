@@ -17,7 +17,17 @@ const storageTypes = {
 };
 
 const validateJwtForm = (values) => {
+  const errors = {};
 
+  if (values.privateKeyFile && !values.publicKeyFile) {
+    errors.publicKeyFile = 'Both keys are required';
+  }
+
+  if (values.publicKeyFile && !values.privateKeyFile) {
+    errors.privateKeyFile = 'Both keys are required';
+  }
+
+  return errors;
 };
 
 const ServerJWTForm = (props) => {
@@ -49,7 +59,7 @@ const ServerJWTForm = (props) => {
     }));
   };
 
-  const form = useForm(initialValues, null, handleSubmit);
+  const form = useForm(initialValues, validateJwtForm, handleSubmit);
 
   React.useEffect(() => {
     if (!settings) return;
@@ -116,6 +126,7 @@ const ServerJWTForm = (props) => {
           placeholder="Specify path to folder"
           onFile={file => form.setValue('publicKeyFile', file)}
           onPath={v => form.handleChange(domChangeEvent('publicKeyPath', v))}
+          errorMessage={form.errors.publicKeyFile}
           disabled={loading}
         />
       </Field>
@@ -129,6 +140,7 @@ const ServerJWTForm = (props) => {
           placeholder="Specify path to folder"
           onFile={file => form.setValue('privateKeyFile', file)}
           onPath={v => form.handleChange(domChangeEvent('privateKeyPath', v))}
+          errorMessage={form.errors.privateKeyFile}
           disabled={loading}
         />
       </Field>
