@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import update from '@madappgang/update-by-path';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
 import Input from '~/components/shared/Input';
@@ -16,13 +16,14 @@ const storageTypes = {
   S3: 's3',
 };
 
+const validateJwtForm = (values) => {
+
+};
+
 const ServerJWTForm = (props) => {
   const { error, loading, onSubmit } = props;
 
   const settings = props.settings ? props.settings.keyStorage : null;
-
-  const [publicKeyFile, setPublicKeyFile] = useState(null);
-  const [privateKeyFile, setPrivateKeyFile] = useState(null);
 
   const initialValues = {
     storageType: settings ? settings.type : '',
@@ -30,6 +31,8 @@ const ServerJWTForm = (props) => {
     privateKeyPath: settings ? settings.privateKey : '',
     region: settings ? settings.region : '',
     bucket: settings ? settings.bucket : '',
+    publicKeyFile: null,
+    privateKeyFile: null,
   };
 
   const handleSubmit = (values) => {
@@ -41,23 +44,23 @@ const ServerJWTForm = (props) => {
         region: values.region,
         bucket: values.bucket,
       },
-      publicKey: publicKeyFile,
-      privateKey: privateKeyFile,
+      publicKey: values.publicKeyFile,
+      privateKey: values.privateKeyFile,
     }));
   };
 
   const form = useForm(initialValues, null, handleSubmit);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!settings) return;
 
-    form.setValues({
+    form.setValues(update(form.values, {
       storageType: settings.type,
       publicKeyPath: settings.publicKey,
       privateKeyPath: settings.privateKey,
       region: settings.region,
       bucket: settings.bucket,
-    });
+    }));
   }, [settings]);
 
   return (
@@ -70,7 +73,7 @@ const ServerJWTForm = (props) => {
         <Select
           value={form.values.storageType}
           disabled={loading}
-          onChange={v => form.handleChange(domChangeEvent('storageType', v))}
+          onChange={value => form.setValue('storageType', value)}
           placeholder="Select storage type"
         >
           <Option value={storageTypes.FILE} title="File" />
@@ -106,12 +109,12 @@ const ServerJWTForm = (props) => {
 
       <Field
         label="Public Key"
-        subtext={publicKeyFile ? publicKeyFile.name : 'No file selected'}
+        subtext={form.values.publicKeyFile ? form.values.publicKeyFile.name : 'No file selected'}
       >
         <FileInput
           path={form.values.publicKeyPath}
           placeholder="Specify path to folder"
-          onFile={setPublicKeyFile}
+          onFile={file => form.setValue('publicKeyFile', file)}
           onPath={v => form.handleChange(domChangeEvent('publicKeyPath', v))}
           disabled={loading}
         />
@@ -119,12 +122,12 @@ const ServerJWTForm = (props) => {
 
       <Field
         label="Private Key"
-        subtext={privateKeyFile ? privateKeyFile.name : 'No file selected'}
+        subtext={form.values.privateKeyFile ? form.values.privateKeyFile.name : 'No file selected'}
       >
         <FileInput
           path={form.values.privateKeyPath}
           placeholder="Specify path to folder"
-          onFile={setPrivateKeyFile}
+          onFile={file => form.setValue('privateKeyFile', file)}
           onPath={v => form.handleChange(domChangeEvent('privateKeyPath', v))}
           disabled={loading}
         />

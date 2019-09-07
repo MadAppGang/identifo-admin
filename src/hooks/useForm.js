@@ -20,6 +20,10 @@ const useForm = (initialState, validate, submit) => {
     submit(values);
   };
 
+  const setValue = (name, value) => {
+    setValues(update(values, name, value));
+  };
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
 
@@ -27,7 +31,7 @@ const useForm = (initialState, validate, submit) => {
       setErrors(update(errors, name, ''));
     }
 
-    setValues(update(values, name, value));
+    setValue(name, value);
   };
 
   const handleBlur = ({ target }) => {
@@ -39,7 +43,7 @@ const useForm = (initialState, validate, submit) => {
   };
 
   return {
-    values, errors, setValues, handleSubmit, handleChange, handleBlur,
+    values, errors, setValue, setValues, handleSubmit, handleChange, handleBlur,
   };
 };
 
