@@ -61,15 +61,3 @@
 .iap-select-icon:hover {
   background-color: #eee;
 }
-
-@keyframes db-dropdown-fadein {
-  from {
-    transform: translateY(calc(100% - 10px));
-    opacity: .1;
-  }
-
-  to {
-    transform: translateY(100%);
-    opacity: 1;
-  }
-}

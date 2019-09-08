@@ -46,15 +46,6 @@
   animation: file-input-icon-appear 200ms forwards;
 }
 
-@keyframes file-input-icon-appear {
-  from {
-    transform: scale(.2);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
 .upload-prompt {
   border-radius: 7px;
   background-color: #3d3d3d;
@@ -69,21 +60,13 @@
   animation: upload-prompt-appear 200ms forwards;
 }
 
-@keyframes upload-prompt-appear {
-  from {
-    transform: translateX(90%);
-    opacity: .3
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 1;
-  }
-}
-
 .upload-prompt__filename {
   font-size: 13px;
   color: #aaa;
   white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .upload-prompt__another {

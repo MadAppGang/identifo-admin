@@ -4,8 +4,6 @@ import Content from '../Management/Content';
 import Container from '~/components/shared/Container';
 import NotFound from '~/components/shared/NotFound';
 
-import './index.css';
-
 const NotFoundScreen = () => (
   <div>
     <Header />
