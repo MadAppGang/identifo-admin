@@ -1,113 +1,77 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { login, checkAuthState, resetError } from '~/modules/auth/actions';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, checkAuthState } from '~/modules/auth/actions';
 import Input from '~/components/shared/Input';
 import Button from '~/components/shared/Button';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import EmailIcon from '~/components/icons/EmailIcon';
 import PasswordIcon from '~/components/icons/PasswordIcon';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
+import useForm from '~/hooks/useForm';
 
-class LoginForm extends Component {
-  constructor() {
-    super();
+const LoginForm = () => {
+  const dispatch = useDispatch();
+  const signingIn = useSelector(s => s.auth.inProgress);
+  const error = useSelector(s => s.auth.error);
 
-    this.state = {
-      email: '',
-      password: '',
-    };
+  const handleSubmit = (values) => {
+    dispatch(login(values.email, values.password));
+  };
 
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleErrorClick = this.handleErrorClick.bind(this);
-  }
+  React.useEffect(() => {
+    dispatch(checkAuthState());
+  }, []);
 
-  componentDidMount() {
-    this.props.checkAuthState();
-  }
+  const form = useForm({
+    email: '',
+    password: '',
+  }, null, handleSubmit);
 
-  handleInput(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
+  return (
+    <form className="iap-login-form" onSubmit={form.handleSubmit}>
+      <h1 className="login-form__logo">
+        <span>identifo</span>
+        <span>Admin Panel</span>
+      </h1>
 
-  handleSubmit(event) {
-    event.preventDefault();
+      {error && (
+        <div className="iap-login-form__err">
+          <FormErrorMessage error={error} />
+        </div>
+      )}
 
-    const { email, password } = this.state;
-    this.props.login(email, password);
-  }
+      <Input
+        name="email"
+        value={form.values.email}
+        placeholder="Email"
+        disabled={signingIn}
+        Icon={EmailIcon}
+        onChange={form.handleChange}
+      />
 
-  handleErrorClick() {
-    this.props.resetError();
-  }
+      <Input
+        name="password"
+        type="password"
+        value={form.values.password}
+        placeholder="Password"
+        disabled={signingIn}
+        Icon={PasswordIcon}
+        onChange={form.handleChange}
+      />
 
-  render() {
-    const { email, password } = this.state;
-    const { signingIn, error } = this.props;
-
-    return (
-      <form className="iap-login-form" onSubmit={this.handleSubmit}>
-        <h1 className="login-form__logo">
-          <span>
-            identifo
-          </span>
-
-          <span>
-            Admin Panel
-          </span>
-        </h1>
-
-        {error && (
-          <div className="iap-login-form__err">
-            <FormErrorMessage error={error} />
-          </div>
-        )}
-
-        <Input
-          name="email"
-          value={email}
-          placeholder="Email"
+      <footer className="iap-login-form__footer">
+        <Button
+          stretch
+          type="submit"
           disabled={signingIn}
-          Icon={EmailIcon}
-          onChange={this.handleInput}
-        />
-
-        <Input
-          name="password"
-          type="password"
-          value={password}
-          placeholder="Password"
-          disabled={signingIn}
-          Icon={PasswordIcon}
-          onChange={this.handleInput}
-        />
-
-        <footer className="iap-login-form__footer">
-          <Button
-            stretch
-            type="submit"
-            disabled={signingIn}
-            Icon={signingIn ? LoadingIcon : null}
-            error={!!error}
-          >
-            Sign In
-          </Button>
-        </footer>
-      </form>
-    );
-  }
-}
-
-LoginForm.propTypes = {
-  signingIn: PropTypes.bool,
-  login: PropTypes.func.isRequired,
-  resetError: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
-  checkAuthState: PropTypes.func.isRequired,
+          Icon={signingIn ? LoadingIcon : null}
+          error={!!error}
+        >
+          Sign In
+        </Button>
+      </footer>
+    </form>
+  );
 };
 
 LoginForm.defaultProps = {
@@ -115,13 +79,4 @@ LoginForm.defaultProps = {
   error: null,
 };
 
-const mapStateToProps = state => ({
-  signingIn: state.auth.inProgress,
-  error: state.auth.error,
-});
-
-const actions = {
-  login, resetError, checkAuthState,
-};
-
-export default connect(mapStateToProps, actions)(LoginForm);
+export default LoginForm;
