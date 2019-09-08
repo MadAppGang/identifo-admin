@@ -5,7 +5,6 @@ import DropdownIcon from '~/components/icons/DropdownIcon';
 import LogoutSection from './LogoutSection';
 import AccountSection from './AccountSection';
 import { fetchAccountSettings } from '~/modules/account/actions';
-import './Profile.css';
 
 const ProfileDropdown = () => {
   const [containerRef, isOpen, open, close] = useDropdown();

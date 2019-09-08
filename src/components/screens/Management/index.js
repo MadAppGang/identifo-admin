@@ -1,48 +1,45 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './Header';
-import Content from './Content';
 import Sidebar from './Sidebar';
-import UsersSection from './sections/Users';
-import DatabaseSection from './sections/Database';
-import ApplicationsSection from './sections/Applications';
-import AccountSection from './sections/Account';
-import ServerSection from './sections/Server';
-import ExternalServicesSection from './sections/ExternalServices';
-import LoginTypesSection from './sections/LoginTypes';
-import MultiFactorAuthSection from './sections/MultiFactorAuth';
-import HostedPagesSection from './sections/HostedPages';
-import NotFoundSection from './sections/404';
-import StaticFilesSection from './sections/StaticFiles';
+import UsersSection from './Users';
+import DatabaseSection from './Database';
+import ApplicationsSection from './Applications';
+import AccountSection from './Account';
+import ServerSection from './Server';
+import ExternalServicesSection from './ExternalServices';
+import LoginTypesSection from './LoginTypes';
+import MultiFactorAuthSection from './MultiFactorAuth';
+import HostedPagesSection from './HostedPages';
+import NotFoundSection from './NotFoundSection';
+import StaticFilesSection from './StaticFiles';
 import Container from '~/components/shared/Container';
 import { NotificationContainer } from '~/components/shared/Notifications';
 import './Management.css';
 
-const ManagementScreen = () => {
-  return (
-    <div className="iap-management-layout">
-      <Header />
-      <Content>
-        <Container>
-          <Sidebar />
-          <Switch>
-            <Route exact path="/management" component={ServerSection} />
-            <Route path="/management/users" component={UsersSection} />
-            <Route path="/management/database" component={DatabaseSection} />
-            <Route path="/management/applications" component={ApplicationsSection} />
-            <Route path="/management/email_integration" component={ExternalServicesSection} />
-            <Route path="/management/account" component={AccountSection} />
-            <Route path="/management/settings" component={LoginTypesSection} />
-            <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
-            <Route path="/management/static" component={StaticFilesSection} />
-            <Route path="/management/hosted_pages" component={HostedPagesSection} />
-            <Route component={NotFoundSection} />
-          </Switch>
-        </Container>
-        <NotificationContainer />
-      </Content>
+const ManagementScreen = () => (
+  <div className="iap-management-layout">
+    <Header />
+    <div className="iap-management-content">
+      <Container>
+        <Sidebar />
+        <Switch>
+          <Route exact path="/management" component={ServerSection} />
+          <Route path="/management/users" component={UsersSection} />
+          <Route path="/management/database" component={DatabaseSection} />
+          <Route path="/management/applications" component={ApplicationsSection} />
+          <Route path="/management/email_integration" component={ExternalServicesSection} />
+          <Route path="/management/account" component={AccountSection} />
+          <Route path="/management/settings" component={LoginTypesSection} />
+          <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
+          <Route path="/management/static" component={StaticFilesSection} />
+          <Route path="/management/hosted_pages" component={HostedPagesSection} />
+          <Route component={NotFoundSection} />
+        </Switch>
+      </Container>
+      <NotificationContainer />
     </div>
-  );
-};
+  </div>
+);
 
 export default ManagementScreen;

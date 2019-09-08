@@ -1,5 +1,0 @@
-.iap-management-content {
-  width: 100%;
-  padding-top: 70px; /* header height */
-  min-height: calc(100vh - 70px); /* header height */
-}
