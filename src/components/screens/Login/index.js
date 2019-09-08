@@ -1,12 +1,13 @@
 import React from 'react';
-import LoginScreenLayout from './Layout';
-import LoginForm from './Form';
+import LoginForm from './LoginForm';
+
+import './LoginScreen.css';
 
 const LoginScreen = () => {
   return (
-    <LoginScreenLayout>
+    <div className="iap-login-layout">
       <LoginForm />
-    </LoginScreenLayout>
+    </div>
   );
 };
 

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login, checkAuthState, resetError } from '~/modules/auth/actions';
 import Input from '~/components/shared/Input';
-import LoginButton from './LoginButton';
+import Button from '~/components/shared/Button';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 import EmailIcon from '~/components/icons/EmailIcon';
 import PasswordIcon from '~/components/icons/PasswordIcon';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
-import './Form.css';
 
 class LoginForm extends Component {
   constructor() {
@@ -85,7 +85,15 @@ class LoginForm extends Component {
         />
 
         <footer className="iap-login-form__footer">
-          <LoginButton loading={signingIn} error={!signingIn && !!error} />
+          <Button
+            stretch
+            type="submit"
+            disabled={signingIn}
+            Icon={signingIn ? LoadingIcon : null}
+            error={!!error}
+          >
+            Sign In
+          </Button>
         </footer>
       </form>
     );
@@ -107,19 +115,13 @@ LoginForm.defaultProps = {
   error: null,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    signingIn: state.auth.inProgress,
-    error: state.auth.error,
-  };
-};
+const mapStateToProps = state => ({
+  signingIn: state.auth.inProgress,
+  error: state.auth.error,
+});
 
 const actions = {
-  login,
-  resetError,
-  checkAuthState,
+  login, resetError, checkAuthState,
 };
-
-export { LoginForm };
 
 export default connect(mapStateToProps, actions)(LoginForm);

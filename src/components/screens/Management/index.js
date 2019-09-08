@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Layout from './Layout';
 import Header from './Header';
 import Content from './Content';
 import Sidebar from './Sidebar';
@@ -21,7 +20,7 @@ import './Management.css';
 
 const ManagementScreen = () => {
   return (
-    <Layout>
+    <div className="iap-management-layout">
       <Header />
       <Content>
         <Container>
@@ -42,7 +41,7 @@ const ManagementScreen = () => {
         </Container>
         <NotificationContainer />
       </Content>
-    </Layout>
+    </div>
   );
 };
 
