@@ -1,289 +1,175 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import update from '@madappgang/update-by-path';
-import * as Validation from '@dprovodnikov/validation';
+import React from 'react';
+import { hasError } from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
 import Input from '~/components/shared/Input';
 import Toggle from '~/components/shared/Toggle';
 import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
-import editUserFormValidationRules from './validationRules';
+import { validateUserForm } from './validation';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
+import useForm from '~/hooks/useForm';
+import { toDeepCase } from '~/utils/apiMapper';
 
-const sanitize = (fields) => {
-  const { tfaEnabled, role, ...sanitized } = fields;
-  return sanitized;
-};
+const EditUserForm = ({ user, error, loading, onSubmit, onCancel }) => {
+  const initialValues = {
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    tfaEnabled: false,
+    role: '',
+    phone: '',
+    active: false,
+    editPassword: false,
+  };
 
-class EditUserForm extends Component {
-  constructor() {
-    super();
-
-    this.validate = Validation.applyRules(editUserFormValidationRules);
-
-    this.state = {
-      fields: {
-        email: '',
-        username: '',
-        password: '',
-        confirmPassword: '',
-        tfaEnabled: false,
-        role: '',
-        phone: '',
-        active: false,
+  const handleSubmit = (values) => {
+    onSubmit(toDeepCase({
+      email: values.email,
+      username: values.username,
+      password: values.editPassword ? values.password : '',
+      tfaInfo: {
+        isEnabled: values.tfaEnabled,
       },
-      validation: {
-        email: '',
-        username: '',
-        phone: '',
-        password: '',
-        confirmPassword: '',
-      },
-      editPassword: false,
-    };
+      accessRole: values.role,
+      phone: values.phone,
+      active: values.active,
+    }, 'snake'));
+  };
 
-    this.toggleEditPassword = this.toggleEditPassword.bind(this);
-    this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.toggleTFA = this.toggleTFA.bind(this);
-    this.toggleActive = this.toggleActive.bind(this);
-  }
+  const form = useForm(initialValues, validateUserForm, handleSubmit);
 
-  componentDidUpdate(prevProps) {
-    const { user } = this.props;
+  React.useEffect(() => {
+    if (!user) return;
 
-    if (user && user !== prevProps.user) {
-      this.setState(state => ({
-        fields: update(state.fields, {
-          email: user.email,
-          username: user.username,
-          tfaEnabled: user.tfa_info ? user.tfa_info.is_enabled : false,
-          role: user.access_role || '',
-          active: user.active || false,
-          phone: user.phone || '',
-        }),
-      }));
-    }
-  }
-
-  toggleEditPassword() {
-    this.setState(state => ({
-      editPassword: !state.editPassword,
-      validation: update(state.validation, {
-        password: '',
-        confirmPassword: '',
-      }),
-    }));
-  }
-
-  handleFieldChange({ target }) {
-    const { name, value } = target;
-    let { validation } = this.state;
-
-    if (validation[name]) {
-      validation = update(validation, { [name]: '' });
-    }
-
-    this.setState(state => ({
-      fields: update(state.fields, {
-        [name]: value,
-      }),
-      validation,
-    }));
-  }
-
-  toggleTFA(value) {
-    this.handleFieldChange({ target: { name: 'tfaEnabled', value } });
-  }
-
-  toggleActive(value) {
-    this.handleFieldChange({ target: { name: 'active', value } });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const { fields, editPassword } = this.state;
-
-    const validation = this.validate('all', fields, {
-      omit: editPassword ? [] : ['password', 'confirmPassword'],
+    form.setValues({
+      email: user.email,
+      username: user.username,
+      tfaEnabled: user.tfa_info ? user.tfa_info.is_enabled : false,
+      role: user.access_role || '',
+      active: user.active || false,
+      phone: user.phone || '',
+      editPassword: form.values.editPassword,
+      password: form.values.password,
+      confirmPassword: form.values.confirmPassword,
     });
+  }, [user]);
 
-    if (Validation.hasError(validation)) {
-      this.setState({ validation });
-      return;
-    }
+  return (
+    <form className="iap-users-form" onSubmit={form.handleSubmit}>
+      {!!error && <FormErrorMessage error={error} />}
 
-    this.props.onSubmit(update(sanitize(fields), {
-      password: password => editPassword ? password : '',
-      confirmPassword: '',
-      tfa_info: {
-        is_enabled: fields.tfaEnabled,
-      },
-      access_role: fields.role,
-    }));
-  }
+      <Field label="Username">
+        <Input
+          name="username"
+          value={form.values.username}
+          placeholder="Enter username"
+          onChange={form.handleChange}
+          errorMessage={form.errors.username}
+          disabled={loading}
+        />
+      </Field>
 
-  handleBlur({ target }) {
-    const { name, value } = target;
-    const validationMessage = this.validate(name, {
-      ...this.state.fields,
-      [name]: value,
-    });
+      <Field label="Access Role">
+        <Input
+          name="role"
+          value={form.values.role}
+          placeholder="Enter access role"
+          onChange={form.handleChange}
+          disabled={loading}
+        />
+      </Field>
 
-    this.setState(state => ({
-      validation: update(state.validation, {
-        [name]: validationMessage,
-      }),
-    }));
-  }
+      <Field label="Email">
+        <Input
+          name="email"
+          value={form.values.email}
+          placeholder="Enter email"
+          onChange={form.handleChange}
+          errorMessage={form.errors.email}
+          disabled={loading}
+        />
+      </Field>
 
-  render() {
-    const { fields, editPassword, validation } = this.state;
-    const { loading, error } = this.props;
+      <Field label="Pnone Number">
+        <Input
+          name="phone"
+          value={form.values.phone}
+          placeholder="Enter phone number"
+          onChange={form.handleChange}
+          errorMessage={form.errors.phone}
+          disabled={loading}
+        />
+      </Field>
 
-    return (
-      <form className="iap-users-form" onSubmit={this.handleSubmit}>
-        {!!error && (
-          <FormErrorMessage error={error} />
-        )}
+      <div>
+        <Toggle
+          label="Enable 2FA"
+          value={form.values.tfaEnabled}
+          onChange={value => form.setValue('tfaEnabled', value)}
+        />
 
-        <Field label="Username">
-          <Input
-            name="username"
-            value={fields.username}
-            placeholder="Enter username"
-            onChange={this.handleFieldChange}
-            onBlur={this.handleBlur}
-            errorMessage={validation.username}
-            disabled={loading}
-          />
-        </Field>
+        <Toggle
+          label="Active"
+          value={form.values.active}
+          onChange={value => form.setValue('active', value)}
+        />
 
-        <Field label="Access Role">
-          <Input
-            name="role"
-            value={fields.role}
-            placeholder="Enter access role"
-            onChange={this.handleFieldChange}
-            onBlur={this.handleBlur}
-            disabled={loading}
-          />
-        </Field>
+        <Toggle
+          label="Edit Password"
+          value={form.values.editPassword}
+          onChange={value => form.setValue('editPassword', value)}
+        />
+      </div>
 
-        <Field label="Email">
-          <Input
-            name="email"
-            value={fields.email}
-            placeholder="Enter email"
-            onChange={this.handleFieldChange}
-            onBlur={this.handleBlur}
-            errorMessage={validation.email}
-            disabled={loading}
-          />
-        </Field>
+      {form.values.editPassword && (
+        <>
+          <Field label="Password">
+            <Input
+              name="password"
+              type="password"
+              placeholder="Enter new password"
+              value={form.values.password}
+              onChange={form.handleChange}
+              errorMessage={form.errors.password}
+              disabled={loading}
+            />
+          </Field>
 
-        <Field label="Pnone Number">
-          <Input
-            name="phone"
-            value={fields.phone}
-            placeholder="Enter phone number"
-            onChange={this.handleFieldChange}
-            onBlur={this.handleBlur}
-            errorMessage={validation.phone}
-            disabled={loading}
-          />
-        </Field>
+          <Field label="Confirm Password">
+            <Input
+              name="confirmPassword"
+              type="password"
+              placeholder="Enter new password"
+              value={form.values.confirmPassword}
+              onChange={form.handleChange}
+              errorMessage={form.errors.confirmPassword}
+              disabled={loading}
+            />
+          </Field>
+        </>
+      )}
 
-        <div>
-          <Toggle
-            label="Enable 2FA"
-            value={fields.tfaEnabled}
-            onChange={this.toggleTFA}
-          />
-
-          <Toggle
-            label="Active"
-            value={fields.active}
-            onChange={this.toggleActive}
-          />
-
-          <Toggle
-            label="Edit Password"
-            value={editPassword}
-            onChange={this.toggleEditPassword}
-          />
-        </div>
-
-        {editPassword && (
-          <>
-            <Field label="Password">
-              <Input
-                name="password"
-                type="password"
-                placeholder="Enter new password"
-                value={fields.password}
-                onChange={this.handleFieldChange}
-                onBlur={this.handleBlur}
-                errorMessage={validation.password}
-                disabled={loading}
-              />
-            </Field>
-
-            <Field label="Confirm Password">
-              <Input
-                name="confirmPassword"
-                type="password"
-                placeholder="Enter new password"
-                value={fields.confirmPassword}
-                onChange={this.handleFieldChange}
-                onBlur={this.handleBlur}
-                errorMessage={validation.confirmPassword}
-                disabled={loading}
-              />
-            </Field>
-          </>
-        )}
-
-        <footer className="iap-users-form__footer">
-          <Button
-            type="submit"
-            Icon={loading ? LoadingIcon : SaveIcon}
-            disabled={loading || Validation.hasError(validation)}
-            error={!loading && !!error}
-          >
-            Save Changes
-          </Button>
-          <Button transparent onClick={this.props.onCancel} disabled={loading}>
-            Cancel
-          </Button>
-        </footer>
-      </form>
-    );
-  }
-}
-
-EditUserForm.propTypes = {
-  onCancel: PropTypes.func,
-  onSubmit: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-  }),
-  error: PropTypes.instanceOf(Error),
+      <footer className="iap-users-form__footer">
+        <Button
+          type="submit"
+          Icon={loading ? LoadingIcon : SaveIcon}
+          disabled={loading || hasError(form.errors)}
+          error={!loading && !!error}
+        >
+          Save Changes
+        </Button>
+        <Button transparent onClick={onCancel} disabled={loading}>
+          Cancel
+        </Button>
+      </footer>
+    </form>
+  );
 };
 
 EditUserForm.defaultProps = {
-  loading: false,
-  user: {
-    email: '',
-    name: '',
-  },
   onCancel: () => {},
-  error: null,
 };
 
 export default EditUserForm;

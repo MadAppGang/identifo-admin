@@ -1,5 +1,5 @@
 import {
-  matches, notEmpty, emailFormat, longerThan, hasUpperLetter,
+  hasError, applyRules, matches, notEmpty, emailFormat, longerThan, hasUpperLetter,
 } from '@dprovodnikov/validation';
 
 const phoneNumberRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
@@ -36,4 +36,12 @@ const rules = {
   ],
 };
 
-export default rules;
+const validate = applyRules(rules);
+
+export const validateUserForm = (values) => {
+  const errors = validate('all', values, {
+    omit: values.editPassword ? [] : ['password', 'confirmPassword'],
+  });
+
+  return hasError(errors) ? errors : {};
+};
