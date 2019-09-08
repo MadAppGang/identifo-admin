@@ -1,5 +1,5 @@
 import {
-  matches, notEmpty, longerThan, hasUpperLetter,
+  applyRules, hasError, matches, notEmpty, longerThan, hasUpperLetter,
 } from '@dprovodnikov/validation';
 
 const rules = {
@@ -13,6 +13,14 @@ const rules = {
     notEmpty('You should confirm password'),
     matches('password', 'Passwords do not match'),
   ],
+};
+
+const validate = applyRules(rules);
+
+export const validateUserForm = (values) => {
+  const errors = validate('all', values);
+
+  return hasError(errors) ? errors : {};
 };
 
 export default rules;

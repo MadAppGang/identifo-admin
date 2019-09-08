@@ -63,6 +63,7 @@ const createUserServiceMock = () => {
   const postUser = async (user) => {
     await pause(600);
 
+    console.log(user);
     if (user.name === 'Trigger Error') {
       throw new Error('This name is already taken.');
     }

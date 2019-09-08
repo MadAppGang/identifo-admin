@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import update from '@madappgang/update-by-path';
-import * as Validation from '@dprovodnikov/validation';
+import React from 'react';
+import { hasError } from '@dprovodnikov/validation';
 import PropTypes from 'prop-types';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
@@ -8,175 +7,102 @@ import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import Toggle from '~/components/shared/Toggle';
-import userFormValidationRules from './validationRules';
 import FormErrorMessage from '~/components/shared/FormErrorMessage';
+import useForm from '~/hooks/useForm';
+import { validateUserForm } from './validation';
+import { toDeepCase } from '~/utils/apiMapper';
 
 import './UserForm.css';
 
-const sanitize = (fields) => {
-  const { confirmPassword, tfaEnabled, role, ...sanitized } = fields;
-  return sanitized;
-};
+const UserForm = ({ saving, error, onCancel, onSubmit }) => {
+  const initialValues = {
+    username: '',
+    password: '',
+    confirmPassword: '',
+    tfaEnabled: false,
+    role: '',
+  };
 
-class UserForm extends Component {
-  constructor() {
-    super();
-
-    this.validate = Validation.applyRules(userFormValidationRules);
-
-    this.state = {
-      fields: {
-        username: '',
-        password: '',
-        confirmPassword: '',
-        tfaEnabled: false,
-        role: '',
+  const handleSubmit = (values) => {
+    onSubmit(toDeepCase({
+      username: values.username,
+      password: values.password,
+      accessRole: values.role,
+      tfaInfo: {
+        isEnabled: values.tfaEnabled,
       },
-      validation: {
-        username: '',
-        password: '',
-        confirmPassword: '',
-      },
-    };
+    }, 'snake'));
+  };
 
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.toggleTFA = this.toggleTFA.bind(this);
-  }
+  const form = useForm(initialValues, validateUserForm, handleSubmit);
 
-  handleInput({ target }) {
-    let { validation } = this.state;
+  return (
+    <form className="iap-users-form" onSubmit={form.handleSubmit}>
+      {error && <FormErrorMessage error={error} />}
 
-    if (validation[target.name]) {
-      validation = update(validation, { [target.name]: '' });
-    }
-
-    this.setState(state => ({
-      fields: update(state.fields, {
-        [target.name]: target.value,
-      }),
-      validation,
-    }));
-  }
-
-  handleBlur({ target }) {
-    const { name, value } = target;
-    const validationMessage = this.validate(name, {
-      ...this.state.fields,
-      [name]: value,
-    });
-
-    this.setState(state => ({
-      validation: update(state.validation, {
-        [name]: validationMessage,
-      }),
-    }));
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const validation = this.validate('all', this.state.fields);
-
-    if (Validation.hasError(validation)) {
-      this.setState({ validation });
-      return;
-    }
-
-    const { fields } = this.state;
-
-    this.props.onSubmit(update(sanitize(fields), {
-      access_role: fields.role,
-      tfa_info: {
-        is_enabled: fields.tfaEnabled,
-      },
-    }));
-  }
-
-  toggleTFA(value) {
-    this.handleInput({ target: { name: 'tfaEnabled', value } });
-  }
-
-  render() {
-    const { saving, error } = this.props;
-    const { validation, fields } = this.state;
-    const { username, role, password, confirmPassword } = fields;
-
-    return (
-      <form className="iap-users-form" onSubmit={this.handleSubmit}>
-        {error && (
-          <FormErrorMessage error={error} />
-        )}
-
-        <Field label="Username">
-          <Input
-            name="username"
-            value={username}
-            placeholder="Enter username"
-            onChange={this.handleInput}
-            onBlur={this.handleBlur}
-            errorMessage={validation.username}
-          />
-        </Field>
-
-        <Field label="Access Role">
-          <Input
-            name="role"
-            value={role}
-            placeholder="Enter access role"
-            onChange={this.handleInput}
-            onBlur={this.handleBlur}
-          />
-        </Field>
-
-        <Field label="Password">
-          <Input
-            name="password"
-            type="password"
-            value={password}
-            placeholder="Enter password"
-            onChange={this.handleInput}
-            onBlur={this.handleBlur}
-            errorMessage={validation.password}
-          />
-        </Field>
-
-        <Field label="Confirm Password">
-          <Input
-            name="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            placeholder="Enter password once more"
-            onChange={this.handleInput}
-            onBlur={this.handleBlur}
-            errorMessage={validation.confirmPassword}
-          />
-        </Field>
-
-        <Toggle
-          label="Enable 2FA"
-          value={fields.tfaEnabled}
-          onChange={this.toggleTFA}
+      <Field label="Username">
+        <Input
+          name="username"
+          value={form.values.username}
+          placeholder="Enter username"
+          onChange={form.handleChange}
+          errorMessage={form.errors.username}
         />
+      </Field>
 
-        <footer className="iap-users-form__footer">
-          <Button
-            type="submit"
-            Icon={saving ? LoadingIcon : SaveIcon}
-            disabled={saving || Validation.hasError(validation)}
-            error={!saving && !!error}
-          >
-            Save User
-          </Button>
-          <Button transparent onClick={this.props.onCancel} disabled={saving}>
-            Cancel
-          </Button>
-        </footer>
-      </form>
-    );
-  }
-}
+      <Field label="Access Role">
+        <Input
+          name="role"
+          value={form.values.role}
+          placeholder="Enter access role"
+          onChange={form.handleChange}
+        />
+      </Field>
+
+      <Field label="Password">
+        <Input
+          name="password"
+          type="password"
+          value={form.values.password}
+          placeholder="Enter password"
+          onChange={form.handleChange}
+          errorMessage={form.errors.password}
+        />
+      </Field>
+
+      <Field label="Confirm Password">
+        <Input
+          name="confirmPassword"
+          type="password"
+          value={form.values.confirmPassword}
+          placeholder="Enter password once more"
+          onChange={form.handleChange}
+          errorMessage={form.errors.confirmPassword}
+        />
+      </Field>
+
+      <Toggle
+        label="Enable 2FA"
+        value={form.values.tfaEnabled}
+        onChange={value => form.setValue('tfaEnabled', value)}
+      />
+
+      <footer className="iap-users-form__footer">
+        <Button
+          type="submit"
+          Icon={saving ? LoadingIcon : SaveIcon}
+          disabled={saving || hasError(form.errors)}
+          error={!saving && !!error}
+        >
+          Save User
+        </Button>
+        <Button transparent onClick={onCancel} disabled={saving}>
+          Cancel
+        </Button>
+      </footer>
+    </form>
+  );
+};
 
 UserForm.propTypes = {
   onCancel: PropTypes.func,
