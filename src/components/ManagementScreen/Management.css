@@ -134,3 +134,7 @@
   display: flex;
   flex-direction: column;
 }
+
+.iap-management-content {
+  margin-top: 70px;
+}

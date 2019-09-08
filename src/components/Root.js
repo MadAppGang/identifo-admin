@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import LoginScreen from './screens/Login';
-import ManagementScreen from './screens/Management';
-import NotFoundScreen from './screens/NotFound';
+import LoginScreen from './LoginScreen';
+import ManagementScreen from './ManagementScreen';
+import NotFoundScreen from './NotFoundScreen';
 import ensureAuthState, { SIGNED_IN, SIGNED_OUT } from './ensureAuthState';
 
 import './Root.css';
