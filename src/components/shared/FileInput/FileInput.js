@@ -20,7 +20,8 @@ const FileInput = (props) => {
       <Input
         placeholder={props.placeholder}
         value={props.path}
-        onValue={props.onPath}
+        onValue={props.disablePathInput ? undefined : props.onPath}
+        style={{ caretColor: props.disablePathInput ? 'transparent' : 'unset' }}
         disabled={props.disabled}
         errorMessage={props.errorMessage}
       />
