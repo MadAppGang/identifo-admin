@@ -58,7 +58,6 @@ const sections = [
     title: 'Apple Integration',
     path: '/management/apple',
     Icon: AppleIcon,
-    disabled: true,
   },
   {
     title: 'Multi-factor Auth',

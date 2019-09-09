@@ -13,6 +13,7 @@ import MultiFactorAuthSection from './MultiFactorAuth';
 import HostedPagesSection from './HostedPages';
 import NotFoundSection from './NotFoundSection';
 import StaticFilesSection from './StaticFiles';
+import AppleIntegrationSection from './AppleIntegration';
 import Container from '~/components/shared/Container';
 import { NotificationContainer } from '~/components/shared/Notifications';
 import './Management.css';
@@ -34,6 +35,7 @@ const ManagementScreen = () => (
           <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
           <Route path="/management/static" component={StaticFilesSection} />
           <Route path="/management/hosted_pages" component={HostedPagesSection} />
+          <Route path="/management/apple" component={AppleIntegrationSection} />
           <Route component={NotFoundSection} />
         </Switch>
       </Container>

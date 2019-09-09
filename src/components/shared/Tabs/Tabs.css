@@ -1,9 +1,10 @@
 .iap-tabs-tablist {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: calc(100% + 10px);
   padding: 6px 0 4px 0;
   position: relative;
+  left: -5px;
 }
 
 .iap-tabs-tab {
@@ -14,8 +15,7 @@
   font-size: 15px;
   background-color: #fff;
   color: #9d9d9d;
-  padding: 0 5px 1px 5px;
-  padding: 2px 9px;
+  padding: 1px 6px;
 }
 
 .iap-tabs-tab:hover {
@@ -27,11 +27,11 @@
 }
 
 .tab-underline {
-  height: 3px;
+  height: 2px;
   width: 100px;
   background-color: var(--main-color);
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   left: 0;
   border-radius: 15px;
   transition: all 200ms ease-in-out;
