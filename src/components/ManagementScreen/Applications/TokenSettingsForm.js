@@ -1,73 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import update from '@madappgang/update-by-path';
 import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
+import useForm from '~/hooks/useForm';
 
-const extractValue = fn => e => fn(e.target.value);
+const TokenSettingsForm = ({ application, loading, onCancel, onSubmit }) => {
+  const initialValues = {
+    tokenLifespan: application.token_lifespan || '',
+    refreshTokenLifespan: application.refresh_token_lifespan || '',
+    inviteTokenLifespan: application.invite_token_lifespan || '',
+  };
 
-const TokenSettingsForm = (props) => {
-  const { loading, onSubmit, onCancel } = props;
-  const app = props.application || {};
-
-  const [tokenLifespan, setTokenLifespan] = useState(app.token_lifespan || '');
-  const [refreshTokenLifespan, setRefreshTokenLifespan] = useState(app.refresh_token_lifespan || '');
-  const [inviteTokenLifespan, setInviteTokenLifespan] = useState(app.invite_token_lifespan || '');
-
-  useEffect(() => {
-    if (app.token_lifespan) {
-      setTokenLifespan(app.token_lifespan);
-    }
-
-    if (app.refresh_token_lifespan) {
-      setRefreshTokenLifespan(app.refresh_token_lifespan);
-    }
-
-    if (app.invite_token_lifespan) {
-      setInviteTokenLifespan(app.invite_token_lifespan);
-    }
-  }, props.application);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    onSubmit(update(app, {
-      token_lifespan: Number(tokenLifespan) || undefined,
-      refresh_token_lifespan: Number(refreshTokenLifespan) || undefined,
-      invite_token_lifespan: Number(inviteTokenLifespan) || undefined,
+  const handleSubmit = (values) => {
+    onSubmit(update(application, {
+      token_lifespan: Number(values.tokenLifespan) || undefined,
+      refresh_token_lifespan: Number(values.refreshTokenLifespan) || undefined,
+      invite_token_lifespan: Number(values.inviteTokenLifespan) || undefined,
     }));
   };
 
+  const form = useForm(initialValues, null, handleSubmit);
+
+  React.useEffect(() => {
+    if (!application) return;
+
+    form.setValues({
+      tokenLifespan: application.token_lifespan,
+      refreshTokenLifespan: application.refresh_token_lifespan,
+      inviteTokenLifespan: application.invite_token_lifespan,
+    });
+  }, [application]);
+
   return (
-    <form className="iap-apps-form" onSubmit={handleSubmit}>
+    <form className="iap-apps-form" onSubmit={form.handleSubmit}>
       <Field label="Access Token Lifespan">
         <Input
-          value={tokenLifespan}
+          name="tokenLifespan"
+          value={form.values.tokenLifespan}
           autoComplete="off"
           placeholder="Lifespan in seconds"
-          onChange={extractValue(setTokenLifespan)}
+          onChange={form.handleChange}
           disabled={loading}
         />
       </Field>
 
       <Field label="Refresh Token Lifespan">
         <Input
-          value={refreshTokenLifespan}
+          name="refreshTokenLifespan"
+          value={form.values.refreshTokenLifespan}
           autoComplete="off"
           placeholder="Lifespan in seconds"
-          onChange={extractValue(setRefreshTokenLifespan)}
+          onChange={form.handleChange}
           disabled={loading}
         />
       </Field>
 
       <Field label="Invite Token Lifespan">
         <Input
-          value={inviteTokenLifespan}
+          name="inviteTokenLifespan"
+          value={form.values.inviteTokenLifespan}
           autoComplete="off"
           placeholder="Lifespan in seconds"
-          onChange={extractValue(setInviteTokenLifespan)}
+          onChange={form.handleChange}
           disabled={loading}
         />
       </Field>
