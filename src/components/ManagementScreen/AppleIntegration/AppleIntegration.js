@@ -4,7 +4,7 @@ import AppSiteAssociationForm from './AppSiteAssociationForm';
 import DomainAssociationForm from './DomainAssociationForm';
 
 const AppleIntegration = () => {
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <section className="iap-management-section">
