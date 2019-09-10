@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import Button from '~/components/shared/Button';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
@@ -8,14 +8,8 @@ import 'codemirror/mode/javascript/javascript';
 
 let editor = null;
 
-const defaultContent = `{
-  "webcredentials": {
-    
-  }
-}`;
-
 const AppSiteAssociationForm = () => {
-  const [content, setContent] = useState(defaultContent);
+  const [content, setContent] = useState('{}');
   const fileInputRef = useRef(null);
 
   const handleEditorClick = () => {
@@ -64,13 +58,14 @@ const AppSiteAssociationForm = () => {
       <div className="template-editor" onClick={handleEditorClick}>
         <CodeMirror
           editorDidMount={v => editor = v}
-          value={defaultContent}
+          value={content}
           options={{
             lineNumbers: true,
             theme: 'eclipse',
             mode: 'javascript',
+            tabSize: 4,
           }}
-          onChange={(_, data, value) => setContent(value)}
+          onBeforeChange={(_, data, value) => setContent(value)}
           className="template-editor-inner"
         />
         <div className="template-editor__numpad-area" />

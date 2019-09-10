@@ -23,7 +23,7 @@ const AppSiteAssociationForm = () => {
       >
         <FileInput
           disablePathInput
-          path="/.well-known/apple-developer-domain-association.txt."
+          path="/.well-known/apple-developer-domain-association.txt"
           onFile={setFile}
         />
       </Field>
