@@ -1,15 +1,22 @@
 import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Controlled as CodeMirror } from 'react-codemirror2';
+import { createNotification } from '~/modules/notifications/actions';
 import Button from '~/components/shared/Button';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
+import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
+import useServices from '~/hooks/useServices';
 import 'codemirror/mode/javascript/javascript';
 
 let editor = null;
 
 const AppSiteAssociationForm = () => {
-  const [content, setContent] = useState('{}');
+  const dispatch = useDispatch();
+  const services = useServices();
+  const [progress, setProgress] = useState(false);
+  const [content, setContent] = useState('{\n\t\n}');
   const fileInputRef = useRef(null);
 
   const handleEditorClick = () => {
@@ -26,8 +33,26 @@ const AppSiteAssociationForm = () => {
     reader.readAsText(file);
   };
 
-  const handleSubmit = () => {
-    console.log(content);
+  const handleSubmit = async () => {
+    setProgress(true);
+
+    try {
+      await services.apple.uploadAppSiteAssociationFileContents(content);
+
+      dispatch(createNotification({
+        type: 'success',
+        title: 'Success',
+        text: 'File has been uploaded.',
+      }));
+    } catch (_) {
+      dispatch(createNotification({
+        type: 'failure',
+        title: 'Something went wrong',
+        text: 'File could not be uploaded.',
+      }));
+    } finally {
+      setProgress(false);
+    }
   };
 
   return (
@@ -72,7 +97,11 @@ const AppSiteAssociationForm = () => {
       </div>
 
       <footer className="template-editor-footer">
-        <Button Icon={SaveIcon} onClick={handleSubmit}>
+        <Button
+          Icon={progress ? LoadingIcon : SaveIcon}
+          onClick={handleSubmit}
+          disabled={progress}
+        >
           Upload
         </Button>
       </footer>

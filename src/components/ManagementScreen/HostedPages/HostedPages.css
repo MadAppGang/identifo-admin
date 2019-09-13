@@ -9,6 +9,7 @@
   background-color: #fff;
   position: relative;
   max-width: 705px;
+  cursor: text;
 }
 
 .template-editor-inner {

@@ -5,13 +5,13 @@ const createAppleServiceMock = () => {
     await pause(400);
   };
 
-  const uploadAppSiteAssociationFile = async () => {
+  const uploadAppSiteAssociationFileContents = async () => {
     await pause(400);
   };
 
   return {
     uploadDevDomainAssociationFile,
-    uploadAppSiteAssociationFile,
+    uploadAppSiteAssociationFileContents,
   };
 };
 

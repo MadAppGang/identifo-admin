@@ -8,7 +8,7 @@ const createAppleService = ({ httpClient }) => {
     return httpClient.post(url, data);
   };
 
-  const uploadAppSiteAssociationFile = (fileContent) => {
+  const uploadAppSiteAssociationFileContents = (fileContent) => {
     const url = `${process.env.API_URL}/static/template?name=apple-app-site-association`;
     const body = {
       contents: fileContent,
@@ -18,7 +18,7 @@ const createAppleService = ({ httpClient }) => {
   };
 
   return {
-    uploadAppSiteAssociationFile,
+    uploadAppSiteAssociationFileContents,
     uploadDevDomainAssociationFile,
   };
 };
