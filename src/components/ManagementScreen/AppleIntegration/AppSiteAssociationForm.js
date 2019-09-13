@@ -21,9 +21,12 @@ const AppSiteAssociationForm = () => {
 
   const fetchFileContents = async () => {
     setProgress(true);
-    const result = await services.apple.fetchAppSiteAssociationFileContents();
-    setContent(result);
-    setProgress(false);
+    try {
+      const result = await services.apple.fetchAppSiteAssociationFileContents();
+      setContent(result);
+    } finally {
+      setProgress(false);
+    }
   };
 
   useEffect(() => {
