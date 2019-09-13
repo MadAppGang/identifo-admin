@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { createNotification } from '~/modules/notifications/actions';
@@ -18,6 +18,17 @@ const AppSiteAssociationForm = () => {
   const [progress, setProgress] = useState(false);
   const [content, setContent] = useState('{\n\t\n}');
   const fileInputRef = useRef(null);
+
+  const fetchFileContents = async () => {
+    setProgress(true);
+    const result = await services.apple.fetchAppSiteAssociationFileContents();
+    setContent(result);
+    setProgress(false);
+  };
+
+  useEffect(() => {
+    fetchFileContents();
+  }, []);
 
   const handleEditorClick = () => {
     if (editor) {
