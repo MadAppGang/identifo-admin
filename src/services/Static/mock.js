@@ -7,7 +7,7 @@ const staticFiles = {
     js: 'function (a, b) { return a + b; }',
   },
   welcome: {
-    html: '<div>invitation email markup</div>',
+    html: '<div>welcome email markup</div>',
     css: '.invite { display: flex; }',
     js: 'function (a, b) { return a + b; }',
   },
