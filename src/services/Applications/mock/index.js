@@ -27,6 +27,7 @@ const data = {
         client_id: '',
         client_secret: '',
       },
+      token_payload: ['Hello', 'world!'],
     },
   ],
 };

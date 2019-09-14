@@ -4,6 +4,7 @@ import Input from '~/components/shared/Input';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import LoadingIcon from '~/components/icons/LoadingIcon';
+import MultipleInput from '~/components/shared/MultipleInput';
 import SaveIcon from '~/components/icons/SaveIcon';
 import useForm from '~/hooks/useForm';
 
@@ -12,6 +13,7 @@ const TokenSettingsForm = ({ application, loading, onCancel, onSubmit }) => {
     tokenLifespan: application.token_lifespan || '',
     refreshTokenLifespan: application.refresh_token_lifespan || '',
     inviteTokenLifespan: application.invite_token_lifespan || '',
+    tokenPayload: application.token_payload || [],
   };
 
   const handleSubmit = (values) => {
@@ -19,6 +21,7 @@ const TokenSettingsForm = ({ application, loading, onCancel, onSubmit }) => {
       token_lifespan: Number(values.tokenLifespan) || undefined,
       refresh_token_lifespan: Number(values.refreshTokenLifespan) || undefined,
       invite_token_lifespan: Number(values.inviteTokenLifespan) || undefined,
+      token_payload: values.tokenPayload,
     }));
   };
 
@@ -31,6 +34,7 @@ const TokenSettingsForm = ({ application, loading, onCancel, onSubmit }) => {
       tokenLifespan: application.token_lifespan,
       refreshTokenLifespan: application.refresh_token_lifespan,
       inviteTokenLifespan: application.invite_token_lifespan,
+      tokenPayload: application.token_payload,
     });
   }, [application]);
 
@@ -65,6 +69,16 @@ const TokenSettingsForm = ({ application, loading, onCancel, onSubmit }) => {
           autoComplete="off"
           placeholder="Lifespan in seconds"
           onChange={form.handleChange}
+          disabled={loading}
+        />
+      </Field>
+
+      <Field label="Token Payload">
+        <MultipleInput
+          values={form.values.tokenPayload}
+          autoComplete="off"
+          placeholder="Token payload"
+          onChange={value => form.setValue('tokenPayload', value)}
           disabled={loading}
         />
       </Field>
