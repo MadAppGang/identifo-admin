@@ -62,7 +62,7 @@ const HostedPagesSection = () => {
           name={templateName}
           extension={templateExt}
           source={templateSource}
-          progress={progress > 0 && progress < 100}
+          progress={!!progress}
           onExtensionChange={setTemplateExt}
         />
       </main>

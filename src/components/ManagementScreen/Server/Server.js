@@ -4,6 +4,7 @@ import { Tab, Tabs } from '~/components/shared/Tabs';
 import GeneralTab from './ServerGeneralTab';
 import JWTForm from './ServerJWTForm';
 import ConfigurationForm from './ServerConfigurationForm';
+import useProgressBar from '~/hooks/useProgressBar';
 import {
   uploadJWTKeys,
   fetchConfigurationStorageSettings,
@@ -15,20 +16,21 @@ const GeneralSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const dispatch = useDispatch();
   const settings = useSelector(s => s.settings.configurationStorage);
-  const [loading, setLoading] = useState(false);
+
+  const { progress, setProgress } = useProgressBar();
 
   useEffect(() => {
     const fetchSettings = async () => {
-      setLoading(true);
+      setProgress(70);
       await dispatch(fetchConfigurationStorageSettings());
-      setLoading(false);
+      setProgress(100);
     };
 
     fetchSettings();
   }, []);
 
   const handleSubmit = async (nextSettings) => {
-    setLoading(true);
+    setProgress(70);
     await dispatch(updateConfigurationStorageSettings(nextSettings));
 
     const { privateKey, publicKey } = nextSettings;
@@ -36,7 +38,7 @@ const GeneralSection = () => {
       await dispatch(uploadJWTKeys(publicKey, privateKey));
     }
 
-    setLoading(false);
+    setProgress(100);
 
     dispatch(createNotification({
       type: 'success',
@@ -61,7 +63,7 @@ const GeneralSection = () => {
 
           {tabIndex === 1 && (
             <JWTForm
-              loading={loading}
+              loading={progress}
               settings={settings}
               onSubmit={handleSubmit}
             />
@@ -69,7 +71,7 @@ const GeneralSection = () => {
 
           {tabIndex === 2 && (
             <ConfigurationForm
-              loading={loading}
+              loading={progress}
               settings={settings}
               onSubmit={handleSubmit}
             />

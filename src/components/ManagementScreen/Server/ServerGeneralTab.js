@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchGeneralSettings, updateGeneralSettings,
 } from '~/modules/settings/actions';
 import { createNotification } from '~/modules/notifications/actions';
 import ServerGeneralForm from './ServerGeneralForm';
+import useProgressBar from '~/hooks/useProgressBar';
 
 const ServerGeneralTab = () => {
   const dispatch = useDispatch();
   const settings = useSelector(s => s.settings.general);
-  const [loading, setLoading] = useState(false);
+  const { progress, setProgress } = useProgressBar();
 
   useEffect(() => {
     const fetchSettings = async () => {
-      setLoading(true);
+      setProgress(70);
       await dispatch(fetchGeneralSettings());
-      setLoading(false);
+      setProgress(100);
     };
 
     fetchSettings();
   }, []);
 
   const handleSubmit = async (nextSettings) => {
-    setLoading(true);
+    setProgress(70);
     await dispatch(updateGeneralSettings(nextSettings));
-    setLoading(false);
+    setProgress(100);
 
     dispatch(createNotification({
       type: 'success',
@@ -35,7 +36,7 @@ const ServerGeneralTab = () => {
 
   return (
     <ServerGeneralForm
-      loading={loading}
+      loading={progress}
       settings={settings}
       onSubmit={handleSubmit}
     />
