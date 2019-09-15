@@ -5,13 +5,21 @@ import { fetchLoginSettings, updateLoginSettings } from '~/modules/settings/acti
 import LoginTypesTable from './LoginTypesTable';
 import Field from '~/components/shared/Field';
 import { Select, Option } from '~/components/shared/Select';
+import useProgressBar from '~/hooks/useProgressBar';
 
 const LoginTypesSection = () => {
   const dispatch = useDispatch();
   const settings = useSelector(state => state.settings.login);
+  const { setProgress } = useProgressBar();
+
+  const fetchSettings = async () => {
+    setProgress(70);
+    await dispatch(fetchLoginSettings());
+    setProgress(100);
+  };
 
   useEffect(() => {
-    dispatch(fetchLoginSettings());
+    fetchSettings();
   }, []);
 
   const handleChange = (type, enabled) => {
