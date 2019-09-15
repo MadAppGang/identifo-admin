@@ -39,7 +39,14 @@ const useForm = (initialState, validate, submit) => {
   const handleBlur = () => {};
 
   return {
-    values, errors, setValue, setValues, handleSubmit, handleChange, handleBlur,
+    values,
+    errors,
+    setErrors,
+    setValue,
+    setValues,
+    handleSubmit,
+    handleChange,
+    handleBlur,
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import update from '@madappgang/update-by-path';
 import { hasError } from '@dprovodnikov/validation';
 import Field from '~/components/shared/Field';
@@ -12,15 +12,14 @@ import useForm from '~/hooks/useForm';
 import { validateAccountForm } from './validationRules';
 
 const AdminAccountForm = ({ onSubmit, error, loading, settings }) => {
-  const [editPassword, setEditPassword] = useState(false);
-
   const initialValues = {
     email: settings ? settings.email : '',
     password: '',
     confirmPassword: '',
+    editPassword: false,
   };
 
-  const handleSubmit = ({ email, password }) => {
+  const handleSubmit = ({ email, password, editPassword }) => {
     onSubmit(update(settings, {
       email, password: editPassword ? password : undefined,
     }));
@@ -28,19 +27,14 @@ const AdminAccountForm = ({ onSubmit, error, loading, settings }) => {
 
   const form = useForm(initialValues, validateAccountForm, handleSubmit);
 
-  const [validation, setValidation] = useState({
-    password: '',
-    confirmPassword: '',
-    email: '',
-  });
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (!settings) return;
 
     form.setValues({
       email: settings.email || '',
       password: '',
       confirmPassword: '',
+      editPassword: form.values.editPassword || false,
     });
   }, [settings]);
 
@@ -64,17 +58,22 @@ const AdminAccountForm = ({ onSubmit, error, loading, settings }) => {
 
       <Toggle
         label="Edit password"
-        value={editPassword}
-        onChange={() => {
-          setEditPassword(!editPassword);
-          setValidation(update(validation, {
+        value={form.values.editPassword}
+        onChange={(value) => {
+          form.setErrors({
+            password: '',
+            confirmPassword: '',
+          });
+
+          form.setValues(update(form.values, {
+            editPassword: value,
             password: '',
             confirmPassword: '',
           }));
         }}
       />
 
-      {editPassword && (
+      {form.values.editPassword && (
         <div className="iap-settings-form__password-fields">
           <Field label="Password">
             <Input
