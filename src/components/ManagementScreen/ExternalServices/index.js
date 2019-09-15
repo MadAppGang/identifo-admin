@@ -8,28 +8,29 @@ import { createNotification } from '~/modules/notifications/actions';
 import {
   fetchExternalServicesSettings, updateExternalServicesSettings,
 } from '~/modules/settings/actions';
+import useProgressBar from '~/hooks/useProgressBar';
 
 const EmailIntegrationSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const dispatch = useDispatch();
   const settings = useSelector(state => state.settings.externalServices);
-  const [loading, setLoading] = useState(false);
+  const { progress, setProgress } = useProgressBar();
 
   useEffect(() => {
     if (!settings) {
-      setLoading(true);
+      setProgress(70);
       dispatch(fetchExternalServicesSettings());
     }
   }, []);
 
   useEffect(() => {
-    if (settings && loading) {
-      setLoading(false);
+    if (settings && progress) {
+      setProgress(100);
     }
   }, [settings]);
 
   const handleSubmit = async (service, value) => {
-    setLoading(true);
+    setProgress(70);
     const nextSettings = update(settings, {
       [service]: value,
     });
@@ -41,6 +42,8 @@ const EmailIntegrationSection = () => {
       title: 'Updated',
       text: 'Settings have been updated successfully',
     }));
+
+    setProgress(100);
   };
 
   return (
@@ -64,7 +67,7 @@ const EmailIntegrationSection = () => {
             <>
               {tabIndex === 0 && (
                 <MailServiceSettings
-                  loading={loading}
+                  loading={progress}
                   settings={settings ? settings.emailService : null}
                   onSubmit={value => handleSubmit('emailService', value)}
                 />
@@ -72,7 +75,7 @@ const EmailIntegrationSection = () => {
 
               {tabIndex === 1 && (
                 <SmsServiceSettings
-                  loading={loading}
+                  loading={progress}
                   settings={settings ? settings.smsService : null}
                   onSubmit={value => handleSubmit('smsService', value)}
                 />
