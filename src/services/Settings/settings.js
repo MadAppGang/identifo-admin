@@ -83,6 +83,12 @@ const createSettingsService = ({ httpClient }) => {
     return httpClient.post(url, formData);
   };
 
+  const requestServerRestart = async () => {
+    const url = `${process.env.API_URL}/restart`; // TODO: not final
+
+    await httpClient.get(url);
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -97,6 +103,7 @@ const createSettingsService = ({ httpClient }) => {
     fetchConfigurationStorageSettings,
     updateConfigurationStorageSettings,
     uploadJWTKeys,
+    requestServerRestart,
   };
 };
 

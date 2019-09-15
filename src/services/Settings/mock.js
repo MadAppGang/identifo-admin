@@ -126,6 +126,10 @@ const createSettingsServiceMock = () => {
     await pause(400);
   };
 
+  const requestServerRestart = async () => {
+    await pause(100);
+  };
+
   return {
     fetchLoginSettings,
     updateLoginSettings,
@@ -140,6 +144,7 @@ const createSettingsServiceMock = () => {
     fetchConfigurationStorageSettings,
     updateConfigurationStorageSettings,
     uploadJWTKeys,
+    requestServerRestart,
   };
 };
 

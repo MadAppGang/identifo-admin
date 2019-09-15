@@ -7,6 +7,8 @@ import {
   RECEIVE_CONFIGURATION_STORAGE_SETTINGS,
 } from './types';
 
+import { logout } from '../auth/actions';
+
 export const fetchLoginSettings = () => async (dispatch, _, services) => {
   const settings = await services.settings.fetchLoginSettings();
   dispatch({
@@ -105,4 +107,10 @@ export const updateConfigurationStorageSettings = settings => async (dispatch, _
 
 export const uploadJWTKeys = (pubKey, privKey) => async (dispatch, _, services) => {
   await services.settings.uploadJWTKeys(pubKey, privKey);
+};
+
+export const restartServer = () => async (dispatch, _, services) => {
+  await services.settings.requestServerRestart();
+
+  dispatch(logout());
 };
