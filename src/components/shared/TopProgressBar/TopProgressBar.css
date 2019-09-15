@@ -1,0 +1,20 @@
+.top-progress-bar {
+  width: 0vw;
+  height: 2px;
+  top: 69px;
+  position: absolute;
+  left: 0;
+  background-color: var(--main-color);
+  z-index: 999;
+  transition: width 500ms ease-in-out;
+  animation: progress-bar-blink 2s infinite;
+}
+
+@keyframes progress-bar-blink {
+  10% {
+    background-color: #eee;
+  }
+  20% {
+    background-color: var(--main-color);
+  }
+}
