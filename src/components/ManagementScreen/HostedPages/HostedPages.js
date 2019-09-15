@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Select, Option } from '~/components/shared/Select';
 import useServices from '~/hooks/useServices';
+import useProgressBar from '~/hooks/useProgressBar';
 import TemplateEditor from './TemplateEditor';
 
 const templateNames = {
@@ -13,14 +14,14 @@ const templateNames = {
 
 const HostedPagesSection = () => {
   const services = useServices();
+  const { progress, setProgress } = useProgressBar();
 
-  const [progress, setProgress] = useState(false);
   const [templateName, setTemplateName] = useState(templateNames.INVITE);
   const [templateExt, setTemplateExt] = useState('html');
   const [templateSource, setTemplateSource] = useState('');
 
   const fetchTemplateSource = async () => {
-    setProgress(true);
+    setProgress(80);
 
     try {
       const source = await services.static
@@ -30,7 +31,7 @@ const HostedPagesSection = () => {
     } catch (_) {
       // TODO: handle error
     } finally {
-      setProgress(false);
+      setProgress(100);
     }
   };
 
@@ -61,7 +62,7 @@ const HostedPagesSection = () => {
           name={templateName}
           extension={templateExt}
           source={templateSource}
-          progress={progress}
+          progress={progress > 0 && progress < 100}
           onExtensionChange={setTemplateExt}
         />
       </main>
