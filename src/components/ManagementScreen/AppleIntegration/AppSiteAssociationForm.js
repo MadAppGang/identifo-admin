@@ -8,6 +8,7 @@ import UploadIcon from '~/components/icons/UploadIcon.svg';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
 import useServices from '~/hooks/useServices';
+import useProgressBar from '~/hooks/useProgressBar';
 import 'codemirror/mode/javascript/javascript';
 
 let editor = null;
@@ -15,17 +16,17 @@ let editor = null;
 const AppSiteAssociationForm = () => {
   const dispatch = useDispatch();
   const services = useServices();
-  const [progress, setProgress] = useState(false);
+  const { progress, setProgress } = useProgressBar();
   const [content, setContent] = useState('{\n\t\n}');
   const fileInputRef = useRef(null);
 
   const fetchFileContents = async () => {
-    setProgress(true);
+    setProgress(70);
     try {
       const result = await services.apple.fetchAppSiteAssociationFileContents();
       setContent(result);
     } finally {
-      setProgress(false);
+      setProgress(100);
     }
   };
 
@@ -114,7 +115,7 @@ const AppSiteAssociationForm = () => {
         <Button
           Icon={progress ? LoadingIcon : SaveIcon}
           onClick={handleSubmit}
-          disabled={progress}
+          disabled={!!progress}
         >
           Upload
         </Button>
