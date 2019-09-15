@@ -1,6 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const ReloadServerPopup = () => {
+  const settingsChanged = useSelector(s => s.settings.changed);
+
+  if (!settingsChanged) {
+    return null;
+  }
 
   return (
     <div className="popup">
