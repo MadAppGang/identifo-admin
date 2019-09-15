@@ -1,0 +1,33 @@
+.popup {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  padding: 15px;
+  border-radius: 4px;
+  background-color: #3d3d3d;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  opacity: 0;
+  animation: popup-appear 300ms forwards;
+}
+
+.popup-text {
+  max-width: 450px;
+}
+
+.popup-btn {
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--main-color);
+  background-color: transparent;
+  border: none;
+  margin: 0 15px 0 20px;
+  cursor: pointer;
+}
+
+.popup-btn:hover {
+  color: var(--main-color-hover);
+}

@@ -14,6 +14,7 @@ import HostedPagesSection from './HostedPages';
 import NotFoundSection from './NotFoundSection';
 import StaticFilesSection from './StaticFiles';
 import AppleIntegrationSection from './AppleIntegration';
+import ReloadServerPopup from './ReloadServerPopup';
 import Container from '~/components/shared/Container';
 import { NotificationContainer } from '~/components/shared/Notifications';
 import ProgressBar from '~/components/shared/TopProgressBar';
@@ -44,6 +45,7 @@ const ManagementScreen = () => (
         <NotificationContainer />
       </div>
     </ProgressBar>
+    <ReloadServerPopup />
   </div>
 );
 
