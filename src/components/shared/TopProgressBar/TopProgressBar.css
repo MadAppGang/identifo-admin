@@ -9,12 +9,3 @@
   transition: width 500ms ease-in-out;
   animation: progress-bar-blink 2s infinite;
 }
-
-@keyframes progress-bar-blink {
-  10% {
-    background-color: #eee;
-  }
-  20% {
-    background-color: var(--main-color);
-  }
-}

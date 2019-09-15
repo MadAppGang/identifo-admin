@@ -65,3 +65,12 @@
     opacity: 1;
   }
 }
+
+@keyframes progress-bar-blink {
+  10% {
+    background-color: #eee;
+  }
+  20% {
+    background-color: var(--main-color);
+  }
+}
