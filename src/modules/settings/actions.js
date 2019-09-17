@@ -124,8 +124,8 @@ export const uploadJWTKeys = (pubKey, privKey) => async (dispatch, _, services) 
 };
 
 export const restartServer = () => async (dispatch, _, services) => {
-  await pause(1000);
   await services.settings.requestServerRestart();
+  await pause(1000);
 
   dispatch(logout());
 };

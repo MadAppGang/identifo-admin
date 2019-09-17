@@ -8,6 +8,7 @@ import {
   RECEIVE_CONFIGURATION_STORAGE_SETTINGS,
   SETTINGS_CHANGED,
 } from './types';
+import authTypes from '../auth/types';
 
 const INITIAL_STATE = {
   login: {
@@ -44,6 +45,8 @@ const reducer = (state = INITIAL_STATE, action) => {
       return update(state, 'configurationStorage', payload);
     case SETTINGS_CHANGED:
       return update(state, 'changed', true);
+    case authTypes.LOGOUT_ATTEMPT:
+      return update(state, 'changed', false);
     default:
       return state;
   }
