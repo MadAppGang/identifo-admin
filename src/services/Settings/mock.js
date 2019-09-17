@@ -39,7 +39,7 @@ const data = {
     region: '',
     endpoint: '',
   },
-  staticFiles: {
+  staticFilesStorage: {
     type: 'local',
     serverConfigPath: 'server-config.yaml',
     staticFilesLocation: './web/static',
