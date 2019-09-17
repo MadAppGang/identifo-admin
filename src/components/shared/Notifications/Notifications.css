@@ -4,7 +4,7 @@
   right: 20px;
   display: flex;
   flex-direction: column;
-  z-index: 999;
+  z-index: 1001;
 }
 
 .iap-notification {
