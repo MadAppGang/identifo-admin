@@ -16,8 +16,9 @@ const StaticFilesGeneralForm = (props) => {
   const initialValues = {
     type: settings.type || '',
     serverConfigPath: settings.serverConfigPath || '',
-    staticFilesLocation: settings.staticFilesLocation || '',
     region: settings.region || '',
+    folder: settings.folder || '',
+    bucket: settings.bucket || '',
   };
 
   const handleSubmit = (values) => {
@@ -57,24 +58,39 @@ const StaticFilesGeneralForm = (props) => {
         />
       </Field>
 
-      <Field label="Static Files Location">
-        <Input
-          name="staticFilesLocation"
-          value={form.values.staticFilesLocation}
-          autoComplete="off"
-          placeholder="Specify path to static folder"
-          onChange={form.handleChange}
-          disabled={loading}
-        />
-      </Field>
+      {(form.values.type === LOCAL || form.values.type === S3) && (
+        <Field label="Folder">
+          <Input
+            name="folder"
+            value={form.values.folder}
+            autoComplete="off"
+            placeholder="Specify folder"
+            onChange={form.handleChange}
+            disabled={loading}
+          />
+        </Field>
+      )}
 
-      {form.values.type === S3 && (
+      {(form.values.type === S3 || form.values.type === DYNAMO_DB) && (
         <Field label="Region">
           <Input
             name="region"
             value={form.values.region}
             autoComplete="off"
-            placeholder="Specify s3 region"
+            placeholder="Specify region"
+            onChange={form.handleChange}
+            disabled={loading}
+          />
+        </Field>
+      )}
+
+      {form.values.type === S3 && (
+        <Field label="Bucket">
+          <Input
+            name="bucket"
+            value={form.values.bucket}
+            autoComplete="off"
+            placeholder="Specify s3 bucket"
             onChange={form.handleChange}
             disabled={loading}
           />
