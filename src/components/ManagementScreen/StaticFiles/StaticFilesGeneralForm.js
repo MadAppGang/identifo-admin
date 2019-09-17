@@ -19,6 +19,7 @@ const StaticFilesGeneralForm = (props) => {
     region: settings.region || '',
     folder: settings.folder || '',
     bucket: settings.bucket || '',
+    endpoint: settings.endpoint || '',
   };
 
   const handleSubmit = (values) => {
@@ -78,6 +79,19 @@ const StaticFilesGeneralForm = (props) => {
             value={form.values.region}
             autoComplete="off"
             placeholder="Specify region"
+            onChange={form.handleChange}
+            disabled={loading}
+          />
+        </Field>
+      )}
+
+      {form.values.type === DYNAMO_DB && (
+        <Field label="Endpoint" subtext="Can be omitted if region is set">
+          <Input
+            name="endpoint"
+            value={form.values.endpoint}
+            autoComplete="off"
+            placeholder="Specify db endpoint"
             onChange={form.handleChange}
             disabled={loading}
           />
