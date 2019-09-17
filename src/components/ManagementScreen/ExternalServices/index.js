@@ -67,7 +67,7 @@ const EmailIntegrationSection = () => {
             <>
               {tabIndex === 0 && (
                 <MailServiceSettings
-                  loading={progress}
+                  loading={!!progress}
                   settings={settings ? settings.emailService : null}
                   onSubmit={value => handleSubmit('emailService', value)}
                 />
@@ -75,7 +75,7 @@ const EmailIntegrationSection = () => {
 
               {tabIndex === 1 && (
                 <SmsServiceSettings
-                  loading={progress}
+                  loading={!!progress}
                   settings={settings ? settings.smsService : null}
                   onSubmit={value => handleSubmit('smsService', value)}
                 />

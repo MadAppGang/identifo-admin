@@ -38,7 +38,7 @@ const StaticFilesGeneralForm = (props) => {
     <form className="iap-apps-form" onSubmit={form.handleSubmit}>
       <Field label="Storage Type">
         <Select
-          value={form.values.type}
+          value={form.values.type || ''}
           onChange={value => form.setValue('type', value)}
           placeholder="Select storage type"
         >

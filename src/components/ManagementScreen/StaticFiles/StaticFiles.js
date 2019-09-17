@@ -47,7 +47,7 @@ const StaticFilesSection = () => {
 
       <StaticFilesGeneralForm
         settings={settings || {}}
-        loading={progress}
+        loading={!!progress}
         onSubmit={handleSubmit}
       />
     </section>

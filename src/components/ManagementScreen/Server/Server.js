@@ -63,7 +63,7 @@ const GeneralSection = () => {
 
           {tabIndex === 1 && (
             <JWTForm
-              loading={progress}
+              loading={!!progress}
               settings={settings}
               onSubmit={handleSubmit}
             />
@@ -71,7 +71,7 @@ const GeneralSection = () => {
 
           {tabIndex === 2 && (
             <ConfigurationForm
-              loading={progress}
+              loading={!!progress}
               settings={settings}
               onSubmit={handleSubmit}
             />
