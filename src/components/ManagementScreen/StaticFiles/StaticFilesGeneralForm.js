@@ -8,7 +8,7 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import { Select, Option } from '~/components/shared/Select';
 import useForm from '~/hooks/useForm';
 
-const [LOCAL, S3] = ['local', 's3'];
+const [LOCAL, S3, DYNAMO_DB] = ['local', 's3', 'dynamodb'];
 
 const StaticFilesGeneralForm = (props) => {
   const { loading, error, settings, onSubmit } = props;
@@ -42,6 +42,7 @@ const StaticFilesGeneralForm = (props) => {
         >
           <Option value={LOCAL} title="Local" />
           <Option value={S3} title="S3" />
+          <Option value={DYNAMO_DB} title="DynamoDB" />
         </Select>
       </Field>
 
