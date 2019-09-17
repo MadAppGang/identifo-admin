@@ -26,8 +26,16 @@
   border: none;
   margin: 0 15px 0 20px;
   cursor: pointer;
+  outline: none;
 }
 
 .popup-btn:hover {
   color: var(--main-color-hover);
+}
+
+.popup-loading {
+  height: 20px;
+  width: 20px;
+  fill: white;
+  margin-left: 15px;
 }

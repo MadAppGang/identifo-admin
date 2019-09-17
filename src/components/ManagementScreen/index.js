@@ -44,8 +44,8 @@ const ManagementScreen = () => (
         </Container>
         <NotificationContainer />
       </div>
+      <ReloadServerPopup />
     </ProgressBar>
-    <ReloadServerPopup />
   </div>
 );
 

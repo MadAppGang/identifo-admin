@@ -9,6 +9,7 @@ import {
 } from './types';
 
 import { logout } from '../auth/actions';
+import { pause } from '~/utils';
 
 export const fetchLoginSettings = () => async (dispatch, _, services) => {
   const settings = await services.settings.fetchLoginSettings();
@@ -123,6 +124,7 @@ export const uploadJWTKeys = (pubKey, privKey) => async (dispatch, _, services) 
 };
 
 export const restartServer = () => async (dispatch, _, services) => {
+  await pause(1000);
   await services.settings.requestServerRestart();
 
   dispatch(logout());

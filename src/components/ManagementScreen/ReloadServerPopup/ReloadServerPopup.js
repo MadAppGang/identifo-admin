@@ -1,22 +1,46 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { restartServer } from '~/modules/settings/actions';
+import LoadingIcon from '~/components/icons/LoadingIcon';
+import useProgressBar from '~/hooks/useProgressBar';
 
 const ReloadServerPopup = () => {
+  const dispatch = useDispatch();
+  const { progress, setProgress } = useProgressBar({ local: true });
   const settingsChanged = useSelector(s => s.settings.changed);
 
   if (!settingsChanged) {
     return null;
   }
 
+  const handleRestartClick = () => {
+    setProgress(70);
+    dispatch(restartServer());
+  };
+
   return (
     <div className="popup">
-      <p className="popup-text">
-        In order for the changes to take effect, please restart the server.
-      </p>
+      {!!progress && (
+        <>
+          <p className="popup-text">
+            Restarting the server
+          </p>
 
-      <button className="popup-btn">
-        Restart
-      </button>
+          <LoadingIcon className="popup-loading" />
+        </>
+      )}
+
+      {!progress && (
+        <>
+          <p className="popup-text">
+            In order for the changes to take effect, please restart the server.
+          </p>
+
+          <button className="popup-btn" onClick={handleRestartClick}>
+            Restart
+          </button>
+        </>
+      )}
     </div>
   );
 };

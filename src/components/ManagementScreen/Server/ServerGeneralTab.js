@@ -36,7 +36,7 @@ const ServerGeneralTab = () => {
 
   return (
     <ServerGeneralForm
-      loading={progress}
+      loading={!!progress}
       settings={settings}
       onSubmit={handleSubmit}
     />
