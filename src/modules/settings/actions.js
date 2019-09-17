@@ -5,6 +5,7 @@ import {
   RECEIVE_STATIC_FILES_SETTINGS,
   RECEIVE_GENERAL_SETTINGS,
   RECEIVE_CONFIGURATION_STORAGE_SETTINGS,
+  SETTINGS_CHANGED,
 } from './types';
 
 import { logout } from '../auth/actions';
@@ -23,6 +24,8 @@ export const updateLoginSettings = settings => async (dispatch, _, services) => 
     type: RECEIVE_LOGIN_SETTINGS,
     payload: settings,
   });
+
+  dispatch({ type: SETTINGS_CHANGED });
 };
 
 export const fetchExternalServicesSettings = () => async (dispatch, _, services) => {
@@ -39,6 +42,8 @@ export const updateExternalServicesSettings = settings => async (dispatch, _, se
     type: RECEIVE_EXTERNAL_SETTINGS,
     payload: settings,
   });
+
+  dispatch({ type: SETTINGS_CHANGED });
 };
 
 export const fetchSessionStorageSettings = () => async (dispatch, _, services) => {
@@ -55,6 +60,8 @@ export const updateSessionStorageSettings = settings => async (dispatch, _, serv
     type: RECEIVE_SESSION_STORAGE_SETTINGS,
     payload: settings,
   });
+
+  dispatch({ type: SETTINGS_CHANGED });
 };
 
 export const fetchStaticFilesSettings = () => async (dispatch, _, services) => {
@@ -71,6 +78,8 @@ export const updateStaticFilesSettings = settings => async (dispatch, _, service
     type: RECEIVE_STATIC_FILES_SETTINGS,
     payload: settings,
   });
+
+  dispatch({ type: SETTINGS_CHANGED });
 };
 
 export const fetchGeneralSettings = () => async (dispatch, _, services) => {
@@ -87,6 +96,8 @@ export const updateGeneralSettings = settings => async (dispatch, _, services) =
     type: RECEIVE_GENERAL_SETTINGS,
     payload: settings,
   });
+
+  dispatch({ type: SETTINGS_CHANGED });
 };
 
 export const fetchConfigurationStorageSettings = () => async (dispatch, _, services) => {
@@ -103,6 +114,8 @@ export const updateConfigurationStorageSettings = settings => async (dispatch, _
     type: RECEIVE_CONFIGURATION_STORAGE_SETTINGS,
     payload: settings,
   });
+
+  dispatch({ type: SETTINGS_CHANGED });
 };
 
 export const uploadJWTKeys = (pubKey, privKey) => async (dispatch, _, services) => {

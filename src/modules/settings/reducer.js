@@ -6,6 +6,7 @@ import {
   RECEIVE_STATIC_FILES_SETTINGS,
   RECEIVE_GENERAL_SETTINGS,
   RECEIVE_CONFIGURATION_STORAGE_SETTINGS,
+  SETTINGS_CHANGED,
 } from './types';
 
 const INITIAL_STATE = {
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
   sessionStorage: null,
   staticFiles: null,
   general: null,
+  changed: false,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -40,6 +42,8 @@ const reducer = (state = INITIAL_STATE, action) => {
       return update(state, 'general', payload);
     case RECEIVE_CONFIGURATION_STORAGE_SETTINGS:
       return update(state, 'configurationStorage', payload);
+    case SETTINGS_CHANGED:
+      return update(state, 'changed', true);
     default:
       return state;
   }
