@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
 import Button from '~/components/shared/Button';
@@ -37,6 +37,7 @@ const composeFilename = (name, ext) => {
 const TemplateEditor = (props) => {
   const { name, extension, source, progress, onChange } = props;
   const [code, setCode] = useState(source || '');
+  const [hasChanged, setHasChanged] = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -44,6 +45,12 @@ const TemplateEditor = (props) => {
 
     setCode(source);
   }, [source]);
+
+  useEffect(() => {
+    if (code !== source) {
+      setHasChanged(true);
+    }
+  }, [code]);
 
   const handleEditorClick = () => {
     if (editor) {
@@ -69,6 +76,7 @@ const TemplateEditor = (props) => {
         <p className="template-editor__filename">
           <FileIcon className="template-editor__file-icon" />
           {composeFilename(name, extension)}
+          {hasChanged && <span className="file-changes-indicator" />}
         </p>
 
         <button
@@ -90,6 +98,7 @@ const TemplateEditor = (props) => {
       {/* eslint-disable-next-line */}
       <div className="template-editor" onClick={handleEditorClick}>
         <CodeMirror
+          className="template-editor-inner"
           editorDidMount={v => editor = v}
           value={progress ? '' : code}
           options={{
@@ -97,7 +106,7 @@ const TemplateEditor = (props) => {
             theme: 'eclipse',
             mode: mode[extension],
           }}
-          className="template-editor-inner"
+          onBeforeChange={(_, data, value) => setCode(value)}
         />
         <div className="template-editor__numpad-area" />
         <LanguageSelector
