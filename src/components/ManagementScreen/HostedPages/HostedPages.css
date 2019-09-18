@@ -18,11 +18,11 @@
 }
 
 .template-editor .CodeMirror {
-  height: auto !important;
+  height: 410px;
 }
 
 .template-editor .CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like {
-  padding-left: 10px !important;
+  padding-left: 7px !important;
 }
 
 .template-editor__numpad-area {
