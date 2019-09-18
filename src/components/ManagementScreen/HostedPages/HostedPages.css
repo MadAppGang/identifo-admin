@@ -149,3 +149,30 @@
   border-radius: 50%;
   margin-left: 8px;
 }
+
+.file-changes-indicator-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-changes-indicator:hover + .file-changes-tooltip {
+  display: block;
+}
+
+.file-changes-tooltip {
+  position: absolute;
+  white-space: nowrap;
+  top: -20px;
+  transform: translate(3px, -100%);
+  padding: 3px 7px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #3d3d3d;
+  color: #eee;
+  display: none;
+  animation: tooltip-appear 300ms forwards;
+  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .3);
+  pointer-events: none;
+}

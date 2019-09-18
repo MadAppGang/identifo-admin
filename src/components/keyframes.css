@@ -85,3 +85,14 @@
     bottom: 25px;
   }
 }
+
+@keyframes tooltip-appear {
+  from {
+    top: -15px;
+    opacity: 0;
+  }
+  to {
+    top: -10px;
+    opacity: 1;
+  }
+}

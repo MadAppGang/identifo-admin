@@ -6,6 +6,7 @@ import Button from '~/components/shared/Button';
 import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import LanguageSelector from './LanguageSelector';
+import ChangesIndicator from './ChangesIndicator';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/eclipse.css';
 import 'codemirror/mode/htmlmixed/htmlmixed';
@@ -42,14 +43,11 @@ const TemplateEditor = (props) => {
 
   useEffect(() => {
     if (!source) return;
-
     setCode(source);
   }, [source]);
 
   useEffect(() => {
-    if (code !== source) {
-      setHasChanged(true);
-    }
+    setHasChanged(code !== source);
   }, [code]);
 
   const handleEditorClick = () => {
@@ -73,11 +71,11 @@ const TemplateEditor = (props) => {
   return (
     <>
       <header className="template-editor-header">
-        <p className="template-editor__filename">
+        <div className="template-editor__filename">
           <FileIcon className="template-editor__file-icon" />
           {composeFilename(name, extension)}
-          {hasChanged && <span className="file-changes-indicator" />}
-        </p>
+          <ChangesIndicator visible={hasChanged} />
+        </div>
 
         <button
           className="template-editor__upload-code"
