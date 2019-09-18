@@ -176,3 +176,67 @@
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .3);
   pointer-events: none;
 }
+
+.editor-changes-warning {
+  background-color: #3d3d3d;
+  border-radius: 4px;
+  padding: 12px 17px;
+  color: white;
+  position: absolute;
+  top: 26px;
+  right: 3px;
+  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .3);
+  outline: none;
+  animation: editor-unsaved-changes-warning-appear 150ms ease-in-out forwards;
+}
+
+@keyframes editor-unsaved-changes-warning-appear {
+  from {
+    right: 10px;
+    opacity: 0;
+  }
+  to {
+    right: 3px;
+    opacity: 1;
+  }
+}
+
+.editor-changes-warning::after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 7px;
+  border-color: transparent transparent transparent #3d3d3d;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 0;
+  content: '';
+  display: block;
+  transform: translateX(100%);
+}
+
+.editor-changes-warning__btns {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.editor-changes-warning__btn {
+  background-color: transparent;
+  border: none;
+  color: var(--main-color);
+  text-transform: uppercase;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+}
+
+.editor-changes-warning__btn + .editor-changes-warning__btn {
+  margin-left: 10px;
+}
+
+.editor-changes-warning__btn.editor-changes-warning__btn--dimmed {
+  color: #9d9d9d;
+}

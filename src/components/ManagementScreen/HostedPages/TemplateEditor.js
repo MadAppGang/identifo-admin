@@ -39,6 +39,7 @@ const TemplateEditor = (props) => {
   const { name, extension, source, progress, onChange } = props;
   const [code, setCode] = useState(source || '');
   const [hasChanged, setHasChanged] = useState(false);
+  const [displayUnsavedChangesWarning, setDisplayUnsavedChangesWarning] = useState(false);
 
   useEffect(() => {
     if (!source) return;
@@ -57,7 +58,7 @@ const TemplateEditor = (props) => {
 
   const handleLanguageChange = (value) => {
     if (hasChanged) {
-      // TODO: show warning
+      setDisplayUnsavedChangesWarning(true);
       return;
     }
 
@@ -100,6 +101,24 @@ const TemplateEditor = (props) => {
           selected={extension}
           onChange={handleLanguageChange}
         />
+        {displayUnsavedChangesWarning && (
+          <div className="editor-changes-warning">
+            <div>You have unsaved changes. Discard them?</div>
+            <div className="editor-changes-warning__btns">
+              <button
+                className="editor-changes-warning__btn"
+                onClick={() => setDisplayUnsavedChangesWarning(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="editor-changes-warning__btn editor-changes-warning__btn--dimmed"
+              >
+                Discard
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <footer className="template-editor-footer">
