@@ -48,12 +48,29 @@ export const sessionStorageFormRules = {
   ],
 };
 
-const validate = applyRules(adminAccountFormRules);
 
 export const validateAccountForm = (values) => {
+  const validate = applyRules(adminAccountFormRules);
+
   const omitPasswords = !values.password && !values.confirmPassword;
   const errors = validate('all', values, {
     omit: omitPasswords ? ['password', 'confirmPassword'] : [],
+  });
+
+  return hasError(errors) ? errors : {};
+};
+
+export const validateSessionStorageForm = (values) => {
+  const validate = applyRules(sessionStorageFormRules);
+
+  const omitFieldsByStorageType = {
+    memory: ['address', 'password', 'db', 'region', 'endpoint'],
+    redis: ['region', 'endpoint'],
+    dynamodb: ['address', 'password', 'db'],
+  };
+
+  const errors = validate('all', values, {
+    omit: omitFieldsByStorageType[values.type],
   });
 
   return hasError(errors) ? errors : {};
