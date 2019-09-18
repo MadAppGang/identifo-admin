@@ -7,6 +7,7 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import LanguageSelector from './LanguageSelector';
 import ChangesIndicator from './ChangesIndicator';
 import SourceCodeUploader from './SourceCodeUploader';
+import UnsavedChangesPrompt from './UnsavedChangesPrompt';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/eclipse.css';
 import 'codemirror/mode/htmlmixed/htmlmixed';
@@ -101,24 +102,11 @@ const TemplateEditor = (props) => {
           selected={extension}
           onChange={handleLanguageChange}
         />
-        {displayUnsavedChangesWarning && (
-          <div className="editor-changes-warning">
-            <div>You have unsaved changes. Discard them?</div>
-            <div className="editor-changes-warning__btns">
-              <button
-                className="editor-changes-warning__btn"
-                onClick={() => setDisplayUnsavedChangesWarning(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="editor-changes-warning__btn editor-changes-warning__btn--dimmed"
-              >
-                Discard
-              </button>
-            </div>
-          </div>
-        )}
+        <UnsavedChangesPrompt
+          visible={displayUnsavedChangesWarning}
+          onDiscard={null}
+          onCancel={() => setDisplayUnsavedChangesWarning(false)}
+        />
       </div>
 
       <footer className="template-editor-footer">
