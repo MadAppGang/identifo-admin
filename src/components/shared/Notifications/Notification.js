@@ -9,7 +9,7 @@ const types = {
   FAILURE: 'failure',
 };
 
-const Notification = ({ title, text, type }) => {
+const Notification = ({ title, text, type, onClick }) => {
   const className = classnames({
     'iap-notification': true,
     'iap-notification--failure': type === types.FAILURE,
@@ -19,13 +19,13 @@ const Notification = ({ title, text, type }) => {
   const Icon = type === 'failure' ? ErrorIcon : SuccessIcon;
 
   return (
-    <div className={className}>
+    <button className={className} onClick={onClick}>
       <Icon className="iap-notification__icon" />
       <div>
         <p className="iap-notification__title">{title}</p>
         <p className="iap-notification__text">{text}</p>
       </div>
-    </div>
+    </button>
   );
 };
 

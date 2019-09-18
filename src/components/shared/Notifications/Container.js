@@ -6,7 +6,7 @@ import usePrevious from '~/hooks/usePrevious';
 
 import './Notifications.css';
 
-const NOTIFICATION_LIFETIME = 7000;
+const NOTIFICATION_LIFETIME = 700000;
 
 const NotificationContainer = () => {
   const dispatch = useDispatch();

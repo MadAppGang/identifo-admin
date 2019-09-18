@@ -12,6 +12,7 @@
   justify-content: space-between;
   opacity: 0;
   animation: popup-appear 300ms forwards;
+  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .3);
 }
 
 .popup-text {
