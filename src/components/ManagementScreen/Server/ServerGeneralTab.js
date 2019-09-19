@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchGeneralSettings, updateGeneralSettings,
 } from '~/modules/settings/actions';
-import { createNotification } from '~/modules/notifications/actions';
 import ServerGeneralForm from './ServerGeneralForm';
 import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 
 const ServerGeneralTab = () => {
   const dispatch = useDispatch();
   const settings = useSelector(s => s.settings.general);
   const { progress, setProgress } = useProgressBar();
+  const { notifySuccess } = useNotifications();
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -27,11 +28,10 @@ const ServerGeneralTab = () => {
     await dispatch(updateGeneralSettings(nextSettings));
     setProgress(100);
 
-    dispatch(createNotification({
-      type: 'success',
+    notifySuccess({
       title: 'Updated',
       text: 'Server settings have been updated successfully',
-    }));
+    });
   };
 
   return (

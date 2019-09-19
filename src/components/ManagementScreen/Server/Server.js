@@ -10,12 +10,13 @@ import {
   fetchConfigurationStorageSettings,
   updateConfigurationStorageSettings,
 } from '~/modules/settings/actions';
-import { createNotification } from '~/modules/notifications/actions';
+import useNotifications from '~/hooks/useNotifications';
 
 const GeneralSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const dispatch = useDispatch();
   const settings = useSelector(s => s.settings.configurationStorage);
+  const { notifySuccess } = useNotifications();
 
   const { progress, setProgress } = useProgressBar();
 
@@ -40,11 +41,10 @@ const GeneralSection = () => {
 
     setProgress(100);
 
-    dispatch(createNotification({
-      type: 'success',
+    notifySuccess({
       title: 'Updated',
       text: 'Server settings have been updated successfully',
-    }));
+    });
   };
 
   return (
