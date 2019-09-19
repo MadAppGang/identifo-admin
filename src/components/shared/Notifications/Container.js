@@ -36,13 +36,13 @@ const NotificationContainer = ({ children }) => {
   };
 
   const context = {
-    createSuccessNotification(notification) {
+    notifySuccess(notification) {
       setNotifications([
         ...notifications,
         createNotificationOfType('success', notification),
       ]);
     },
-    createFailureNotification(notification) {
+    notifyFailure(notification) {
       setNotifications([
         ...notifications,
         createNotificationOfType('failure', notification),

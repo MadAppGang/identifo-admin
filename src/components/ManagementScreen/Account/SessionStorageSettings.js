@@ -9,7 +9,7 @@ import useNotifications from '~/hooks/useNotifications';
 
 const SessionStorageSettings = ({ error }) => {
   const dispatch = useDispatch();
-  const { createSuccessNotification } = useNotifications();
+  const { notifySuccess } = useNotifications();
   const { progress, setProgress } = useProgressBar();
   const settings = useSelector(state => state.settings.sessionStorage);
 
@@ -28,7 +28,7 @@ const SessionStorageSettings = ({ error }) => {
     await dispatch(updateSessionStorageSettings(data));
     setProgress(100);
 
-    createSuccessNotification({
+    notifySuccess({
       title: 'Updated',
       text: 'Settings have been updated successfully',
     });

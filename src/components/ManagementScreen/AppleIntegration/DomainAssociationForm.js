@@ -11,7 +11,7 @@ import useNotifications from '~/hooks/useNotifications';
 const AppSiteAssociationForm = () => {
   const [file, setFile] = useState(null);
   const { progress, setProgress } = useProgressBar();
-  const { createSuccessNotification, createFailureNotification } = useNotifications();
+  const { notifySuccess, notifyFailure } = useNotifications();
   const services = useServices();
 
   const handleSubmit = async (event) => {
@@ -24,12 +24,12 @@ const AppSiteAssociationForm = () => {
     try {
       await services.apple.uploadDevDomainAssociationFile(file);
 
-      createSuccessNotification({
+      notifySuccess({
         title: 'Success',
         text: 'File has been uploaded.',
       });
     } catch (_) {
-      createFailureNotification({
+      notifyFailure({
         title: 'Something went wrong',
         text: 'File could not be uploaded.',
       });

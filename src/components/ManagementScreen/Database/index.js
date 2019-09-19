@@ -14,7 +14,7 @@ const StoragesSection = () => {
   const dispatch = useDispatch();
   const [tabIndex, setTabIndex] = useState(0);
   const { progress, setProgress } = useProgressBar();
-  const { createSuccessNotification } = useNotifications();
+  const { notifySuccess } = useNotifications();
   const settings = useSelector(state => state.database.settings.config);
   const error = useSelector(state => state.database.settings.error);
 
@@ -42,7 +42,7 @@ const StoragesSection = () => {
     try {
       await dispatch(postSettings(updatedSettings));
 
-      createSuccessNotification({
+      notifySuccess({
         title: 'Saved',
         text: 'Storage settings have been successfully saved',
       });

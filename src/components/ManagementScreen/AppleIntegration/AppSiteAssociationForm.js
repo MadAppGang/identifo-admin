@@ -15,7 +15,7 @@ let editor = null;
 const AppSiteAssociationForm = () => {
   const services = useServices();
   const { progress, setProgress } = useProgressBar();
-  const { createSuccessNotification, createFailureNotification } = useNotifications();
+  const { notifySuccess, notifyFailure } = useNotifications();
   const [content, setContent] = useState('{\n\t\n}');
   const fileInputRef = useRef(null);
 
@@ -53,12 +53,12 @@ const AppSiteAssociationForm = () => {
     try {
       await services.apple.uploadAppSiteAssociationFileContents(content);
 
-      createSuccessNotification({
-        title: 'Success',
+      notifySuccess({
+        title: 'Uploaded',
         text: 'File has been uploaded.',
       });
     } catch (_) {
-      createFailureNotification({
+      notifyFailure({
         title: 'Something went wrong',
         text: 'File could not be uploaded.',
       });

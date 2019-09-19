@@ -15,7 +15,7 @@ const ExternalServicesSection = () => {
   const dispatch = useDispatch();
   const settings = useSelector(state => state.settings.externalServices);
   const { progress, setProgress } = useProgressBar();
-  const { createSuccessNotification } = useNotifications();
+  const { notifySuccess } = useNotifications();
 
   useEffect(() => {
     if (!settings) {
@@ -39,7 +39,7 @@ const ExternalServicesSection = () => {
 
     await dispatch(updateExternalServicesSettings(nextSettings));
 
-    createSuccessNotification({
+    notifySuccess({
       title: 'Updated',
       text: 'Settings have been updated successfully',
     });

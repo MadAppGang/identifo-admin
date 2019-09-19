@@ -10,7 +10,7 @@ import useNotifications from '~/hooks/useNotifications';
 const StaticFilesSection = () => {
   const dispatch = useDispatch();
   const { progress, setProgress } = useProgressBar();
-  const { createSuccessNotification } = useNotifications();
+  const { notifySuccess } = useNotifications();
   const settings = useSelector(s => s.settings.staticFiles);
 
   const fetchSettings = async () => {
@@ -28,7 +28,7 @@ const StaticFilesSection = () => {
     await dispatch(updateStaticFilesSettings(nextSettings));
     setProgress(100);
 
-    createSuccessNotification({
+    notifySuccess({
       title: 'Updated',
       text: 'Settings have been updated successfully',
     });
