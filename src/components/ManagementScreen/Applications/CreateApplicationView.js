@@ -1,106 +1,80 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { postApplication, resetApplicationError } from '~/modules/applications/actions';
-import { createNotification } from '~/modules/notifications/actions';
 import ApplicationGeneralSettings from './GeneralSettingsForm';
+import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 
 const goBackPath = '/management/applications';
 
-class CreateApplicationView extends Component {
-  constructor() {
-    super();
+const CreateApplicationView = ({ history }) => {
+  const dispatch = useDispatch();
+  const { progress, setProgress } = useProgressBar();
+  const { notifySuccess, notifyFailure } = useNotifications();
 
-    this.state = {};
-    this.handleCancel = this.handleCancel.bind(this);
-  }
+  const error = useSelector(s => s.selectedApplication.error);
+  const application = useSelector(s => s.selectedApplication.application);
 
-  componentDidUpdate(prevProps) {
-    const doneSaving = prevProps.saving && !this.props.saving;
+  React.useEffect(() => {
+    if (application && application.id) {
+      history.push(`/management/applications/${application.id}`);
+    }
+  }, [application]);
 
-    if (doneSaving && !this.props.error) {
-      this.props.createNotification({
-        type: 'success',
+  const handleSubmit = async (data) => {
+    setProgress(70);
+
+    try {
+      await dispatch(postApplication(data));
+
+      notifySuccess({
         title: 'Created',
         text: 'Application has been created successfully',
       });
-
-      this.goForward(this.props.application.id);
-    }
-
-    if (doneSaving && this.props.error) {
-      this.props.createNotification({
-        type: 'failure',
+    } catch (_) {
+      notifyFailure({
         title: 'Error',
         text: 'Application could not be created',
       });
+    } finally {
+      setProgress(100);
     }
-  }
+  };
 
-  handleCancel() {
-    this.props.resetError();
-    this.goBack();
-  }
+  const handleCancel = () => {
+    dispatch(resetApplicationError());
+    history.push(goBackPath);
+  };
 
-  goBack() {
-    this.props.history.push(goBackPath);
-  }
-
-  goForward(id) {
-    this.props.history.push(`/management/applications/${id}`);
-  }
-
-  render() {
-    const { saving, error } = this.props;
-
-    return (
-      <section className="iap-management-section">
-        <header>
-          <div>
-            <Link to={goBackPath} className="iap-management-section__back">
-              ← &nbsp;Applications
-            </Link>
-          </div>
-          <p className="iap-management-section__title">
-            Create Application
-          </p>
-          <p className="iap-management-section__description">
-            Configure allowed callback URLs and Secrets for your application.
-          </p>
-        </header>
-        <main>
-          <ApplicationGeneralSettings
-            error={error}
-            loading={saving}
-            excludeFields={[
-              'secret', 'active', 'tfaStatus', 'redirectUrl', 'allowRegistration', 'debugTfaCode',
-            ]}
-            onCancel={this.handleCancel}
-            onSubmit={this.props.postApplication}
-          />
-        </main>
-      </section>
-    );
-  }
-}
-
-CreateApplicationView.defaultProps = {
-  saving: false,
-  error: null,
+  return (
+    <section className="iap-management-section">
+      <header>
+        <div>
+          <Link to={goBackPath} className="iap-management-section__back">
+            ← &nbsp;Applications
+          </Link>
+        </div>
+        <p className="iap-management-section__title">
+          Create Application
+        </p>
+        <p className="iap-management-section__description">
+          Configure allowed callback URLs and Secrets for your application.
+        </p>
+      </header>
+      <main>
+        <ApplicationGeneralSettings
+          error={error}
+          loading={!!progress}
+          excludeFields={[
+            'secret', 'active', 'tfaStatus', 'redirectUrl', 'allowRegistration', 'debugTfaCode',
+          ]}
+          onCancel={handleCancel}
+          onSubmit={handleSubmit}
+        />
+      </main>
+    </section>
+  );
 };
 
-const mapStateToProps = state => ({
-  saving: state.selectedApplication.saving,
-  error: state.selectedApplication.error,
-  application: state.selectedApplication.application,
-});
-
-const actions = {
-  postApplication,
-  resetError: resetApplicationError,
-  createNotification,
-};
-
-export { CreateApplicationView as NewApplicationView };
-
-export default connect(mapStateToProps, actions)(CreateApplicationView);
+export default CreateApplicationView;
