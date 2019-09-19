@@ -1,97 +1,64 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AccountForm from './AdminAccountForm';
 import { fetchAccountSettings, postAccountSettings } from '~/modules/account/actions';
-import { createNotification } from '~/modules/notifications/actions';
 import SettingsPlaceholder from './Placeholder';
+import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 
-class AdminAccountSettings extends Component {
-  constructor() {
-    super();
+const AdminAccountSettings = () => {
+  const dispatch = useDispatch();
+  const { progress, setProgress } = useProgressBar();
+  const { notifySuccess, notifyFailure } = useNotifications();
 
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-  }
+  const error = useSelector(s => s.account.error);
+  const settings = useSelector(s => s.account.settings);
 
-  componentDidMount() {
-    this.props.fetchSettings();
-  }
+  const fetchSettings = async () => {
+    setProgress(70);
+    await dispatch(fetchAccountSettings());
+    setProgress(100);
+  };
 
-  componentDidUpdate(prevProps) {
-    const donePosting = prevProps.posting && !this.props.posting;
+  React.useEffect(() => {
+    fetchSettings();
+  }, []);
 
-    if (donePosting && !this.props.error) {
-      this.props.createNotification({
-        type: 'success',
+  const handleFormSubmit = async () => {
+    setProgress(70);
+    try {
+      await dispatch(postAccountSettings(settings));
+      notifySuccess({
         title: 'Saved',
         text: 'Account settings have been successfully saved',
       });
-    }
-
-    if (donePosting && this.props.error) {
-      this.props.createNotification({
-        type: 'failure',
+    } catch (_) {
+      notifyFailure({
         title: 'Error',
         text: 'Account settings could not be saved',
       });
+    } finally {
+      setProgress(100);
     }
-  }
+  };
 
-  handleFormSubmit(settings) {
-    this.props.postSettings(settings);
-  }
-
-  render() {
-    const { posting, fetching, settings, error } = this.props;
-
-    if (error) {
-      return (
-        <SettingsPlaceholder
-          fetching={fetching}
-          onTryAgainClick={this.props.fetchSettings}
-        />
-      );
-    }
-
+  if (error) {
     return (
-      <AccountForm
-        error={error}
-        loading={fetching || posting}
-        settings={settings}
-        onSubmit={this.handleFormSubmit}
+      <SettingsPlaceholder
+        fetching={!!progress}
+        onTryAgainClick={fetchSettings}
       />
     );
   }
-}
 
-AdminAccountSettings.propTypes = {
-  fetchSettings: PropTypes.func.isRequired,
-  postSettings: PropTypes.func.isRequired,
-  fetching: PropTypes.bool.isRequired,
-  posting: PropTypes.bool.isRequired,
-  settings: PropTypes.shape({
-    email: PropTypes.string,
-  }),
-  createNotification: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Error),
+  return (
+    <AccountForm
+      error={error}
+      loading={!!progress}
+      settings={settings}
+      onSubmit={handleFormSubmit}
+    />
+  );
 };
 
-AdminAccountSettings.defaultProps = {
-  settings: null,
-  error: null,
-};
-
-const mapStateToProps = state => ({
-  posting: state.account.posting,
-  fetching: state.account.fetching,
-  settings: state.account.settings,
-  error: state.account.error,
-});
-
-const actions = {
-  fetchSettings: fetchAccountSettings,
-  postSettings: postAccountSettings,
-  createNotification,
-};
-
-export default connect(mapStateToProps, actions)(AdminAccountSettings);
+export default AdminAccountSettings;
