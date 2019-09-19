@@ -4,6 +4,7 @@ import Button from '~/components/shared/Button';
 import AddIcon from '~/components/icons/AddIcon';
 import { fetchApplications } from '~/modules/applications/actions';
 import ApplicationList from './ApplicationList';
+import ApplicationsPlaceholder from './ApplicationsPlaceholder';
 import useProgressBar from '~/hooks/useProgressBar';
 
 const ApplicationsMainView = ({ history }) => {
@@ -25,6 +26,16 @@ const ApplicationsMainView = ({ history }) => {
   const initiateCreation = () => {
     history.push('/management/applications/new');
   };
+
+  if (!applications.length && !progress) {
+    return (
+      <section className="iap-management-section">
+        <ApplicationsPlaceholder
+          onCreateApplicationClick={initiateCreation}
+        />
+      </section>
+    );
+  }
 
   return (
     <section className="iap-management-section">
