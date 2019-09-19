@@ -19,15 +19,10 @@ const SessionStorageForm = (props) => {
   const { loading, settings, error, onSubmit } = props;
 
   const handleSubmit = (values) => {
-    onSubmit({
-      type: values.type,
-      sessionDuration: Number(values.sessionDuration) || DEFAULT_SESSION_DURATION,
-      address: values.address,
-      db: Number(values.db) || undefined,
-      region: values.region,
-      endpoint: values.endpoint,
-      password: values.password,
-    });
+    onSubmit(update(values, {
+      sessionDuration: value => Number(value) || DEFAULT_SESSION_DURATION,
+      db: value => Number(value) || undefined,
+    }));
   };
 
   const form = useForm({

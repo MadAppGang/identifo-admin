@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SectionHeader from '~/components/shared/SectionHeader';
 import SessionStorageForm from './SessionStorageForm';
 import {
   fetchSessionStorageSettings, updateSessionStorageSettings,
