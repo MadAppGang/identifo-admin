@@ -1,33 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SessionStorageForm from './SessionStorageForm';
 import {
   fetchSessionStorageSettings, updateSessionStorageSettings,
 } from '~/modules/settings/actions';
 import { createNotification } from '~/modules/notifications/actions';
+import useProgressBar from '~/hooks/useProgressBar';
 
-const SessionStorageSettings = (props) => {
-  const { error } = props;
-
+const SessionStorageSettings = ({ error }) => {
   const dispatch = useDispatch();
+  const { progress, setProgress } = useProgressBar({ local: true });
   const settings = useSelector(state => state.settings.sessionStorage);
-  const [fetching, setFetching] = useState(false);
-  const [posting, setPosting] = useState(false);
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      setFetching(true);
-      await dispatch(fetchSessionStorageSettings());
-      setFetching(false);
-    };
+  const fetchSettings = async () => {
+    setProgress(70);
+    await dispatch(fetchSessionStorageSettings());
+    setProgress(100);
+  };
 
+  React.useEffect(() => {
     fetchSettings();
   }, []);
 
   const handleSubmit = async (data) => {
-    setPosting(true);
+    setProgress(70);
     await dispatch(updateSessionStorageSettings(data));
-    setPosting(false);
+    setProgress(100);
 
     dispatch(createNotification({
       type: 'success',
@@ -39,7 +37,7 @@ const SessionStorageSettings = (props) => {
   return (
     <SessionStorageForm
       error={error}
-      loading={fetching || posting}
+      loading={!!progress}
       settings={settings}
       onSubmit={handleSubmit}
     />
