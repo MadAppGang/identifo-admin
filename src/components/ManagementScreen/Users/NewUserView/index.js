@@ -1,121 +1,77 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import UserForm from './UserForm';
 import { postUser, resetUserError } from '~/modules/users/actions';
-import { createNotification } from '~/modules/notifications/actions';
+import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 
 const goBackPath = '/management/users';
 
-class NewUserView extends Component {
-  constructor() {
-    super();
+const NewUserView = ({ history }) => {
+  const dispatch = useDispatch();
+  const { progress, setProgress } = useProgressBar();
+  const { notifySuccess, notifyFailure } = useNotifications();
 
-    this.handleCancel = this.handleCancel.bind(this);
-  }
+  const user = useSelector(s => s.selectedUser.user);
+  const error = useSelector(s => s.selectedUser.error);
 
-  componentDidUpdate(prevProps) {
-    const doneSaving = prevProps.saving && !this.props.saving;
-
-    if (doneSaving && !this.props.error) {
-      this.notifyCreationSuccess();
-      this.goForwards(this.props.user.id);
+  React.useEffect(() => {
+    if (user && user.id) {
+      history.push(`/management/users/${user.id}`);
     }
+  }, [user]);
 
-    if (doneSaving && this.props.error) {
-      this.notifyCreationFailure();
+  const handleSubmit = async (data) => {
+    setProgress(70);
+
+    try {
+      await dispatch(postUser(data));
+
+      notifySuccess({
+        title: 'Created',
+        text: 'User has been created successfully',
+      });
+    } catch (_) {
+      notifyFailure({
+        title: 'Error',
+        text: 'User could not be created',
+      });
+    } finally {
+      setProgress(100);
     }
-  }
+  };
 
-  notifyCreationSuccess() {
-    this.props.createNotification({
-      type: 'success',
-      title: 'Created',
-      text: 'User has been created successfully',
-    });
-  }
+  const handleCancel = () => {
+    dispatch(resetUserError());
+    history.push(goBackPath);
+  };
 
-  notifyCreationFailure() {
-    this.props.createNotification({
-      type: 'failure',
-      title: 'Error',
-      text: 'User could not be created',
-    });
-  }
-
-  goForwards(id) {
-    this.props.history.push(`/management/users/${id}`);
-  }
-
-  goBack() {
-    this.props.history.push(goBackPath);
-  }
-
-  handleCancel() {
-    this.props.resetError();
-    this.goBack();
-  }
-
-  render() {
-    const { saving, error } = this.props;
-
-    return (
-      <section className="iap-management-section">
-        <header>
-          <div>
-            <Link to={goBackPath} className="iap-management-section__back">
-              ← &nbsp;Users
-            </Link>
-          </div>
-          <p className="iap-management-section__title">
-            Create User
-          </p>
-          <p className="iap-management-section__description">
-            Created user is going to be able to log in using these credentials
-          </p>
-        </header>
-        <main>
-          <UserForm
-            error={error}
-            saving={saving}
-            onCancel={this.handleCancel}
-            onSubmit={this.props.postUser}
-          />
-        </main>
-      </section>
-    );
-  }
-}
-
-NewUserView.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-  postUser: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-  error: PropTypes.instanceOf(Error),
-  resetError: PropTypes.func.isRequired,
-  createNotification: PropTypes.func.isRequired,
+  return (
+    <section className="iap-management-section">
+      <header>
+        <div>
+          <Link to={goBackPath} className="iap-management-section__back">
+            ← &nbsp;Users
+          </Link>
+        </div>
+        <p className="iap-management-section__title">
+          Create User
+        </p>
+        <p className="iap-management-section__description">
+          Created user is going to be able to log in using these credentials
+        </p>
+      </header>
+      <main>
+        <UserForm
+          error={error}
+          saving={!!progress}
+          onCancel={handleCancel}
+          onSubmit={handleSubmit}
+        />
+      </main>
+    </section>
+  );
 };
 
-NewUserView.defaultProps = {
-  saving: false,
-  error: null,
-};
-
-const mapStateToProps = state => ({
-  user: state.selectedUser.user,
-  saving: state.selectedUser.saving,
-  error: state.selectedUser.error,
-});
-
-const actions = {
-  postUser,
-  resetError: resetUserError,
-  createNotification,
-};
-
-export { NewUserView };
-
-export default connect(mapStateToProps, actions)(NewUserView);
+export default NewUserView;
