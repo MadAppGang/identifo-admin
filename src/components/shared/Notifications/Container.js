@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import update from '@madappgang/update-by-path';
 import Notification from './Notification';
-import * as actions from '~/modules/notifications/actions';
 import usePrevious from '~/hooks/usePrevious';
-
-import './Notifications.css';
 
 const NOTIFICATION_LIFETIME = 3000;
 
-const NotificationContainer = () => {
-  const dispatch = useDispatch();
-  const notifications = useSelector(s => s.notifications.list);
+export const NotificationContext = React.createContext();
+
+const NotificationContainer = ({ children }) => {
+  const [notifications, setNotifications] = React.useState([]);
   const previousNotifications = usePrevious(notifications);
 
   const isNewNotification = (notification) => {
@@ -22,32 +20,51 @@ const NotificationContainer = () => {
   };
 
   const removeNotification = (notification) => {
-    dispatch(actions.removeNotification(notification.id));
+    setNotifications(notifications.filter(n => n.id !== notification.id));
   };
 
   const removeAfterDelay = (notification) => {
     setTimeout(removeNotification, NOTIFICATION_LIFETIME, notification);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     excludeExistingNotifications(notifications).forEach(removeAfterDelay);
   }, [notifications]);
 
-  return (
-    <div className="iap-notification-container">
-      {notifications.map(notification => (
-        <Notification
-          key={notification.id}
-          {...notification}
-          onClick={() => removeNotification(notification)}
-        />
-      ))}
-    </div>
-  );
-};
+  const createNotificationOfType = (type, notification) => {
+    return update(notification, { type, id: Date.now() });
+  };
 
-NotificationContainer.defaultProps = {
-  notifications: [],
+  const context = {
+    createSuccessNotification(notification) {
+      setNotifications([
+        ...notifications,
+        createNotificationOfType('success', notification),
+      ]);
+    },
+    createFailureNotification(notification) {
+      setNotifications([
+        ...notifications,
+        createNotificationOfType('failure', notification),
+      ]);
+    },
+  };
+
+  return (
+    <NotificationContext.Provider value={context}>
+      <div className="iap-notification-container">
+        {notifications.map(notification => (
+          <Notification
+            key={notification.id}
+            {...notification}
+            onClick={() => removeNotification(notification)}
+          />
+        ))}
+      </div>
+
+      {children}
+    </NotificationContext.Provider>
+  );
 };
 
 export default NotificationContainer;

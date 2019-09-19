@@ -23,28 +23,29 @@ import './Management.css';
 const ManagementScreen = () => (
   <div className="iap-management-layout">
     <ProgressBar>
-      <Header />
-      <div className="iap-management-content">
-        <Container>
-          <Sidebar />
-          <Switch>
-            <Route exact path="/management" component={ServerSection} />
-            <Route path="/management/users" component={UsersSection} />
-            <Route path="/management/database" component={DatabaseSection} />
-            <Route path="/management/applications" component={ApplicationsSection} />
-            <Route path="/management/email_integration" component={ExternalServicesSection} />
-            <Route path="/management/account" component={AccountSection} />
-            <Route path="/management/settings" component={LoginTypesSection} />
-            <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
-            <Route path="/management/static" component={StaticFilesSection} />
-            <Route path="/management/hosted_pages" component={HostedPagesSection} />
-            <Route path="/management/apple" component={AppleIntegrationSection} />
-            <Route component={NotFoundSection} />
-          </Switch>
-        </Container>
-        <NotificationContainer />
-      </div>
-      <ReloadServerPopup />
+      <NotificationContainer>
+        <Header />
+        <div className="iap-management-content">
+          <Container>
+            <Sidebar />
+            <Switch>
+              <Route exact path="/management" component={ServerSection} />
+              <Route path="/management/users" component={UsersSection} />
+              <Route path="/management/database" component={DatabaseSection} />
+              <Route path="/management/applications" component={ApplicationsSection} />
+              <Route path="/management/email_integration" component={ExternalServicesSection} />
+              <Route path="/management/account" component={AccountSection} />
+              <Route path="/management/settings" component={LoginTypesSection} />
+              <Route path="/management/multi-factor_auth" component={MultiFactorAuthSection} />
+              <Route path="/management/static" component={StaticFilesSection} />
+              <Route path="/management/hosted_pages" component={HostedPagesSection} />
+              <Route path="/management/apple" component={AppleIntegrationSection} />
+              <Route component={NotFoundSection} />
+            </Switch>
+          </Container>
+        </div>
+        <ReloadServerPopup />
+      </NotificationContainer>
     </ProgressBar>
   </div>
 );

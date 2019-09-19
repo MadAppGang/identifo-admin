@@ -9,7 +9,7 @@ import useProgressBar from '~/hooks/useProgressBar';
 
 const SessionStorageSettings = ({ error }) => {
   const dispatch = useDispatch();
-  const { progress, setProgress } = useProgressBar({ local: true });
+  const { progress, setProgress } = useProgressBar();
   const settings = useSelector(state => state.settings.sessionStorage);
 
   const fetchSettings = async () => {

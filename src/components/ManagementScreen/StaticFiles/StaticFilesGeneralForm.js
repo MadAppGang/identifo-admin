@@ -14,7 +14,7 @@ const StaticFilesGeneralForm = (props) => {
   const { loading, error, settings, onSubmit } = props;
 
   const initialValues = {
-    type: settings.type || '',
+    type: settings.type || LOCAL,
     serverConfigPath: settings.serverConfigPath || '',
     region: settings.region || '',
     folder: settings.folder || '',

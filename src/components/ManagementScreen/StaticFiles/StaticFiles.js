@@ -4,22 +4,22 @@ import StaticFilesGeneralForm from './StaticFilesGeneralForm';
 import {
   fetchStaticFilesSettings, updateStaticFilesSettings,
 } from '~/modules/settings/actions';
-import { createNotification } from '~/modules/notifications/actions';
 import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 
 const StaticFilesSection = () => {
-  const { progress, setProgress } = useProgressBar();
   const dispatch = useDispatch();
-
+  const { progress, setProgress } = useProgressBar();
+  const { createSuccessNotification } = useNotifications();
   const settings = useSelector(s => s.settings.staticFiles);
 
-  React.useEffect(() => {
-    const fetchSettings = async () => {
-      setProgress(70);
-      await dispatch(fetchStaticFilesSettings());
-      setProgress(100);
-    };
+  const fetchSettings = async () => {
+    setProgress(70);
+    await dispatch(fetchStaticFilesSettings());
+    setProgress(100);
+  };
 
+  React.useEffect(() => {
     fetchSettings();
   }, []);
 
@@ -28,11 +28,10 @@ const StaticFilesSection = () => {
     await dispatch(updateStaticFilesSettings(nextSettings));
     setProgress(100);
 
-    dispatch(createNotification({
-      type: 'success',
+    createSuccessNotification({
       title: 'Updated',
       text: 'Settings have been updated successfully',
-    }));
+    });
   };
 
   return (
