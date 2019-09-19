@@ -5,40 +5,58 @@ import StorageSettings from './StorageSettings';
 import { fetchSettings, postSettings } from '~/modules/database/actions';
 import DatabasePlaceholder from './Placeholder';
 import { Tabs, Tab } from '~/components/shared/Tabs';
+import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
+
+import './index.css';
 
 const StoragesSection = () => {
   const dispatch = useDispatch();
-  const [fetching, setFetching] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
+  const { progress, setProgress } = useProgressBar();
+  const { createSuccessNotification } = useNotifications();
   const settings = useSelector(state => state.database.settings.config);
   const error = useSelector(state => state.database.settings.error);
 
-  const startFetching = () => {
-    setFetching(true);
-    dispatch(fetchSettings());
+  const triggerFetchSettings = async () => {
+    setProgress(70);
+
+    try {
+      await dispatch(fetchSettings());
+    } finally {
+      setProgress(100);
+    }
   };
 
-  useEffect(startFetching, []);
-
   useEffect(() => {
-    if (settings || error) {
-      setFetching(false);
-    }
-  }, [settings, error]);
+    triggerFetchSettings();
+  }, []);
 
-  const handleSettingsSubmit = node => (nodeSettings) => {
+  const handleSettingsSubmit = node => async (nodeSettings) => {
+    setProgress(70);
+
     const updatedSettings = update(settings, {
       [node]: nodeSettings,
     });
 
-    dispatch(postSettings(updatedSettings));
+    try {
+      await dispatch(postSettings(updatedSettings));
+
+      createSuccessNotification({
+        title: 'Saved',
+        text: 'Storage settings have been successfully saved',
+      });
+    } finally {
+      setProgress(100);
+    }
   };
 
   if (error) {
     return (
       <section className="iap-management-section">
         <DatabasePlaceholder
-          fetching={fetching}
-          onTryAgainClick={startFetching}
+          fetching={progress}
+          onTryAgainClick={triggerFetchSettings}
         />
       </section>
     );
@@ -79,8 +97,6 @@ const StoragesSection = () => {
     ][index];
   };
 
-  const [tabIndex, setTabIndex] = useState(0);
-
   const storageSettingsProps = getStorageSettingsProps(tabIndex);
 
   return (
@@ -98,7 +114,7 @@ const StoragesSection = () => {
         <Tab title="Verification Codes" />
         <Tab title="Blacklist" />
 
-        <StorageSettings fetching={fetching} {...storageSettingsProps} />
+        <StorageSettings progress={!!progress} {...storageSettingsProps} />
       </Tabs>
 
     </section>

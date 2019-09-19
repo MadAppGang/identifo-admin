@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, Tab } from '~/components/shared/Tabs';
 import MailServiceSettings from './MailServiceSettings';
 import SmsServiceSettings from './SmsServiceSettings';
-import { createNotification } from '~/modules/notifications/actions';
 import {
   fetchExternalServicesSettings, updateExternalServicesSettings,
 } from '~/modules/settings/actions';
 import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 
-const EmailIntegrationSection = () => {
+const ExternalServicesSection = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const dispatch = useDispatch();
   const settings = useSelector(state => state.settings.externalServices);
   const { progress, setProgress } = useProgressBar();
+  const { createSuccessNotification } = useNotifications();
 
   useEffect(() => {
     if (!settings) {
@@ -31,17 +32,17 @@ const EmailIntegrationSection = () => {
 
   const handleSubmit = async (service, value) => {
     setProgress(70);
+
     const nextSettings = update(settings, {
       [service]: value,
     });
 
     await dispatch(updateExternalServicesSettings(nextSettings));
 
-    dispatch(createNotification({
-      type: 'success',
+    createSuccessNotification({
       title: 'Updated',
       text: 'Settings have been updated successfully',
-    }));
+    });
 
     setProgress(100);
   };
@@ -88,4 +89,4 @@ const EmailIntegrationSection = () => {
   );
 };
 
-export default EmailIntegrationSection;
+export default ExternalServicesSection;

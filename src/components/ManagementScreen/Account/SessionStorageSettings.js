@@ -4,11 +4,12 @@ import SessionStorageForm from './SessionStorageForm';
 import {
   fetchSessionStorageSettings, updateSessionStorageSettings,
 } from '~/modules/settings/actions';
-import { createNotification } from '~/modules/notifications/actions';
 import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 
 const SessionStorageSettings = ({ error }) => {
   const dispatch = useDispatch();
+  const { createSuccessNotification } = useNotifications();
   const { progress, setProgress } = useProgressBar();
   const settings = useSelector(state => state.settings.sessionStorage);
 
@@ -27,11 +28,10 @@ const SessionStorageSettings = ({ error }) => {
     await dispatch(updateSessionStorageSettings(data));
     setProgress(100);
 
-    dispatch(createNotification({
-      type: 'success',
+    createSuccessNotification({
       title: 'Updated',
       text: 'Settings have been updated successfully',
-    }));
+    });
   };
 
   return (

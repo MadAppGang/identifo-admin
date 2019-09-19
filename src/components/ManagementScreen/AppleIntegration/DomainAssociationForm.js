@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import FileInput from '~/components/shared/FileInput';
 import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
@@ -7,13 +6,13 @@ import SaveIcon from '~/components/icons/SaveIcon';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import useServices from '~/hooks/useServices';
 import useProgressBar from '~/hooks/useProgressBar';
-import { createNotification } from '~/modules/notifications/actions';
+import useNotifications from '~/hooks/useNotifications';
 
 const AppSiteAssociationForm = () => {
   const [file, setFile] = useState(null);
   const { progress, setProgress } = useProgressBar();
+  const { createSuccessNotification, createFailureNotification } = useNotifications();
   const services = useServices();
-  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,17 +24,15 @@ const AppSiteAssociationForm = () => {
     try {
       await services.apple.uploadDevDomainAssociationFile(file);
 
-      dispatch(createNotification({
-        type: 'success',
+      createSuccessNotification({
         title: 'Success',
         text: 'File has been uploaded.',
-      }));
+      });
     } catch (_) {
-      dispatch(createNotification({
-        type: 'failure',
+      createFailureNotification({
         title: 'Something went wrong',
         text: 'File could not be uploaded.',
-      }));
+      });
     } finally {
       setProgress(100);
     }

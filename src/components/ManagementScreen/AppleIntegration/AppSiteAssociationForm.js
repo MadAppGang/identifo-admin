@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import { createNotification } from '~/modules/notifications/actions';
 import Button from '~/components/shared/Button';
 import FileIcon from '~/components/icons/FileIcon.svg';
 import UploadIcon from '~/components/icons/UploadIcon.svg';
@@ -9,14 +7,15 @@ import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
 import useServices from '~/hooks/useServices';
 import useProgressBar from '~/hooks/useProgressBar';
+import useNotifications from '~/hooks/useNotifications';
 import 'codemirror/mode/javascript/javascript';
 
 let editor = null;
 
 const AppSiteAssociationForm = () => {
-  const dispatch = useDispatch();
   const services = useServices();
   const { progress, setProgress } = useProgressBar();
+  const { createSuccessNotification, createFailureNotification } = useNotifications();
   const [content, setContent] = useState('{\n\t\n}');
   const fileInputRef = useRef(null);
 
@@ -49,24 +48,22 @@ const AppSiteAssociationForm = () => {
   };
 
   const handleSubmit = async () => {
-    setProgress(true);
+    setProgress(70);
 
     try {
       await services.apple.uploadAppSiteAssociationFileContents(content);
 
-      dispatch(createNotification({
-        type: 'success',
+      createSuccessNotification({
         title: 'Success',
         text: 'File has been uploaded.',
-      }));
+      });
     } catch (_) {
-      dispatch(createNotification({
-        type: 'failure',
+      createFailureNotification({
         title: 'Something went wrong',
         text: 'File could not be uploaded.',
-      }));
+      });
     } finally {
-      setProgress(false);
+      setProgress(100);
     }
   };
 
