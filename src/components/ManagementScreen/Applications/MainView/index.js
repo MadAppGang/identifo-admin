@@ -1,83 +1,47 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import ApplicationsPlaceholder from './ApplicationsPlaceholder';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Button from '~/components/shared/Button';
 import AddIcon from '~/components/icons/AddIcon';
 import { fetchApplications } from '~/modules/applications/actions';
 import ApplicationList from './ApplicationList';
+import useProgressBar from '~/hooks/useProgressBar';
 
-class ApplicationsMainView extends Component {
-  constructor() {
-    super();
+const ApplicationsMainView = ({ history }) => {
+  const dispatch = useDispatch();
+  const { progress, setProgress } = useProgressBar();
 
-    this.initiateCreation = this.initiateCreation.bind(this);
-  }
+  const applications = useSelector(s => s.applications.list);
 
-  componentDidMount() {
-    this.props.fetchApplications();
-  }
+  const fetchData = async () => {
+    setProgress(70);
+    await dispatch(fetchApplications());
+    setProgress(100);
+  };
 
-  initiateCreation() {
-    this.props.history.push('/management/applications/new');
-  }
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
-  render() {
-    const { applications, fetching } = this.props;
+  const initiateCreation = () => {
+    history.push('/management/applications/new');
+  };
 
-    if (!applications.length && !fetching) {
-      return (
-        <section className="iap-management-section">
-          <ApplicationsPlaceholder
-            onCreateApplicationClick={this.initiateCreation}
-          />
-        </section>
-      );
-    }
+  return (
+    <section className="iap-management-section">
+      <p className="iap-management-section__title">
+        Applications
+        <Button Icon={AddIcon} onClick={initiateCreation}>
+          Create application
+        </Button>
+      </p>
 
-    return (
-      <section className="iap-management-section">
-        <p className="iap-management-section__title">
-          Applications
-          <Button
-            Icon={AddIcon}
-            onClick={this.initiateCreation}
-          >
-            Create application
-          </Button>
-        </p>
+      <p className="iap-management-section__description">
+        Setup an iOS, Android or Web application to use Identifo.
+      </p>
 
-        <p className="iap-management-section__description">
-          Setup an iOS, Android or Web application to use Identifo.
-        </p>
-
-        <ApplicationList loading={fetching} applications={applications} />
-      </section>
-    );
-  }
-}
-
-ApplicationsMainView.propTypes = {
-  applications: PropTypes.arrayOf(PropTypes.shape()),
-  fetching: PropTypes.bool,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-  fetchApplications: PropTypes.func.isRequired,
+      <ApplicationList loading={!!progress} applications={applications} />
+    </section>
+  );
 };
 
-ApplicationsMainView.defaultProps = {
-  applications: [],
-  fetching: false,
-};
-
-const mapStateToProps = state => ({
-  fetching: state.applications.fetching,
-  applications: state.applications.list,
-});
-
-const actions = {
-  fetchApplications,
-};
-
-export default connect(mapStateToProps, actions)(ApplicationsMainView);
+export default ApplicationsMainView;
