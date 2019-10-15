@@ -9,7 +9,7 @@ import { Select, Option } from '~/components/shared/Select';
 import { validateSmsServiceForm } from './validation';
 import useForm from '~/hooks/useForm';
 
-const [TWILIO, MOCK] = ['twilio', 'mock'];
+const [TWILIO, MOCK, NEXMO] = ['twilio', 'mock', 'nexmo'];
 
 const SmsServiceSettings = ({ settings, loading, onSubmit }) => {
   const initialValues = {
@@ -17,6 +17,8 @@ const SmsServiceSettings = ({ settings, loading, onSubmit }) => {
     accountSid: settings ? settings.accoundSid : '',
     authToken: settings ? settings.authToken : '',
     serviceSid: settings ? settings.serviceSid : '',
+    apiKey: settings ? settings.apiKey : '',
+    apiSecret: settings ? settings.apiSecret : '',
   };
 
   const handleSubmit = (values) => {
@@ -42,9 +44,40 @@ const SmsServiceSettings = ({ settings, loading, onSubmit }) => {
           errorMessage={form.errors.type}
         >
           <Option value={TWILIO} title="Twilio" />
+          <Option value={NEXMO} title="Nexmo" />
           <Option value={MOCK} title="Mock" />
         </Select>
       </Field>
+
+      {form.values.type === NEXMO && (
+        <>
+          <Field label="Api Key">
+            <Input
+              name="apiKey"
+              value={form.values.apiKey}
+              autoComplete="off"
+              placeholder="Specify Nexmo api key"
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              disabled={loading}
+              errorMessage={form.errors.authKey}
+            />
+          </Field>
+
+          <Field label="Api Secret">
+            <Input
+              name="apiSecret"
+              value={form.values.apiSecret}
+              autoComplete="off"
+              placeholder="Specify Nexmo api secret"
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              disabled={loading}
+              errorMessage={form.errors.apiSecret}
+            />
+          </Field>
+        </>
+      )}
 
       {form.values.type === TWILIO && (
         <>

@@ -80,6 +80,7 @@ const createSettingsServiceMock = () => {
   };
 
   const updateExternalServicesSettings = async (settings) => {
+    console.log(settings);
     await pause(400);
     data.externalServices = settings;
   };
