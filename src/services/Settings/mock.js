@@ -1,4 +1,5 @@
 import { pause } from '~/utils';
+import { toDeepCase } from '~/utils/apiMapper';
 
 const data = {
   general: {
@@ -50,7 +51,7 @@ const data = {
   configurationStorage: {
     type: 'file',
     settingsKey: 'server-config.yaml',
-    endpoints: '',
+    endpoints: [],
     region: '',
     bucket: 'bucket',
     keyStorage: {
@@ -80,7 +81,6 @@ const createSettingsServiceMock = () => {
   };
 
   const updateExternalServicesSettings = async (settings) => {
-    console.log(settings);
     await pause(400);
     data.externalServices = settings;
   };
@@ -121,6 +121,7 @@ const createSettingsServiceMock = () => {
   };
 
   const updateConfigurationStorageSettings = async (settings) => {
+    console.log(toDeepCase(settings, 'snake'));
     await pause(400);
     data.configurationStorage = settings;
   };
