@@ -5,11 +5,11 @@ import useProgressBar from '~/hooks/useProgressBar';
 import TemplateEditor from './TemplateEditor';
 
 const templateNames = {
-  INVITE: 'invite',
-  WELCOME: 'welcome',
-  RESET: 'reset',
-  VERIFY: 'verify',
-  TFA: 'tfa',
+  INVITE: 'invite-email',
+  WELCOME: 'welcome-email',
+  RESET: 'reset-email',
+  VERIFY: 'verify-email',
+  TFA: 'tfa-email',
 };
 
 const HostedPagesSection = () => {
