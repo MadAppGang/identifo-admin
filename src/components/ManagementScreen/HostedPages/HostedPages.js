@@ -10,6 +10,9 @@ const templateNames = {
   RESET: 'reset-email',
   VERIFY: 'verify-email',
   TFA: 'tfa-email',
+  LOGIN: 'login',
+  REGISTRATION: 'registration',
+  FORGOT_PASSWORD: 'forgon-password',
 };
 
 const HostedPagesSection = () => {
@@ -50,6 +53,9 @@ const HostedPagesSection = () => {
           <Option value={templateNames.RESET} title="Reset Password Email" />
           <Option value={templateNames.VERIFY} title="Verify Email" />
           <Option value={templateNames.TFA} title="2FA Email" />
+          <Option value={templateNames.LOGIN} title="Login page" />
+          <Option value={templateNames.REGISTRATION} title="Registration page" />
+          <Option value={templateNames.FORGOT_PASSWORD} title="Forgot password page" />
         </Select>
       </h1>
 
