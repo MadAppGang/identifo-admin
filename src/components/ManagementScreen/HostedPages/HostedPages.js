@@ -13,6 +13,13 @@ const templateNames = {
   LOGIN: 'login',
   REGISTRATION: 'registration',
   FORGOT_PASSWORD: 'forgon-password',
+  RESET_TFA: 'reset-tfa',
+  RESET_TFA_SUCCESS: 'reset-tfa-success',
+  TOKEN_ERROR: 'token-error',
+  WEB_MESSAGE: 'web-message',
+  RESET_PASSWORD_SUCCESS: 'reset-password-success',
+  RESET_PASSWORD: 'reset-password',
+  MISCONFIGURATION: 'misconfiguration',
 };
 
 const HostedPagesSection = () => {
@@ -56,6 +63,13 @@ const HostedPagesSection = () => {
           <Option value={templateNames.LOGIN} title="Login page" />
           <Option value={templateNames.REGISTRATION} title="Registration page" />
           <Option value={templateNames.FORGOT_PASSWORD} title="Forgot password page" />
+          <Option value={templateNames.RESET_TFA} title="Reset TFA" />
+          <Option value={templateNames.RESET_TFA_SUCCESS} title="Reset TFA success" />
+          <Option value={templateNames.TOKEN_ERROR} title="Token Error" />
+          <Option value={templateNames.WEB_MESSAGE} title="Web message" />
+          <Option value={templateNames.MISCONFIGURATION} title="Misconfiguration" />
+          <Option value={templateNames.RESET_PASSWORD} title="Reset pasword" />
+          <Option value={templateNames.RESET_PASSWORD_SUCCESS} title="Rest password success" />
         </Select>
       </h1>
 
