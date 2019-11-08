@@ -217,7 +217,7 @@ const ApplicationGeneralSettingsForm = (props) => {
           />
         )}
 
-        {!isExcluded('allowAnonymous') && (
+        {!isExcluded('allowAnonymousRegistration') && (
           <Toggle
             label="Allow Anonymous Registration"
             value={!!allowAnonymousRegistration}
