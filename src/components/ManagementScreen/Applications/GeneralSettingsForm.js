@@ -26,9 +26,11 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [name, setName] = useState(application.name || '');
   const [description, setDescription] = useState(application.description || '');
   const [secret, setSecret] = useState(application.secret || '');
-  const [allowRegistration, setAllowRegistration] = useState(!application.registration_forbidden);
+  const [allowRegistration, setAllowRegistration] = useState(
+    !application.registration_forbidden || false,
+  );
   const [allowAnonymousRegistration, setAllowAnonymousRegistration] = useState(
-    application.anonymous_registration_allowed,
+    application.anonymous_registration_allowed || false,
   );
   const [tfaStatus, setTfaStatus] = useState(application.tfa_status || 'disabled');
   const [active, setActive] = useState(application.active || false);
@@ -135,6 +137,7 @@ const ApplicationGeneralSettingsForm = (props) => {
             <Option value="web" title="Single Page Application (Web)" />
             <Option value="android" title="Android Client (Mobile)" />
             <Option value="ios" title="iOS Client (Mobile)" />
+            <Option value="desktop" title="Desktop Client (Desktop)" />
           </Select>
         </Field>
       )}
