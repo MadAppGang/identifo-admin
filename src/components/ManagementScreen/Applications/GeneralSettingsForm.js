@@ -27,6 +27,9 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [description, setDescription] = useState(application.description || '');
   const [secret, setSecret] = useState(application.secret || '');
   const [allowRegistration, setAllowRegistration] = useState(!application.registration_forbidden);
+  const [allowAnonymousRegistration, setAllowAnonymousRegistration] = useState(
+    application.anonymous_registration_allowed,
+  );
   const [tfaStatus, setTfaStatus] = useState(application.tfa_status || 'disabled');
   const [active, setActive] = useState(application.active || false);
   const [debugTfaCode, setDebugTfaCode] = useState(application.debug_tfa_code || '');
@@ -53,6 +56,7 @@ const ApplicationGeneralSettingsForm = (props) => {
     if (application.scopes) setScopes(application.scopes);
 
     setAllowRegistration(!application.registration_forbidden);
+    setAllowAnonymousRegistration(application.anonymous_registration_allowed);
   }, [props.application]);
 
   const isExcluded = field => excludeFields.includes(field);
@@ -93,6 +97,7 @@ const ApplicationGeneralSettingsForm = (props) => {
       tfa_status: tfaStatus,
       redirect_urls: redirectUrls,
       registration_forbidden: !allowRegistration,
+      anonymous_registration_allowed: allowAnonymousRegistration,
       debug_tfa_code: debugTfaCode || undefined,
     });
   };
@@ -206,6 +211,14 @@ const ApplicationGeneralSettingsForm = (props) => {
             label="Allow Registration"
             value={!!allowRegistration}
             onChange={setAllowRegistration}
+          />
+        )}
+
+        {!isExcluded('allowAnonymous') && (
+          <Toggle
+            label="Allow Anonymous Registration"
+            value={!!allowAnonymousRegistration}
+            onChange={setAllowAnonymousRegistration}
           />
         )}
 
