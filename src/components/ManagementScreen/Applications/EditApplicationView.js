@@ -74,7 +74,7 @@ const EditApplicationView = ({ match, history }) => {
     } catch (_) {
       notifyFailure({
         title: 'Something went wrong',
-        text: 'Application could not be deleted'
+        text: 'Application could not be deleted',
       });
     } finally {
       setProgress(100);
