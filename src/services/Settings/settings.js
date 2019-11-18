@@ -85,8 +85,7 @@ const createSettingsService = ({ httpClient }) => {
 
   const requestServerRestart = async () => {
     const url = `${process.env.API_URL}/restart`; // TODO: not final
-
-    await httpClient.get(url);
+    await httpClient.post(url);
   };
 
   return {

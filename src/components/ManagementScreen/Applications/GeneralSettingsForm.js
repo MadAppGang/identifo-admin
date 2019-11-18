@@ -26,7 +26,12 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [name, setName] = useState(application.name || '');
   const [description, setDescription] = useState(application.description || '');
   const [secret, setSecret] = useState(application.secret || '');
-  const [allowRegistration, setAllowRegistration] = useState(!application.registration_forbidden);
+  const [allowRegistration, setAllowRegistration] = useState(
+    !application.registration_forbidden || false,
+  );
+  const [allowAnonymousRegistration, setAllowAnonymousRegistration] = useState(
+    application.anonymous_registration_allowed || false,
+  );
   const [tfaStatus, setTfaStatus] = useState(application.tfa_status || 'disabled');
   const [active, setActive] = useState(application.active || false);
   const [debugTfaCode, setDebugTfaCode] = useState(application.debug_tfa_code || '');
@@ -53,6 +58,7 @@ const ApplicationGeneralSettingsForm = (props) => {
     if (application.scopes) setScopes(application.scopes);
 
     setAllowRegistration(!application.registration_forbidden);
+    setAllowAnonymousRegistration(application.anonymous_registration_allowed);
   }, [props.application]);
 
   const isExcluded = field => excludeFields.includes(field);
@@ -93,6 +99,7 @@ const ApplicationGeneralSettingsForm = (props) => {
       tfa_status: tfaStatus,
       redirect_urls: redirectUrls,
       registration_forbidden: !allowRegistration,
+      anonymous_registration_allowed: allowAnonymousRegistration,
       debug_tfa_code: debugTfaCode || undefined,
     });
   };
@@ -130,6 +137,7 @@ const ApplicationGeneralSettingsForm = (props) => {
             <Option value="web" title="Single Page Application (Web)" />
             <Option value="android" title="Android Client (Mobile)" />
             <Option value="ios" title="iOS Client (Mobile)" />
+            <Option value="desktop" title="Desktop Client (Desktop)" />
           </Select>
         </Field>
       )}
@@ -206,6 +214,14 @@ const ApplicationGeneralSettingsForm = (props) => {
             label="Allow Registration"
             value={!!allowRegistration}
             onChange={setAllowRegistration}
+          />
+        )}
+
+        {!isExcluded('allowAnonymousRegistration') && (
+          <Toggle
+            label="Allow Anonymous Registration"
+            value={!!allowAnonymousRegistration}
+            onChange={setAllowAnonymousRegistration}
           />
         )}
 

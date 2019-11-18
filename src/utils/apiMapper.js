@@ -7,17 +7,17 @@ const toCamelCase = (value) => {
 };
 
 export const toDeepCase = (input, targetCase) => {
-  const toTargetCase = targetCase === 'camel' ? toCamelCase : toSnakeCase;
+  const transformCase = targetCase === 'camel' ? toCamelCase : toSnakeCase;
 
   const result = Object.entries(input)
     .map((entry) => {
       const [key, value] = entry;
 
-      if (typeof value === 'object') {
-        return [toTargetCase(key), toDeepCase(value, targetCase)];
+      if (typeof value === 'object' && !Array.isArray(value)) {
+        return [transformCase(key), toDeepCase(value, targetCase)];
       }
 
-      return [toTargetCase(key), value];
+      return [transformCase(key), value];
     })
     .reduce((output, entry) => {
       const [key, value] = entry;

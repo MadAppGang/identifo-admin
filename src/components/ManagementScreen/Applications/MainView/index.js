@@ -47,7 +47,7 @@ const ApplicationsMainView = ({ history }) => {
       </p>
 
       <p className="iap-management-section__description">
-        Setup an iOS, Android or Web application to use Identifo.
+        Setup an iOS, Android, Web, or Desktop application to use Identifo.
       </p>
 
       <ApplicationList loading={!!progress} applications={applications} />

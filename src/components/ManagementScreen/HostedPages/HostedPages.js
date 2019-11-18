@@ -5,11 +5,14 @@ import useProgressBar from '~/hooks/useProgressBar';
 import TemplateEditor from './TemplateEditor';
 
 const templateNames = {
-  INVITE: 'invite',
-  WELCOME: 'welcome',
-  RESET: 'reset',
-  VERIFY: 'verify',
-  TFA: 'tfa',
+  INVITE: 'invite-email',
+  WELCOME: 'welcome-email',
+  RESET: 'reset-email',
+  VERIFY: 'verify-email',
+  TFA: 'tfa-email',
+  LOGIN: 'login',
+  REGISTRATION: 'registration',
+  FORGOT_PASSWORD: 'forgot-password',
 };
 
 const HostedPagesSection = () => {
@@ -50,6 +53,9 @@ const HostedPagesSection = () => {
           <Option value={templateNames.RESET} title="Reset Password Email" />
           <Option value={templateNames.VERIFY} title="Verify Email" />
           <Option value={templateNames.TFA} title="2FA Email" />
+          <Option value={templateNames.LOGIN} title="Login page" />
+          <Option value={templateNames.REGISTRATION} title="Registration page" />
+          <Option value={templateNames.FORGOT_PASSWORD} title="Forgot password page" />
         </Select>
       </h1>
 
