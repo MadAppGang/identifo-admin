@@ -12,7 +12,7 @@ const templateNames = {
   TFA: 'tfa-email',
   LOGIN: 'login',
   REGISTRATION: 'registration',
-  FORGOT_PASSWORD: 'forgon-password',
+  FORGOT_PASSWORD: 'forgot-password',
 };
 
 const HostedPagesSection = () => {
