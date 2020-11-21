@@ -6,6 +6,7 @@
   "homepage": "https://madappgang.github.io/identifo-admin",
   "scripts": {
     "start": "MOCK_API=true ASSETS_PATH=/ webpack-dev-server --config config/webpack/dev.config.js --hot",
+    "start:local": "ASSETS_PATH=/ webpack-dev-server --config config/webpack/dev.config.js --hot",
     "build": "webpack --config config/webpack/prod.config.js",
     "test": "jest --config config/jest/config.js",
     "test:w": "jest --config config/jest/config.js --watch",

@@ -1,17 +1,17 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Button from '~/components/shared/Button';
-import AddIcon from '~/components/icons/AddIcon';
-import { fetchApplications } from '~/modules/applications/actions';
-import ApplicationList from './ApplicationList';
-import ApplicationsPlaceholder from './ApplicationsPlaceholder';
-import useProgressBar from '~/hooks/useProgressBar';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Button from "~/components/shared/Button";
+import AddIcon from "~/components/icons/AddIcon";
+import { fetchApplications } from "~/modules/applications/actions";
+import ApplicationList from "./ApplicationList";
+import ApplicationsPlaceholder from "./ApplicationsPlaceholder";
+import useProgressBar from "~/hooks/useProgressBar";
 
 const ApplicationsMainView = ({ history }) => {
   const dispatch = useDispatch();
   const { progress, setProgress } = useProgressBar();
 
-  const applications = useSelector(s => s.applications.list);
+  const applications = useSelector((s) => s.applications.list);
 
   const fetchData = async () => {
     setProgress(70);
@@ -24,15 +24,13 @@ const ApplicationsMainView = ({ history }) => {
   }, []);
 
   const initiateCreation = () => {
-    history.push('/management/applications/new');
+    history.push("/management/applications/new");
   };
 
   if (!applications.length && !progress) {
     return (
       <section className="iap-management-section">
-        <ApplicationsPlaceholder
-          onCreateApplicationClick={initiateCreation}
-        />
+        <ApplicationsPlaceholder onCreateApplicationClick={initiateCreation} />
       </section>
     );
   }
