@@ -7,7 +7,7 @@ import configureStore from './modules';
 const store = configureStore(services);
 
 const markup = (
-  <Root store={store} />
+  <Root store={store} services={services} />
 );
 
 ReactDOM.render(markup, document.getElementById('root'));

@@ -1,82 +1,70 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react';
+import update from '@madappgang/update-by-path';
 import Notification from './Notification';
-import {
-  createNotification, removeNotification,
-} from '~/modules/notifications/actions';
+import usePrevious from '~/hooks/usePrevious';
 
-import './Notifications.css';
+const NOTIFICATION_LIFETIME = 3000;
 
-const NOTIFICATION_LIFETIME = 7000;
+export const NotificationContext = React.createContext();
 
-class NotificationContainer extends Component {
-  constructor(props) {
-    super(props);
+const NotificationContainer = ({ children }) => {
+  const [notifications, setNotifications] = React.useState([]);
+  const previousNotifications = usePrevious(notifications);
 
-    this.removeAfterDelay = this.removeAfterDelay.bind(this);
-    this.removeNotification = this.removeNotification.bind(this);
-    this.isNewNotification = this.isNewNotification.bind(this);
-  }
+  const isNewNotification = (notification) => {
+    return !previousNotifications.map(n => n.id).includes(notification.id);
+  };
 
-  componentWillReceiveProps({ notifications }) {
-    this.excludeExistingNotifications(notifications).forEach(this.removeAfterDelay);
-  }
+  const excludeExistingNotifications = (list) => {
+    return list.filter(isNewNotification);
+  };
 
-  isNewNotification(notification) {
-    return !this.props.notifications
-      .map(n => n.id)
-      .includes(notification.id);
-  }
+  const removeNotification = (notification) => {
+    setNotifications(notifications.filter(n => n.id !== notification.id));
+  };
 
-  excludeExistingNotifications(list) {
-    return list.filter(this.isNewNotification);
-  }
+  const removeAfterDelay = (notification) => {
+    setTimeout(removeNotification, NOTIFICATION_LIFETIME, notification);
+  };
 
-  removeAfterDelay(notification) {
-    setTimeout(this.removeNotification, NOTIFICATION_LIFETIME, notification);
-  }
+  React.useEffect(() => {
+    excludeExistingNotifications(notifications).forEach(removeAfterDelay);
+  }, [notifications]);
 
-  removeNotification(notification) {
-    this.props.removeNotification(notification.id);
-  }
+  const createNotificationOfType = (type, notification) => {
+    return update(notification, { type, id: Date.now() });
+  };
 
-  render() {
-    const list = this.props.notifications.map((notification) => {
-      const props = {
-        key: notification.id,
-        onClick: () => this.removeNotification(notification),
-        ...notification,
-      };
+  const context = {
+    notifySuccess(notification) {
+      setNotifications([
+        ...notifications,
+        createNotificationOfType('success', notification),
+      ]);
+    },
+    notifyFailure(notification) {
+      setNotifications([
+        ...notifications,
+        createNotificationOfType('failure', notification),
+      ]);
+    },
+  };
 
-      return <Notification {...props} />;
-    });
-
-    return (
+  return (
+    <NotificationContext.Provider value={context}>
       <div className="iap-notification-container">
-        {list}
+        {notifications.map(notification => (
+          <Notification
+            key={notification.id}
+            {...notification}
+            onClick={() => removeNotification(notification)}
+          />
+        ))}
       </div>
-    );
-  }
-}
 
-NotificationContainer.propTypes = {
-  notifications: PropTypes.arrayOf(PropTypes.shape()),
-  createNotification: PropTypes.func.isRequired,
-  removeNotification: PropTypes.func.isRequired,
+      {children}
+    </NotificationContext.Provider>
+  );
 };
 
-NotificationContainer.defaultProps = {
-  notifications: [],
-};
-
-const mapStateToProps = state => ({
-  notifications: state.notifications.list,
-});
-
-const actions = {
-  removeNotification,
-  createNotification,
-};
-
-export default connect(mapStateToProps, actions)(NotificationContainer);
+export default NotificationContainer;

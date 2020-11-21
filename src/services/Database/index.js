@@ -2,7 +2,7 @@ const createDatabaseService = ({ httpClient }) => {
   const baseUrl = process.env.API_URL;
 
   const testConnection = async (settings) => {
-    const url = `${baseUrl}/settings/database/test`;
+    const url = `${baseUrl}/settings/storage/test`;
     const { data } = await httpClient.post(url, settings);
 
     return data;
@@ -16,8 +16,8 @@ const createDatabaseService = ({ httpClient }) => {
   };
 
   const postSettings = async (storage) => {
-    const url = `${baseUrl}/settings/database`;
-    const { data } = await httpClient.patch(url, { storage });
+    const url = `${baseUrl}/settings/storage`;
+    const { data } = await httpClient.put(url, storage);
 
     return data;
   };

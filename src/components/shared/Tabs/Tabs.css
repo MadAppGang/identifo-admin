@@ -1,7 +1,10 @@
 .iap-tabs-tablist {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: calc(100% + 10px);
+  padding: 6px 0 4px 0;
+  position: relative;
+  left: -5px;
 }
 
 .iap-tabs-tab {
@@ -10,14 +13,9 @@
   outline: none;
   border: none;
   font-size: 15px;
-  border-bottom: 2px solid #fff;
   background-color: #fff;
-  color: #3d3d3d;
-  padding: 6px 0px;
-}
-
-.iap-tabs-tab + .iap-tabs-tab {
-  margin-left: 15px;
+  color: #9d9d9d;
+  padding: 1px 6px;
 }
 
 .iap-tabs-tab:hover {
@@ -25,5 +23,16 @@
 }
 
 .iap-tabs-tab.iap-tabs-tab--active {
-  color: #3CA6F5;
+  color: #000;
+}
+
+.tab-underline {
+  height: 2px;
+  width: 100px;
+  background-color: var(--main-color);
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  border-radius: 15px;
+  transition: all 200ms ease-in-out;
 }

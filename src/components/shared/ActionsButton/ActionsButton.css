@@ -1,5 +1,12 @@
 .iap-actions-btn {
   position: relative;
+  z-index: 999;
+}
+
+.iap-actions-btn--stuck {
+  position: fixed;
+  right: auto;
+  top: 87px;
 }
 
 .iap-actions-btn__icon {

@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   fetching: false,
   posting: false,
   error: null,
+  changed: false,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {

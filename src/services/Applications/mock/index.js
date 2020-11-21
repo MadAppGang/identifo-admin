@@ -4,14 +4,30 @@ import randomstring from 'randomstring';
 const data = {
   applications: [
     {
-      id: '507f1f77bcf86cd799439011',
-      type: 'ios',
-      name: 'Mobile Client (iOS)',
-    },
-    {
-      id: '507f1f77bcf86cd799439242',
+      id: '5d08ee44e89bde6d23cdf031',
+      active: false,
+      name: 'foo',
+      description: '',
+      offline: false,
       type: 'web',
-      name: 'Single Page App',
+      redirect_urls: ['https://hlsaf.com'],
+      registration_forbidden: false,
+      tfa_status: 'disabled',
+      authorization_way: 'whitelist',
+      new_user_default_role: '',
+      secret: 'E0y2kZGoXXAuhwbwo7kyrdtR',
+      roles_whitelist: [],
+      roles_blacklist: [],
+      debug_tfa_code: undefined,
+      token_lifespan: undefined,
+      invite_token_lifespan: undefined,
+      refresh_token_lifespan: undefined,
+      scopes: [],
+      apple_info: {
+        client_id: '',
+        client_secret: '',
+      },
+      token_payload: ['Hello', 'world!'],
     },
   ],
 };

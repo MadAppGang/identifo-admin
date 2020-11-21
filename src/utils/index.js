@@ -1,4 +1,12 @@
+import randomstring from 'randomstring';
+
 export const pause = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+
+export const domChangeEvent = (name, value) => ({ target: { name, value } });
+
+export const isPhone = (value) => {
+  return !!(/^[+][0-9]{9,15}$/.test(value));
+};
 
 export const getError = (axiosErr) => {
   if (axiosErr.response && axiosErr.response.data) {
@@ -34,4 +42,8 @@ export const getInitials = (fullName, email) => {
   }
 
   return `${firstOneOf(firstName)}${firstOneOf(lastName)}`.toUpperCase();
+};
+
+export const generateSecret = (length = 24) => {
+  return randomstring.generate(length, { charset: 'hex' });
 };

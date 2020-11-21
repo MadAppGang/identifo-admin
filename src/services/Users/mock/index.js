@@ -6,24 +6,35 @@ const data = {
   users: [
     {
       id: '507f1f77bcf86cd799439011',
-      username: 'Denys Provodnikov',
-      email: 'dp@madappgang.com',
-      latest_login_time: Date.now(),
+      username: 'dprovodnikov',
+      email: '@madappgang.com',
+      latest_login_time: Date.now() / 1000,
       num_of_logins: 0,
+      tfa_info: {
+        is_enabled: true,
+      },
+      access_role: '',
+      active: false,
+      phone: '+380993233430',
     },
     {
-      id: '507f191e810c19729de860ea',
-      username: 'John Doe',
-      email: 'john.doe@gmail.com',
-      latest_login_time: new Date('2019-06-21').getTime(),
-      num_of_logins: 3,
+      id: '507f1f77bcf86cd799439012',
+      tfa_info: {
+        is_enabled: false,
+      },
+      active: true,
+      username: 'test3@madappgang.com',
+      email: 'test3@madappgang.com',
+      phone: '+380993233430',
     },
     {
-      id: '507f191e810c19729de860cf',
-      username: 'Jessica Bower',
-      email: 'jess@gmail.com',
-      latest_login_time: Date.now(),
-      num_of_logins: 14,
+      id: '507f1f77bcf86cd799439013',
+      tfa_info: {
+        is_enabled: false,
+      },
+      active: true,
+      username: '',
+      phone: '+380993233430',
     },
   ],
 };

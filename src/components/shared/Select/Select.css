@@ -12,7 +12,7 @@
   background-color: #fff;
   box-shadow: 1px 4px 12px 1px rgba(0, 0, 0, .2);
   border-radius: 6px;
-  z-index: 1;
+  z-index: 999;
   animation: db-dropdown-fadein 70ms ease-out forwards;
 }
 
@@ -45,14 +45,19 @@
   color: #3CA6F5;
 }
 
-@keyframes db-dropdown-fadein {
-  from {
-    transform: translateY(calc(100% - 10px));
-    opacity: .1;
-  }
+.iap-select-icon {
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+  fill: var(--main-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-  to {
-    transform: translateY(100%);
-    opacity: 1;
-  }
+.iap-select-icon rect {
+  fill: var(--main-color);
+}
+
+.iap-select-icon:hover {
+  background-color: #eee;
 }

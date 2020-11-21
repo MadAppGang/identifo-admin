@@ -10,7 +10,7 @@ const dotenv = require('dotenv')
 const env = {
   ...dotenv.parsed,
   MOCK_API: process.env.MOCK_API,
-  PUBLIC_PATH: process.env.PUBLIC_PATH,
+  BASE_URL: process.env.BASE_URL,
   ASSETS_PATH: process.env.ASSETS_PATH,
   API_URL: process.env.API_URL,
 };
@@ -57,12 +57,15 @@ module.exports = {
       },
       {
         test: /\.css/,
-        exclude: /node_modules/,
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
+        test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
         use: 'url-loader?limit=30000&name=[path][name].[ext]',
+      },
+      {
+        test: /\.svg$/,
+        use: ['babel-loader', 'react-svg-loader'],
       },
     ],
   },

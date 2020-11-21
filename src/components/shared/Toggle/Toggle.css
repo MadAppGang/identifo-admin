@@ -1,9 +1,20 @@
 .iap-default-toggle {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
-.iap-default-toggle > button {
-  margin-right: 10px;
+.iap-form__field + .iap-default-toggle {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.iap-default-toggle + .iap-form__field {
+  margin-top: 20px;
+}
+
+.iap-default-toggle + .iap-default-toggle {
+  margin-top: 10px;
 }
 
 .iap-default-toggle > span {
@@ -12,8 +23,8 @@
 }
 
 .iap-default-toggle__body {
-  height: 20px;
-  width: 45px;
+  height: 13px;
+  width: 40px;
   border-radius: 20px;
   background-color: #eee;
   position: relative;
@@ -40,20 +51,36 @@
 }
 
 .iap-default-toggle__handle {
-  height: 27px;
-  width: 27px;
+  height: 23px;
+  width: 23px;
   background-color: #fff;
-  border: 1.5px solid #eee;
+  border: 1px solid #eee;
   left: 0;
   transform: translateX(0);
   position: absolute;
   border-radius: 50%;
   transition: all 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .iap-default-toggle__body.iap-default-toggle__body--on .iap-default-toggle__handle {
   background-color: #3CA6F5;
-  border: 1.5px solid #D8EEFF;
+  border: 1px solid #D8EEFF;
   left: 100%;
   transform: translateX(-100%);
+}
+
+.iap-default-toggle__handle-icon {
+  height: 13px;
+  width: 13px;
+}
+
+.iap-default-toggle__handle-icon rect {
+  fill: #aaa;
+}
+
+.iap-default-toggle__body.iap-default-toggle__body--on .iap-default-toggle__handle-icon rect {
+  fill: white;
 }

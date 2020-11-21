@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<LoginScreenLayout /> renders as expected 1`] = `
-<div
-  className="iap-login-layout"
-/>
-`;

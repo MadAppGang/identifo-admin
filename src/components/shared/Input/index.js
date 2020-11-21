@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Input.css';
 
-const Input = ({ Icon, errorMessage, ...props }) => {
+const Input = React.forwardRef((props, ref) => {
+  const { Icon, errorMessage, renderButton, onChange, onValue, ...restProps } = props;
+
   const className = classnames({
     'iap-login-form__input': true,
     'iap-login-form__input--iconized': !!Icon,
     'iap-login-form__input--invalid': !!errorMessage,
   });
+
+  const handleChange = (e) => {
+    onChange(e);
+    onValue(e.target.value);
+  };
 
   return (
     <div className="iap-input-wrapper">
@@ -16,11 +23,19 @@ const Input = ({ Icon, errorMessage, ...props }) => {
         <Icon className="iap-input-icon" />
       )}
       <input
-        {...props}
+        ref={ref}
+        {...restProps}
         spellCheck={false}
         autoComplete="off"
         className={className}
+        onChange={handleChange}
       />
+
+      {!!renderButton && (
+        <div className="iap-input-btn">
+          {renderButton()}
+        </div>
+      )}
       {errorMessage && (
         <p className="iap-input-error">
           {errorMessage}
@@ -28,7 +43,7 @@ const Input = ({ Icon, errorMessage, ...props }) => {
       )}
     </div>
   );
-};
+});
 
 Input.propTypes = {
   name: PropTypes.string,
@@ -38,6 +53,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
   Icon: PropTypes.func,
+  onValue: PropTypes.func,
 };
 
 Input.defaultProps = {
@@ -48,6 +64,7 @@ Input.defaultProps = {
   errorMessage: '',
   Icon: null,
   onChange: () => {},
+  onValue: () => {},
 };
 
 export default Input;
