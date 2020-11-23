@@ -232,6 +232,7 @@ const ApplicationGeneralSettingsForm = (props) => {
         {!isExcluded('active') && (
           <Toggle label="Active" value={!!active} onChange={setActive} />
         )}
+
       </div>
 
       <footer className="iap-apps-form__footer">

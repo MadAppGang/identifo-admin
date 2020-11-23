@@ -34,7 +34,7 @@ const rules = {
   name: [notEmpty('Application name should not be empty')],
   type: [notEmpty('Application type should be selected')],
   redirectUrls: [
-    redirectUrlRule('Url format is invalid. Make sure you include protocol.'),
+    redirectUrlRule('Url format is invalid. Make sure you include scheme.'),
   ],
   tokenLifespan: [
     onlyDigits('Token lifespan can only contain digits'),

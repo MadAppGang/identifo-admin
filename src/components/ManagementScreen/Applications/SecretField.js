@@ -6,8 +6,9 @@ import RevealIcon from '~/components/icons/RevealIcon';
 import HideIcon from '~/components/icons/HideIcon';
 import { generateSecret } from '~/utils';
 
-const SecretField = ({ value, onChange }) => {
+const SecretField = ({ value, onChange, label = 'Client Secret' }) => {
   const [reveal, setReveal] = useState(false);
+
 
   const iconProps = {
     className: 'iap-apps-form__reveal-secret-btn',
@@ -19,7 +20,7 @@ const SecretField = ({ value, onChange }) => {
 
   return (
     <Field
-      label="Client Secret"
+      label={label}
       Icon={<Icon {...iconProps} />}
     >
       <div className="iap-apps-form__secret-field">
