@@ -1,7 +1,8 @@
 import { pause, getError } from '~/utils';
+import { ENV } from '~/utils/environment';
 
 const createAuthService = ({ httpClient }) => {
-  const baseUrl = process.env.API_URL;
+  const baseUrl = ENV.getApiUrl();
 
   const login = async (email, password) => {
     const url = `${baseUrl}/admin/login`;

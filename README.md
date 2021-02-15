@@ -42,6 +42,9 @@ Generated coverage report is going to appear as a `coverage` folder in the proje
 You can specify api url by setting an `API_URL` env variable containing the full address.
 Example: `https://api.identifo.com`
 
+You can specify api url suffix by setting an `API_URL_SUFFIX` env variable containing the api url suffix.
+Example: `https://api.identifo.com/suffix`
+
 ### Mocking Api Calls
 
 Api calls are described in services `src/services`. Each service has it's mocked version. In order to make use of mocked services instead of actual ones you should set a `MOCK_API=true` environment variable either through cli or using `.env` file in the project's root.

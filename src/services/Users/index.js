@@ -1,7 +1,8 @@
 import { format as formatUrl } from 'url';
+import { ENV } from '~/utils/environment';
 
 const createUserService = ({ httpClient }) => {
-  const baseUrl = process.env.API_URL;
+  const baseUrl = ENV.getApiUrl();
 
   const fetchUsers = async (filters = {}) => {
     const { search } = filters;

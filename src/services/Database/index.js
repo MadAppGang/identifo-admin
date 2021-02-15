@@ -1,5 +1,7 @@
+import { ENV } from '~/utils/environment';
+
 const createDatabaseService = ({ httpClient }) => {
-  const baseUrl = process.env.API_URL;
+  const baseUrl = ENV.getApiUrl();
 
   const testConnection = async (settings) => {
     const url = `${baseUrl}/admin/settings/storage/test`;

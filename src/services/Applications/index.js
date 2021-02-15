@@ -1,5 +1,7 @@
+import { ENV } from '~/utils/environment';
+
 const createApplicationService = ({ httpClient }) => {
-  const baseUrl = process.env.API_URL;
+  const baseUrl = ENV.getApiUrl();
 
   const fetchApplications = async () => {
     const url = `${baseUrl}/admin/apps`;
