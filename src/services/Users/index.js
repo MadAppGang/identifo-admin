@@ -6,7 +6,7 @@ const createUserService = ({ httpClient }) => {
   const fetchUsers = async (filters = {}) => {
     const { search } = filters;
     const url = formatUrl({
-      pathname: `${baseUrl}/users`,
+      pathname: `${baseUrl}/admin/users`,
       query: {
         search,
       },
@@ -17,28 +17,28 @@ const createUserService = ({ httpClient }) => {
   };
 
   const postUser = async (user) => {
-    const url = `${baseUrl}/users`;
+    const url = `${baseUrl}/admin/users`;
     const { data } = await httpClient.post(url, user);
 
     return data;
   };
 
   const alterUser = async (id, changes) => {
-    const url = `${baseUrl}/users/${id}`;
+    const url = `${baseUrl}/admin/users/${id}`;
     const { data } = await httpClient.put(url, changes);
 
     return data;
   };
 
   const fetchUserById = async (id) => {
-    const url = `${baseUrl}/users/${id}`;
+    const url = `${baseUrl}/admin/users/${id}`;
     const { data } = await httpClient.get(url);
 
     return data;
   };
 
   const deleteUserById = async (id) => {
-    const url = `${baseUrl}/users/${id}`;
+    const url = `${baseUrl}/admin/users/${id}`;
     const { data } = await httpClient.delete(url);
 
     return data;

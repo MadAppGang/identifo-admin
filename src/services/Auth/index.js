@@ -4,7 +4,7 @@ const createAuthService = ({ httpClient }) => {
   const baseUrl = process.env.API_URL;
 
   const login = async (email, password) => {
-    const url = `${baseUrl}/login`;
+    const url = `${baseUrl}/admin/login`;
 
     try {
       const response = await httpClient.post(url, { email, password });
@@ -16,12 +16,12 @@ const createAuthService = ({ httpClient }) => {
   };
 
   const logout = () => {
-    const url = `${baseUrl}/logout`;
+    const url = `${baseUrl}/admin/logout`;
     return httpClient.post(url);
   };
 
   const checkAuthState = () => {
-    const url = `${baseUrl}/me`;
+    const url = `${baseUrl}/admin/me`;
 
     return new Promise((resolve) => {
       httpClient.get(url)
