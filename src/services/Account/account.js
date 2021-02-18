@@ -1,8 +1,8 @@
 import { toDeepCase } from '~/utils/apiMapper';
-import { ENV } from '~/utils/environment';
+import config from '~/services/config';
 
 const createAccountService = ({ httpClient }) => {
-  const baseUrl = ENV.getApiUrl();
+  const baseUrl = config.API_URL;
 
   const fetchSettings = async () => {
     const url = `${baseUrl}/admin/settings/account`;

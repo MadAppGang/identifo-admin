@@ -1,9 +1,9 @@
-import { ENV } from '~/utils/environment';
+import config from '~/services/config';
 
 const createAppleService = ({ httpClient }) => {
   const uploadDevDomainAssociationFile = (file) => {
     const data = new FormData();
-    const API_URL = ENV.getApiUrl();
+    const { API_URL } = config;
     const url = `${API_URL}/admin/static/uploads/apple-domain-association`;
 
     data.append('file', file);
@@ -12,7 +12,7 @@ const createAppleService = ({ httpClient }) => {
   };
 
   const uploadAppSiteAssociationFileContents = (fileContent) => {
-    const API_URL = ENV.getApiUrl();
+    const { API_URL } = config;
     const url = `${API_URL}/admin/static/template?name=apple-app-site-association`;
     const body = {
       contents: fileContent,

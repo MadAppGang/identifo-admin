@@ -1,8 +1,8 @@
 import { format as formatUrl } from 'url';
-import { ENV } from '~/utils/environment';
+import config from '~/services/config';
 
 const createUserService = ({ httpClient }) => {
-  const baseUrl = ENV.getApiUrl();
+  const baseUrl = config.API_URL;
 
   const fetchUsers = async (filters = {}) => {
     const { search } = filters;

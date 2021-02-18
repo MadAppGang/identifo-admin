@@ -1,7 +1,7 @@
-import { ENV } from '~/utils/environment';
+import config from '~/services/config';
 
 const createStaticService = ({ httpClient }) => {
-  const API_URL = ENV.getApiUrl();
+  const { API_URL } = config;
   const fetchStaticFile = async (name, ext = 'html') => {
     const url = `${API_URL}/admin/static/template?name=${name}&ext=${ext}`;
     const response = await httpClient.get(url);

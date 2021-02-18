@@ -1,7 +1,7 @@
-import { ENV } from '~/utils/environment';
+import config from '~/services/config';
 
 const createApplicationService = ({ httpClient }) => {
-  const baseUrl = ENV.getApiUrl();
+  const baseUrl = config.API_URL;
 
   const fetchApplications = async () => {
     const url = `${baseUrl}/admin/apps`;
