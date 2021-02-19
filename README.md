@@ -40,7 +40,10 @@ Generated coverage report is going to appear as a `coverage` folder in the proje
 
 ### Api url
 You can specify api url by setting an `API_URL` env variable containing the full address.
-Example: `https://api.identifo.com/admin`
+Example: `https://api.identifo.com`
+
+You can specify api url suffix by setting an `API_URL_SUFFIX` env variable containing the api url suffix.
+Example: `https://api.identifo.com/suffix`
 
 ### Mocking Api Calls
 
