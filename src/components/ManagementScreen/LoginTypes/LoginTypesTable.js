@@ -52,11 +52,27 @@ const LoginTypesTable = (props) => {
       <DatagridRow className="login-types-row">
         <div style={{ width: datagrid.icon.width }}>
           <div className="login-types-row__icon">
+            <UsernameLoginIcon className="login-type-icon" />
+          </div>
+        </div>
+        <div style={{ width: datagrid.type.width }}>
+          <p className="login-types-row__type">Email and Password</p>
+        </div>
+        <div style={{ width: datagrid.enabled.width }}>
+          <div className="login-types-row__enabled">
+            <Toggle value={types.email} onChange={v => onChange('email', v)} />
+          </div>
+        </div>
+      </DatagridRow>
+
+      <DatagridRow className="login-types-row">
+        <div style={{ width: datagrid.icon.width }}>
+          <div className="login-types-row__icon">
             <PhoneLoginIcon className="login-type-icon" />
           </div>
         </div>
         <div style={{ width: datagrid.type.width }}>
-          <p className="login-types-row__type">Phone Number</p>
+          <p className="login-types-row__type">Phone Number with password or OTP</p>
         </div>
         <div style={{ width: datagrid.width }}>
           <div className="login-types-row__enabled">
