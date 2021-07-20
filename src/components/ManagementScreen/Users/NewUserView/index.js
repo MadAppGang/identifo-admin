@@ -17,10 +17,10 @@ const NewUserView = ({ history }) => {
   const error = useSelector(s => s.selectedUser.error);
 
   React.useEffect(() => {
-    if (user && user.id) {
+    if (user && user.id && progress === 100) {
       history.push(`/management/users/${user.id}`);
     }
-  }, [user]);
+  }, [user, progress]);
 
   const handleSubmit = async (data) => {
     setProgress(70);
