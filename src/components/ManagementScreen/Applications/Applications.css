@@ -26,7 +26,7 @@
   background-color: #f7fcff;
   border: 1px solid #cbe7fb;
   font-size: 14px;
-  font-family: 'Circe', monospace;
+  font-family: "Circe", monospace;
   outline: none;
   color: #aaa;
   width: 100%;
@@ -60,6 +60,15 @@
   margin-right: 5px;
 }
 
+.iap-apps-form__provider_selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.iap-apps-form__provider_selector_action {
+  margin-left: 15px;
+}
+
 .casbin-code-editor {
   width: 150%;
   border: 1px solid #cbe7fb;
@@ -73,6 +82,7 @@
   background-color: #f7fcff;
 }
 
-.casbin-code-editor .CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like {
+.casbin-code-editor .CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
   padding-left: 10px !important;
 }

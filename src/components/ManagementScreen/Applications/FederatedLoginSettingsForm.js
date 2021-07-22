@@ -8,43 +8,58 @@ import Field from '~/components/shared/Field';
 import Button from '~/components/shared/Button';
 import LoadingIcon from '~/components/icons/LoadingIcon';
 import SaveIcon from '~/components/icons/SaveIcon';
+import PlusIcon from '~/components/icons/AddIcon';
 import WarningIcon from '~/components/icons/WarningIcon.svg';
+import MultipleInput from '~/components/shared/MultipleInput';
+import SectionHeader from '~/components/shared/SectionHeader';
+import { Select, Option } from '~/components/shared/Select';
 
 const extractValue = fn => e => fn(e.target.value);
 
 const FederatedLoginSettingsForm = (props) => {
   const { loading, onSubmit, onCancel } = props;
   const application = props.application || {};
-  const {
-    apple_info: appleInfo = {
-      client_id: '',
-      client_secret: '',
-    },
-  } = application;
-  const [appleClientId, setAppleClientId] = useState(appleInfo.client_id);
-  const [appleClientSecret, setAppleClientSecret] = useState(appleInfo.client_secret);
+
+  // TODO: replace from server
+  const providers = { apple: { Name: 'Apple' }, facebook: { Name: 'Facebook', default_scopes: ['email'] }, google: { Name: 'Google' } };
+
+  const [federatedLoginSettings, setFederatedLoginSettings] = useState({});
+  const [currentProviderKey, setCurrentProviderKey] = useState('');
+  const [currentProvider, setCurrentProvider] = useState('');
 
   useEffect(() => {
-    const { apple_info } = application;
-    if (!apple_info) return;
-
-    if (apple_info.client_id) {
-      setAppleClientId(apple_info.client_id);
-    }
-
-    if (apple_info.client_secret) {
-      setAppleClientSecret(apple_info.client_secret);
-    }
+    setFederatedLoginSettings(application.federated_login_settings || {});
   }, [props.application]);
+
+  useEffect(() => {
+    setCurrentProvider(federatedLoginSettings[currentProviderKey]);
+  }, [currentProviderKey]);
+
+  useEffect(() => {
+    federatedLoginSettings[currentProviderKey] = currentProvider;
+  }, [currentProvider]);
+
+  const handleInput = (field, value) => {
+    currentProvider[field] = value;
+    setCurrentProvider({ ...currentProvider });
+  };
+
+  const deleteProvider = () => {
+    delete federatedLoginSettings[currentProviderKey];
+    setCurrentProvider(federatedLoginSettings[currentProviderKey]);
+  };
+
+  const addProvider = () => {
+    const scopes = providers[currentProviderKey].default_scopes || [];
+    federatedLoginSettings[currentProviderKey] = { key: '', secret: '', scopes };
+    setCurrentProvider(federatedLoginSettings[currentProviderKey]);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     onSubmit(update(application, {
-      apple_info: {
-        client_id: appleClientId,
-        client_secret: appleClientSecret,
-      },
+      federated_login_settings: federatedLoginSettings,
     }));
   };
 
@@ -61,23 +76,73 @@ const FederatedLoginSettingsForm = (props) => {
         </p>
       </div>
 
-      <Field label="Apple Client Id">
-        <Input
-          value={appleClientId}
-          autoComplete="off"
-          placeholder="Enter Client Id"
-          onChange={extractValue(setAppleClientId)}
-        />
+      <Field label="Provider">
+        <div className="iap-apps-form__provider_selector">
+          <Select
+            name="type"
+            value={currentProviderKey}
+            disabled={loading}
+            onChange={setCurrentProviderKey}
+            placeholder="Select Federated Provider"
+          >
+            {Object.entries(providers).map(v => <Option value={v[0]} title={v[1].Name} key={v[0]} />)}
+          </Select>
+          <div className="iap-apps-form__provider_selector_action">
+            {currentProvider
+              && (
+                <Button error onClick={deleteProvider}>
+                  Delete
+                </Button>
+              )
+            }
+            {!currentProvider
+              && (
+                <Button
+                  onClick={addProvider}
+                  Icon={loading ? LoadingIcon : PlusIcon}
+                >
+                  Add
+                </Button>
+              )
+            }
+          </div>
+        </div>
       </Field>
 
-      <Field label="Apple Client Secret">
-        <Input
-          value={appleClientSecret}
-          autoComplete="off"
-          placeholder="Enter Client Secret"
-          onChange={extractValue(setAppleClientSecret)}
-        />
-      </Field>
+
+      {
+        currentProvider
+        && (
+          <>
+            <Field label="Client Key">
+              <Input
+                value={currentProvider.key}
+                autoComplete="off"
+                placeholder="Enter Client Id"
+                onChange={extractValue(v => handleInput('key', v))}
+              />
+            </Field>
+
+            <Field label="Client Secret">
+              <Input
+                value={currentProvider.secret}
+                autoComplete="off"
+                placeholder="Enter Client Secret"
+                onChange={extractValue(v => handleInput('secret', v))}
+              />
+            </Field>
+
+            <Field label="Scopes">
+              <MultipleInput
+                values={currentProvider.scopes}
+                placeholder="Hit Enter to add scope"
+                onChange={v => handleInput('scopes', v)}
+              />
+            </Field>
+          </>
+        )
+      }
+
 
       <footer className="iap-apps-form__footer">
         <Button
