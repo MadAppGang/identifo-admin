@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
   alterApplication,
   deleteApplicationById,
@@ -85,6 +85,17 @@ const EditApplicationView = ({ match, history }) => {
     title: 'Delete Application',
     onClick: handleDeleteClick,
   }], [id, handleDeleteClick]);
+
+  if (progress > 70 && !application) {
+    notifyFailure({
+      title: 'Something went wrong',
+      text: `Can't find application with id ${id}`,
+    });
+
+    dispatch(resetApplicationError());
+
+    return <Redirect to={goBackPath} />;
+  }
 
   return (
     <section className="iap-management-section">

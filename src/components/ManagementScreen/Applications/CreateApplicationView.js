@@ -17,10 +17,10 @@ const CreateApplicationView = ({ history }) => {
   const application = useSelector(s => s.selectedApplication.application);
 
   React.useEffect(() => {
-    if (application && application.id) {
+    if (application && application.id && progress === 100) {
       history.push(`/management/applications/${application.id}`);
     }
-  }, [application]);
+  }, [application, progress]);
 
   const handleSubmit = async (data) => {
     setProgress(70);
