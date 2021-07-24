@@ -13,6 +13,20 @@
   align-items: center;
 }
 
+.iap-apps-form__provider {
+  margin-bottom: 15px;
+}
+
+.iap-apps-form__provider--open {
+  margin-bottom: 30px;
+}
+
+.iap-apps-form__text {
+  font: normal 13px 'Circe';
+  color: #aaa;
+}
+
+
 .iap-apps-form__secret-field {
   display: flex;
   align-items: center;
@@ -58,15 +72,6 @@
   color: var(--main-color);
   margin-left: 5px;
   margin-right: 5px;
-}
-
-.iap-apps-form__provider_selector {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.iap-apps-form__provider_selector_action {
-  margin-left: 15px;
 }
 
 .casbin-code-editor {
