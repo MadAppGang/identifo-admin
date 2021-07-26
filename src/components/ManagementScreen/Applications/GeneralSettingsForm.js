@@ -36,6 +36,7 @@ const ApplicationGeneralSettingsForm = (props) => {
   const [active, setActive] = useState(application.active || false);
   const [debugTfaCode, setDebugTfaCode] = useState(application.debug_tfa_code || '');
   const [scopes, setScopes] = useState(application.scopes || []);
+  const [federatedLoginSettings, setFederatedLoginSettings] = useState(application.federated_login_settings || {});
 
   const [validation, setValidation] = useState({
     type: '',
@@ -56,7 +57,7 @@ const ApplicationGeneralSettingsForm = (props) => {
     if (application.active) setActive(application.active);
     if (application.debug_tfa_code) setDebugTfaCode(application.debug_tfa_code);
     if (application.scopes) setScopes(application.scopes);
-
+    if (application.federated_login_settings) setFederatedLoginSettings(application.federated_login_settings);
     setAllowRegistration(!application.registration_forbidden);
     setAllowAnonymousRegistration(application.anonymous_registration_allowed);
   }, [props.application]);
@@ -101,6 +102,7 @@ const ApplicationGeneralSettingsForm = (props) => {
       registration_forbidden: !allowRegistration,
       anonymous_registration_allowed: allowAnonymousRegistration,
       debug_tfa_code: debugTfaCode || undefined,
+      federated_login_settings: federatedLoginSettings,
     });
   };
 
