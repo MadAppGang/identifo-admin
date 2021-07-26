@@ -130,7 +130,7 @@ const FederatedLoginSettingsForm = (props) => {
 
                 <p className="iap-apps-form__text">
                   Don&#39;t forget to add redirect URI
-                  {` ${window.location.origin}/auth/${application.id}/federated/${provider[0]} `}
+                  {` ${window.location.origin}/web/login?appId=${application.id}&provider=${provider[0]} `}
                   to auth provider settings.
                 </p>
               </>
